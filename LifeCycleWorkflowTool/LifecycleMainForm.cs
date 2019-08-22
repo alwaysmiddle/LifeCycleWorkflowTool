@@ -16,5 +16,12 @@ namespace LifeCycleWorkflowTool
         {
             InitializeComponent();
         }
+
+        private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
+        {
+            LifecycleSaveLocationsForm saveLocations = new LifecycleSaveLocationsForm();
+
+            saveLocations.Show();
+        }
     }
 }
