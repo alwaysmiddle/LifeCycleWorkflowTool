@@ -23,5 +23,12 @@ namespace LifeCycleWorkflowTool
 
             saveLocations.Show();
         }
+
+        private void ManualLoadButtonLoadData_Click(object sender, EventArgs e)
+        {
+            LifecycleManualLoadTheBayForm manualLoad = new LifecycleManualLoadTheBayForm();
+
+            manualLoad.Show();
+        }
     }
 }

@@ -53,7 +53,7 @@
             this.WorkflowTabSettings.Location = new System.Drawing.Point(4, 22);
             this.WorkflowTabSettings.Name = "WorkflowTabSettings";
             this.WorkflowTabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.WorkflowTabSettings.Size = new System.Drawing.Size(510, 260);
+            this.WorkflowTabSettings.Size = new System.Drawing.Size(509, 251);
             this.WorkflowTabSettings.TabIndex = 2;
             this.WorkflowTabSettings.Text = "Settings";
             // 
@@ -92,7 +92,7 @@
             // 
             this.ManualLoadLabelDate.AutoSize = true;
             this.ManualLoadLabelDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ManualLoadLabelDate.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.ManualLoadLabelDate.ForeColor = System.Drawing.Color.SteelBlue;
             this.ManualLoadLabelDate.Location = new System.Drawing.Point(29, 80);
             this.ManualLoadLabelDate.Name = "ManualLoadLabelDate";
             this.ManualLoadLabelDate.Size = new System.Drawing.Size(168, 18);
@@ -156,11 +156,12 @@
             this.ManualLoadButtonLoadData.TabIndex = 2;
             this.ManualLoadButtonLoadData.Text = "Load Data Files";
             this.ManualLoadButtonLoadData.UseVisualStyleBackColor = true;
+            this.ManualLoadButtonLoadData.Click += new System.EventHandler(this.ManualLoadButtonLoadData_Click);
             // 
             // ManualTextBoxBanner
             // 
             this.ManualTextBoxBanner.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ManualTextBoxBanner.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.ManualTextBoxBanner.ForeColor = System.Drawing.Color.SteelBlue;
             this.ManualTextBoxBanner.FormattingEnabled = true;
             this.ManualTextBoxBanner.IntegralHeight = false;
             this.ManualTextBoxBanner.Items.AddRange(new object[] {
@@ -174,7 +175,7 @@
             // 
             this.ManualTabLabelBanner.AutoSize = true;
             this.ManualTabLabelBanner.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ManualTabLabelBanner.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.ManualTabLabelBanner.ForeColor = System.Drawing.Color.SteelBlue;
             this.ManualTabLabelBanner.Location = new System.Drawing.Point(25, 21);
             this.ManualTabLabelBanner.Name = "ManualTabLabelBanner";
             this.ManualTabLabelBanner.Size = new System.Drawing.Size(149, 42);

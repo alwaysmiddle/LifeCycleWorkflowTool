@@ -60,6 +60,7 @@
             this.SaveLocationsButtonTheBayFilePicker.TabIndex = 2;
             this.SaveLocationsButtonTheBayFilePicker.Text = "...";
             this.SaveLocationsButtonTheBayFilePicker.UseVisualStyleBackColor = true;
+            this.SaveLocationsButtonTheBayFilePicker.Click += new System.EventHandler(this.SaveLocationsButtonTheBayFilePicker_Click);
             // 
             // SaveLocationsButtonSave
             // 

@@ -41,6 +41,8 @@
             this.ManualDataLoadInactiveUpcValue = new System.Windows.Forms.TextBox();
             this.ManualDataLoadInactiveUpcLabel = new System.Windows.Forms.Label();
             this.ManualDataLoadConfirmButton = new System.Windows.Forms.Button();
+            this.ManualDataLoadOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.TheBayErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ManualDataLoadInventoryAmountFilePicker
@@ -51,6 +53,7 @@
             this.ManualDataLoadInventoryAmountFilePicker.TabIndex = 5;
             this.ManualDataLoadInventoryAmountFilePicker.Text = "...";
             this.ManualDataLoadInventoryAmountFilePicker.UseVisualStyleBackColor = true;
+            this.ManualDataLoadInventoryAmountFilePicker.Click += new System.EventHandler(this.ManualDataLoadInventoryAmountFilePicker_Click);
             // 
             // ManualDataLoadInventoryAmountValue
             // 
@@ -78,6 +81,7 @@
             this.ManualDataLoadNosFilePicker.TabIndex = 8;
             this.ManualDataLoadNosFilePicker.Text = "...";
             this.ManualDataLoadNosFilePicker.UseVisualStyleBackColor = true;
+            this.ManualDataLoadNosFilePicker.Click += new System.EventHandler(this.ManualDataLoadNosFilePicker_Click);
             // 
             // ManualDataLoadNosValue
             // 
@@ -105,6 +109,7 @@
             this.ManualDataLoadNosCombinedFilePicker.TabIndex = 11;
             this.ManualDataLoadNosCombinedFilePicker.Text = "...";
             this.ManualDataLoadNosCombinedFilePicker.UseVisualStyleBackColor = true;
+            this.ManualDataLoadNosCombinedFilePicker.Click += new System.EventHandler(this.ManualDataLoadNosCombinedFilePicker_Click);
             // 
             // ManualDataLoadNosCombinedValue
             // 
@@ -132,6 +137,7 @@
             this.ManualDataLoadInactiveUpcFilePicker.TabIndex = 14;
             this.ManualDataLoadInactiveUpcFilePicker.Text = "...";
             this.ManualDataLoadInactiveUpcFilePicker.UseVisualStyleBackColor = true;
+            this.ManualDataLoadInactiveUpcFilePicker.Click += new System.EventHandler(this.ManualDataLoadInactiveUpcFilePicker_Click);
             // 
             // ManualDataLoadInactiveUpcValue
             // 
@@ -160,12 +166,26 @@
             this.ManualDataLoadConfirmButton.TabIndex = 15;
             this.ManualDataLoadConfirmButton.Text = "Confirm Load Files";
             this.ManualDataLoadConfirmButton.UseVisualStyleBackColor = true;
+            this.ManualDataLoadConfirmButton.Click += new System.EventHandler(this.ManualDataLoadConfirmButton_Click);
+            // 
+            // ManualDataLoadOpenFileDialog
+            // 
+            this.ManualDataLoadOpenFileDialog.Filter = "Data Files(*.xlsx, *.csv)|*.xlsx;*.csv|All files| *.*";
+            // 
+            // TheBayErrorLabel
+            // 
+            this.TheBayErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.TheBayErrorLabel.Location = new System.Drawing.Point(218, 256);
+            this.TheBayErrorLabel.Name = "TheBayErrorLabel";
+            this.TheBayErrorLabel.Size = new System.Drawing.Size(240, 43);
+            this.TheBayErrorLabel.TabIndex = 16;
             // 
             // LifecycleManualLoadTheBayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(486, 308);
+            this.ClientSize = new System.Drawing.Size(487, 315);
+            this.Controls.Add(this.TheBayErrorLabel);
             this.Controls.Add(this.ManualDataLoadConfirmButton);
             this.Controls.Add(this.ManualDataLoadInactiveUpcFilePicker);
             this.Controls.Add(this.ManualDataLoadInactiveUpcValue);
@@ -201,5 +221,7 @@
         private System.Windows.Forms.TextBox ManualDataLoadInactiveUpcValue;
         private System.Windows.Forms.Label ManualDataLoadInactiveUpcLabel;
         private System.Windows.Forms.Button ManualDataLoadConfirmButton;
+        private System.Windows.Forms.OpenFileDialog ManualDataLoadOpenFileDialog;
+        private System.Windows.Forms.Label TheBayErrorLabel;
     }
 }
