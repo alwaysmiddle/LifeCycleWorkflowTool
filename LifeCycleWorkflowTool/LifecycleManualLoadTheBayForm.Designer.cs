@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifecycleManualLoadTheBayForm));
             this.ManualDataLoadInventoryAmountFilePicker = new System.Windows.Forms.Button();
             this.ManualDataLoadInventoryAmountValue = new System.Windows.Forms.TextBox();
             this.ManualDataLoadInventoryAmountLabel = new System.Windows.Forms.Label();
@@ -40,7 +41,7 @@
             this.ManualDataLoadInactiveUpcFilePicker = new System.Windows.Forms.Button();
             this.ManualDataLoadInactiveUpcValue = new System.Windows.Forms.TextBox();
             this.ManualDataLoadInactiveUpcLabel = new System.Windows.Forms.Label();
-            this.ManualDataLoadConfirmButton = new System.Windows.Forms.Button();
+            this.ManualDataLoadButton = new System.Windows.Forms.Button();
             this.ManualDataLoadOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.TheBayErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -157,16 +158,16 @@
             this.ManualDataLoadInactiveUpcLabel.TabIndex = 12;
             this.ManualDataLoadInactiveUpcLabel.Text = "BAY Inactive UPC Report:";
             // 
-            // ManualDataLoadConfirmButton
+            // ManualDataLoadButton
             // 
-            this.ManualDataLoadConfirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ManualDataLoadConfirmButton.Location = new System.Drawing.Point(17, 256);
-            this.ManualDataLoadConfirmButton.Name = "ManualDataLoadConfirmButton";
-            this.ManualDataLoadConfirmButton.Size = new System.Drawing.Size(177, 33);
-            this.ManualDataLoadConfirmButton.TabIndex = 15;
-            this.ManualDataLoadConfirmButton.Text = "Confirm Load Files";
-            this.ManualDataLoadConfirmButton.UseVisualStyleBackColor = true;
-            this.ManualDataLoadConfirmButton.Click += new System.EventHandler(this.ManualDataLoadConfirmButton_Click);
+            this.ManualDataLoadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ManualDataLoadButton.Location = new System.Drawing.Point(17, 256);
+            this.ManualDataLoadButton.Name = "ManualDataLoadButton";
+            this.ManualDataLoadButton.Size = new System.Drawing.Size(177, 33);
+            this.ManualDataLoadButton.TabIndex = 15;
+            this.ManualDataLoadButton.Text = "Load Files";
+            this.ManualDataLoadButton.UseVisualStyleBackColor = true;
+            this.ManualDataLoadButton.Click += new System.EventHandler(this.ManualDataLoadConfirmButton_Click);
             // 
             // ManualDataLoadOpenFileDialog
             // 
@@ -186,7 +187,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 315);
             this.Controls.Add(this.TheBayErrorLabel);
-            this.Controls.Add(this.ManualDataLoadConfirmButton);
+            this.Controls.Add(this.ManualDataLoadButton);
             this.Controls.Add(this.ManualDataLoadInactiveUpcFilePicker);
             this.Controls.Add(this.ManualDataLoadInactiveUpcValue);
             this.Controls.Add(this.ManualDataLoadInactiveUpcLabel);
@@ -199,6 +200,7 @@
             this.Controls.Add(this.ManualDataLoadInventoryAmountFilePicker);
             this.Controls.Add(this.ManualDataLoadInventoryAmountValue);
             this.Controls.Add(this.ManualDataLoadInventoryAmountLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LifecycleManualLoadTheBayForm";
             this.Text = "Manual Data Load (TheBay)";
             this.ResumeLayout(false);
@@ -220,7 +222,7 @@
         private System.Windows.Forms.Button ManualDataLoadInactiveUpcFilePicker;
         private System.Windows.Forms.TextBox ManualDataLoadInactiveUpcValue;
         private System.Windows.Forms.Label ManualDataLoadInactiveUpcLabel;
-        private System.Windows.Forms.Button ManualDataLoadConfirmButton;
+        private System.Windows.Forms.Button ManualDataLoadButton;
         private System.Windows.Forms.OpenFileDialog ManualDataLoadOpenFileDialog;
         private System.Windows.Forms.Label TheBayErrorLabel;
     }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LifeCycleWorkflowTool.Properties {
+namespace LifeCycleWorkflowLibrary.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,30 +20,6 @@ namespace LifeCycleWorkflowTool.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SaveLocationTheBayWIP {
-            get {
-                return ((string)(this["SaveLocationTheBayWIP"]));
-            }
-            set {
-                this["SaveLocationTheBayWIP"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SaveLocationTheBayFinal {
-            get {
-                return ((string)(this["SaveLocationTheBayFinal"]));
-            }
-            set {
-                this["SaveLocationTheBayFinal"] = value;
             }
         }
     }

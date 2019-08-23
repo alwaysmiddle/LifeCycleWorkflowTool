@@ -19,7 +19,22 @@ namespace LifeCycleWorkflowTool
 
         private void SaveLocationsButtonTheBayFilePicker_Click(object sender, EventArgs e)
         {
-
+            SaveLocationsFolderPicker.ShowDialog();
+            string folderPicker = SaveLocationsFolderPicker.SelectedPath;
+            SaveLocationsWipValue.Text = folderPicker;
         }
+
+        private void SaveLocationsButtonSave_Click(object sender, EventArgs e)
+        {
+            if (SaveLocationsWipValue.Text != "")
+            {
+                //save to the locations
+            }
+            else
+            {
+                //else save to the default save locations, which is user's desktop
+            }
+        }
+
     }
 }
