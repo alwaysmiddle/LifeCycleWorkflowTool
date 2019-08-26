@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifecycleManualLoadTheBayForm));
             this.ManualDataLoadInventoryAmountFilePicker = new System.Windows.Forms.Button();
             this.ManualDataLoadInventoryAmountValue = new System.Windows.Forms.TextBox();
@@ -43,12 +44,13 @@
             this.ManualDataLoadInactiveUpcLabel = new System.Windows.Forms.Label();
             this.ManualDataLoadButton = new System.Windows.Forms.Button();
             this.ManualDataLoadOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.TheBayErrorLabel = new System.Windows.Forms.Label();
+            this.ManualDataLoadTheBayErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.ManualDataLoadTheBayErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // ManualDataLoadInventoryAmountFilePicker
             // 
-            this.ManualDataLoadInventoryAmountFilePicker.Location = new System.Drawing.Point(430, 34);
+            this.ManualDataLoadInventoryAmountFilePicker.Location = new System.Drawing.Point(441, 34);
             this.ManualDataLoadInventoryAmountFilePicker.Name = "ManualDataLoadInventoryAmountFilePicker";
             this.ManualDataLoadInventoryAmountFilePicker.Size = new System.Drawing.Size(39, 29);
             this.ManualDataLoadInventoryAmountFilePicker.TabIndex = 5;
@@ -76,7 +78,7 @@
             // 
             // ManualDataLoadNosFilePicker
             // 
-            this.ManualDataLoadNosFilePicker.Location = new System.Drawing.Point(430, 93);
+            this.ManualDataLoadNosFilePicker.Location = new System.Drawing.Point(441, 93);
             this.ManualDataLoadNosFilePicker.Name = "ManualDataLoadNosFilePicker";
             this.ManualDataLoadNosFilePicker.Size = new System.Drawing.Size(39, 29);
             this.ManualDataLoadNosFilePicker.TabIndex = 8;
@@ -104,7 +106,7 @@
             // 
             // ManualDataLoadNosCombinedFilePicker
             // 
-            this.ManualDataLoadNosCombinedFilePicker.Location = new System.Drawing.Point(430, 152);
+            this.ManualDataLoadNosCombinedFilePicker.Location = new System.Drawing.Point(441, 152);
             this.ManualDataLoadNosCombinedFilePicker.Name = "ManualDataLoadNosCombinedFilePicker";
             this.ManualDataLoadNosCombinedFilePicker.Size = new System.Drawing.Size(39, 29);
             this.ManualDataLoadNosCombinedFilePicker.TabIndex = 11;
@@ -132,7 +134,7 @@
             // 
             // ManualDataLoadInactiveUpcFilePicker
             // 
-            this.ManualDataLoadInactiveUpcFilePicker.Location = new System.Drawing.Point(430, 211);
+            this.ManualDataLoadInactiveUpcFilePicker.Location = new System.Drawing.Point(441, 211);
             this.ManualDataLoadInactiveUpcFilePicker.Name = "ManualDataLoadInactiveUpcFilePicker";
             this.ManualDataLoadInactiveUpcFilePicker.Size = new System.Drawing.Size(39, 29);
             this.ManualDataLoadInactiveUpcFilePicker.TabIndex = 14;
@@ -173,20 +175,17 @@
             // 
             this.ManualDataLoadOpenFileDialog.Filter = "Data Files(*.xlsx, *.csv)|*.xlsx;*.csv|All files| *.*";
             // 
-            // TheBayErrorLabel
+            // ManualDataLoadTheBayErrorProvider
             // 
-            this.TheBayErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.TheBayErrorLabel.Location = new System.Drawing.Point(218, 256);
-            this.TheBayErrorLabel.Name = "TheBayErrorLabel";
-            this.TheBayErrorLabel.Size = new System.Drawing.Size(240, 43);
-            this.TheBayErrorLabel.TabIndex = 16;
+            this.ManualDataLoadTheBayErrorProvider.BlinkRate = 0;
+            this.ManualDataLoadTheBayErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.ManualDataLoadTheBayErrorProvider.ContainerControl = this;
             // 
             // LifecycleManualLoadTheBayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(487, 315);
-            this.Controls.Add(this.TheBayErrorLabel);
+            this.ClientSize = new System.Drawing.Size(500, 299);
             this.Controls.Add(this.ManualDataLoadButton);
             this.Controls.Add(this.ManualDataLoadInactiveUpcFilePicker);
             this.Controls.Add(this.ManualDataLoadInactiveUpcValue);
@@ -203,6 +202,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LifecycleManualLoadTheBayForm";
             this.Text = "Manual Data Load (TheBay)";
+            ((System.ComponentModel.ISupportInitialize)(this.ManualDataLoadTheBayErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,6 +224,6 @@
         private System.Windows.Forms.Label ManualDataLoadInactiveUpcLabel;
         private System.Windows.Forms.Button ManualDataLoadButton;
         private System.Windows.Forms.OpenFileDialog ManualDataLoadOpenFileDialog;
-        private System.Windows.Forms.Label TheBayErrorLabel;
+        private System.Windows.Forms.ErrorProvider ManualDataLoadTheBayErrorProvider;
     }
 }

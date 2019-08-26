@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextBoxFileValidation.cs" />
     <EmbeddedResource Include="LifecycleMainForm.resx">
       <DependentUpon>LifecycleMainForm.cs</DependentUpon>
     </EmbeddedResource>

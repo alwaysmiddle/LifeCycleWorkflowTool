@@ -53,32 +53,27 @@ namespace LifeCycleWorkflowTool
             textBoxColl.Add(ManualDataLoadNosCombinedValue);
             textBoxColl.Add(ManualDataLoadInactiveUpcValue);
 
-            bool allTextBoxValid = true;
+            ToolTip errorTooltip = new ToolTip();
+            bool allValid = true;
 
             foreach (var tBox in textBoxColl)
             {
-                tBox.ForeColor = Color.Black;
-                TheBayErrorLabel.Text = "";
+                TextBoxFileValidation validateTBox = new TextBoxFileValidation(tBox);
                 //MessageBox.Show(tBox.Text + " File is not a valid file! Please select or choose a correct file.");
-
-                if (tBox.Text != ""){
-                    if (!File.Exists(tBox.Text))
-                    {
-                        TheBayErrorLabel.Text = "Error: File path are not valid files, please make sure you have valid file path selected.";
-                        tBox.ForeColor = Color.Red;
-                        allTextBoxValid = false;
-                    }
+                if (validateTBox.isValid())
+                {
+                    ManualDataLoadTheBayErrorProvider.Clear();
                 }
                 else
                 {
-                    TheBayErrorLabel.Text = "Error: Can not leave any files unselected";
-                    allTextBoxValid = false;
+                    ManualDataLoadTheBayErrorProvider.SetError(tBox, validateTBox.ErrorMessage);
+                    allValid = false;
                 }
             }
 
-            if (allTextBoxValid)
+            if (allValid)
             {
-                MessageBox.Show("All are valid");
+                //close the form, then marks the files are ready for loaded
             }
 
         }
