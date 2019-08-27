@@ -12,9 +12,18 @@ namespace LifeCycleWorkflowTool
 {
     public partial class LifecycleSaveLocationsForm : Form
     {
+        private List<TextBox> SaveLocationsColl{ get; set; }
+
         public LifecycleSaveLocationsForm()
         {
             InitializeComponent();
+            InitalizeTextBoxCollection();
+        }
+        private void InitalizeTextBoxCollection()
+        {
+            SaveLocationsColl = new List<TextBox>();
+            SaveLocationsColl.Add(SaveLocationsWipValue);
+            SaveLocationsColl.Add(SaveLocationsFinalValue);
         }
 
         private void SaveLocationsButtonTheBayFilePicker_Click(object sender, EventArgs e)
@@ -24,17 +33,47 @@ namespace LifeCycleWorkflowTool
             SaveLocationsWipValue.Text = folderPicker;
         }
 
+        /// <summary>
+        /// Save Locations for the automated workflow output. The file is saved to local computer, it will be loaded between Sessions.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveLocationsButtonSave_Click(object sender, EventArgs e)
         {
-            if (SaveLocationsWipValue.Text != "")
+            bool allValid = true;
+
+            //save to the locations
+
+            foreach (var tBox in SaveLocationsColl)
             {
-                //save to the locations
+                TextBoxFileValidation validateTBox = new TextBoxFileValidation(tBox);
+                if (validateTBox.isValid())
+                {
+                    LifecycleSaveLocationsErrorProvider.Clear();
+                }
+                else
+                {
+                    LifecycleSaveLocationsErrorProvider.SetError(tBox, validateTBox.ErrorMessage);
+                    allValid = false;
+                }
             }
-            else
+
+            if (allValid)
             {
-                //else save to the default save locations, which is user's desktop
+                //close the form, then marks the files are ready for loaded
             }
         }
 
+        private void SaveLocationFinalFilePicker_Click(object sender, EventArgs e)
+        {
+            SaveLocationsFolderPicker.ShowDialog();
+            string folderPicker = SaveLocationsFolderPicker.SelectedPath;
+            SaveLocationsFinalValue.Text = folderPicker;
+        }
+
+        private void SaveLocationsButtonRestoreDefault_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

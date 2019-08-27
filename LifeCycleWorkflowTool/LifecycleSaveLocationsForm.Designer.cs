@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifecycleSaveLocationsForm));
             this.SaveLocationsLabelWip = new System.Windows.Forms.Label();
             this.SaveLocationsWipValue = new System.Windows.Forms.TextBox();
@@ -38,10 +39,12 @@
             this.SaveLocationsTabControl = new System.Windows.Forms.TabControl();
             this.SaveLocationsTabPageTheBay = new System.Windows.Forms.TabPage();
             this.SaveLocationsLabelFinal = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.SaveLocationsFinalValue = new System.Windows.Forms.TextBox();
+            this.SaveLocationsFinalFilePicker = new System.Windows.Forms.Button();
+            this.LifecycleSaveLocationsErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.SaveLocationsTabControl.SuspendLayout();
             this.SaveLocationsTabPageTheBay.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LifecycleSaveLocationsErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveLocationsLabelWip
@@ -59,12 +62,12 @@
             this.SaveLocationsWipValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveLocationsWipValue.Location = new System.Drawing.Point(8, 41);
             this.SaveLocationsWipValue.Name = "SaveLocationsWipValue";
-            this.SaveLocationsWipValue.Size = new System.Drawing.Size(515, 26);
+            this.SaveLocationsWipValue.Size = new System.Drawing.Size(429, 26);
             this.SaveLocationsWipValue.TabIndex = 1;
             // 
             // SaveLocationsWipFilePicker
             // 
-            this.SaveLocationsWipFilePicker.Location = new System.Drawing.Point(529, 40);
+            this.SaveLocationsWipFilePicker.Location = new System.Drawing.Point(459, 41);
             this.SaveLocationsWipFilePicker.Name = "SaveLocationsWipFilePicker";
             this.SaveLocationsWipFilePicker.Size = new System.Drawing.Size(35, 27);
             this.SaveLocationsWipFilePicker.TabIndex = 2;
@@ -94,6 +97,7 @@
             this.SaveLocationsButtonRestoreDefault.TabIndex = 4;
             this.SaveLocationsButtonRestoreDefault.Text = "Default";
             this.SaveLocationsButtonRestoreDefault.UseVisualStyleBackColor = true;
+            this.SaveLocationsButtonRestoreDefault.Click += new System.EventHandler(this.SaveLocationsButtonRestoreDefault_Click);
             // 
             // SaveLocationsTabControl
             // 
@@ -102,22 +106,22 @@
             this.SaveLocationsTabControl.Location = new System.Drawing.Point(0, 0);
             this.SaveLocationsTabControl.Name = "SaveLocationsTabControl";
             this.SaveLocationsTabControl.SelectedIndex = 0;
-            this.SaveLocationsTabControl.Size = new System.Drawing.Size(581, 245);
+            this.SaveLocationsTabControl.Size = new System.Drawing.Size(520, 245);
             this.SaveLocationsTabControl.TabIndex = 5;
             // 
             // SaveLocationsTabPageTheBay
             // 
             this.SaveLocationsTabPageTheBay.BackColor = System.Drawing.Color.Gainsboro;
             this.SaveLocationsTabPageTheBay.Controls.Add(this.SaveLocationsLabelFinal);
-            this.SaveLocationsTabPageTheBay.Controls.Add(this.textBox1);
-            this.SaveLocationsTabPageTheBay.Controls.Add(this.button1);
+            this.SaveLocationsTabPageTheBay.Controls.Add(this.SaveLocationsFinalValue);
+            this.SaveLocationsTabPageTheBay.Controls.Add(this.SaveLocationsFinalFilePicker);
             this.SaveLocationsTabPageTheBay.Controls.Add(this.SaveLocationsLabelWip);
             this.SaveLocationsTabPageTheBay.Controls.Add(this.SaveLocationsWipValue);
             this.SaveLocationsTabPageTheBay.Controls.Add(this.SaveLocationsWipFilePicker);
             this.SaveLocationsTabPageTheBay.Location = new System.Drawing.Point(4, 22);
             this.SaveLocationsTabPageTheBay.Name = "SaveLocationsTabPageTheBay";
             this.SaveLocationsTabPageTheBay.Padding = new System.Windows.Forms.Padding(3);
-            this.SaveLocationsTabPageTheBay.Size = new System.Drawing.Size(573, 219);
+            this.SaveLocationsTabPageTheBay.Size = new System.Drawing.Size(512, 219);
             this.SaveLocationsTabPageTheBay.TabIndex = 1;
             this.SaveLocationsTabPageTheBay.Text = "TheBay";
             // 
@@ -131,28 +135,35 @@
             this.SaveLocationsLabelFinal.TabIndex = 3;
             this.SaveLocationsLabelFinal.Text = "Final File Save To: ";
             // 
-            // textBox1
+            // SaveLocationsFinalValue
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(8, 108);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(515, 26);
-            this.textBox1.TabIndex = 4;
+            this.SaveLocationsFinalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveLocationsFinalValue.Location = new System.Drawing.Point(8, 108);
+            this.SaveLocationsFinalValue.Name = "SaveLocationsFinalValue";
+            this.SaveLocationsFinalValue.Size = new System.Drawing.Size(429, 26);
+            this.SaveLocationsFinalValue.TabIndex = 4;
             // 
-            // button1
+            // SaveLocationsFinalFilePicker
             // 
-            this.button1.Location = new System.Drawing.Point(529, 107);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 27);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
+            this.SaveLocationsFinalFilePicker.Location = new System.Drawing.Point(459, 108);
+            this.SaveLocationsFinalFilePicker.Name = "SaveLocationsFinalFilePicker";
+            this.SaveLocationsFinalFilePicker.Size = new System.Drawing.Size(35, 27);
+            this.SaveLocationsFinalFilePicker.TabIndex = 5;
+            this.SaveLocationsFinalFilePicker.Text = "...";
+            this.SaveLocationsFinalFilePicker.UseVisualStyleBackColor = true;
+            this.SaveLocationsFinalFilePicker.Click += new System.EventHandler(this.SaveLocationFinalFilePicker_Click);
+            // 
+            // LifecycleSaveLocationsErrorProvider
+            // 
+            this.LifecycleSaveLocationsErrorProvider.BlinkRate = 0;
+            this.LifecycleSaveLocationsErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.LifecycleSaveLocationsErrorProvider.ContainerControl = this;
             // 
             // LifecycleSaveLocationsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 298);
+            this.ClientSize = new System.Drawing.Size(520, 300);
             this.Controls.Add(this.SaveLocationsTabControl);
             this.Controls.Add(this.SaveLocationsButtonRestoreDefault);
             this.Controls.Add(this.SaveLocationsButtonSaveSettings);
@@ -162,6 +173,7 @@
             this.SaveLocationsTabControl.ResumeLayout(false);
             this.SaveLocationsTabPageTheBay.ResumeLayout(false);
             this.SaveLocationsTabPageTheBay.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LifecycleSaveLocationsErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -177,7 +189,8 @@
         private System.Windows.Forms.TabControl SaveLocationsTabControl;
         private System.Windows.Forms.TabPage SaveLocationsTabPageTheBay;
         private System.Windows.Forms.Label SaveLocationsLabelFinal;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox SaveLocationsFinalValue;
+        private System.Windows.Forms.Button SaveLocationsFinalFilePicker;
+        private System.Windows.Forms.ErrorProvider LifecycleSaveLocationsErrorProvider;
     }
 }

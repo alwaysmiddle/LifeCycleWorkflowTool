@@ -8,9 +8,21 @@ namespace LifeCycleWorkflowTool
 {
     public partial class LifecycleManualLoadTheBayForm : Form
     {
+        private List<TextBox> TextBoxColl { get; set; }
+
         public LifecycleManualLoadTheBayForm()
         {
             InitializeComponent();
+            InitalizeTextBoxCollection();
+        }
+
+        private void InitalizeTextBoxCollection()
+        {
+            TextBoxColl = new List<TextBox>();
+            TextBoxColl.Add(ManualDataLoadInventoryAmountValue);
+            TextBoxColl.Add(ManualDataLoadNosValue);
+            TextBoxColl.Add(ManualDataLoadNosCombinedValue);
+            TextBoxColl.Add(ManualDataLoadInactiveUpcValue);
         }
 
         private void ManualDataLoadInventoryAmountFilePicker_Click(object sender, EventArgs e)
@@ -47,19 +59,15 @@ namespace LifeCycleWorkflowTool
 
         private void ManualDataLoadConfirmButton_Click(object sender, EventArgs e)
         {
-            List<TextBox> textBoxColl = new List<TextBox>();
-            textBoxColl.Add(ManualDataLoadInventoryAmountValue);
-            textBoxColl.Add(ManualDataLoadNosValue);
-            textBoxColl.Add(ManualDataLoadNosCombinedValue);
-            textBoxColl.Add(ManualDataLoadInactiveUpcValue);
+            
 
             ToolTip errorTooltip = new ToolTip();
             bool allValid = true;
 
-            foreach (var tBox in textBoxColl)
+            foreach (var tBox in TextBoxColl)
             {
                 TextBoxFileValidation validateTBox = new TextBoxFileValidation(tBox);
-                //MessageBox.Show(tBox.Text + " File is not a valid file! Please select or choose a correct file.");
+
                 if (validateTBox.isValid())
                 {
                     ManualDataLoadTheBayErrorProvider.Clear();

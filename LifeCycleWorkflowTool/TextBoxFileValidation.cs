@@ -23,7 +23,6 @@ namespace LifeCycleWorkflowTool
             _tBox = tBox;
         }
 
-
         public bool isValid()
         {
             bool valid = true;
@@ -36,7 +35,7 @@ namespace LifeCycleWorkflowTool
             }
             else if(_tBox.Text == "")
             {
-                ErrorMessage = "Error: Can not leave this file unselected!";
+                ErrorMessage = "Error: Can not leave this file blank!";
                 valid = false;
             }
 

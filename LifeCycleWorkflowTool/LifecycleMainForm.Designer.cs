@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifecycleWorkflowForm));
             this.WorkflowTabSettings = new System.Windows.Forms.TabPage();
             this.SettingsButtonSaveLocation = new System.Windows.Forms.Button();
@@ -42,9 +43,11 @@
             this.ManualTextBoxBanner = new System.Windows.Forms.ComboBox();
             this.ManualTabLabelBanner = new System.Windows.Forms.Label();
             this.WorkflowTabControl = new System.Windows.Forms.TabControl();
+            this.ManualLoadErorrProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.WorkflowTabSettings.SuspendLayout();
             this.WorkflowTabManual.SuspendLayout();
             this.WorkflowTabControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ManualLoadErorrProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // WorkflowTabSettings
@@ -124,6 +127,7 @@
             this.ManualLoadButtonShowFolder.TabIndex = 5;
             this.ManualLoadButtonShowFolder.Text = "Show Saved Folder";
             this.ManualLoadButtonShowFolder.UseVisualStyleBackColor = true;
+            this.ManualLoadButtonShowFolder.Click += new System.EventHandler(this.ManualLoadButtonShowFolder_Click);
             // 
             // ManualLoadButtonFinalFile
             // 
@@ -135,6 +139,7 @@
             this.ManualLoadButtonFinalFile.TabIndex = 4;
             this.ManualLoadButtonFinalFile.Text = "Generate Final File";
             this.ManualLoadButtonFinalFile.UseVisualStyleBackColor = true;
+            this.ManualLoadButtonFinalFile.Click += new System.EventHandler(this.ManualLoadButtonFinalFile_Click);
             // 
             // ManualLoadButtonWIP
             // 
@@ -146,6 +151,7 @@
             this.ManualLoadButtonWIP.TabIndex = 3;
             this.ManualLoadButtonWIP.Text = "Generate WIP File";
             this.ManualLoadButtonWIP.UseVisualStyleBackColor = true;
+            this.ManualLoadButtonWIP.Click += new System.EventHandler(this.ManualLoadButtonWIP_Click);
             // 
             // ManualLoadButtonLoadData
             // 
@@ -194,6 +200,12 @@
             this.WorkflowTabControl.Size = new System.Drawing.Size(522, 269);
             this.WorkflowTabControl.TabIndex = 0;
             // 
+            // ManualLoadErorrProvider
+            // 
+            this.ManualLoadErorrProvider.BlinkRate = 0;
+            this.ManualLoadErorrProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.ManualLoadErorrProvider.ContainerControl = this;
+            // 
             // LifecycleWorkflowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,6 +219,7 @@
             this.WorkflowTabManual.ResumeLayout(false);
             this.WorkflowTabManual.PerformLayout();
             this.WorkflowTabControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ManualLoadErorrProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -226,6 +239,7 @@
         private System.Windows.Forms.Label ManualTabLabelBanner;
         private System.Windows.Forms.TabControl WorkflowTabControl;
         private System.Windows.Forms.Label ManualLoadLabelDate;
+        private System.Windows.Forms.ErrorProvider ManualLoadErorrProvider;
     }
 }
 
