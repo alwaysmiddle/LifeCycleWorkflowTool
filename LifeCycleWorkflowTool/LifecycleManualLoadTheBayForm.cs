@@ -27,40 +27,26 @@ namespace LifeCycleWorkflowTool
 
         private void ManualDataLoadInventoryAmountFilePicker_Click(object sender, EventArgs e)
         {
-            ManualDataLoadInventoryAmountValue.Text = "";
-            ManualDataLoadOpenFileDialog.ShowDialog();
-            string selectedFile = ManualDataLoadOpenFileDialog.FileName;
-            ManualDataLoadInventoryAmountValue.Text = selectedFile;
+            FileFolderPickerUtility.PopulateTextBox(ManualDataLoadInventoryAmountValue);
         }
 
         private void ManualDataLoadNosFilePicker_Click(object sender, EventArgs e)
         {
-            ManualDataLoadNosValue.Text = "";
-            ManualDataLoadOpenFileDialog.ShowDialog();
-            string selectedFile = ManualDataLoadOpenFileDialog.FileName;
-            ManualDataLoadNosValue.Text = selectedFile;
+            FileFolderPickerUtility.PopulateTextBox(ManualDataLoadNosValue);
         }
 
         private void ManualDataLoadNosCombinedFilePicker_Click(object sender, EventArgs e)
         {
-            ManualDataLoadNosCombinedValue.Text = "";
-            ManualDataLoadOpenFileDialog.ShowDialog();
-            string selectedFile = ManualDataLoadOpenFileDialog.FileName;
-            ManualDataLoadNosCombinedValue.Text = selectedFile;
+            FileFolderPickerUtility.PopulateTextBox(ManualDataLoadNosCombinedValue);
         }
 
         private void ManualDataLoadInactiveUpcFilePicker_Click(object sender, EventArgs e)
         {
-            ManualDataLoadInactiveUpcValue.Text = "";
-            ManualDataLoadOpenFileDialog.ShowDialog();
-            string selectedFile = ManualDataLoadOpenFileDialog.FileName;
-            ManualDataLoadInactiveUpcValue.Text = selectedFile;
+            FileFolderPickerUtility.PopulateTextBox(ManualDataLoadInactiveUpcValue);
         }
 
         private void ManualDataLoadConfirmButton_Click(object sender, EventArgs e)
         {
-            
-
             ToolTip errorTooltip = new ToolTip();
             bool allValid = true;
 
@@ -68,7 +54,7 @@ namespace LifeCycleWorkflowTool
             {
                 TextBoxFileValidation validateTBox = new TextBoxFileValidation(tBox);
 
-                if (validateTBox.isValid())
+                if (validateTBox.isFileValid())
                 {
                     ManualDataLoadTheBayErrorProvider.Clear();
                 }
@@ -82,6 +68,7 @@ namespace LifeCycleWorkflowTool
             if (allValid)
             {
                 //close the form, then marks the files are ready for loaded
+                this.Close();
             }
 
         }

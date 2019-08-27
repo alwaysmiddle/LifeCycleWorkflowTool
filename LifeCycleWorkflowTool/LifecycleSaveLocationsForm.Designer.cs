@@ -34,7 +34,6 @@
             this.SaveLocationsWipValue = new System.Windows.Forms.TextBox();
             this.SaveLocationsWipFilePicker = new System.Windows.Forms.Button();
             this.SaveLocationsButtonSaveSettings = new System.Windows.Forms.Button();
-            this.SaveLocationsFolderPicker = new System.Windows.Forms.FolderBrowserDialog();
             this.SaveLocationsButtonRestoreDefault = new System.Windows.Forms.Button();
             this.SaveLocationsTabControl = new System.Windows.Forms.TabControl();
             this.SaveLocationsTabPageTheBay = new System.Windows.Forms.TabPage();
@@ -73,7 +72,7 @@
             this.SaveLocationsWipFilePicker.TabIndex = 2;
             this.SaveLocationsWipFilePicker.Text = "...";
             this.SaveLocationsWipFilePicker.UseVisualStyleBackColor = true;
-            this.SaveLocationsWipFilePicker.Click += new System.EventHandler(this.SaveLocationsButtonTheBayFilePicker_Click);
+            this.SaveLocationsWipFilePicker.Click += new System.EventHandler(this.SaveLocationsWipFilePicker_Click);
             // 
             // SaveLocationsButtonSaveSettings
             // 
@@ -184,7 +183,6 @@
         private System.Windows.Forms.TextBox SaveLocationsWipValue;
         private System.Windows.Forms.Button SaveLocationsWipFilePicker;
         private System.Windows.Forms.Button SaveLocationsButtonSaveSettings;
-        private System.Windows.Forms.FolderBrowserDialog SaveLocationsFolderPicker;
         private System.Windows.Forms.Button SaveLocationsButtonRestoreDefault;
         private System.Windows.Forms.TabControl SaveLocationsTabControl;
         private System.Windows.Forms.TabPage SaveLocationsTabPageTheBay;

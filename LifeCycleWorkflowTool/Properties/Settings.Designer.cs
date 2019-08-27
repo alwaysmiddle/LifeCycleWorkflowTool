@@ -46,5 +46,17 @@ namespace LifeCycleWorkflowTool.Properties {
                 this["SaveLocationTheBayFinal"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Public\\Desktop\\")]
+        public string DefaultSaveLocation {
+            get {
+                return ((string)(this["DefaultSaveLocation"]));
+            }
+            set {
+                this["DefaultSaveLocation"] = value;
+            }
+        }
     }
 }

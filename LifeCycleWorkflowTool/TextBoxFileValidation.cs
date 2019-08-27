@@ -23,7 +23,7 @@ namespace LifeCycleWorkflowTool
             _tBox = tBox;
         }
 
-        public bool isValid()
+        public bool isFileValid()
         {
             bool valid = true;
 
@@ -41,6 +41,25 @@ namespace LifeCycleWorkflowTool
 
             return valid;
 
+        }
+
+        public bool isFolderValid()
+        {
+            bool valid = true;
+
+            ///validate if folder exists
+            if (_tBox.Text != "" && !Directory.Exists(_tBox.Text))
+            {
+                ErrorMessage = "Error: Folder path is not valid, please make sure you have valid folder path selected.";
+                valid = false;
+            }
+            else if (_tBox.Text == "")
+            {
+                ErrorMessage = "Error: Can not leave this folder path blank!";
+                valid = false;
+            }
+
+            return valid;
         }
 
     }

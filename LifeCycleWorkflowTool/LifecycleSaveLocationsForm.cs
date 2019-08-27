@@ -18,6 +18,7 @@ namespace LifeCycleWorkflowTool
         {
             InitializeComponent();
             InitalizeTextBoxCollection();
+            ReadSavedLocations();
         }
         private void InitalizeTextBoxCollection()
         {
@@ -26,11 +27,20 @@ namespace LifeCycleWorkflowTool
             SaveLocationsColl.Add(SaveLocationsFinalValue);
         }
 
-        private void SaveLocationsButtonTheBayFilePicker_Click(object sender, EventArgs e)
+        private void ReadSavedLocations()
         {
-            SaveLocationsFolderPicker.ShowDialog();
-            string folderPicker = SaveLocationsFolderPicker.SelectedPath;
-            SaveLocationsWipValue.Text = folderPicker;
+            SaveLocationsWipValue.Text = Properties.Settings.Default.SaveLocationTheBayWIP;
+            SaveLocationsFinalValue.Text = Properties.Settings.Default.SaveLocationTheBayFinal;
+        }
+
+        private void SaveLocationsWipFilePicker_Click(object sender, EventArgs e)
+        {
+            FileFolderPickerUtility.PopulateTextBox(SaveLocationsWipValue, 1);
+        }
+
+        private void SaveLocationFinalFilePicker_Click(object sender, EventArgs e)
+        {
+            FileFolderPickerUtility.PopulateTextBox(SaveLocationsFinalValue, 1);
         }
 
         /// <summary>
@@ -47,7 +57,11 @@ namespace LifeCycleWorkflowTool
             foreach (var tBox in SaveLocationsColl)
             {
                 TextBoxFileValidation validateTBox = new TextBoxFileValidation(tBox);
-                if (validateTBox.isValid())
+                if(tBox.Text == Properties.Settings.Default.DefaultSaveLocation + @"\LifeCycleDailyWorkflow")
+                {
+                    LifecycleSaveLocationsErrorProvider.Clear();
+                }
+                else if (validateTBox.isFolderValid())
                 {
                     LifecycleSaveLocationsErrorProvider.Clear();
                 }
@@ -60,20 +74,21 @@ namespace LifeCycleWorkflowTool
 
             if (allValid)
             {
-                //close the form, then marks the files are ready for loaded
+                Properties.Settings.Default.SaveLocationTheBayWIP = SaveLocationsWipValue.Text;
+                Properties.Settings.Default.SaveLocationTheBayFinal = SaveLocationsFinalValue.Text;
+                Properties.Settings.Default.Save();
+                this.Close();
             }
-        }
-
-        private void SaveLocationFinalFilePicker_Click(object sender, EventArgs e)
-        {
-            SaveLocationsFolderPicker.ShowDialog();
-            string folderPicker = SaveLocationsFolderPicker.SelectedPath;
-            SaveLocationsFinalValue.Text = folderPicker;
         }
 
         private void SaveLocationsButtonRestoreDefault_Click(object sender, EventArgs e)
         {
-
+            foreach (var tBox in SaveLocationsColl)
+            {
+                tBox.Text = Properties.Settings.Default.DefaultSaveLocation + @"\LifeCycleDailyWorkflow";
+            }
         }
+
+        
     }
 }

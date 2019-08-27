@@ -43,7 +43,6 @@
             this.ManualDataLoadInactiveUpcValue = new System.Windows.Forms.TextBox();
             this.ManualDataLoadInactiveUpcLabel = new System.Windows.Forms.Label();
             this.ManualDataLoadButton = new System.Windows.Forms.Button();
-            this.ManualDataLoadOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.ManualDataLoadTheBayErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ManualDataLoadTheBayErrorProvider)).BeginInit();
             this.SuspendLayout();
@@ -171,10 +170,6 @@
             this.ManualDataLoadButton.UseVisualStyleBackColor = true;
             this.ManualDataLoadButton.Click += new System.EventHandler(this.ManualDataLoadConfirmButton_Click);
             // 
-            // ManualDataLoadOpenFileDialog
-            // 
-            this.ManualDataLoadOpenFileDialog.Filter = "Data Files(*.xlsx, *.csv)|*.xlsx;*.csv|All files| *.*";
-            // 
             // ManualDataLoadTheBayErrorProvider
             // 
             this.ManualDataLoadTheBayErrorProvider.BlinkRate = 0;
@@ -223,7 +218,6 @@
         private System.Windows.Forms.TextBox ManualDataLoadInactiveUpcValue;
         private System.Windows.Forms.Label ManualDataLoadInactiveUpcLabel;
         private System.Windows.Forms.Button ManualDataLoadButton;
-        private System.Windows.Forms.OpenFileDialog ManualDataLoadOpenFileDialog;
         private System.Windows.Forms.ErrorProvider ManualDataLoadTheBayErrorProvider;
     }
 }
