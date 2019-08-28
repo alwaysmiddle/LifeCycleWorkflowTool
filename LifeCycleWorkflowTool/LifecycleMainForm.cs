@@ -17,6 +17,8 @@ namespace LifeCycleWorkflowTool
         public LifecycleWorkflowForm()
         {
             InitializeComponent();
+            Properties.Settings.Default.DefaultSaveLocation = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +
+                                                              @"\LifecycleDailyWorkflow";
         }
 
         private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
@@ -57,14 +59,31 @@ namespace LifeCycleWorkflowTool
 
         private void ManualLoadWipShowFolder_Click(object sender, EventArgs e)
         {
-            Directory.CreateDirectory(Properties.Settings.Default.SaveLocationTheBayWIP);
-            Process.Start(Properties.Settings.Default.SaveLocationTheBayWIP);
+            string saveLocation = Properties.Settings.Default.SaveLocationTheBayWIP;
+
+            if (saveLocation == "")
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.DefaultSaveLocation);
+                Process.Start(Properties.Settings.Default.DefaultSaveLocation);
+            }
+            else
+            {
+                Directory.CreateDirectory(saveLocation);
+                Process.Start(saveLocation);
+            }
         }
 
         private void ManualLoadButtonFinalFileShowFolder_Click(object sender, EventArgs e)
         {
-            Directory.CreateDirectory(Properties.Settings.Default.SaveLocationTheBayFinal);
-            Process.Start(Properties.Settings.Default.SaveLocationTheBayFinal);
+            string saveLocation = Properties.Settings.Default.SaveLocationTheBayFinal;
+
+            if (saveLocation == "")
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.DefaultSaveLocation);
+                Process.Start(Properties.Settings.Default.DefaultSaveLocation);
+            }
+            Directory.CreateDirectory(saveLocation);
+            Process.Start(saveLocation);
         }
     }
 }

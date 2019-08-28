@@ -9,7 +9,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="DefaultSaveLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Users\Public\Desktop\LifeCycleDailyWorkflow</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
