@@ -57,7 +57,7 @@ namespace LifeCycleWorkflowTool
             foreach (var tBox in SaveLocationsColl)
             {
                 TextBoxFileValidation validateTBox = new TextBoxFileValidation(tBox);
-                if(tBox.Text == Properties.Settings.Default.DefaultSaveLocation + @"\LifeCycleDailyWorkflow")
+                if(tBox.Text == Properties.Settings.Default.DefaultSaveLocation)
                 {
                     LifecycleSaveLocationsErrorProvider.Clear();
                 }
@@ -85,7 +85,7 @@ namespace LifeCycleWorkflowTool
         {
             foreach (var tBox in SaveLocationsColl)
             {
-                tBox.Text = Properties.Settings.Default.DefaultSaveLocation + @"\LifeCycleDailyWorkflow";
+                tBox.Text = Properties.Settings.Default.DefaultSaveLocation;
             }
         }
 

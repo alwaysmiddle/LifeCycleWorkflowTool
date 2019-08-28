@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +25,7 @@ namespace LifeCycleWorkflowTool
 
             saveLocations.Show();
         }
-        
+
         /// <summary>
         /// Manually loading files into TheBay workflow. If the Banner Textbox is not empty.
         /// </summary>
@@ -53,9 +55,16 @@ namespace LifeCycleWorkflowTool
             //Loading Final work process
         }
 
-        private void ManualLoadButtonShowFolder_Click(object sender, EventArgs e)
+        private void ManualLoadWipShowFolder_Click(object sender, EventArgs e)
         {
+            Directory.CreateDirectory(Properties.Settings.Default.SaveLocationTheBayWIP);
+            Process.Start(Properties.Settings.Default.SaveLocationTheBayWIP);
+        }
 
+        private void ManualLoadButtonFinalFileShowFolder_Click(object sender, EventArgs e)
+        {
+            Directory.CreateDirectory(Properties.Settings.Default.SaveLocationTheBayFinal);
+            Process.Start(Properties.Settings.Default.SaveLocationTheBayFinal);
         }
     }
 }

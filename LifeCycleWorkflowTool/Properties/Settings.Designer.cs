@@ -49,7 +49,7 @@ namespace LifeCycleWorkflowTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Public\\Desktop\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Public\\Desktop\\LifeCycleDailyWorkflow")]
         public string DefaultSaveLocation {
             get {
                 return ((string)(this["DefaultSaveLocation"]));

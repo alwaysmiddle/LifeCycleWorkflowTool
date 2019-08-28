@@ -36,14 +36,15 @@
             this.ManualLoadLabelDate = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.ManualLoadProgressBar = new System.Windows.Forms.ProgressBar();
-            this.ManualLoadButtonShowFolder = new System.Windows.Forms.Button();
             this.ManualLoadButtonFinalFile = new System.Windows.Forms.Button();
-            this.ManualLoadButtonWIP = new System.Windows.Forms.Button();
+            this.ManualLoadButtonWip = new System.Windows.Forms.Button();
             this.ManualLoadButtonLoadData = new System.Windows.Forms.Button();
             this.ManualTextBoxBanner = new System.Windows.Forms.ComboBox();
             this.ManualTabLabelBanner = new System.Windows.Forms.Label();
             this.WorkflowTabControl = new System.Windows.Forms.TabControl();
             this.ManualLoadErorrProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ManualLoadWipShowFolder = new System.Windows.Forms.Button();
+            this.ManualLoadButtonFinalFileShowFolder = new System.Windows.Forms.Button();
             this.WorkflowTabSettings.SuspendLayout();
             this.WorkflowTabManual.SuspendLayout();
             this.WorkflowTabControl.SuspendLayout();
@@ -76,12 +77,13 @@
             // WorkflowTabManual
             // 
             this.WorkflowTabManual.BackColor = System.Drawing.Color.Gainsboro;
+            this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonFinalFileShowFolder);
+            this.WorkflowTabManual.Controls.Add(this.ManualLoadWipShowFolder);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadLabelDate);
             this.WorkflowTabManual.Controls.Add(this.dateTimePicker1);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadProgressBar);
-            this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonShowFolder);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonFinalFile);
-            this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonWIP);
+            this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonWip);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonLoadData);
             this.WorkflowTabManual.Controls.Add(this.ManualTextBoxBanner);
             this.WorkflowTabManual.Controls.Add(this.ManualTabLabelBanner);
@@ -117,41 +119,29 @@
             this.ManualLoadProgressBar.Size = new System.Drawing.Size(442, 16);
             this.ManualLoadProgressBar.TabIndex = 6;
             // 
-            // ManualLoadButtonShowFolder
-            // 
-            this.ManualLoadButtonShowFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ManualLoadButtonShowFolder.ForeColor = System.Drawing.Color.MediumBlue;
-            this.ManualLoadButtonShowFolder.Location = new System.Drawing.Point(330, 162);
-            this.ManualLoadButtonShowFolder.Name = "ManualLoadButtonShowFolder";
-            this.ManualLoadButtonShowFolder.Size = new System.Drawing.Size(144, 37);
-            this.ManualLoadButtonShowFolder.TabIndex = 5;
-            this.ManualLoadButtonShowFolder.Text = "Show Saved Folder";
-            this.ManualLoadButtonShowFolder.UseVisualStyleBackColor = true;
-            this.ManualLoadButtonShowFolder.Click += new System.EventHandler(this.ManualLoadButtonShowFolder_Click);
-            // 
             // ManualLoadButtonFinalFile
             // 
             this.ManualLoadButtonFinalFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ManualLoadButtonFinalFile.ForeColor = System.Drawing.Color.Black;
-            this.ManualLoadButtonFinalFile.Location = new System.Drawing.Point(180, 162);
+            this.ManualLoadButtonFinalFile.Location = new System.Drawing.Point(267, 162);
             this.ManualLoadButtonFinalFile.Name = "ManualLoadButtonFinalFile";
-            this.ManualLoadButtonFinalFile.Size = new System.Drawing.Size(144, 37);
+            this.ManualLoadButtonFinalFile.Size = new System.Drawing.Size(156, 37);
             this.ManualLoadButtonFinalFile.TabIndex = 4;
             this.ManualLoadButtonFinalFile.Text = "Generate Final File";
             this.ManualLoadButtonFinalFile.UseVisualStyleBackColor = true;
             this.ManualLoadButtonFinalFile.Click += new System.EventHandler(this.ManualLoadButtonFinalFile_Click);
             // 
-            // ManualLoadButtonWIP
+            // ManualLoadButtonWip
             // 
-            this.ManualLoadButtonWIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ManualLoadButtonWIP.ForeColor = System.Drawing.Color.Black;
-            this.ManualLoadButtonWIP.Location = new System.Drawing.Point(32, 162);
-            this.ManualLoadButtonWIP.Name = "ManualLoadButtonWIP";
-            this.ManualLoadButtonWIP.Size = new System.Drawing.Size(142, 37);
-            this.ManualLoadButtonWIP.TabIndex = 3;
-            this.ManualLoadButtonWIP.Text = "Generate WIP File";
-            this.ManualLoadButtonWIP.UseVisualStyleBackColor = true;
-            this.ManualLoadButtonWIP.Click += new System.EventHandler(this.ManualLoadButtonWIP_Click);
+            this.ManualLoadButtonWip.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ManualLoadButtonWip.ForeColor = System.Drawing.Color.Black;
+            this.ManualLoadButtonWip.Location = new System.Drawing.Point(32, 162);
+            this.ManualLoadButtonWip.Name = "ManualLoadButtonWip";
+            this.ManualLoadButtonWip.Size = new System.Drawing.Size(156, 37);
+            this.ManualLoadButtonWip.TabIndex = 3;
+            this.ManualLoadButtonWip.Text = "Generate WIP File";
+            this.ManualLoadButtonWip.UseVisualStyleBackColor = true;
+            this.ManualLoadButtonWip.Click += new System.EventHandler(this.ManualLoadButtonWIP_Click);
             // 
             // ManualLoadButtonLoadData
             // 
@@ -206,6 +196,26 @@
             this.ManualLoadErorrProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ManualLoadErorrProvider.ContainerControl = this;
             // 
+            // ManualLoadWipShowFolder
+            // 
+            this.ManualLoadWipShowFolder.Image = global::LifeCycleWorkflowTool.Properties.Resources.imageedit_2_7181984581;
+            this.ManualLoadWipShowFolder.Location = new System.Drawing.Point(194, 162);
+            this.ManualLoadWipShowFolder.Name = "ManualLoadWipShowFolder";
+            this.ManualLoadWipShowFolder.Size = new System.Drawing.Size(45, 37);
+            this.ManualLoadWipShowFolder.TabIndex = 9;
+            this.ManualLoadWipShowFolder.UseVisualStyleBackColor = true;
+            this.ManualLoadWipShowFolder.Click += new System.EventHandler(this.ManualLoadWipShowFolder_Click);
+            // 
+            // ManualLoadButtonFinalFileShowFolder
+            // 
+            this.ManualLoadButtonFinalFileShowFolder.Image = global::LifeCycleWorkflowTool.Properties.Resources.imageedit_2_7181984581;
+            this.ManualLoadButtonFinalFileShowFolder.Location = new System.Drawing.Point(429, 162);
+            this.ManualLoadButtonFinalFileShowFolder.Name = "ManualLoadButtonFinalFileShowFolder";
+            this.ManualLoadButtonFinalFileShowFolder.Size = new System.Drawing.Size(45, 37);
+            this.ManualLoadButtonFinalFileShowFolder.TabIndex = 10;
+            this.ManualLoadButtonFinalFileShowFolder.UseVisualStyleBackColor = true;
+            this.ManualLoadButtonFinalFileShowFolder.Click += new System.EventHandler(this.ManualLoadButtonFinalFileShowFolder_Click);
+            // 
             // LifecycleWorkflowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,15 +241,16 @@
         private System.Windows.Forms.TabPage WorkflowTabManual;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.ProgressBar ManualLoadProgressBar;
-        private System.Windows.Forms.Button ManualLoadButtonShowFolder;
         private System.Windows.Forms.Button ManualLoadButtonFinalFile;
-        private System.Windows.Forms.Button ManualLoadButtonWIP;
+        private System.Windows.Forms.Button ManualLoadButtonWip;
         private System.Windows.Forms.Button ManualLoadButtonLoadData;
         private System.Windows.Forms.ComboBox ManualTextBoxBanner;
         private System.Windows.Forms.Label ManualTabLabelBanner;
         private System.Windows.Forms.TabControl WorkflowTabControl;
         private System.Windows.Forms.Label ManualLoadLabelDate;
         private System.Windows.Forms.ErrorProvider ManualLoadErorrProvider;
+        private System.Windows.Forms.Button ManualLoadWipShowFolder;
+        private System.Windows.Forms.Button ManualLoadButtonFinalFileShowFolder;
     }
 }
 
