@@ -16,7 +16,7 @@ namespace LifeCycleWorkflowTool
         { 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LifecycleWorkflowForm());
+            Application.Run(new Form1());
         }
     }
 }
