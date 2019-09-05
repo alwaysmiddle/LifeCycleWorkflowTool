@@ -35,40 +35,32 @@ namespace LifeCycleWorkflowLibrary
             }
         }
 
-        static DataTable ReadXlsxSheet(string filename, string worksheetName, string range)
+        public static DataTable ReadXlsxSheet(string filePath, string sheetName, string rangeStr, bool firstRowAsHeader = true)
         {
-            DataTable wfData = new DataTable();
-
-            return wfData;
-        }
-
-        public static DataTable ReadXlsxSheet(string filePath, string sheetName)
-        {
-            // Reference to Stackoverflow article: 
-            //https://stackoverflow.com/questions/48756449/read-excel-worksheet-into-datatable-using-closedxml
-
             // Open the Excel file using ClosedXML.
             // Keep in mind the Excel file cannot be open when trying to read it
             using (XLWorkbook workBook = new XLWorkbook(filePath))
             {
                 //Read the first Sheet from Excel file.
-                IXLWorksheet workSheet = workBook.Worksheet(1);
+                IXLWorksheet workSheet = workBook.Worksheet(sheetName);
+                IXLRange dataRange = workSheet.Range(rangeStr);
 
                 //Create a new DataTable.
                 DataTable dt = new DataTable();
 
+                //Load the specific range into a datatable, assuming the Range start with HeaderRow
+                
                 //Loop through the Worksheet rows.
-                bool firstRow = true;
                 foreach (IXLRow row in workSheet.Rows())
                 {
                     //Use the first row to add columns to DataTable.
-                    if (firstRow)
+                    if (firstRowAsHeader)
                     {
                         foreach (IXLCell cell in row.Cells())
                         {
                             dt.Columns.Add(cell.Value.ToString());
                         }
-                        firstRow = false;
+                        firstRowAsHeader = false;
                     }
                     else
                     {
