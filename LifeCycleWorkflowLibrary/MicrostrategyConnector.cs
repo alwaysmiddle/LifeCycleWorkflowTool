@@ -29,8 +29,15 @@ namespace LifeCycleWorkflowLibrary
             XLWorkbook wb = new XLWorkbook(filePath);
             IXLWorksheet ws = wb.Worksheet(1);
 
-            var lastCellAddress = worksheet.RangeUsed().LastCell().Address;
-            File.WriteAllLines(csvFileName, worksheet.Rows(1, lastCellAddress.RowNumber)
+            var cellsFound = ws.Search(findThisOnSheet, System.Globalization.CompareOptions.IgnoreCase);
+            var firstCellFound = cellsFound.First();
+
+            //Generate Unique filepath
+            //Ref: https://stackoverflow.com/questions/581570/how-can-i-create-a-temp-file-with-a-specific-extension-with-net
+            string csvFileName = Path.GetTempPath() + Guid.NewGuid().ToString() + ".csv";
+
+            var lastCellAddress = ws.RangeUsed().LastCell().Address;
+            File.WriteAllLines(csvFileName, ws.Rows(1, lastCellAddress.RowNumber)
                 .Select(r => string.Join(",", r.Cells(1, lastCellAddress.ColumnNumber)
                         .Select(cell =>
                         {
