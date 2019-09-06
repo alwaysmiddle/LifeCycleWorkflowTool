@@ -26,7 +26,15 @@ namespace LifeCycleWorkflowTool
                 textBox1.Text = openFileDialog1.FileName;
             }
 
-            MicrostrategyConnector.ReadBitReport(textBox1.Text, "DMM");
+            DataTable dt = new DataTable();
+
+            dt = MicrostrategyConnector.ReadBitReport(textBox1.Text, "DMM");
+
+            foreach (DataColumn col in dt.Columns)
+            {
+                MessageBox.Show(col.ColumnName);
+            }
+
         }
     }
 }

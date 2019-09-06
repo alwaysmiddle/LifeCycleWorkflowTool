@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="DataImporter.cs" />
     <Compile Include="MicrostrategyConnector.cs" />
-    <Compile Include="MnaualDataLoader.cs" />
+    <Compile Include="ManualDataLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

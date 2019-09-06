@@ -9,7 +9,7 @@ namespace LifeCycleWorkflowLibrary
     /// <summary>
     /// This class transforms all the data files from manual input into in-memory data models
     /// </summary>
-    class MnaualDataLoader
+    class ManualDataLoader
     {
     }
 }

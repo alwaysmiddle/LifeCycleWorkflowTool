@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,14 +31,14 @@ namespace LifeCycleWorkflowLibrary
             IXLWorksheet ws = wb.Worksheet(1);
 
             var cellsFound = ws.Search(findThisOnSheet, System.Globalization.CompareOptions.IgnoreCase);
-            var firstCellFound = cellsFound.First();
+            IXLCell firstCellFound = cellsFound.First();
 
             //Generate Unique filepath
             //Ref: https://stackoverflow.com/questions/581570/how-can-i-create-a-temp-file-with-a-specific-extension-with-net
             string csvFileName = Path.GetTempPath() + Guid.NewGuid().ToString() + ".csv";
 
             var lastCellAddress = ws.RangeUsed().LastCell().Address;
-            File.WriteAllLines(csvFileName, ws.Rows(1, lastCellAddress.RowNumber)
+            File.WriteAllLines(csvFileName, ws.Rows(firstCellFound.Address.RowNumber, lastCellAddress.RowNumber)
                 .Select(r => string.Join(",", r.Cells(1, lastCellAddress.ColumnNumber)
                         .Select(cell =>
                         {
@@ -46,6 +47,22 @@ namespace LifeCycleWorkflowLibrary
                         }
                         ))));
 
+
+            var oldLines = System.IO.File.ReadAllLines(csvFileName);
+            var newLines = oldLines.Where(line => line.IndexOf("Total", StringComparison.OrdinalIgnoreCase) < 0);
+            List<string> cleansedNewLines = new List<string>();
+
+            foreach (var line in newLines)
+            {
+                var temp = line.Replace(",,", ",");
+                cleansedNewLines.Add(temp);
+            }
+
+            File.WriteAllLines(csvFileName, cleansedNewLines);
+
+            dt = DataTableImporter.ReadCsvFile(csvFileName);
+
+            File.Delete(csvFileName);
             return dt;
         }
     }
