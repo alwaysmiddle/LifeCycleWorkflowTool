@@ -33,6 +33,8 @@
             this.WorkflowTabSettings = new System.Windows.Forms.TabPage();
             this.SettingsButtonSaveLocation = new System.Windows.Forms.Button();
             this.WorkflowTabManual = new System.Windows.Forms.TabPage();
+            this.ManualLoadButtonFinalFileShowFolder = new System.Windows.Forms.Button();
+            this.ManualLoadWipShowFolder = new System.Windows.Forms.Button();
             this.ManualLoadLabelDate = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.ManualLoadProgressBar = new System.Windows.Forms.ProgressBar();
@@ -43,8 +45,7 @@
             this.ManualTabLabelBanner = new System.Windows.Forms.Label();
             this.WorkflowTabControl = new System.Windows.Forms.TabControl();
             this.ManualLoadErorrProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ManualLoadWipShowFolder = new System.Windows.Forms.Button();
-            this.ManualLoadButtonFinalFileShowFolder = new System.Windows.Forms.Button();
+            this.SettingsButtonWorksheetOptions = new System.Windows.Forms.Button();
             this.WorkflowTabSettings.SuspendLayout();
             this.WorkflowTabManual.SuspendLayout();
             this.WorkflowTabControl.SuspendLayout();
@@ -54,6 +55,7 @@
             // WorkflowTabSettings
             // 
             this.WorkflowTabSettings.BackColor = System.Drawing.Color.Gainsboro;
+            this.WorkflowTabSettings.Controls.Add(this.SettingsButtonWorksheetOptions);
             this.WorkflowTabSettings.Controls.Add(this.SettingsButtonSaveLocation);
             this.WorkflowTabSettings.Location = new System.Drawing.Point(4, 22);
             this.WorkflowTabSettings.Name = "WorkflowTabSettings";
@@ -93,6 +95,26 @@
             this.WorkflowTabManual.Size = new System.Drawing.Size(514, 243);
             this.WorkflowTabManual.TabIndex = 0;
             this.WorkflowTabManual.Text = "Manual Load";
+            // 
+            // ManualLoadButtonFinalFileShowFolder
+            // 
+            this.ManualLoadButtonFinalFileShowFolder.Image = global::LifeCycleWorkflowTool.Properties.Resources.imageedit_2_7181984581;
+            this.ManualLoadButtonFinalFileShowFolder.Location = new System.Drawing.Point(429, 162);
+            this.ManualLoadButtonFinalFileShowFolder.Name = "ManualLoadButtonFinalFileShowFolder";
+            this.ManualLoadButtonFinalFileShowFolder.Size = new System.Drawing.Size(45, 37);
+            this.ManualLoadButtonFinalFileShowFolder.TabIndex = 10;
+            this.ManualLoadButtonFinalFileShowFolder.UseVisualStyleBackColor = true;
+            this.ManualLoadButtonFinalFileShowFolder.Click += new System.EventHandler(this.ManualLoadButtonFinalFileShowFolder_Click);
+            // 
+            // ManualLoadWipShowFolder
+            // 
+            this.ManualLoadWipShowFolder.Image = global::LifeCycleWorkflowTool.Properties.Resources.imageedit_2_7181984581;
+            this.ManualLoadWipShowFolder.Location = new System.Drawing.Point(194, 162);
+            this.ManualLoadWipShowFolder.Name = "ManualLoadWipShowFolder";
+            this.ManualLoadWipShowFolder.Size = new System.Drawing.Size(45, 37);
+            this.ManualLoadWipShowFolder.TabIndex = 9;
+            this.ManualLoadWipShowFolder.UseVisualStyleBackColor = true;
+            this.ManualLoadWipShowFolder.Click += new System.EventHandler(this.ManualLoadWipShowFolder_Click);
             // 
             // ManualLoadLabelDate
             // 
@@ -196,25 +218,17 @@
             this.ManualLoadErorrProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ManualLoadErorrProvider.ContainerControl = this;
             // 
-            // ManualLoadWipShowFolder
+            // SettingsButtonWorksheetOptions
             // 
-            this.ManualLoadWipShowFolder.Image = global::LifeCycleWorkflowTool.Properties.Resources.imageedit_2_7181984581;
-            this.ManualLoadWipShowFolder.Location = new System.Drawing.Point(194, 162);
-            this.ManualLoadWipShowFolder.Name = "ManualLoadWipShowFolder";
-            this.ManualLoadWipShowFolder.Size = new System.Drawing.Size(45, 37);
-            this.ManualLoadWipShowFolder.TabIndex = 9;
-            this.ManualLoadWipShowFolder.UseVisualStyleBackColor = true;
-            this.ManualLoadWipShowFolder.Click += new System.EventHandler(this.ManualLoadWipShowFolder_Click);
-            // 
-            // ManualLoadButtonFinalFileShowFolder
-            // 
-            this.ManualLoadButtonFinalFileShowFolder.Image = global::LifeCycleWorkflowTool.Properties.Resources.imageedit_2_7181984581;
-            this.ManualLoadButtonFinalFileShowFolder.Location = new System.Drawing.Point(429, 162);
-            this.ManualLoadButtonFinalFileShowFolder.Name = "ManualLoadButtonFinalFileShowFolder";
-            this.ManualLoadButtonFinalFileShowFolder.Size = new System.Drawing.Size(45, 37);
-            this.ManualLoadButtonFinalFileShowFolder.TabIndex = 10;
-            this.ManualLoadButtonFinalFileShowFolder.UseVisualStyleBackColor = true;
-            this.ManualLoadButtonFinalFileShowFolder.Click += new System.EventHandler(this.ManualLoadButtonFinalFileShowFolder_Click);
+            this.SettingsButtonWorksheetOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SettingsButtonWorksheetOptions.ForeColor = System.Drawing.Color.Black;
+            this.SettingsButtonWorksheetOptions.Location = new System.Drawing.Point(24, 59);
+            this.SettingsButtonWorksheetOptions.Name = "SettingsButtonWorksheetOptions";
+            this.SettingsButtonWorksheetOptions.Size = new System.Drawing.Size(183, 34);
+            this.SettingsButtonWorksheetOptions.TabIndex = 4;
+            this.SettingsButtonWorksheetOptions.Text = "Worksheet Options";
+            this.SettingsButtonWorksheetOptions.UseVisualStyleBackColor = true;
+            this.SettingsButtonWorksheetOptions.Click += new System.EventHandler(this.SettingsButtonWorksheetOptions_Click);
             // 
             // LifecycleWorkflowForm
             // 
@@ -251,6 +265,7 @@
         private System.Windows.Forms.ErrorProvider ManualLoadErorrProvider;
         private System.Windows.Forms.Button ManualLoadWipShowFolder;
         private System.Windows.Forms.Button ManualLoadButtonFinalFileShowFolder;
+        private System.Windows.Forms.Button SettingsButtonWorksheetOptions;
     }
 }
 

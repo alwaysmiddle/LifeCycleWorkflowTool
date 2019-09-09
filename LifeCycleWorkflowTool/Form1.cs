@@ -30,10 +30,7 @@ namespace LifeCycleWorkflowTool
 
             dt = MicrostrategyConnector.ReadBitReport(textBox1.Text, "DMM");
 
-            foreach (DataColumn col in dt.Columns)
-            {
-                MessageBox.Show(col.ColumnName);
-            }
+            
 
         }
     }
