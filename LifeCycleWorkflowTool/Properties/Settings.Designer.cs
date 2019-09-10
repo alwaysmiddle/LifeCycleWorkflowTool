@@ -58,5 +58,53 @@ namespace LifeCycleWorkflowTool.Properties {
                 this["DefaultSaveLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TheBayManualDataLoadInventoryAmountFile {
+            get {
+                return ((string)(this["TheBayManualDataLoadInventoryAmountFile"]));
+            }
+            set {
+                this["TheBayManualDataLoadInventoryAmountFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TheBayManualDataLoadNosFile {
+            get {
+                return ((string)(this["TheBayManualDataLoadNosFile"]));
+            }
+            set {
+                this["TheBayManualDataLoadNosFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TheBayManualDataLoadNosCombinedFile {
+            get {
+                return ((string)(this["TheBayManualDataLoadNosCombinedFile"]));
+            }
+            set {
+                this["TheBayManualDataLoadNosCombinedFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TheBayManualDataLoadInactiveUpcFile {
+            get {
+                return ((string)(this["TheBayManualDataLoadInactiveUpcFile"]));
+            }
+            set {
+                this["TheBayManualDataLoadInactiveUpcFile"] = value;
+            }
+        }
     }
 }

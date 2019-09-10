@@ -44,6 +44,7 @@
             this.ManualDataLoadInactiveUpcLabel = new System.Windows.Forms.Label();
             this.ManualDataLoadButton = new System.Windows.Forms.Button();
             this.ManualDataLoadTheBayErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ManualDataLoadRestoreRecentButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ManualDataLoadTheBayErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -176,11 +177,23 @@
             this.ManualDataLoadTheBayErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ManualDataLoadTheBayErrorProvider.ContainerControl = this;
             // 
+            // ManualDataLoadRestoreRecentButton
+            // 
+            this.ManualDataLoadRestoreRecentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ManualDataLoadRestoreRecentButton.Location = new System.Drawing.Point(242, 256);
+            this.ManualDataLoadRestoreRecentButton.Name = "ManualDataLoadRestoreRecentButton";
+            this.ManualDataLoadRestoreRecentButton.Size = new System.Drawing.Size(238, 33);
+            this.ManualDataLoadRestoreRecentButton.TabIndex = 16;
+            this.ManualDataLoadRestoreRecentButton.Text = "Restore Last Loaded Files";
+            this.ManualDataLoadRestoreRecentButton.UseVisualStyleBackColor = true;
+            this.ManualDataLoadRestoreRecentButton.Click += new System.EventHandler(this.ManualDataLoadRestoreRecentButton_Click);
+            // 
             // LifecycleManualLoadTheBayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 299);
+            this.ClientSize = new System.Drawing.Size(502, 299);
+            this.Controls.Add(this.ManualDataLoadRestoreRecentButton);
             this.Controls.Add(this.ManualDataLoadButton);
             this.Controls.Add(this.ManualDataLoadInactiveUpcFilePicker);
             this.Controls.Add(this.ManualDataLoadInactiveUpcValue);
@@ -219,5 +232,6 @@
         private System.Windows.Forms.Label ManualDataLoadInactiveUpcLabel;
         private System.Windows.Forms.Button ManualDataLoadButton;
         private System.Windows.Forms.ErrorProvider ManualDataLoadTheBayErrorProvider;
+        private System.Windows.Forms.Button ManualDataLoadRestoreRecentButton;
     }
 }

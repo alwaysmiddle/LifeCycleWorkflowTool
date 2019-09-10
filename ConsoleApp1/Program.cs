@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 using LifeCycleWorkflowLibrary;
+using LifeCycleWorkflowTool;
 
 namespace ConsoleApp1
 {
@@ -11,24 +15,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            WorksheetCustomSettings setting = new WorksheetCustomSettings();
-
-            setting.FormulaeRow = 2;
-            setting.HeaderRow = 3;
-            setting.ReferenceRow = 4;
-
-            WorksheetCustomSettingsHolder coll = new WorksheetCustomSettingsHolder();
-            coll.SettingsCollection.Add("Haha", setting);
-            coll.Save();
-
-            WorksheetCustomSettingsHolder dict =  WorksheetCustomSettingsHolder.Load();
-
-            foreach (var item in dict.SettingsCollection)
-            {
-                Console.WriteLine("Key = {0}, Value = {1}", item.Key, item.Value);
-            }
+            //string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Data\Names.txt");
             
-
             Console.ReadKey();
         }
     }

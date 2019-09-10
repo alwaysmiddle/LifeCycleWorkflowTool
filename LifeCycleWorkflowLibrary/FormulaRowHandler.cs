@@ -62,12 +62,20 @@ namespace LifeCycleWorkflowLibrary
 
         private void MatchDataColumn(IXLCell cell, DataTable sourceTable)
         {
-            
+            string header = cell.Value.ToString();
+            var list = sourceTable.AsEnumerable().Select(row => row.Field<string>(header)).ToList();
+            passedWorksheet.Cell(customSettings.HeaderRow + 1, cell.Address.ColumnNumber).InsertData(list);
         }
 
         private void CopyFormula(IXLCell cell)
         {
+            //fetch addresses of the column directly below
+            int lastRow = passedWorksheet.LastRowUsed().RowNumber();
+            var sameColumnHeaderCellAddress = passedWorksheet.Cell(customSettings.HeaderRow + 1, cell.Address.ColumnNumber).Address;
+            var sameColumnLastCellAddress = passedWorksheet.Cell(passedWorksheet.LastRowUsed().RowNumber(), cell.Address.ColumnNumber).Address;
 
+            //writing formula to cell
+            passedWorksheet.Range(sameColumnHeaderCellAddress + ":" + sameColumnLastCellAddress).FormulaA1 = cell.FormulaA1;
         }
         
     }

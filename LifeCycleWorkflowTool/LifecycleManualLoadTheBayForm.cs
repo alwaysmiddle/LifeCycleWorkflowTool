@@ -67,10 +67,25 @@ namespace LifeCycleWorkflowTool
 
             if (allValid)
             {
+                Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile = ManualDataLoadInventoryAmountValue.Text;
+                Properties.Settings.Default.TheBayManualDataLoadNosFile = ManualDataLoadNosValue.Text;
+                Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile = ManualDataLoadNosCombinedValue.Text;
+                Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile = ManualDataLoadInactiveUpcValue.Text;
+
+                Properties.Settings.Default.Save();
+
                 //close the form, then marks the files are ready for loaded
                 this.Close();
             }
 
+        }
+
+        private void ManualDataLoadRestoreRecentButton_Click(object sender, EventArgs e)
+        {
+            ManualDataLoadInventoryAmountValue.Text = Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile;
+            ManualDataLoadNosValue.Text = Properties.Settings.Default.TheBayManualDataLoadNosFile;
+            ManualDataLoadNosCombinedValue.Text = Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile;
+            ManualDataLoadInactiveUpcValue.Text = Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile;
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClosedXML.Excel;
 using LifeCycleWorkflowLibrary;
 
 namespace LifeCycleWorkflowTool
@@ -42,6 +43,7 @@ namespace LifeCycleWorkflowTool
             worksheetSettings.SettingsCollection.Add("NOS_Colour_Combined", nosCombinedSetting);
 
             worksheetSettings.Save();
+
         }
 
         private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
@@ -73,6 +75,7 @@ namespace LifeCycleWorkflowTool
         private void ManualLoadButtonWIP_Click(object sender, EventArgs e)
         {
             //Loading WIP work process
+            
         }
 
         private void ManualLoadButtonFinalFile_Click(object sender, EventArgs e)
