@@ -51,6 +51,10 @@ namespace LifeCycleWorkflowLibrary
                     {
                         MatchDataColumn(formulaRowCell, dataSource);
                     }
+                    else
+                    {
+                        CopyFormula(formulaRowCell);
+                    }
                 }      
             }
 
@@ -58,7 +62,7 @@ namespace LifeCycleWorkflowLibrary
 
         private void MatchDataColumn(IXLCell cell, DataTable sourceTable)
         {
-
+            
         }
 
         private void CopyFormula(IXLCell cell)

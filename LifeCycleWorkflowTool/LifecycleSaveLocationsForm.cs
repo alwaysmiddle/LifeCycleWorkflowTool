@@ -88,7 +88,5 @@ namespace LifeCycleWorkflowTool
                 tBox.Text = Properties.Settings.Default.DefaultSaveLocation;
             }
         }
-
-        
     }
 }
