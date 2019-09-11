@@ -84,13 +84,13 @@ namespace LifeCycleWorkflowLibrary
             wsInactiveData.Cell(2, 1).InsertData(dt);
 
             //Process inactive UPC sheet from raw data.
-            //if (wsInactive.LastRowUsed().RowNumber() > customSettings.HeaderRow)
-            //{
-            //    wsInactive.Range(wsInactive.Cell(customSettings.HeaderRow + 1, 1), wsInactive.LastCell()).Clear();
-            //}
+            if (wsInactive.LastRowUsed().RowNumber() > customSettings.HeaderRow)
+            {
+                wsInactive.Range(wsInactive.Cell(customSettings.HeaderRow + 1, 1), wsInactive.LastCell()).Clear();
+            }
 
-            //FormulaRowHandler processWsFormula = new FormulaRowHandler(wsInactive);
-            //processWsFormula.ProcessFormulaRow(dt);
+            FormulaRowHandler processWsFormula = new FormulaRowHandler(wsInactive);
+            processWsFormula.ProcessFormulaRow(dt);
 
             templateWb.Save();
 
