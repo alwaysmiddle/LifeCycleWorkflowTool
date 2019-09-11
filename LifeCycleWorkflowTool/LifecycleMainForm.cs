@@ -33,7 +33,7 @@ namespace LifeCycleWorkflowTool
             worksheetSettings.SettingsCollection.Add(Globals.TheBayTemplateWsNameDetailsProduct, detailsProductSetting);
 
             WorksheetCustomSettings inactiveUpcSetting = new WorksheetCustomSettings();
-            inactiveUpcSetting.FormulaeRow = 2;
+            inactiveUpcSetting.FormulaeRow = 3;
             inactiveUpcSetting.HeaderRow = 7;
             inactiveUpcSetting.ReferenceRow = 4;
             worksheetSettings.SettingsCollection.Add(Globals.TheBayTemplateWsNameInactiveUpc, inactiveUpcSetting);
@@ -71,11 +71,55 @@ namespace LifeCycleWorkflowTool
             }
         }
 
-        private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
-        {
-            LifecycleSaveLocationsForm saveLocations = new LifecycleSaveLocationsForm();
 
-            saveLocations.Show();
+        
+
+        //=========Main Functionality==============
+
+        /// <summary>
+        /// Work in progress main script sequence.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void ManualLoadButtonWIP_Click(object sender, EventArgs e)
+        {
+            //Loading Work in progress tempalte location saved in AppSetting
+            string path = Properties.Settings.Default.TheBayWipTemplatePath;
+
+            //Copy the template to the desired outPut folder
+            //TODO Process the file locally first, then do the copy function afterwards
+            string newWipFilename = "PIM_" + lifeCycleDateTimePicker.Value.ToString("M.d.yyyy")+"_Daily_Workflow_Report_BAY";
+            string newWipFullFileName = LifeCycleFileUtilities.CopyFile(path, Properties.Settings.Default.SaveLocationTheBayWIP, newWipFilename);
+            Globals.TheBayOutputWipFile = newWipFullFileName;
+
+            //Running Main Processes
+            TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
+            TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
+            TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
+
+            Globals.WipFileProcessSucessful = true;
+            MainFormStateCheck();
+        }
+
+        /// <summary>
+        /// Final File main script sequence.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ManualLoadButtonFinalFile_Click(object sender, EventArgs e)
+        {
+            //Loading Final tempalte location saved in AppSetting
+            string path = Properties.Settings.Default.TheBayFinalTemplatePath;
+
+            //Copy the template to the desired outPut folder
+            //TODO Process the file locally first, then do the copy function afterwards
+            string newFinalFilename = lifeCycleDateTimePicker.Value.ToString("MM.dd.yyyy") + "_Daily_Workflow_Report_BAY";
+            string newFinalFullFilename = LifeCycleFileUtilities.CopyFile(path, Properties.Settings.Default.SaveLocationTheBayFinal, newFinalFilename);
+            Globals.TheBayOutputFinalFile = newFinalFullFilename;
+
+            Globals.FinalFilePrcoessSucessful = true;
+            MainFormStateCheck();
         }
 
         /// <summary>
@@ -97,26 +141,18 @@ namespace LifeCycleWorkflowTool
             }
         }
 
-        private void ManualLoadButtonWIP_Click(object sender, EventArgs e)
+
+        //===============Events=================
+
+        private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
         {
-            //Loading WIP work process
-            string path = Properties.Settings.Default.TheBayWipTemplatePath;
+            LifecycleSaveLocationsForm saveLocations = new LifecycleSaveLocationsForm();
 
-            //Make new file name for Wip file
-            string newWipFilename = "PIM_" + lifeCycleDateTimePicker.Value.ToString("M.d.yyyy")+"_Daily_Workflow_Report_BAY";
-            string newPath = LifeCycleFileUtilities.CopyFile(path, Properties.Settings.Default.DefaultSaveLocation, newWipFilename);
-
-            Globals.WipFileProcessSucessful = true;
-            MainFormStateCheck();
+            saveLocations.Show();
         }
 
-        private void ManualLoadButtonFinalFile_Click(object sender, EventArgs e)
-        {
-            //Loading Final work process
 
-            Globals.FinalFilePrcoessSucessful = true;
-            MainFormStateCheck();
-        }
+        
 
         private void ManualLoadWipShowFolder_Click(object sender, EventArgs e)
         {
@@ -164,10 +200,11 @@ namespace LifeCycleWorkflowTool
 
             //initialize the template locations, these are located on virtual network drive
             //TODO add file location validation, if network location is not avaialable, then terminate the program
-            Properties.Settings.Default.TheBayWipTemplatePath = 
-                @"C:\Users\Middle\source\repos\alwaysmiddle\LifeCycleWorkflowTool\ExcelTemplates\BAY_DailyWorkflow_Template.xlsm";
-            Properties.Settings.Default.TheBayFinalTemplatePath = 
-                @"C:\Users\Middle\source\repos\alwaysmiddle\LifeCycleWorkflowTool\ExcelTemplates\Workflow_Report_BAY.xlsx";
+            //TODO convert this into a user form.
+            Properties.Settings.Default.TheBayWipTemplatePath =
+                @"C:\Users\C991459\source\repos\LifeCycleWorkflowTool\ExcelTemplates\BAY_DailyWorkflow_Template.xlsm";
+            Properties.Settings.Default.TheBayFinalTemplatePath =
+                @"C:\Users\C991459\source\repos\LifeCycleWorkflowTool\ExcelTemplates\Workflow_Report_BAY.xlsx";
 
             //Set Generate WIP file button and Generate Final File to unavailable
             MainFormStateCheck();

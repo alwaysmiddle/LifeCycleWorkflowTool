@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifecycleWorkflowForm));
             this.WorkflowTabSettings = new System.Windows.Forms.TabPage();
+            this.SettingsButtonTemplateLocations = new System.Windows.Forms.Button();
             this.SettingsButtonWorksheetOptions = new System.Windows.Forms.Button();
             this.SettingsButtonSaveLocation = new System.Windows.Forms.Button();
             this.WorkflowTabManual = new System.Windows.Forms.TabPage();
@@ -55,6 +56,7 @@
             // WorkflowTabSettings
             // 
             this.WorkflowTabSettings.BackColor = System.Drawing.Color.Gainsboro;
+            this.WorkflowTabSettings.Controls.Add(this.SettingsButtonTemplateLocations);
             this.WorkflowTabSettings.Controls.Add(this.SettingsButtonWorksheetOptions);
             this.WorkflowTabSettings.Controls.Add(this.SettingsButtonSaveLocation);
             this.WorkflowTabSettings.Location = new System.Drawing.Point(4, 22);
@@ -64,13 +66,24 @@
             this.WorkflowTabSettings.TabIndex = 2;
             this.WorkflowTabSettings.Text = "Settings";
             // 
+            // SettingsButtonTemplateLocations
+            // 
+            this.SettingsButtonTemplateLocations.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SettingsButtonTemplateLocations.ForeColor = System.Drawing.Color.Black;
+            this.SettingsButtonTemplateLocations.Location = new System.Drawing.Point(262, 20);
+            this.SettingsButtonTemplateLocations.Name = "SettingsButtonTemplateLocations";
+            this.SettingsButtonTemplateLocations.Size = new System.Drawing.Size(236, 34);
+            this.SettingsButtonTemplateLocations.TabIndex = 5;
+            this.SettingsButtonTemplateLocations.Text = "Template Locations";
+            this.SettingsButtonTemplateLocations.UseVisualStyleBackColor = true;
+            // 
             // SettingsButtonWorksheetOptions
             // 
             this.SettingsButtonWorksheetOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SettingsButtonWorksheetOptions.ForeColor = System.Drawing.Color.Black;
-            this.SettingsButtonWorksheetOptions.Location = new System.Drawing.Point(24, 59);
+            this.SettingsButtonWorksheetOptions.Location = new System.Drawing.Point(20, 60);
             this.SettingsButtonWorksheetOptions.Name = "SettingsButtonWorksheetOptions";
-            this.SettingsButtonWorksheetOptions.Size = new System.Drawing.Size(183, 34);
+            this.SettingsButtonWorksheetOptions.Size = new System.Drawing.Size(236, 34);
             this.SettingsButtonWorksheetOptions.TabIndex = 4;
             this.SettingsButtonWorksheetOptions.Text = "Worksheet Options";
             this.SettingsButtonWorksheetOptions.UseVisualStyleBackColor = true;
@@ -80,11 +93,11 @@
             // 
             this.SettingsButtonSaveLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SettingsButtonSaveLocation.ForeColor = System.Drawing.Color.Black;
-            this.SettingsButtonSaveLocation.Location = new System.Drawing.Point(24, 19);
+            this.SettingsButtonSaveLocation.Location = new System.Drawing.Point(20, 20);
             this.SettingsButtonSaveLocation.Name = "SettingsButtonSaveLocation";
-            this.SettingsButtonSaveLocation.Size = new System.Drawing.Size(183, 34);
+            this.SettingsButtonSaveLocation.Size = new System.Drawing.Size(236, 34);
             this.SettingsButtonSaveLocation.TabIndex = 3;
-            this.SettingsButtonSaveLocation.Text = "Save Locations";
+            this.SettingsButtonSaveLocation.Text = "Output File Locations";
             this.SettingsButtonSaveLocation.UseVisualStyleBackColor = true;
             this.SettingsButtonSaveLocation.Click += new System.EventHandler(this.SettingsButtonSaveLocation_Click);
             // 
@@ -268,6 +281,7 @@
         private System.Windows.Forms.Button ManualLoadWipShowFolder;
         private System.Windows.Forms.Button ManualLoadButtonFinalFileShowFolder;
         private System.Windows.Forms.Button SettingsButtonWorksheetOptions;
+        private System.Windows.Forms.Button SettingsButtonTemplateLocations;
     }
 }
 
