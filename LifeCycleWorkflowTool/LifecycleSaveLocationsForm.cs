@@ -23,24 +23,24 @@ namespace LifeCycleWorkflowTool
         private void InitalizeTextBoxCollection()
         {
             SaveLocationsColl = new List<TextBox>();
-            SaveLocationsColl.Add(SaveLocationsWipValue);
-            SaveLocationsColl.Add(SaveLocationsFinalValue);
+            SaveLocationsColl.Add(TheBaySaveLocationsWipValue);
+            SaveLocationsColl.Add(TheBaySaveLocationsFinalValue);
         }
 
         private void ReadSavedLocations()
         {
-            SaveLocationsWipValue.Text = Properties.Settings.Default.SaveLocationTheBayWIP;
-            SaveLocationsFinalValue.Text = Properties.Settings.Default.SaveLocationTheBayFinal;
+            TheBaySaveLocationsWipValue.Text = Properties.Settings.Default.SaveLocationTheBayWIP;
+            TheBaySaveLocationsFinalValue.Text = Properties.Settings.Default.SaveLocationTheBayFinal;
         }
 
         private void SaveLocationsWipFilePicker_Click(object sender, EventArgs e)
         {
-            FileFolderPickerUtility.PopulateTextBox(SaveLocationsWipValue, 1);
+            FileFolderPickerUtility.PopulateTextBox(TheBaySaveLocationsWipValue, 1);
         }
 
         private void SaveLocationFinalFilePicker_Click(object sender, EventArgs e)
         {
-            FileFolderPickerUtility.PopulateTextBox(SaveLocationsFinalValue, 1);
+            FileFolderPickerUtility.PopulateTextBox(TheBaySaveLocationsFinalValue, 1);
         }
 
         /// <summary>
@@ -74,8 +74,8 @@ namespace LifeCycleWorkflowTool
 
             if (allValid)
             {
-                Properties.Settings.Default.SaveLocationTheBayWIP = SaveLocationsWipValue.Text;
-                Properties.Settings.Default.SaveLocationTheBayFinal = SaveLocationsFinalValue.Text;
+                Properties.Settings.Default.SaveLocationTheBayWIP = TheBaySaveLocationsWipValue.Text;
+                Properties.Settings.Default.SaveLocationTheBayFinal = TheBaySaveLocationsFinalValue.Text;
                 Properties.Settings.Default.Save();
                 this.Close();
             }

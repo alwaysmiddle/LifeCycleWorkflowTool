@@ -16,14 +16,21 @@ namespace LifeCycleWorkflowTool
         /// </summary>
         /// <param name="tBox"></param>
         /// <param name="pickerType"></param>
-        public static void PopulateTextBox(TextBox tBox, int pickerType = 0)
+        public static void PopulateTextBox(TextBox tBox, int pickerType = 0, string customFilter = "")
         {
             if (pickerType == 0)
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Title = "Open Input Files";
-                openFileDialog.Filter = "Data Files (.csv, .xlsx)|*.csv;*.xlsx|All Files (.*)|*.*";
 
+                if (customFilter == "")
+                {
+                    openFileDialog.Filter = "Data Files (.csv, .xlsx)|*.csv;*.xlsx|All Files (.*)|*.*";
+                }
+                else
+                {
+                    openFileDialog.Filter = customFilter + "|All files (.*)|*.*";
+                }
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     tBox.Text = openFileDialog.FileName;

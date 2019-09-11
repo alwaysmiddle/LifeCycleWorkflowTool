@@ -105,6 +105,12 @@
     <Compile Include="LifecycleSaveLocationsForm.Designer.cs">
       <DependentUpon>LifecycleSaveLocationsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LifecycleTemplateLocationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LifecycleTemplateLocationForm.Designer.cs">
+      <DependentUpon>LifecycleTemplateLocationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LifecycleWorksheetOptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LifecycleSaveLocationsForm.resx">
       <DependentUpon>LifecycleSaveLocationsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LifecycleTemplateLocationForm.resx">
+      <DependentUpon>LifecycleTemplateLocationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LifecycleWorksheetOptionsForm.resx">
       <DependentUpon>LifecycleWorksheetOptionsForm.cs</DependentUpon>

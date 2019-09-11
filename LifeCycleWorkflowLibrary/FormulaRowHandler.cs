@@ -48,15 +48,15 @@ namespace LifeCycleWorkflowLibrary
                 foreach (IXLCell formulaRowCell in passedWorksheet.Row(customSettings.FormulaeRow).CellsUsed())
                 {
                     //Data matching operation
-                    
-                    //if (!formulaRowCell.HasFormula && formulaRowCell.Value.ToString().IndexOf(MatchHeaderOperationKeyword) >= 0)
-                    //{
-                    //    MatchDataColumn(formulaRowCell);
-                    //}
-                    //else
-                    //{
+
+                    if (!formulaRowCell.HasFormula && formulaRowCell.Value.ToString().IndexOf(MatchHeaderOperationKeyword) >= 0)
+                    {
+                        MatchDataColumn(formulaRowCell);
+                    }
+                    else
+                    {
                         CopyFormula(formulaRowCell);
-                    //}
+                    }
                 }      
             }
 
@@ -69,12 +69,6 @@ namespace LifeCycleWorkflowLibrary
             {
                 var list = dt.Rows.OfType<DataRow>().Select(row => row.Field<string>(header)).ToList();
                 passedWorksheet.Cell(customSettings.HeaderRow + 1, cell.Address.ColumnNumber).InsertData(list);
-            }
-            else
-            {
-                passedWorksheet.Range(passedWorksheet.Cell(customSettings.HeaderRow + 1, cell.Address.ColumnNumber),
-                    passedWorksheet.Cell(passedWorksheet.LastRowUsed().RowNumber(), cell.Address.ColumnNumber)).Value =
-                    "null";
             }
 
         }

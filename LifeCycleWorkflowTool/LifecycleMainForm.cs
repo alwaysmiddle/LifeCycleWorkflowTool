@@ -214,5 +214,11 @@ namespace LifeCycleWorkflowTool
         {
             MainFormStateCheck();
         }
+
+        private void SettingsButtonTemplateLocations_Click(object sender, EventArgs e)
+        {
+            LifecycleTemplateLocationForm templateForm = new LifecycleTemplateLocationForm();
+            templateForm.ShowDialog();
+        }
     }
 }
