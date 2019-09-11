@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LifeCycleWorkflowLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,13 @@ namespace LifeCycleWorkflowTool
         public LifecycleWorksheetOptionsForm()
         {
             InitializeComponent();
+        }
+
+        private void WorksheetOptionsTabPageDetailsProduct_Click(object sender, EventArgs e)
+        {
+            WorksheetOptionsTabPageDetailsProduct.Text = Globals.TheBayTemplateWsNameDetailsProduct;
+            WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBayTemplateWsNameInactiveUpc;
+            WorksheetOptionsTabPageNosCombined.Text = Globals.TheBayTemplateWsNameNosCombined;
         }
     }
 }

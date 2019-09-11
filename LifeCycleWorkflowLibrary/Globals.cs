@@ -15,5 +15,10 @@ namespace LifeCycleWorkflowLibrary
         public static bool FinalFileProcesing { get; set; } = false;
         public static bool WipFileProcessSucessful { get; set; } = false;
         public static bool FinalFilePrcoessSucessful { get; set; } = false;
+
+        //Worksheet Names
+        public static string TheBayTemplateWsNameNosCombined { get; set; } = "NOS_Colour_Combined";
+        public static string TheBayTemplateWsNameInactiveUpc { get; set; } = "Inactive_UPC";
+        public static string TheBayTemplateWsNameDetailsProduct { get; set; } = "Details_Product";
     }
 }

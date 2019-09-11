@@ -30,21 +30,45 @@ namespace LifeCycleWorkflowTool
             detailsProductSetting.FormulaeRow = 3;
             detailsProductSetting.HeaderRow = 7;
             detailsProductSetting.ReferenceRow = 5;
-            worksheetSettings.SettingsCollection.Add("Details_Products", detailsProductSetting);
+            worksheetSettings.SettingsCollection.Add(Globals.TheBayTemplateWsNameDetailsProduct, detailsProductSetting);
 
             WorksheetCustomSettings inactiveUpcSetting = new WorksheetCustomSettings();
             inactiveUpcSetting.FormulaeRow = 2;
             inactiveUpcSetting.HeaderRow = 7;
             inactiveUpcSetting.ReferenceRow = 4;
-            worksheetSettings.SettingsCollection.Add("Inactive UPC", inactiveUpcSetting);
+            worksheetSettings.SettingsCollection.Add(Globals.TheBayTemplateWsNameInactiveUpc, inactiveUpcSetting);
 
             WorksheetCustomSettings nosCombinedSetting = new WorksheetCustomSettings();
             nosCombinedSetting.FormulaeRow = 1;
             nosCombinedSetting.HeaderRow = 2;
-            worksheetSettings.SettingsCollection.Add("NOS_Colour_Combined", nosCombinedSetting);
+            worksheetSettings.SettingsCollection.Add(Globals.TheBayTemplateWsNameNosCombined, nosCombinedSetting);
 
             worksheetSettings.Save();
 
+        }
+
+        /// <summary>
+        /// Responsible to set controls to correct state.
+        /// </summary>
+        private void MainFormStateCheck()
+        {
+            if (Globals.ManualInputFilesLoadedCheck && !Globals.WipFileProcessing && !Globals.WipFileProcessSucessful)
+            {
+                ManualLoadButtonWip.Enabled = true;
+            }
+            else
+            {
+                ManualLoadButtonWip.Enabled = false;
+            }
+
+            if (Globals.WipFileProcessSucessful && !Globals.FinalFileProcesing && !Globals.FinalFilePrcoessSucessful)
+            {
+                ManualLoadButtonFinalFile.Enabled = true;
+            }
+            else
+            {
+                ManualLoadButtonFinalFile.Enabled = false;
+            }
         }
 
         private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
