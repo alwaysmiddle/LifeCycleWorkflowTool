@@ -106,5 +106,29 @@ namespace LifeCycleWorkflowTool.Properties {
                 this["TheBayManualDataLoadInactiveUpcFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TheBayWipTemplatePath {
+            get {
+                return ((string)(this["TheBayWipTemplatePath"]));
+            }
+            set {
+                this["TheBayWipTemplatePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TheBayFinalTemplatePath {
+            get {
+                return ((string)(this["TheBayFinalTemplatePath"]));
+            }
+            set {
+                this["TheBayFinalTemplatePath"] = value;
+            }
+        }
     }
 }

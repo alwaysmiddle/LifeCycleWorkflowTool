@@ -31,12 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifecycleWorkflowForm));
             this.WorkflowTabSettings = new System.Windows.Forms.TabPage();
+            this.SettingsButtonWorksheetOptions = new System.Windows.Forms.Button();
             this.SettingsButtonSaveLocation = new System.Windows.Forms.Button();
             this.WorkflowTabManual = new System.Windows.Forms.TabPage();
             this.ManualLoadButtonFinalFileShowFolder = new System.Windows.Forms.Button();
             this.ManualLoadWipShowFolder = new System.Windows.Forms.Button();
             this.ManualLoadLabelDate = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.lifeCycleDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.ManualLoadProgressBar = new System.Windows.Forms.ProgressBar();
             this.ManualLoadButtonFinalFile = new System.Windows.Forms.Button();
             this.ManualLoadButtonWip = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@
             this.ManualTabLabelBanner = new System.Windows.Forms.Label();
             this.WorkflowTabControl = new System.Windows.Forms.TabControl();
             this.ManualLoadErorrProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.SettingsButtonWorksheetOptions = new System.Windows.Forms.Button();
             this.WorkflowTabSettings.SuspendLayout();
             this.WorkflowTabManual.SuspendLayout();
             this.WorkflowTabControl.SuspendLayout();
@@ -63,6 +63,18 @@
             this.WorkflowTabSettings.Size = new System.Drawing.Size(514, 243);
             this.WorkflowTabSettings.TabIndex = 2;
             this.WorkflowTabSettings.Text = "Settings";
+            // 
+            // SettingsButtonWorksheetOptions
+            // 
+            this.SettingsButtonWorksheetOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SettingsButtonWorksheetOptions.ForeColor = System.Drawing.Color.Black;
+            this.SettingsButtonWorksheetOptions.Location = new System.Drawing.Point(24, 59);
+            this.SettingsButtonWorksheetOptions.Name = "SettingsButtonWorksheetOptions";
+            this.SettingsButtonWorksheetOptions.Size = new System.Drawing.Size(183, 34);
+            this.SettingsButtonWorksheetOptions.TabIndex = 4;
+            this.SettingsButtonWorksheetOptions.Text = "Worksheet Options";
+            this.SettingsButtonWorksheetOptions.UseVisualStyleBackColor = true;
+            this.SettingsButtonWorksheetOptions.Click += new System.EventHandler(this.SettingsButtonWorksheetOptions_Click);
             // 
             // SettingsButtonSaveLocation
             // 
@@ -82,7 +94,7 @@
             this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonFinalFileShowFolder);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadWipShowFolder);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadLabelDate);
-            this.WorkflowTabManual.Controls.Add(this.dateTimePicker1);
+            this.WorkflowTabManual.Controls.Add(this.lifeCycleDateTimePicker);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadProgressBar);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonFinalFile);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonWip);
@@ -127,12 +139,12 @@
             this.ManualLoadLabelDate.TabIndex = 8;
             this.ManualLoadLabelDate.Text = "Generated File Date: ";
             // 
-            // dateTimePicker1
+            // lifeCycleDateTimePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(203, 72);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(222, 20);
-            this.dateTimePicker1.TabIndex = 7;
+            this.lifeCycleDateTimePicker.Location = new System.Drawing.Point(203, 72);
+            this.lifeCycleDateTimePicker.Name = "lifeCycleDateTimePicker";
+            this.lifeCycleDateTimePicker.Size = new System.Drawing.Size(222, 20);
+            this.lifeCycleDateTimePicker.TabIndex = 7;
             // 
             // ManualLoadProgressBar
             // 
@@ -218,18 +230,6 @@
             this.ManualLoadErorrProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ManualLoadErorrProvider.ContainerControl = this;
             // 
-            // SettingsButtonWorksheetOptions
-            // 
-            this.SettingsButtonWorksheetOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SettingsButtonWorksheetOptions.ForeColor = System.Drawing.Color.Black;
-            this.SettingsButtonWorksheetOptions.Location = new System.Drawing.Point(24, 59);
-            this.SettingsButtonWorksheetOptions.Name = "SettingsButtonWorksheetOptions";
-            this.SettingsButtonWorksheetOptions.Size = new System.Drawing.Size(183, 34);
-            this.SettingsButtonWorksheetOptions.TabIndex = 4;
-            this.SettingsButtonWorksheetOptions.Text = "Worksheet Options";
-            this.SettingsButtonWorksheetOptions.UseVisualStyleBackColor = true;
-            this.SettingsButtonWorksheetOptions.Click += new System.EventHandler(this.SettingsButtonWorksheetOptions_Click);
-            // 
             // LifecycleWorkflowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,6 +239,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LifecycleWorkflowForm";
             this.Text = "Lifecycle Excel Workflow Generator";
+            this.Activated += new System.EventHandler(this.LifecycleWorkflowForm_Activated);
+            this.Load += new System.EventHandler(this.LifecycleWorkflowForm_Load);
             this.WorkflowTabSettings.ResumeLayout(false);
             this.WorkflowTabManual.ResumeLayout(false);
             this.WorkflowTabManual.PerformLayout();
@@ -253,7 +255,7 @@
         private System.Windows.Forms.TabPage WorkflowTabSettings;
         private System.Windows.Forms.Button SettingsButtonSaveLocation;
         private System.Windows.Forms.TabPage WorkflowTabManual;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker lifeCycleDateTimePicker;
         private System.Windows.Forms.ProgressBar ManualLoadProgressBar;
         private System.Windows.Forms.Button ManualLoadButtonFinalFile;
         private System.Windows.Forms.Button ManualLoadButtonWip;

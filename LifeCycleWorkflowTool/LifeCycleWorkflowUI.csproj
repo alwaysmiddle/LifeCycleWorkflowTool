@@ -93,6 +93,9 @@
     <Compile Include="LifecycleMainForm.Designer.cs">
       <DependentUpon>LifecycleMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LifecycleMainFormLogic.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LifecycleManualLoadTheBayForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,12 +139,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ExcelTemplates\BAY_DailyWorkflow_Template.xlsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ExcelTemplates\Workflow_Report_BAY.xlsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

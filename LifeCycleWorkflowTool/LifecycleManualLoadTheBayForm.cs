@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using LifeCycleWorkflowLibrary;
 
 namespace LifeCycleWorkflowTool
 {
@@ -73,6 +74,9 @@ namespace LifeCycleWorkflowTool
                 Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile = ManualDataLoadInactiveUpcValue.Text;
 
                 Properties.Settings.Default.Save();
+
+                //Release the control on Wip lock
+                Globals.ManualInputFilesLoadedCheck = true;
 
                 //close the form, then marks the files are ready for loaded
                 this.Close();

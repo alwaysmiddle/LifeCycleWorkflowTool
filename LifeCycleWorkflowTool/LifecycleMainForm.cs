@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,8 +20,8 @@ namespace LifeCycleWorkflowTool
         public LifecycleWorkflowForm()
         {
             InitializeComponent();
-            Properties.Settings.Default.DefaultSaveLocation = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +
-                                                              @"\LifecycleDailyWorkflow";
+
+            //TODO implement this as user settings
 
             //construct defaut worksheetsettings for testing
             WorksheetCustomSettingsHolder worksheetSettings = new WorksheetCustomSettingsHolder();
@@ -75,12 +76,22 @@ namespace LifeCycleWorkflowTool
         private void ManualLoadButtonWIP_Click(object sender, EventArgs e)
         {
             //Loading WIP work process
-            
+            string path = Properties.Settings.Default.TheBayWipTemplatePath;
+
+            //Make new file name for Wip file
+            string newWipFilename = "PIM_" + lifeCycleDateTimePicker.Value.ToString("M.d.yyyy")+"_Daily_Workflow_Report_BAY";
+            string newPath = LifeCycleFileUtilities.CopyFile(path, Properties.Settings.Default.DefaultSaveLocation, newWipFilename);
+
+            Globals.WipFileProcessSucessful = true;
+            MainFormStateCheck();
         }
 
         private void ManualLoadButtonFinalFile_Click(object sender, EventArgs e)
         {
             //Loading Final work process
+
+            Globals.FinalFilePrcoessSucessful = true;
+            MainFormStateCheck();
         }
 
         private void ManualLoadWipShowFolder_Click(object sender, EventArgs e)
@@ -108,14 +119,39 @@ namespace LifeCycleWorkflowTool
                 Directory.CreateDirectory(Properties.Settings.Default.DefaultSaveLocation);
                 Process.Start(Properties.Settings.Default.DefaultSaveLocation);
             }
-            Directory.CreateDirectory(saveLocation);
-            Process.Start(saveLocation);
+            else
+            {
+                Directory.CreateDirectory(saveLocation);
+                Process.Start(saveLocation);
+            }
         }
 
         private void SettingsButtonWorksheetOptions_Click(object sender, EventArgs e)
         {
             LifecycleWorksheetOptionsForm optionsForm = new LifecycleWorksheetOptionsForm();
             optionsForm.ShowDialog();
+        }
+
+        private void LifecycleWorkflowForm_Load(object sender, EventArgs e)
+        {
+            //Set the default save location in app settings, these are used to persist through different runs
+            Properties.Settings.Default.DefaultSaveLocation = 
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\LifecycleDailyWorkflow";
+
+            //initialize the template locations, these are located on virtual network drive
+            //TODO add file location validation, if network location is not avaialable, then terminate the program
+            Properties.Settings.Default.TheBayWipTemplatePath = 
+                @"C:\Users\Middle\source\repos\alwaysmiddle\LifeCycleWorkflowTool\ExcelTemplates\BAY_DailyWorkflow_Template.xlsm";
+            Properties.Settings.Default.TheBayFinalTemplatePath = 
+                @"C:\Users\Middle\source\repos\alwaysmiddle\LifeCycleWorkflowTool\ExcelTemplates\Workflow_Report_BAY.xlsx";
+
+            //Set Generate WIP file button and Generate Final File to unavailable
+            MainFormStateCheck();
+        }
+
+        private void LifecycleWorkflowForm_Activated(object sender, EventArgs e)
+        {
+            MainFormStateCheck();
         }
     }
 }
