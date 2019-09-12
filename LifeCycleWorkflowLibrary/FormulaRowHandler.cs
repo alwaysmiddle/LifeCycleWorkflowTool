@@ -1,10 +1,6 @@
 ﻿using ClosedXML.Excel;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LifeCycleWorkflowLibrary
@@ -30,6 +26,7 @@ namespace LifeCycleWorkflowLibrary
             }
             else
             {
+                //TODO convert this into Debug
                 MessageBox.Show("Worksheet: " + worksheet.Name + " custom settings reading failed!");
             }
         }
@@ -38,6 +35,7 @@ namespace LifeCycleWorkflowLibrary
         {
             if (passedWorksheet.Row(customSettings.FormulaeRow).IsEmpty())
             {
+                //TODO convert this into debug
                 MessageBox.Show("Worksheet: " + passedWorksheet.Name + " Row: " + customSettings.FormulaeRow +
                                 " is empty!");
             }
@@ -69,6 +67,7 @@ namespace LifeCycleWorkflowLibrary
             {
                 var list = dt.Rows.OfType<DataRow>().Select(row => row.Field<string>(header)).ToList();
                 passedWorksheet.Cell(customSettings.HeaderRow + 1, cell.Address.ColumnNumber).InsertData(list);
+                list = null;
             }
 
         }

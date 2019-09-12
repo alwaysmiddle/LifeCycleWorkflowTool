@@ -23,28 +23,36 @@ namespace LifeCycleWorkflowLibrary
 
             string wsName = Globals.TheBayTemplateWsNameNosCombined;
 
-            XLWorkbook templateWb = new XLWorkbook(Globals.TheBayOutputWipFile);
-            IXLWorksheet wsNos = templateWb.Worksheet(wsName);
-            DataTable dt = DataTableImporter.ReadCsvFile(NosFileName);
-
-            //reading customized settings
-            WorksheetCustomSettingsHolder allCustomSettings = new WorksheetCustomSettingsHolder();
-            allCustomSettings = WorksheetCustomSettingsHolder.Load();
-            WorksheetCustomSettings customSettings = new WorksheetCustomSettings();
-            customSettings = allCustomSettings.SettingsCollection[wsName];
-
-            if (wsNos.LastRowUsed().RowNumber() > customSettings.HeaderRow)
+            using (XLWorkbook templateWb = new XLWorkbook(Globals.TheBayOutputWipFile))
             {
-                wsNos.Range(wsNos.Cell(customSettings.HeaderRow+1, 1), wsNos.LastCell()).Clear();
+                templateWb.EventTracking = XLEventTracking.Disabled;
+                IXLWorksheet wsNos = templateWb.Worksheet(wsName);
+                DataTable dt = DataTableImporter.ReadCsvFile(NosFileName);
+
+                //reading customized settings
+                WorksheetCustomSettingsHolder allCustomSettings = new WorksheetCustomSettingsHolder();
+                allCustomSettings = WorksheetCustomSettingsHolder.Load();
+                WorksheetCustomSettings customSettings = new WorksheetCustomSettings();
+                customSettings = allCustomSettings.SettingsCollection[wsName];
+
+                if (wsNos.LastRowUsed().RowNumber() > customSettings.HeaderRow)
+                {
+                    wsNos.Range(wsNos.Cell(customSettings.HeaderRow + 1, 1), wsNos.LastCell()).Clear();
+                }
+
+                wsNos.Cell(customSettings.HeaderRow + 1, 1).InsertData(dt.AsEnumerable());
+
+                FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos);
+                processWsFormula.ProcessFormulaRow(dt);
+
+                templateWb.Save();
+
+                //clean up
+                dt.Dispose();
+                dt = null;
             }
 
-            wsNos.Cell(customSettings.HeaderRow + 1, 1).InsertData(dt.AsEnumerable());
-
-            FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos);
-            processWsFormula.ProcessFormulaRow(dt);
-
-            templateWb.Save();
-
+            
             return false;
         }
 
@@ -62,6 +70,7 @@ namespace LifeCycleWorkflowLibrary
             string dataWsName = Globals.TheBayTemplateWsNameInactiveUpcData;
 
             XLWorkbook templateWb = new XLWorkbook(Globals.TheBayOutputWipFile);
+            templateWb.EventTracking = XLEventTracking.Disabled;
             IXLWorksheet wsInactive = templateWb.Worksheet(wsName);
             IXLWorksheet wsInactiveData = templateWb.Worksheet(dataWsName);
             DataTable dt = DataTableImporter.ReadCsvFile(InactiveUpcFilename);
@@ -111,6 +120,7 @@ namespace LifeCycleWorkflowLibrary
             string dataWsName = Globals.TheBayTemplateWsNameDetailsProductData;
 
             XLWorkbook templateWb = new XLWorkbook(Globals.TheBayOutputWipFile);
+            templateWb.EventTracking = XLEventTracking.Disabled;
             IXLWorksheet wsDetailsProduct = templateWb.Worksheet(wsName);
             IXLWorksheet wsDetailsProductData = templateWb.Worksheet(dataWsName);
             DataTable dt = DataTableImporter.ReadCsvFile(productDetailsFilename);

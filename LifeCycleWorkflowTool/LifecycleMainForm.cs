@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ClosedXML.Excel;
 using LifeCycleWorkflowLibrary;
 
 namespace LifeCycleWorkflowTool
@@ -95,8 +86,8 @@ namespace LifeCycleWorkflowTool
 
             //Running Main Processes
             TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
-            TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
-            TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
+            //TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
+            //TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
 
             Globals.WipFileProcessSucessful = true;
             MainFormStateCheck();
@@ -198,13 +189,8 @@ namespace LifeCycleWorkflowTool
             Properties.Settings.Default.DefaultSaveLocation = 
                 Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\LifecycleDailyWorkflow";
 
-            //initialize the template locations, these are located on virtual network drive
             //TODO add file location validation, if network location is not avaialable, then terminate the program
-            //TODO convert this into a user form.
-            Properties.Settings.Default.TheBayWipTemplatePath =
-                @"C:\Users\C991459\source\repos\LifeCycleWorkflowTool\ExcelTemplates\BAY_DailyWorkflow_Template.xlsm";
-            Properties.Settings.Default.TheBayFinalTemplatePath =
-                @"C:\Users\C991459\source\repos\LifeCycleWorkflowTool\ExcelTemplates\Workflow_Report_BAY.xlsx";
+            //TODO check user settings on startup, give warning if some critical values are not set
 
             //Set Generate WIP file button and Generate Final File to unavailable
             MainFormStateCheck();

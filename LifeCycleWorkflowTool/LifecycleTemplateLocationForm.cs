@@ -35,12 +35,12 @@ namespace LifeCycleWorkflowTool
 
         private void TemplateLocationsWipFilePicker_Click(object sender, EventArgs e)
         {
-            FileFolderPickerUtility.PopulateTextBox(TheBayTemplateLocationsWipValue, 0, "Template files (.xlsm, .xlsx)|*.xlsm;*.xlsx)");
+            FileFolderPickerUtility.PopulateTextBox(TheBayTemplateLocationsWipValue, 0, "Template files (.xlsm, .xlsx)|*.xlsm;*.xlsx");
         }
 
         private void TemplateLocationsFinalFilePicker_Click(object sender, EventArgs e)
         {
-            FileFolderPickerUtility.PopulateTextBox(TheBayTemplateLocationsFinalValue, 0, "Template files (.xlsm, .xlsx)|*.xlsm;*.xlsx)");
+            FileFolderPickerUtility.PopulateTextBox(TheBayTemplateLocationsFinalValue, 0, "Template files (.xlsm, .xlsx)|*.xlsm;*.xlsx");
         }
 
         private void TemplateLocationsButtonSaveSettings_Click(object sender, EventArgs e)
