@@ -46,7 +46,6 @@ namespace LifeCycleWorkflowTool
 
         private void ManualDataLoadConfirmButton_Click(object sender, EventArgs e)
         {
-            ToolTip errorTooltip = new ToolTip();
             bool allValid = true;
 
             foreach (var tBox in TextBoxColl)
@@ -66,12 +65,10 @@ namespace LifeCycleWorkflowTool
 
             if (allValid)
             {
-                Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile = ManualDataLoadInventoryAmountValue.Text;
-                Properties.Settings.Default.TheBayManualDataLoadNosFile = ManualDataLoadNosValue.Text;
-                Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile = ManualDataLoadNosCombinedValue.Text;
-                Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile = ManualDataLoadInactiveUpcValue.Text;
-
-                Properties.Settings.Default.Save();
+                StoredSettings.ManualInputFileNames.TheBay.InventoryAmountFile = ManualDataLoadInventoryAmountValue.Text;
+                StoredSettings.ManualInputFileNames.TheBay.NotOnSiteFile = ManualDataLoadNosValue.Text;
+                StoredSettings.ManualInputFileNames.TheBay.NosCombinedFile = ManualDataLoadNosCombinedValue.Text;
+                StoredSettings.ManualInputFileNames.TheBay.InactiveUpcFile = ManualDataLoadInactiveUpcValue.Text;
 
                 //Release the control on Wip lock
                 Globals.ManualInputFilesLoadedCheck = true;
@@ -84,10 +81,10 @@ namespace LifeCycleWorkflowTool
 
         private void ManualDataLoadRestoreRecentButton_Click(object sender, EventArgs e)
         {
-            ManualDataLoadInventoryAmountValue.Text = Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile;
-            ManualDataLoadNosValue.Text = Properties.Settings.Default.TheBayManualDataLoadNosFile;
-            ManualDataLoadNosCombinedValue.Text = Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile;
-            ManualDataLoadInactiveUpcValue.Text = Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile;
+            ManualDataLoadInventoryAmountValue.Text = StoredSettings.ManualInputFileNames.TheBay.InventoryAmountFile;
+            ManualDataLoadNosValue.Text = StoredSettings.ManualInputFileNames.TheBay.NotOnSiteFile;
+            ManualDataLoadNosCombinedValue.Text = StoredSettings.ManualInputFileNames.TheBay.NosCombinedFile;
+            ManualDataLoadInactiveUpcValue.Text = StoredSettings.ManualInputFileNames.TheBay.InactiveUpcFile;
         }
     }
 }

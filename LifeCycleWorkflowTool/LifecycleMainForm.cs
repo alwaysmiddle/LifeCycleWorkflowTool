@@ -139,6 +139,7 @@ namespace LifeCycleWorkflowTool
             using(LifecycleSaveLocationsForm saveLocations = new LifecycleSaveLocationsForm())
             {
                 saveLocations.ShowDialog();
+                saveLocations.Dispose();
             }
         }
 
@@ -179,6 +180,7 @@ namespace LifeCycleWorkflowTool
             using (LifecycleWorksheetOptionsForm optionsForm = new LifecycleWorksheetOptionsForm())
             {
                 optionsForm.ShowDialog();
+                optionsForm.Dispose();
             }
         }
 
@@ -205,6 +207,7 @@ namespace LifeCycleWorkflowTool
             using (LifecycleTemplateLocationForm templateForm = new LifecycleTemplateLocationForm())
             {
                 templateForm.ShowDialog();
+                templateForm.Dispose();
             }
         }
     }

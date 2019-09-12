@@ -12,122 +12,14 @@ namespace LifeCycleWorkflowTool.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.2.0.0")]
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SaveLocationTheBayWIP {
-            get {
-                return ((string)(this["SaveLocationTheBayWIP"]));
-            }
-            set {
-                this["SaveLocationTheBayWIP"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SaveLocationTheBayFinal {
-            get {
-                return ((string)(this["SaveLocationTheBayFinal"]));
-            }
-            set {
-                this["SaveLocationTheBayFinal"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DefaultSaveLocation {
-            get {
-                return ((string)(this["DefaultSaveLocation"]));
-            }
-            set {
-                this["DefaultSaveLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TheBayManualDataLoadInventoryAmountFile {
-            get {
-                return ((string)(this["TheBayManualDataLoadInventoryAmountFile"]));
-            }
-            set {
-                this["TheBayManualDataLoadInventoryAmountFile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TheBayManualDataLoadNosFile {
-            get {
-                return ((string)(this["TheBayManualDataLoadNosFile"]));
-            }
-            set {
-                this["TheBayManualDataLoadNosFile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TheBayManualDataLoadNosCombinedFile {
-            get {
-                return ((string)(this["TheBayManualDataLoadNosCombinedFile"]));
-            }
-            set {
-                this["TheBayManualDataLoadNosCombinedFile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TheBayManualDataLoadInactiveUpcFile {
-            get {
-                return ((string)(this["TheBayManualDataLoadInactiveUpcFile"]));
-            }
-            set {
-                this["TheBayManualDataLoadInactiveUpcFile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TheBayWipTemplatePath {
-            get {
-                return ((string)(this["TheBayWipTemplatePath"]));
-            }
-            set {
-                this["TheBayWipTemplatePath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TheBayFinalTemplatePath {
-            get {
-                return ((string)(this["TheBayFinalTemplatePath"]));
-            }
-            set {
-                this["TheBayFinalTemplatePath"] = value;
             }
         }
     }

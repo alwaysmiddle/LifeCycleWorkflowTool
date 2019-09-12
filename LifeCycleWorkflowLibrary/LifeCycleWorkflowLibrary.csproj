@@ -72,6 +72,7 @@
     <Compile Include="DataImporter.cs" />
     <Compile Include="FormulaRowHandler.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="LifecycleFileUtilities.cs" />
     <Compile Include="MicrostrategyConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -79,7 +80,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="TheBayInputData.cs" />
+    <Compile Include="StoredSettings.cs" />
     <Compile Include="TheBayManualFileProcess.cs" />
     <Compile Include="WorksheetCustomSettings.cs" />
   </ItemGroup>
@@ -87,7 +88,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

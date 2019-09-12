@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace LifeCycleWorkflowTool
 {
@@ -49,34 +43,5 @@ namespace LifeCycleWorkflowTool
         }
     }
 
-    static class LifeCycleFileUtilities
-    {
-        /// <summary>
-        /// Performs FileCopy, create the path supplied. Provide option to Rename the file, this method will read the original file extension and rename the file to the same extension.
-        /// Returns the new file's fullname.
-        /// </summary>
-        /// <param name="FileToCopy"></param>
-        /// <param name="CopyToPath"></param>
-        /// <param name="RenameTo"></param>
-        /// <returns></returns>
-        public static string CopyFile(string FileToCopy, string CopyToPath, string RenameTo = "")
-        {
-            Directory.CreateDirectory(CopyToPath);
-
-            if (RenameTo == "")
-            {
-                string destPath = Path.Combine(CopyToPath, Path.GetFileName(FileToCopy));
-                File.Copy(FileToCopy, destPath, true);
-
-                return destPath;
-            }
-            else
-            {
-                string destPath = Path.Combine(CopyToPath, RenameTo + Path.GetExtension(FileToCopy));
-                File.Copy(FileToCopy, destPath, true);
-
-                return destPath;
-            }
-        }
-    }
+    
 }
