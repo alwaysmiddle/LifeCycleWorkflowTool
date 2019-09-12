@@ -59,6 +59,7 @@ namespace LifeCycleWorkflowTool
                 }
                 else
                 {
+                    validateTBox.ErrorMessage = "Please set valid files for templates.";
                     TemplateLocationsErrorProvider.SetError(tBox, validateTBox.ErrorMessage);
                     allValid = false;
                 }
@@ -66,8 +67,8 @@ namespace LifeCycleWorkflowTool
 
             if (allValid)
             {
-                Properties.Settings.Default.SaveLocationTheBayWIP = TheBayTemplateLocationsWipValue.Text;
-                Properties.Settings.Default.SaveLocationTheBayFinal = TheBayTemplateLocationsFinalValue.Text;
+                Properties.Settings.Default.TheBayWipTemplatePath = TheBayTemplateLocationsWipValue.Text;
+                Properties.Settings.Default.TheBayFinalTemplatePath = TheBayTemplateLocationsFinalValue.Text;
                 Properties.Settings.Default.Save();
                 this.Close();
             }
