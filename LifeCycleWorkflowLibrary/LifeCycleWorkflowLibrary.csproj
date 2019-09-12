@@ -79,6 +79,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="TheBayInputData.cs" />
     <Compile Include="TheBayManualFileProcess.cs" />
     <Compile Include="WorksheetCustomSettings.cs" />
   </ItemGroup>

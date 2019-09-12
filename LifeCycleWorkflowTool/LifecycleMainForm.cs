@@ -62,9 +62,6 @@ namespace LifeCycleWorkflowTool
             }
         }
 
-
-        
-
         //=========Main Functionality==============
 
         /// <summary>
@@ -123,8 +120,10 @@ namespace LifeCycleWorkflowTool
             if (ManualTextBoxBanner.Text != "")
             {
                 ManualLoadErorrProvider.Clear();
-                LifecycleManualLoadTheBayForm manualLoad = new LifecycleManualLoadTheBayForm();
-                manualLoad.ShowDialog();
+                using (LifecycleManualLoadTheBayForm manualLoad = new LifecycleManualLoadTheBayForm())
+                {
+                    manualLoad.ShowDialog();
+                }
             }
             else
             {
@@ -137,13 +136,11 @@ namespace LifeCycleWorkflowTool
 
         private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
         {
-            LifecycleSaveLocationsForm saveLocations = new LifecycleSaveLocationsForm();
-
-            saveLocations.Show();
+            using(LifecycleSaveLocationsForm saveLocations = new LifecycleSaveLocationsForm())
+            {
+                saveLocations.ShowDialog();
+            }
         }
-
-
-        
 
         private void ManualLoadWipShowFolder_Click(object sender, EventArgs e)
         {
@@ -179,8 +176,10 @@ namespace LifeCycleWorkflowTool
 
         private void SettingsButtonWorksheetOptions_Click(object sender, EventArgs e)
         {
-            LifecycleWorksheetOptionsForm optionsForm = new LifecycleWorksheetOptionsForm();
-            optionsForm.ShowDialog();
+            using (LifecycleWorksheetOptionsForm optionsForm = new LifecycleWorksheetOptionsForm())
+            {
+                optionsForm.ShowDialog();
+            }
         }
 
         private void LifecycleWorkflowForm_Load(object sender, EventArgs e)
@@ -203,8 +202,10 @@ namespace LifeCycleWorkflowTool
 
         private void SettingsButtonTemplateLocations_Click(object sender, EventArgs e)
         {
-            LifecycleTemplateLocationForm templateForm = new LifecycleTemplateLocationForm();
-            templateForm.ShowDialog();
+            using (LifecycleTemplateLocationForm templateForm = new LifecycleTemplateLocationForm())
+            {
+                templateForm.ShowDialog();
+            }
         }
     }
 }
