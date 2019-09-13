@@ -1,12 +1,5 @@
 ﻿using LifeCycleWorkflowLibrary;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LifeCycleWorkflowTool
@@ -20,9 +13,9 @@ namespace LifeCycleWorkflowTool
 
         private void WorksheetOptionsTabPageDetailsProduct_Click(object sender, EventArgs e)
         {
-            WorksheetOptionsTabPageDetailsProduct.Text = Globals.TheBayTemplateWsNameDetailsProduct;
-            WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBayTemplateWsNameInactiveUpc;
-            WorksheetOptionsTabPageNosCombined.Text = Globals.TheBayTemplateWsNameNosCombined;
+            WorksheetOptionsTabPageDetailsProduct.Text = Globals.TheBay.TemplateWorksheetNames.TheBayTemplateWsNameDetailsProduct;
+            WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBay.TemplateWorksheetNames.TheBayTemplateWsNameInactiveUpc;
+            WorksheetOptionsTabPageNosCombined.Text = Globals.TheBay.TemplateWorksheetNames.TheBayTemplateWsNameNosCombined;
         }
     }
 }

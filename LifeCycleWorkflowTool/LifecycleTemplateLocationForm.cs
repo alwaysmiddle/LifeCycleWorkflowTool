@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LifeCycleWorkflowLibrary;
 using System.Windows.Forms;
 
 namespace LifeCycleWorkflowTool
@@ -29,8 +24,8 @@ namespace LifeCycleWorkflowTool
 
         private void ReadSavedLocations()
         {
-            TheBayTemplateLocationsWipValue.Text = Properties.Settings.Default.TheBayWipTemplatePath;
-            TheBayTemplateLocationsFinalValue.Text = Properties.Settings.Default.TheBayFinalTemplatePath;
+            TheBayTemplateLocationsWipValue.Text = StoredSettings.OutputDirectory.TheBay.WipOutputLocation;
+            TheBayTemplateLocationsFinalValue.Text = StoredSettings.OutputDirectory.TheBay.WipOutputLocation;
         }
 
         private void TemplateLocationsWipFilePicker_Click(object sender, EventArgs e)
@@ -67,9 +62,8 @@ namespace LifeCycleWorkflowTool
 
             if (allValid)
             {
-                Properties.Settings.Default.TheBayWipTemplatePath = TheBayTemplateLocationsWipValue.Text;
-                Properties.Settings.Default.TheBayFinalTemplatePath = TheBayTemplateLocationsFinalValue.Text;
-                Properties.Settings.Default.Save();
+                StoredSettings.TemplateLocations.TheBay.WipTempalteLocation = TheBayTemplateLocationsWipValue.Text;
+                StoredSettings.TemplateLocations.TheBay.FinalTemplateLocation = TheBayTemplateLocationsFinalValue.Text;
                 this.Close();
             }
         }

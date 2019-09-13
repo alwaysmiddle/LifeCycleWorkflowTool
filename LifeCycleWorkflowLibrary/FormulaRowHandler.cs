@@ -9,7 +9,7 @@ namespace LifeCycleWorkflowLibrary
     {
         private WorksheetCustomSettings customSettings = new WorksheetCustomSettings();
         private static IXLWorksheet passedWorksheet { get; set; }
-        public static string MatchHeaderOperationKeyword { get; set; } = Globals.MatchHeaderOperationKeyword;
+        public static string MatchHeaderOperationKeyword { get; set; } = Globals.General.MatchHeaderOperationKeyword;
         private DataTable dt { get; set; }
 
         /// <summary>

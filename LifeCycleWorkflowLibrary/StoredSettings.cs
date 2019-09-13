@@ -13,11 +13,28 @@ namespace LifeCycleWorkflowLibrary
             Properties.Settings.Default.Save();
         }
 
+
+        /// <summary>
+        /// The output files directory for this applications.
+        /// </summary>
         public static class OutputDirectory
         {
             public static class TheBay
             {
                 //TODO implement a default option checker
+
+                public static bool UseDefaultLocation
+                {
+                    get
+                    {
+                        return Properties.Settings.Default.UseDefaultOutputLocations;
+                    }
+                    set
+                    {
+                        Properties.Settings.Default.UseDefaultOutputLocations = value;
+                    }
+                }
+
 
                 //Work in progress output location
                 public static string WipOutputLocation
@@ -28,7 +45,6 @@ namespace LifeCycleWorkflowLibrary
                     }
                     set
                     {
-                        if(Properties.Settings.Default.OutputLocationTheBayWip == "")
                         Properties.Settings.Default.OutputLocationTheBayWip = value;
                         Save();
                     }
@@ -48,14 +64,46 @@ namespace LifeCycleWorkflowLibrary
                     }
                 }
             }
-
-
-
         }
 
+        /// <summary>
+        /// Template files locations.
+        /// </summary>
         public static class TemplateLocations
         {
             //Template locations
+            public static class TheBay
+            {
+                //TODO implement a default option checker
+
+                //Work in progress output location
+                public static string WipTempalteLocation
+                {
+                    get
+                    {
+                        return Properties.Settings.Default.TemplatePathTheBayWip;
+                    }
+                    set
+                    {
+                        Properties.Settings.Default.TemplatePathTheBayWip = value;
+                        Save();
+                    }
+                }
+
+                //Work in progress output location
+                public static string FinalTemplateLocation
+                {
+                    get
+                    {
+                        return Properties.Settings.Default.TemplatePathTheBayFinal;
+                    }
+                    set
+                    {
+                        Properties.Settings.Default.TemplatePathTheBayFinal = value;
+                        Save();
+                    }
+                }
+            }
         }
 
         /// <summary>

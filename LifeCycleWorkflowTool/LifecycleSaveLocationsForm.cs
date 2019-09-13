@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LifeCycleWorkflowLibrary;
 using System.Windows.Forms;
 
 namespace LifeCycleWorkflowTool
@@ -23,24 +18,24 @@ namespace LifeCycleWorkflowTool
         private void InitalizeTextBoxCollection()
         {
             SaveLocationsColl = new List<TextBox>();
-            SaveLocationsColl.Add(TheBaySaveLocationsWipValue);
-            SaveLocationsColl.Add(TheBaySaveLocationsFinalValue);
+            SaveLocationsColl.Add(TheBayOutputLocationWipValue);
+            SaveLocationsColl.Add(TheBayOutputLocationFinalValue);
         }
 
         private void ReadSavedLocations()
         {
-            TheBaySaveLocationsWipValue.Text = Properties.Settings.Default.SaveLocationTheBayWIP;
-            TheBaySaveLocationsFinalValue.Text = Properties.Settings.Default.SaveLocationTheBayFinal;
+            TheBayOutputLocationWipValue.Text = StoredSettings.OutputDirectory.TheBay.WipOutputLocation;
+            TheBayOutputLocationFinalValue.Text = StoredSettings.OutputDirectory.TheBay.FinalOutputLocation;
         }
 
         private void SaveLocationsWipFilePicker_Click(object sender, EventArgs e)
         {
-            FileFolderPickerUtility.PopulateTextBox(TheBaySaveLocationsWipValue, 1);
+            FileFolderPickerUtility.PopulateTextBox(TheBayOutputLocationWipValue, 1);
         }
 
         private void SaveLocationFinalFilePicker_Click(object sender, EventArgs e)
         {
-            FileFolderPickerUtility.PopulateTextBox(TheBaySaveLocationsFinalValue, 1);
+            FileFolderPickerUtility.PopulateTextBox(TheBayOutputLocationFinalValue, 1);
         }
 
         /// <summary>
@@ -74,8 +69,8 @@ namespace LifeCycleWorkflowTool
 
             if (allValid)
             {
-                Properties.Settings.Default.SaveLocationTheBayWIP = TheBaySaveLocationsWipValue.Text;
-                Properties.Settings.Default.SaveLocationTheBayFinal = TheBaySaveLocationsFinalValue.Text;
+                Properties.Settings.Default.SaveLocationTheBayWIP = TheBayOutputLocationWipValue.Text;
+                Properties.Settings.Default.SaveLocationTheBayFinal = TheBayOutputLocationFinalValue.Text;
                 Properties.Settings.Default.Save();
                 this.Close();
             }

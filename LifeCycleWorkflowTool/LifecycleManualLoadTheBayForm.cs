@@ -71,8 +71,7 @@ namespace LifeCycleWorkflowTool
                 StoredSettings.ManualInputFileNames.TheBay.InactiveUpcFile = ManualDataLoadInactiveUpcValue.Text;
 
                 //Release the control on Wip lock
-                Globals.ManualInputFilesLoadedCheck = true;
-
+                Globals.General.StateControl.ManualInputFilesLoadedCheck = true;
                 //close the form, then marks the files are ready for loaded
                 this.Close();
             }
