@@ -13,7 +13,7 @@ namespace LifeCycleWorkflowLibrary
 {
     public static class TheBayManualFileProcess
     {
-        //public static bool ProcessFiles()
+        //public static bool ProcessWipFiles()
         //{
         //    //Loading Work in progress tempalte location saved in AppSetting
 
@@ -32,6 +32,21 @@ namespace LifeCycleWorkflowLibrary
 
         //    return false;
         //}
+
+        public static bool ProcessFinalFiles()
+        {
+            //Loading Final tempalte location saved in AppSetting
+            //string path = Properties.Settings.Default.TheBayFinalTemplatePath;
+
+            ////Copy the template to the desired outPut folder
+            ////TODO Process the file locally first, then do the copy function afterwards
+            //string newFinalFilename = lifeCycleDateTimePicker.Value.ToString("MM.dd.yyyy") + "_Daily_Workflow_Report_BAY";
+            //string newFinalFullFilename = LifeCycleFileUtilities.CopyFile(path, Properties.Settings.Default.SaveLocationTheBayFinal, newFinalFilename);
+            //Globals.TheBayOutputFinalFile = newFinalFullFilename;
+
+            //Globals.FinalFilePrcoessSucessful = true;
+            return false;
+        }
         
         //public static bool ProcessNosCombinedFile(string NosFileName)
         //{

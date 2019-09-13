@@ -80,6 +80,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ShowFolderUtilities.cs" />
     <Compile Include="StoredSettings.cs" />
     <Compile Include="TheBayManualFileProcess.cs" />
     <Compile Include="WorksheetCustomSettings.cs" />

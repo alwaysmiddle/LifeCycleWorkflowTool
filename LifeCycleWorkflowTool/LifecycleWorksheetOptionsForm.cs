@@ -13,9 +13,9 @@ namespace LifeCycleWorkflowTool
 
         private void WorksheetOptionsTabPageDetailsProduct_Click(object sender, EventArgs e)
         {
-            WorksheetOptionsTabPageDetailsProduct.Text = Globals.TheBay.TemplateWorksheetNames.TheBayTemplateWsNameDetailsProduct;
-            WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBay.TemplateWorksheetNames.TheBayTemplateWsNameInactiveUpc;
-            WorksheetOptionsTabPageNosCombined.Text = Globals.TheBay.TemplateWorksheetNames.TheBayTemplateWsNameNosCombined;
+            WorksheetOptionsTabPageDetailsProduct.Text = Globals.TheBay.TemplateWorksheetNames.DetailsProduct;
+            WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBay.TemplateWorksheetNames.InactiveUpc;
+            WorksheetOptionsTabPageNosCombined.Text = Globals.TheBay.TemplateWorksheetNames.NosCombined;
         }
     }
 }

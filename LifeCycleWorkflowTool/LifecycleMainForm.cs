@@ -90,16 +90,6 @@ namespace LifeCycleWorkflowTool
         /// <param name="e"></param>
         private void ManualLoadButtonFinalFile_Click(object sender, EventArgs e)
         {
-            //Loading Final tempalte location saved in AppSetting
-            string path = Properties.Settings.Default.TheBayFinalTemplatePath;
-
-            //Copy the template to the desired outPut folder
-            //TODO Process the file locally first, then do the copy function afterwards
-            string newFinalFilename = lifeCycleDateTimePicker.Value.ToString("MM.dd.yyyy") + "_Daily_Workflow_Report_BAY";
-            string newFinalFullFilename = LifeCycleFileUtilities.CopyFile(path, Properties.Settings.Default.SaveLocationTheBayFinal, newFinalFilename);
-            Globals.TheBayOutputFinalFile = newFinalFullFilename;
-
-            Globals.FinalFilePrcoessSucessful = true;
             MainFormStateCheck();
         }
 
@@ -138,16 +128,18 @@ namespace LifeCycleWorkflowTool
 
         private void ManualLoadWipShowFolder_Click(object sender, EventArgs e)
         {
-            string saveLocation = Properties.Settings.Default.SaveLocationTheBayWIP;
+            ShowFolderUtilities folderDialog = new ShowFolderUtilities(ShowFolderUtilities.ProcessType.WorkInProgress, ShowFolderUtilities.Banner.TheBay);
 
-            if (saveLocation == "")
+            string outputFolder = StoredSettings.OutputDirectory.TheBay.WipOutputLocation;
+
+            if (outputFolder == "")
             {
                 Directory.CreateDirectory(Properties.Settings.Default.DefaultSaveLocation);
                 Process.Start(Properties.Settings.Default.DefaultSaveLocation);
             }
             else
             {
-                Directory.CreateDirectory(saveLocation);
+                Directory.CreateDirectory(outputFolder);
                 Process.Start(saveLocation);
             }
         }
