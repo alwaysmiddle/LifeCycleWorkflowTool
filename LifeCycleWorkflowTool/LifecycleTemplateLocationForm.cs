@@ -42,8 +42,8 @@ namespace LifeCycleWorkflowTool
         {
             bool allValid = true;
             
-            TextBoxFileValidation templateLocationValidation
-            = new TextBoxFileValidation(TemplateLocationsColl, TemplateLocationsErrorProvider, TextBoxFileValidation.ValidationType.File);
+            TextBoxValidation templateLocationValidation
+            = new TextBoxValidation(TemplateLocationsColl, TemplateLocationsErrorProvider, TextBoxValidation.ValidationType.File);
 
             allValid = templateLocationValidation.ValidateTextBox();
 

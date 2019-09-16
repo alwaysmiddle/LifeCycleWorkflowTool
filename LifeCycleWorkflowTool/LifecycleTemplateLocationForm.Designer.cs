@@ -50,10 +50,9 @@
             this.TemplateLocationsTabControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.TemplateLocationsTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TemplateLocationsTabControl.Location = new System.Drawing.Point(0, 0);
-            this.TemplateLocationsTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TemplateLocationsTabControl.Name = "TemplateLocationsTabControl";
             this.TemplateLocationsTabControl.SelectedIndex = 0;
-            this.TemplateLocationsTabControl.Size = new System.Drawing.Size(696, 302);
+            this.TemplateLocationsTabControl.Size = new System.Drawing.Size(518, 204);
             this.TemplateLocationsTabControl.TabIndex = 8;
             // 
             // TemplateLocationsTabPageTheBay
@@ -66,11 +65,10 @@
             this.TemplateLocationsTabPageTheBay.Controls.Add(this.TheBayTemplateLocationsWipValue);
             this.TemplateLocationsTabPageTheBay.Controls.Add(this.TheBayTemplateLocationsWipFilePicker);
             this.TemplateLocationsTabPageTheBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TemplateLocationsTabPageTheBay.Location = new System.Drawing.Point(4, 34);
-            this.TemplateLocationsTabPageTheBay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TemplateLocationsTabPageTheBay.Location = new System.Drawing.Point(4, 29);
             this.TemplateLocationsTabPageTheBay.Name = "TemplateLocationsTabPageTheBay";
-            this.TemplateLocationsTabPageTheBay.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.TemplateLocationsTabPageTheBay.Size = new System.Drawing.Size(688, 264);
+            this.TemplateLocationsTabPageTheBay.Padding = new System.Windows.Forms.Padding(3);
+            this.TemplateLocationsTabPageTheBay.Size = new System.Drawing.Size(510, 171);
             this.TemplateLocationsTabPageTheBay.TabIndex = 1;
             this.TemplateLocationsTabPageTheBay.Text = "TheBay";
             // 
@@ -79,10 +77,9 @@
             this.TheBayTemplateLocationsLabelFinal.AutoSize = true;
             this.TheBayTemplateLocationsLabelFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TheBayTemplateLocationsLabelFinal.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.TheBayTemplateLocationsLabelFinal.Location = new System.Drawing.Point(4, 100);
-            this.TheBayTemplateLocationsLabelFinal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TheBayTemplateLocationsLabelFinal.Location = new System.Drawing.Point(3, 81);
             this.TheBayTemplateLocationsLabelFinal.Name = "TheBayTemplateLocationsLabelFinal";
-            this.TheBayTemplateLocationsLabelFinal.Size = new System.Drawing.Size(221, 29);
+            this.TheBayTemplateLocationsLabelFinal.Size = new System.Drawing.Size(172, 24);
             this.TheBayTemplateLocationsLabelFinal.TabIndex = 3;
             this.TheBayTemplateLocationsLabelFinal.Text = "Final File Save To: ";
             // 
@@ -90,18 +87,16 @@
             // 
             this.TheBayTemplateLocationsFinalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TheBayTemplateLocationsFinalValue.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.TheBayTemplateLocationsFinalValue.Location = new System.Drawing.Point(11, 133);
-            this.TheBayTemplateLocationsFinalValue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TheBayTemplateLocationsFinalValue.Location = new System.Drawing.Point(8, 108);
             this.TheBayTemplateLocationsFinalValue.Name = "TheBayTemplateLocationsFinalValue";
-            this.TheBayTemplateLocationsFinalValue.Size = new System.Drawing.Size(571, 30);
+            this.TheBayTemplateLocationsFinalValue.Size = new System.Drawing.Size(429, 26);
             this.TheBayTemplateLocationsFinalValue.TabIndex = 4;
             // 
             // TheBayTemplateLocationsFinalFilePicker
             // 
-            this.TheBayTemplateLocationsFinalFilePicker.Location = new System.Drawing.Point(612, 133);
-            this.TheBayTemplateLocationsFinalFilePicker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TheBayTemplateLocationsFinalFilePicker.Location = new System.Drawing.Point(459, 108);
             this.TheBayTemplateLocationsFinalFilePicker.Name = "TheBayTemplateLocationsFinalFilePicker";
-            this.TheBayTemplateLocationsFinalFilePicker.Size = new System.Drawing.Size(47, 33);
+            this.TheBayTemplateLocationsFinalFilePicker.Size = new System.Drawing.Size(35, 27);
             this.TheBayTemplateLocationsFinalFilePicker.TabIndex = 5;
             this.TheBayTemplateLocationsFinalFilePicker.Text = "...";
             this.TheBayTemplateLocationsFinalFilePicker.UseVisualStyleBackColor = true;
@@ -112,10 +107,9 @@
             this.TheBayTemplateLocationsLabelWip.AutoSize = true;
             this.TheBayTemplateLocationsLabelWip.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TheBayTemplateLocationsLabelWip.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.TheBayTemplateLocationsLabelWip.Location = new System.Drawing.Point(4, 17);
-            this.TheBayTemplateLocationsLabelWip.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TheBayTemplateLocationsLabelWip.Location = new System.Drawing.Point(3, 14);
             this.TheBayTemplateLocationsLabelWip.Name = "TheBayTemplateLocationsLabelWip";
-            this.TheBayTemplateLocationsLabelWip.Size = new System.Drawing.Size(353, 29);
+            this.TheBayTemplateLocationsLabelWip.Size = new System.Drawing.Size(275, 24);
             this.TheBayTemplateLocationsLabelWip.TabIndex = 0;
             this.TheBayTemplateLocationsLabelWip.Text = "Work in Progress File Save To: ";
             // 
@@ -123,18 +117,16 @@
             // 
             this.TheBayTemplateLocationsWipValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TheBayTemplateLocationsWipValue.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.TheBayTemplateLocationsWipValue.Location = new System.Drawing.Point(11, 50);
-            this.TheBayTemplateLocationsWipValue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TheBayTemplateLocationsWipValue.Location = new System.Drawing.Point(8, 41);
             this.TheBayTemplateLocationsWipValue.Name = "TheBayTemplateLocationsWipValue";
-            this.TheBayTemplateLocationsWipValue.Size = new System.Drawing.Size(571, 30);
+            this.TheBayTemplateLocationsWipValue.Size = new System.Drawing.Size(429, 26);
             this.TheBayTemplateLocationsWipValue.TabIndex = 1;
             // 
             // TheBayTemplateLocationsWipFilePicker
             // 
-            this.TheBayTemplateLocationsWipFilePicker.Location = new System.Drawing.Point(612, 50);
-            this.TheBayTemplateLocationsWipFilePicker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TheBayTemplateLocationsWipFilePicker.Location = new System.Drawing.Point(459, 41);
             this.TheBayTemplateLocationsWipFilePicker.Name = "TheBayTemplateLocationsWipFilePicker";
-            this.TheBayTemplateLocationsWipFilePicker.Size = new System.Drawing.Size(47, 33);
+            this.TheBayTemplateLocationsWipFilePicker.Size = new System.Drawing.Size(35, 27);
             this.TheBayTemplateLocationsWipFilePicker.TabIndex = 2;
             this.TheBayTemplateLocationsWipFilePicker.Text = "...";
             this.TheBayTemplateLocationsWipFilePicker.UseVisualStyleBackColor = true;
@@ -144,10 +136,9 @@
             // 
             this.TemplateLocationsButtonSaveSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TemplateLocationsButtonSaveSettings.ForeColor = System.Drawing.Color.MediumBlue;
-            this.TemplateLocationsButtonSaveSettings.Location = new System.Drawing.Point(4, 306);
-            this.TemplateLocationsButtonSaveSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TemplateLocationsButtonSaveSettings.Location = new System.Drawing.Point(4, 210);
             this.TemplateLocationsButtonSaveSettings.Name = "TemplateLocationsButtonSaveSettings";
-            this.TemplateLocationsButtonSaveSettings.Size = new System.Drawing.Size(168, 42);
+            this.TemplateLocationsButtonSaveSettings.Size = new System.Drawing.Size(126, 34);
             this.TemplateLocationsButtonSaveSettings.TabIndex = 6;
             this.TemplateLocationsButtonSaveSettings.Text = "Save";
             this.TemplateLocationsButtonSaveSettings.UseVisualStyleBackColor = true;
@@ -155,15 +146,18 @@
             // 
             // TemplateLocationsErrorProvider
             // 
+            this.TemplateLocationsErrorProvider.BlinkRate = 0;
+            this.TemplateLocationsErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.TemplateLocationsErrorProvider.ContainerControl = this;
             // 
             // LifecycleTemplateLocationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(696, 365);
+            this.ClientSize = new System.Drawing.Size(518, 257);
             this.Controls.Add(this.TemplateLocationsTabControl);
             this.Controls.Add(this.TemplateLocationsButtonSaveSettings);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LifecycleTemplateLocationForm";
             this.Text = "Template Locations";
             this.TemplateLocationsTabControl.ResumeLayout(false);

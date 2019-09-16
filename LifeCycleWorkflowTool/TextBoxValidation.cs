@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
 namespace LifeCycleWorkflowTool
 {
-    internal class TextBoxFileValidation
+    class TextBoxValidation
     {
         public enum ValidationType
         {
             File,
-            Folder
+            Folder,
+            PostiveInteger
         }
 
         private List<TextBox> _tBoxColl { get; set; }
@@ -17,14 +19,14 @@ namespace LifeCycleWorkflowTool
         private string _errorMessage { get; set; }
         private ValidationType _type { get; set; }
 
-        public TextBoxFileValidation(TextBox tBox, ErrorProvider errorProvider, ValidationType type)
+        public TextBoxValidation(TextBox tBox, ErrorProvider errorProvider, ValidationType type)
         {
             _tBoxColl.Add(tBox);
             _erorrProvider = errorProvider;
             _type = type;
         }
 
-        public TextBoxFileValidation(List<TextBox> tColl, ErrorProvider errorProvider, ValidationType type)
+        public TextBoxValidation(List<TextBox> tColl, ErrorProvider errorProvider, ValidationType type)
         {
             _tBoxColl = tColl;
             _erorrProvider = errorProvider;
@@ -62,6 +64,11 @@ namespace LifeCycleWorkflowTool
                     _erorrProvider.SetError(tBox, _errorMessage);
                     valid = false;
                 }
+                else
+                {
+                    _erorrProvider.Clear();
+                    valid = true;
+                }
             }
             else if (tBox.Text == "")
             {
@@ -69,15 +76,7 @@ namespace LifeCycleWorkflowTool
                 _erorrProvider.SetError(tBox, _errorMessage);
                 valid = false;
             }
-            else
-            {
-                _erorrProvider.Clear();
-                valid = true;
-            }
             return valid;
         }
-
-
-        
     }
 }

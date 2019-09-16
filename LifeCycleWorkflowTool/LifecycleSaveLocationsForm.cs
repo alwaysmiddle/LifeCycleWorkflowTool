@@ -46,8 +46,8 @@ namespace LifeCycleWorkflowTool
         private void SaveLocationsButtonSave_Click(object sender, EventArgs e)
         {
             bool allValid = true;
-            TextBoxFileValidation outputLocationValidation
-                = new TextBoxFileValidation(OutputLocationsColl, LifecycleSaveLocationsErrorProvider, TextBoxFileValidation.ValidationType.File);
+            TextBoxValidation outputLocationValidation
+                = new TextBoxValidation(OutputLocationsColl, LifecycleSaveLocationsErrorProvider, TextBoxValidation.ValidationType.File);
 
             allValid = outputLocationValidation.ValidateTextBox();
 

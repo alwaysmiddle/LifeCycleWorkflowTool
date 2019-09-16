@@ -47,8 +47,8 @@ namespace LifeCycleWorkflowTool
         private void ManualDataLoadConfirmButton_Click(object sender, EventArgs e)
         {
             bool allValid = true;
-            TextBoxFileValidation manualLoadValidation 
-                = new TextBoxFileValidation(TextBoxColl, ManualDataLoadTheBayErrorProvider, TextBoxFileValidation.ValidationType.File);
+            TextBoxValidation manualLoadValidation 
+                = new TextBoxValidation(TextBoxColl, ManualDataLoadTheBayErrorProvider, TextBoxValidation.ValidationType.File);
 
             allValid = manualLoadValidation.ValidateTextBox();
 

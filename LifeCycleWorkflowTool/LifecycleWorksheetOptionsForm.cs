@@ -17,5 +17,15 @@ namespace LifeCycleWorkflowTool
             WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBay.TemplateWorksheetNames.InactiveUpc;
             WorksheetOptionsTabPageNosCombined.Text = Globals.TheBay.TemplateWorksheetNames.NosCombined;
         }
+
+        private void LifecycleWorksheetOptionsLoadButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LifecycleWorksheetOptionsSaveButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
