@@ -114,7 +114,6 @@ namespace LifeCycleWorkflowTool
             }
         }
 
-
         //===============Events=================
 
         private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
@@ -128,36 +127,14 @@ namespace LifeCycleWorkflowTool
 
         private void ManualLoadWipShowFolder_Click(object sender, EventArgs e)
         {
-            ShowFolderUtilities folderDialog = new ShowFolderUtilities(ShowFolderUtilities.ProcessType.WorkInProgress, ShowFolderUtilities.Banner.TheBay);
-
-            string outputFolder = StoredSettings.OutputDirectory.TheBay.WipOutputLocation;
-
-            if (outputFolder == "")
-            {
-                Directory.CreateDirectory(Properties.Settings.Default.DefaultSaveLocation);
-                Process.Start(Properties.Settings.Default.DefaultSaveLocation);
-            }
-            else
-            {
-                Directory.CreateDirectory(outputFolder);
-                Process.Start(saveLocation);
-            }
+            ShowFolderUtilities folderDialog = new ShowFolderUtilities(Globals.ProcessType.WorkInProgress, Globals.Banner.TheBay);
+            folderDialog.DisplayFolder();
         }
 
         private void ManualLoadButtonFinalFileShowFolder_Click(object sender, EventArgs e)
         {
-            string saveLocation = Properties.Settings.Default.SaveLocationTheBayFinal;
-
-            if (saveLocation == "")
-            {
-                Directory.CreateDirectory(Properties.Settings.Default.DefaultSaveLocation);
-                Process.Start(Properties.Settings.Default.DefaultSaveLocation);
-            }
-            else
-            {
-                Directory.CreateDirectory(saveLocation);
-                Process.Start(saveLocation);
-            }
+            ShowFolderUtilities folderDialog = new ShowFolderUtilities(Globals.ProcessType.Final, Globals.Banner.TheBay);
+            folderDialog.DisplayFolder();
         }
 
         private void SettingsButtonWorksheetOptions_Click(object sender, EventArgs e)
@@ -203,7 +180,8 @@ namespace LifeCycleWorkflowTool
 
         private void LifeCycleDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            Globals.OutputFileDate = lifeCycleDateTimePicker.Value;
+            //Ensure Dynamic date reading
+            Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
         }
     }
 }

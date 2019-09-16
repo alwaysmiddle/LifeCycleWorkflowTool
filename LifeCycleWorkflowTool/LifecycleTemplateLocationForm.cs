@@ -41,24 +41,11 @@ namespace LifeCycleWorkflowTool
         private void TemplateLocationsButtonSaveSettings_Click(object sender, EventArgs e)
         {
             bool allValid = true;
+            
+            TextBoxFileValidation templateLocationValidation
+            = new TextBoxFileValidation(TemplateLocationsColl, TemplateLocationsErrorProvider, TextBoxFileValidation.ValidationType.File);
 
-            //save the templates to app settings locations
-
-            foreach (var tBox in TemplateLocationsColl)
-            {
-                TextBoxFileValidation validateTBox = new TextBoxFileValidation(tBox);
-
-                if (validateTBox.isFileValid())
-                {
-                    TemplateLocationsErrorProvider.Clear();
-                }
-                else
-                {
-                    validateTBox.ErrorMessage = "Please set valid files for templates.";
-                    TemplateLocationsErrorProvider.SetError(tBox, validateTBox.ErrorMessage);
-                    allValid = false;
-                }
-            }
+            allValid = templateLocationValidation.ValidateTextBox();
 
             if (allValid)
             {

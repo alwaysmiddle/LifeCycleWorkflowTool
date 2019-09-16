@@ -7,7 +7,7 @@ namespace LifeCycleWorkflowTool
 {
     public partial class LifecycleSaveLocationsForm : Form
     {
-        private List<TextBox> SaveLocationsColl{ get; set; }
+        private List<TextBox> OutputLocationsColl{ get; set; }
 
         public LifecycleSaveLocationsForm()
         {
@@ -17,9 +17,9 @@ namespace LifeCycleWorkflowTool
         }
         private void InitalizeTextBoxCollection()
         {
-            SaveLocationsColl = new List<TextBox>();
-            SaveLocationsColl.Add(TheBayOutputLocationWipValue);
-            SaveLocationsColl.Add(TheBayOutputLocationFinalValue);
+            OutputLocationsColl = new List<TextBox>();
+            OutputLocationsColl.Add(TheBayOutputLocationWipValue);
+            OutputLocationsColl.Add(TheBayOutputLocationFinalValue);
         }
 
         private void ReadSavedLocations()
@@ -46,42 +46,23 @@ namespace LifeCycleWorkflowTool
         private void SaveLocationsButtonSave_Click(object sender, EventArgs e)
         {
             bool allValid = true;
+            TextBoxFileValidation outputLocationValidation
+                = new TextBoxFileValidation(OutputLocationsColl, LifecycleSaveLocationsErrorProvider, TextBoxFileValidation.ValidationType.File);
 
-            //save to the locations
+            allValid = outputLocationValidation.ValidateTextBox();
 
-            foreach (var tBox in SaveLocationsColl)
+            if(allValid)
             {
-                TextBoxFileValidation validateTBox = new TextBoxFileValidation(tBox);
-                if(tBox.Text == Properties.Settings.Default.DefaultSaveLocation)
-                {
-                    LifecycleSaveLocationsErrorProvider.Clear();
-                }
-                else if (validateTBox.isFolderValid())
-                {
-                    LifecycleSaveLocationsErrorProvider.Clear();
-                }
-                else
-                {
-                    LifecycleSaveLocationsErrorProvider.SetError(tBox, validateTBox.ErrorMessage);
-                    allValid = false;
-                }
-            }
-
-            if (allValid)
-            {
-                Properties.Settings.Default.SaveLocationTheBayWIP = TheBayOutputLocationWipValue.Text;
-                Properties.Settings.Default.SaveLocationTheBayFinal = TheBayOutputLocationFinalValue.Text;
-                Properties.Settings.Default.Save();
+                StoredSettings.OutputDirectory.TheBay.WipOutputLocation= TheBayOutputLocationWipValue.Text;
+                StoredSettings.OutputDirectory.TheBay.FinalOutputLocation = TheBayOutputLocationFinalValue.Text;
                 this.Close();
             }
         }
 
         private void SaveLocationsButtonRestoreDefault_Click(object sender, EventArgs e)
         {
-            foreach (var tBox in SaveLocationsColl)
-            {
-                tBox.Text = Properties.Settings.Default.DefaultSaveLocation;
-            }
+            TheBayOutputLocationWipValue.Text = Globals.TheBay.PathHolder.DefaultWipOutputFolder;
+            TheBayOutputLocationFinalValue.Text = Globals.TheBay.PathHolder.DefaultFinalOutputFolder;
         }
     }
 }
