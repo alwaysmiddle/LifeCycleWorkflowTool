@@ -41,6 +41,7 @@ namespace LifeCycleWorkflowLibrary
                 //Filenames
                 public static string OutputWipFile { get; set; }
                 public static string OutputFinalFile { get; set; }
+                public static string WsOptionsDefaultFileName { get; set; } = "WsOptionsTheBayDefault.json";
 
                 //Foldernames
                 public static string DefaultWipOutputFolder{ get; } =

@@ -13,18 +13,13 @@ namespace LifeCycleWorkflowLibrary
             Properties.Settings.Default.Save();
         }
 
-
-        /// <summary>
-        /// The output files directory for this applications.
-        /// </summary>
-        public static class OutputDirectory
+        public static class UseDefaultOptions
         {
             public static class TheBay
             {
-                //TODO implement a default option checker
-
                 public static bool UseDefaultLocation
                 {
+
                     get
                     {
                         return Properties.Settings.Default.UseDefaultOutputLocations;
@@ -35,7 +30,29 @@ namespace LifeCycleWorkflowLibrary
                     }
                 }
 
+                public static bool UseDefaultWorksheetOptions
+                {
 
+                    get
+                    {
+                        return Properties.Settings.Default.UseDefaultWorksheetOptions;
+                    }
+                    set
+                    {
+                        Properties.Settings.Default.UseDefaultWorksheetOptions = value;
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// The output files directory for this applications.
+        /// </summary>
+        public static class OutputDirectory
+        {
+            public static class TheBay
+            {
                 //Work in progress output location
                 public static string WipOutputLocation
                 {

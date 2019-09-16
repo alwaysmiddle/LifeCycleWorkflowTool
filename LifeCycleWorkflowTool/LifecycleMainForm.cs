@@ -12,29 +12,7 @@ namespace LifeCycleWorkflowTool
         {
             InitializeComponent();
 
-            //TODO implement this as user settings
-
-            //construct defaut worksheetsettings for testing
-            WorksheetCustomSettingsHolder worksheetSettings = new WorksheetCustomSettingsHolder();
-
-            WorksheetCustomSettings detailsProductSetting = new WorksheetCustomSettings();
-            detailsProductSetting.FormulaeRow = 3;
-            detailsProductSetting.HeaderRow = 7;
-            detailsProductSetting.ReferenceRow = 5;
-            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.DetailsProduct, detailsProductSetting);
-
-            WorksheetCustomSettings inactiveUpcSetting = new WorksheetCustomSettings();
-            inactiveUpcSetting.FormulaeRow = 3;
-            inactiveUpcSetting.HeaderRow = 7;
-            inactiveUpcSetting.ReferenceRow = 4;
-            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.InactiveUpc, inactiveUpcSetting);
-
-            WorksheetCustomSettings nosCombinedSetting = new WorksheetCustomSettings();
-            nosCombinedSetting.FormulaeRow = 1;
-            nosCombinedSetting.HeaderRow = 2;
-            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.NosCombined, nosCombinedSetting);
-
-            worksheetSettings.Save();
+            
         }
 
         /// <summary>
@@ -142,19 +120,24 @@ namespace LifeCycleWorkflowTool
             using (LifecycleWorksheetOptionsForm optionsForm = new LifecycleWorksheetOptionsForm())
             {
                 optionsForm.ShowDialog();
-                optionsForm.Dispose();
+                //optionsForm.Dispose();
             }
         }
 
         private void LifecycleWorkflowForm_Load(object sender, EventArgs e)
         {
             //Set the default save location in app settings, these are used to persist through different runs
-            if (StoredSettings.OutputDirectory.TheBay.UseDefaultLocation)
+            if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultLocation)
             {
                 StoredSettings.OutputDirectory.TheBay.WipOutputLocation =
                     Globals.TheBay.PathHolder.OutputWipFile;
                 StoredSettings.OutputDirectory.TheBay.FinalOutputLocation =
                     Globals.TheBay.PathHolder.OutputFinalFile;
+            }
+
+            if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultWorksheetOptions)
+            {
+                InitializeTheBayWsOptionsCustomSettings();
             }
 
             //TODO add file location validation, if network location is not avaialable, then terminate the program
@@ -182,6 +165,33 @@ namespace LifeCycleWorkflowTool
         {
             //Ensure Dynamic date reading
             Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
+        }
+
+        //Settings initializations
+
+        private void InitializeTheBayWsOptionsCustomSettings()
+        {
+            //construct defaut worksheetsettings for testing
+            WorksheetCustomSettingsHolder worksheetSettings = new WorksheetCustomSettingsHolder();
+
+            WorksheetCustomSettings detailsProductSetting = new WorksheetCustomSettings();
+            detailsProductSetting.FormulaeRow = 3;
+            detailsProductSetting.HeaderRow = 7;
+            detailsProductSetting.ReferenceRow = 5;
+            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.DetailsProduct, detailsProductSetting);
+
+            WorksheetCustomSettings inactiveUpcSetting = new WorksheetCustomSettings();
+            inactiveUpcSetting.FormulaeRow = 3;
+            inactiveUpcSetting.HeaderRow = 7;
+            inactiveUpcSetting.ReferenceRow = 4;
+            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.InactiveUpc, inactiveUpcSetting);
+
+            WorksheetCustomSettings nosCombinedSetting = new WorksheetCustomSettings();
+            nosCombinedSetting.FormulaeRow = 1;
+            nosCombinedSetting.HeaderRow = 2;
+            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.NosCombined, nosCombinedSetting);
+
+            worksheetSettings.Save(Globals.TheBay.PathHolder.WsOptionsDefaultFileName);
         }
     }
 }

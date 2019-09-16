@@ -142,5 +142,17 @@ namespace LifeCycleWorkflowLibrary.Properties {
                 this["UseDefaultOutputLocations"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseDefaultWorksheetOptions {
+            get {
+                return ((bool)(this["UseDefaultWorksheetOptions"]));
+            }
+            set {
+                this["UseDefaultWorksheetOptions"] = value;
+            }
+        }
     }
 }

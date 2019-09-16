@@ -33,33 +33,42 @@ namespace LifeCycleWorkflowTool
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifecycleWorksheetOptionsForm));
             this.WorksheetOptionsTabControl = new System.Windows.Forms.TabControl();
             this.WorksheetOptionsTabPageDetailsProduct = new System.Windows.Forms.TabPage();
-            this.LifecycleWorksheetOptionsLoadButton = new System.Windows.Forms.Button();
-            this.LifecycleWorksheetOptionsSaveButton = new System.Windows.Forms.Button();
+            this.DetailsProductReferenceRowValue = new System.Windows.Forms.NumericUpDown();
+            this.DetailsProductFormulaRowValue = new System.Windows.Forms.NumericUpDown();
+            this.DetailsProductHeaderRowValue = new System.Windows.Forms.NumericUpDown();
             this.DetailsProductReferenceRowLabel = new System.Windows.Forms.Label();
-            this.DetailsProductReferenceRowValue = new System.Windows.Forms.TextBox();
             this.DetailsProductFormulaRowLabel = new System.Windows.Forms.Label();
-            this.DetailsProductFormulaRowValue = new System.Windows.Forms.TextBox();
-            this.DetailsProductHeaderRowValue = new System.Windows.Forms.TextBox();
             this.DetailsProductHeaderRowLabel = new System.Windows.Forms.Label();
             this.WorksheetOptionsTabPageInactiveUpc = new System.Windows.Forms.TabPage();
+            this.InactiveUpcReferenceRowValue = new System.Windows.Forms.NumericUpDown();
+            this.InactiveUpcFormulaRowValue = new System.Windows.Forms.NumericUpDown();
+            this.InactiveUpcHeaderRowValue = new System.Windows.Forms.NumericUpDown();
             this.InactiveUpcReferenceRowLabel = new System.Windows.Forms.Label();
-            this.InactiveUpcReferenceRowValue = new System.Windows.Forms.TextBox();
             this.InactiveUpcFormulaRowLabel = new System.Windows.Forms.Label();
-            this.InactiveUpcFormulaRowValue = new System.Windows.Forms.TextBox();
-            this.InactiveUpcHeaderRowValue = new System.Windows.Forms.TextBox();
             this.InactiveUpcHeaderRowLabel = new System.Windows.Forms.Label();
             this.WorksheetOptionsTabPageNosCombined = new System.Windows.Forms.TabPage();
+            this.NosCombinedReferenceRowValue = new System.Windows.Forms.NumericUpDown();
+            this.NosCombinedFormulaRowValue = new System.Windows.Forms.NumericUpDown();
+            this.NosCombinedHeaderRowValue = new System.Windows.Forms.NumericUpDown();
             this.NosCombinedReferenceRowLabel = new System.Windows.Forms.Label();
-            this.NosCombinedReferenceRowValue = new System.Windows.Forms.TextBox();
             this.NosCombinedFormulaRowLabel = new System.Windows.Forms.Label();
-            this.NosCombinedFormulaRowValue = new System.Windows.Forms.TextBox();
-            this.NosCombinedHeaderRowValue = new System.Windows.Forms.TextBox();
             this.NosCombinedHeaderRowLabel = new System.Windows.Forms.Label();
-            this.WorkSheetOptionsSplitter = new System.Windows.Forms.Splitter();
+            this.LifecycleWorksheetOptionsLoadButton = new System.Windows.Forms.Button();
+            this.LifecycleWorksheetOptionsSaveButton = new System.Windows.Forms.Button();
+            this.LifecycleWorksheetOptionsDefaultButton = new System.Windows.Forms.Button();
             this.WorksheetOptionsTabControl.SuspendLayout();
             this.WorksheetOptionsTabPageDetailsProduct.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DetailsProductReferenceRowValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DetailsProductFormulaRowValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DetailsProductHeaderRowValue)).BeginInit();
             this.WorksheetOptionsTabPageInactiveUpc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InactiveUpcReferenceRowValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InactiveUpcFormulaRowValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InactiveUpcHeaderRowValue)).BeginInit();
             this.WorksheetOptionsTabPageNosCombined.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NosCombinedReferenceRowValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NosCombinedFormulaRowValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NosCombinedHeaderRowValue)).BeginInit();
             this.SuspendLayout();
             // 
             // WorksheetOptionsTabControl
@@ -71,48 +80,64 @@ namespace LifeCycleWorkflowTool
             this.WorksheetOptionsTabControl.Location = new System.Drawing.Point(0, 0);
             this.WorksheetOptionsTabControl.Name = "WorksheetOptionsTabControl";
             this.WorksheetOptionsTabControl.SelectedIndex = 0;
-            this.WorksheetOptionsTabControl.Size = new System.Drawing.Size(358, 151);
+            this.WorksheetOptionsTabControl.Size = new System.Drawing.Size(329, 147);
             this.WorksheetOptionsTabControl.TabIndex = 0;
             // 
             // WorksheetOptionsTabPageDetailsProduct
             // 
-            this.WorksheetOptionsTabPageDetailsProduct.Controls.Add(this.DetailsProductReferenceRowLabel);
             this.WorksheetOptionsTabPageDetailsProduct.Controls.Add(this.DetailsProductReferenceRowValue);
-            this.WorksheetOptionsTabPageDetailsProduct.Controls.Add(this.DetailsProductFormulaRowLabel);
             this.WorksheetOptionsTabPageDetailsProduct.Controls.Add(this.DetailsProductFormulaRowValue);
             this.WorksheetOptionsTabPageDetailsProduct.Controls.Add(this.DetailsProductHeaderRowValue);
+            this.WorksheetOptionsTabPageDetailsProduct.Controls.Add(this.DetailsProductReferenceRowLabel);
+            this.WorksheetOptionsTabPageDetailsProduct.Controls.Add(this.DetailsProductFormulaRowLabel);
             this.WorksheetOptionsTabPageDetailsProduct.Controls.Add(this.DetailsProductHeaderRowLabel);
             this.WorksheetOptionsTabPageDetailsProduct.Location = new System.Drawing.Point(4, 22);
             this.WorksheetOptionsTabPageDetailsProduct.Name = "WorksheetOptionsTabPageDetailsProduct";
             this.WorksheetOptionsTabPageDetailsProduct.Padding = new System.Windows.Forms.Padding(3);
-            this.WorksheetOptionsTabPageDetailsProduct.Size = new System.Drawing.Size(350, 125);
+            this.WorksheetOptionsTabPageDetailsProduct.Size = new System.Drawing.Size(321, 121);
             this.WorksheetOptionsTabPageDetailsProduct.TabIndex = 0;
             this.WorksheetOptionsTabPageDetailsProduct.Text = "Details_Product";
             this.WorksheetOptionsTabPageDetailsProduct.UseVisualStyleBackColor = true;
             this.WorksheetOptionsTabPageDetailsProduct.Click += new System.EventHandler(this.WorksheetOptionsTabPageDetailsProduct_Click);
             // 
-            // LifecycleWorksheetOptionsLoadButton
+            // DetailsProductReferenceRowValue
             // 
-            this.LifecycleWorksheetOptionsLoadButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.LifecycleWorksheetOptionsLoadButton.Location = new System.Drawing.Point(109, 166);
-            this.LifecycleWorksheetOptionsLoadButton.Margin = new System.Windows.Forms.Padding(2);
-            this.LifecycleWorksheetOptionsLoadButton.Name = "LifecycleWorksheetOptionsLoadButton";
-            this.LifecycleWorksheetOptionsLoadButton.Size = new System.Drawing.Size(101, 39);
-            this.LifecycleWorksheetOptionsLoadButton.TabIndex = 5;
-            this.LifecycleWorksheetOptionsLoadButton.Text = "Load";
-            this.LifecycleWorksheetOptionsLoadButton.UseVisualStyleBackColor = true;
-            this.LifecycleWorksheetOptionsLoadButton.Click += new System.EventHandler(this.LifecycleWorksheetOptionsLoadButton_Click);
+            this.DetailsProductReferenceRowValue.Location = new System.Drawing.Point(210, 79);
+            this.DetailsProductReferenceRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.DetailsProductReferenceRowValue.Name = "DetailsProductReferenceRowValue";
+            this.DetailsProductReferenceRowValue.Size = new System.Drawing.Size(67, 20);
+            this.DetailsProductReferenceRowValue.TabIndex = 3;
+            this.DetailsProductReferenceRowValue.ValueChanged += new System.EventHandler(this.DetailsProductReferenceRowValue_ValueChanged);
             // 
-            // LifecycleWorksheetOptionsSaveButton
+            // DetailsProductFormulaRowValue
             // 
-            this.LifecycleWorksheetOptionsSaveButton.Location = new System.Drawing.Point(4, 166);
-            this.LifecycleWorksheetOptionsSaveButton.Margin = new System.Windows.Forms.Padding(2);
-            this.LifecycleWorksheetOptionsSaveButton.Name = "LifecycleWorksheetOptionsSaveButton";
-            this.LifecycleWorksheetOptionsSaveButton.Size = new System.Drawing.Size(101, 39);
-            this.LifecycleWorksheetOptionsSaveButton.TabIndex = 4;
-            this.LifecycleWorksheetOptionsSaveButton.Text = "Save";
-            this.LifecycleWorksheetOptionsSaveButton.UseVisualStyleBackColor = true;
-            this.LifecycleWorksheetOptionsSaveButton.Click += new System.EventHandler(this.LifecycleWorksheetOptionsSaveButton_Click);
+            this.DetailsProductFormulaRowValue.Location = new System.Drawing.Point(210, 45);
+            this.DetailsProductFormulaRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.DetailsProductFormulaRowValue.Name = "DetailsProductFormulaRowValue";
+            this.DetailsProductFormulaRowValue.Size = new System.Drawing.Size(67, 20);
+            this.DetailsProductFormulaRowValue.TabIndex = 2;
+            this.DetailsProductFormulaRowValue.ValueChanged += new System.EventHandler(this.DetailsProductFormulaRowValue_ValueChanged);
+            // 
+            // DetailsProductHeaderRowValue
+            // 
+            this.DetailsProductHeaderRowValue.Location = new System.Drawing.Point(210, 11);
+            this.DetailsProductHeaderRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.DetailsProductHeaderRowValue.Name = "DetailsProductHeaderRowValue";
+            this.DetailsProductHeaderRowValue.Size = new System.Drawing.Size(67, 20);
+            this.DetailsProductHeaderRowValue.TabIndex = 1;
+            this.DetailsProductHeaderRowValue.ValueChanged += new System.EventHandler(this.DetailsProductHeaderRowValue_ValueChanged);
             // 
             // DetailsProductReferenceRowLabel
             // 
@@ -124,14 +149,6 @@ namespace LifeCycleWorkflowTool
             this.DetailsProductReferenceRowLabel.TabIndex = 0;
             this.DetailsProductReferenceRowLabel.Text = "Reference Row:";
             // 
-            // DetailsProductReferenceRowValue
-            // 
-            this.DetailsProductReferenceRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DetailsProductReferenceRowValue.Location = new System.Drawing.Point(207, 79);
-            this.DetailsProductReferenceRowValue.Name = "DetailsProductReferenceRowValue";
-            this.DetailsProductReferenceRowValue.Size = new System.Drawing.Size(115, 26);
-            this.DetailsProductReferenceRowValue.TabIndex = 3;
-            // 
             // DetailsProductFormulaRowLabel
             // 
             this.DetailsProductFormulaRowLabel.AutoSize = true;
@@ -141,22 +158,6 @@ namespace LifeCycleWorkflowTool
             this.DetailsProductFormulaRowLabel.Size = new System.Drawing.Size(116, 20);
             this.DetailsProductFormulaRowLabel.TabIndex = 0;
             this.DetailsProductFormulaRowLabel.Text = "Formulae Row:";
-            // 
-            // DetailsProductFormulaRowValue
-            // 
-            this.DetailsProductFormulaRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DetailsProductFormulaRowValue.Location = new System.Drawing.Point(207, 45);
-            this.DetailsProductFormulaRowValue.Name = "DetailsProductFormulaRowValue";
-            this.DetailsProductFormulaRowValue.Size = new System.Drawing.Size(115, 26);
-            this.DetailsProductFormulaRowValue.TabIndex = 2;
-            // 
-            // DetailsProductHeaderRowValue
-            // 
-            this.DetailsProductHeaderRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DetailsProductHeaderRowValue.Location = new System.Drawing.Point(207, 11);
-            this.DetailsProductHeaderRowValue.Name = "DetailsProductHeaderRowValue";
-            this.DetailsProductHeaderRowValue.Size = new System.Drawing.Size(115, 26);
-            this.DetailsProductHeaderRowValue.TabIndex = 1;
             // 
             // DetailsProductHeaderRowLabel
             // 
@@ -170,19 +171,58 @@ namespace LifeCycleWorkflowTool
             // 
             // WorksheetOptionsTabPageInactiveUpc
             // 
-            this.WorksheetOptionsTabPageInactiveUpc.Controls.Add(this.InactiveUpcReferenceRowLabel);
             this.WorksheetOptionsTabPageInactiveUpc.Controls.Add(this.InactiveUpcReferenceRowValue);
-            this.WorksheetOptionsTabPageInactiveUpc.Controls.Add(this.InactiveUpcFormulaRowLabel);
             this.WorksheetOptionsTabPageInactiveUpc.Controls.Add(this.InactiveUpcFormulaRowValue);
             this.WorksheetOptionsTabPageInactiveUpc.Controls.Add(this.InactiveUpcHeaderRowValue);
+            this.WorksheetOptionsTabPageInactiveUpc.Controls.Add(this.InactiveUpcReferenceRowLabel);
+            this.WorksheetOptionsTabPageInactiveUpc.Controls.Add(this.InactiveUpcFormulaRowLabel);
             this.WorksheetOptionsTabPageInactiveUpc.Controls.Add(this.InactiveUpcHeaderRowLabel);
             this.WorksheetOptionsTabPageInactiveUpc.Location = new System.Drawing.Point(4, 22);
             this.WorksheetOptionsTabPageInactiveUpc.Name = "WorksheetOptionsTabPageInactiveUpc";
             this.WorksheetOptionsTabPageInactiveUpc.Padding = new System.Windows.Forms.Padding(3);
-            this.WorksheetOptionsTabPageInactiveUpc.Size = new System.Drawing.Size(358, 148);
+            this.WorksheetOptionsTabPageInactiveUpc.Size = new System.Drawing.Size(321, 121);
             this.WorksheetOptionsTabPageInactiveUpc.TabIndex = 1;
             this.WorksheetOptionsTabPageInactiveUpc.Text = "Inactive_UPC";
             this.WorksheetOptionsTabPageInactiveUpc.UseVisualStyleBackColor = true;
+            // 
+            // InactiveUpcReferenceRowValue
+            // 
+            this.InactiveUpcReferenceRowValue.Location = new System.Drawing.Point(210, 79);
+            this.InactiveUpcReferenceRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.InactiveUpcReferenceRowValue.Name = "InactiveUpcReferenceRowValue";
+            this.InactiveUpcReferenceRowValue.Size = new System.Drawing.Size(67, 20);
+            this.InactiveUpcReferenceRowValue.TabIndex = 3;
+            this.InactiveUpcReferenceRowValue.ValueChanged += new System.EventHandler(this.InactiveUpcReferenceRowValue_ValueChanged);
+            // 
+            // InactiveUpcFormulaRowValue
+            // 
+            this.InactiveUpcFormulaRowValue.Location = new System.Drawing.Point(210, 45);
+            this.InactiveUpcFormulaRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.InactiveUpcFormulaRowValue.Name = "InactiveUpcFormulaRowValue";
+            this.InactiveUpcFormulaRowValue.Size = new System.Drawing.Size(67, 20);
+            this.InactiveUpcFormulaRowValue.TabIndex = 2;
+            this.InactiveUpcFormulaRowValue.ValueChanged += new System.EventHandler(this.InactiveUpcFormulaRowValue_ValueChanged);
+            // 
+            // InactiveUpcHeaderRowValue
+            // 
+            this.InactiveUpcHeaderRowValue.Location = new System.Drawing.Point(210, 11);
+            this.InactiveUpcHeaderRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.InactiveUpcHeaderRowValue.Name = "InactiveUpcHeaderRowValue";
+            this.InactiveUpcHeaderRowValue.Size = new System.Drawing.Size(67, 20);
+            this.InactiveUpcHeaderRowValue.TabIndex = 1;
+            this.InactiveUpcHeaderRowValue.ValueChanged += new System.EventHandler(this.InactiveUpcHeaderRowValue_ValueChanged);
             // 
             // InactiveUpcReferenceRowLabel
             // 
@@ -194,14 +234,6 @@ namespace LifeCycleWorkflowTool
             this.InactiveUpcReferenceRowLabel.TabIndex = 0;
             this.InactiveUpcReferenceRowLabel.Text = "Reference Row:";
             // 
-            // InactiveUpcReferenceRowValue
-            // 
-            this.InactiveUpcReferenceRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InactiveUpcReferenceRowValue.Location = new System.Drawing.Point(207, 79);
-            this.InactiveUpcReferenceRowValue.Name = "InactiveUpcReferenceRowValue";
-            this.InactiveUpcReferenceRowValue.Size = new System.Drawing.Size(115, 26);
-            this.InactiveUpcReferenceRowValue.TabIndex = 3;
-            // 
             // InactiveUpcFormulaRowLabel
             // 
             this.InactiveUpcFormulaRowLabel.AutoSize = true;
@@ -211,22 +243,6 @@ namespace LifeCycleWorkflowTool
             this.InactiveUpcFormulaRowLabel.Size = new System.Drawing.Size(116, 20);
             this.InactiveUpcFormulaRowLabel.TabIndex = 0;
             this.InactiveUpcFormulaRowLabel.Text = "Formulae Row:";
-            // 
-            // InactiveUpcFormulaRowValue
-            // 
-            this.InactiveUpcFormulaRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InactiveUpcFormulaRowValue.Location = new System.Drawing.Point(207, 45);
-            this.InactiveUpcFormulaRowValue.Name = "InactiveUpcFormulaRowValue";
-            this.InactiveUpcFormulaRowValue.Size = new System.Drawing.Size(115, 26);
-            this.InactiveUpcFormulaRowValue.TabIndex = 2;
-            // 
-            // InactiveUpcHeaderRowValue
-            // 
-            this.InactiveUpcHeaderRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InactiveUpcHeaderRowValue.Location = new System.Drawing.Point(207, 11);
-            this.InactiveUpcHeaderRowValue.Name = "InactiveUpcHeaderRowValue";
-            this.InactiveUpcHeaderRowValue.Size = new System.Drawing.Size(115, 26);
-            this.InactiveUpcHeaderRowValue.TabIndex = 1;
             // 
             // InactiveUpcHeaderRowLabel
             // 
@@ -240,20 +256,59 @@ namespace LifeCycleWorkflowTool
             // 
             // WorksheetOptionsTabPageNosCombined
             // 
-            this.WorksheetOptionsTabPageNosCombined.Controls.Add(this.NosCombinedReferenceRowLabel);
             this.WorksheetOptionsTabPageNosCombined.Controls.Add(this.NosCombinedReferenceRowValue);
-            this.WorksheetOptionsTabPageNosCombined.Controls.Add(this.NosCombinedFormulaRowLabel);
             this.WorksheetOptionsTabPageNosCombined.Controls.Add(this.NosCombinedFormulaRowValue);
             this.WorksheetOptionsTabPageNosCombined.Controls.Add(this.NosCombinedHeaderRowValue);
+            this.WorksheetOptionsTabPageNosCombined.Controls.Add(this.NosCombinedReferenceRowLabel);
+            this.WorksheetOptionsTabPageNosCombined.Controls.Add(this.NosCombinedFormulaRowLabel);
             this.WorksheetOptionsTabPageNosCombined.Controls.Add(this.NosCombinedHeaderRowLabel);
             this.WorksheetOptionsTabPageNosCombined.Location = new System.Drawing.Point(4, 22);
             this.WorksheetOptionsTabPageNosCombined.Margin = new System.Windows.Forms.Padding(2);
             this.WorksheetOptionsTabPageNosCombined.Name = "WorksheetOptionsTabPageNosCombined";
             this.WorksheetOptionsTabPageNosCombined.Padding = new System.Windows.Forms.Padding(2);
-            this.WorksheetOptionsTabPageNosCombined.Size = new System.Drawing.Size(350, 125);
+            this.WorksheetOptionsTabPageNosCombined.Size = new System.Drawing.Size(321, 121);
             this.WorksheetOptionsTabPageNosCombined.TabIndex = 2;
             this.WorksheetOptionsTabPageNosCombined.Text = "Nos_Color_Combined";
             this.WorksheetOptionsTabPageNosCombined.UseVisualStyleBackColor = true;
+            // 
+            // NosCombinedReferenceRowValue
+            // 
+            this.NosCombinedReferenceRowValue.Location = new System.Drawing.Point(210, 79);
+            this.NosCombinedReferenceRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.NosCombinedReferenceRowValue.Name = "NosCombinedReferenceRowValue";
+            this.NosCombinedReferenceRowValue.Size = new System.Drawing.Size(67, 20);
+            this.NosCombinedReferenceRowValue.TabIndex = 3;
+            this.NosCombinedReferenceRowValue.ValueChanged += new System.EventHandler(this.NosCombinedReferenceRowValue_ValueChanged);
+            // 
+            // NosCombinedFormulaRowValue
+            // 
+            this.NosCombinedFormulaRowValue.Location = new System.Drawing.Point(210, 45);
+            this.NosCombinedFormulaRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.NosCombinedFormulaRowValue.Name = "NosCombinedFormulaRowValue";
+            this.NosCombinedFormulaRowValue.Size = new System.Drawing.Size(67, 20);
+            this.NosCombinedFormulaRowValue.TabIndex = 2;
+            this.NosCombinedFormulaRowValue.ValueChanged += new System.EventHandler(this.NosCombinedFormulaRowValue_ValueChanged);
+            // 
+            // NosCombinedHeaderRowValue
+            // 
+            this.NosCombinedHeaderRowValue.Location = new System.Drawing.Point(210, 11);
+            this.NosCombinedHeaderRowValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.NosCombinedHeaderRowValue.Name = "NosCombinedHeaderRowValue";
+            this.NosCombinedHeaderRowValue.Size = new System.Drawing.Size(67, 20);
+            this.NosCombinedHeaderRowValue.TabIndex = 1;
+            this.NosCombinedHeaderRowValue.ValueChanged += new System.EventHandler(this.NosCombinedHeaderRowValue_ValueChanged);
             // 
             // NosCombinedReferenceRowLabel
             // 
@@ -265,14 +320,6 @@ namespace LifeCycleWorkflowTool
             this.NosCombinedReferenceRowLabel.TabIndex = 11;
             this.NosCombinedReferenceRowLabel.Text = "Reference Row:";
             // 
-            // NosCombinedReferenceRowValue
-            // 
-            this.NosCombinedReferenceRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NosCombinedReferenceRowValue.Location = new System.Drawing.Point(207, 79);
-            this.NosCombinedReferenceRowValue.Name = "NosCombinedReferenceRowValue";
-            this.NosCombinedReferenceRowValue.Size = new System.Drawing.Size(115, 26);
-            this.NosCombinedReferenceRowValue.TabIndex = 3;
-            // 
             // NosCombinedFormulaRowLabel
             // 
             this.NosCombinedFormulaRowLabel.AutoSize = true;
@@ -282,22 +329,6 @@ namespace LifeCycleWorkflowTool
             this.NosCombinedFormulaRowLabel.Size = new System.Drawing.Size(116, 20);
             this.NosCombinedFormulaRowLabel.TabIndex = 9;
             this.NosCombinedFormulaRowLabel.Text = "Formulae Row:";
-            // 
-            // NosCombinedFormulaRowValue
-            // 
-            this.NosCombinedFormulaRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NosCombinedFormulaRowValue.Location = new System.Drawing.Point(207, 45);
-            this.NosCombinedFormulaRowValue.Name = "NosCombinedFormulaRowValue";
-            this.NosCombinedFormulaRowValue.Size = new System.Drawing.Size(115, 26);
-            this.NosCombinedFormulaRowValue.TabIndex = 2;
-            // 
-            // NosCombinedHeaderRowValue
-            // 
-            this.NosCombinedHeaderRowValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NosCombinedHeaderRowValue.Location = new System.Drawing.Point(207, 11);
-            this.NosCombinedHeaderRowValue.Name = "NosCombinedHeaderRowValue";
-            this.NosCombinedHeaderRowValue.Size = new System.Drawing.Size(115, 26);
-            this.NosCombinedHeaderRowValue.TabIndex = 1;
             // 
             // NosCombinedHeaderRowLabel
             // 
@@ -309,25 +340,47 @@ namespace LifeCycleWorkflowTool
             this.NosCombinedHeaderRowLabel.TabIndex = 6;
             this.NosCombinedHeaderRowLabel.Text = "Header Row:";
             // 
-            // WorkSheetOptionsSplitter
+            // LifecycleWorksheetOptionsLoadButton
             // 
-            this.WorkSheetOptionsSplitter.BackColor = System.Drawing.SystemColors.Control;
-            this.WorkSheetOptionsSplitter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.WorkSheetOptionsSplitter.Enabled = false;
-            this.WorkSheetOptionsSplitter.Location = new System.Drawing.Point(0, 151);
-            this.WorkSheetOptionsSplitter.Name = "WorkSheetOptionsSplitter";
-            this.WorkSheetOptionsSplitter.Size = new System.Drawing.Size(358, 10);
-            this.WorkSheetOptionsSplitter.TabIndex = 1;
-            this.WorkSheetOptionsSplitter.TabStop = false;
+            this.LifecycleWorksheetOptionsLoadButton.Location = new System.Drawing.Point(109, 152);
+            this.LifecycleWorksheetOptionsLoadButton.Margin = new System.Windows.Forms.Padding(2);
+            this.LifecycleWorksheetOptionsLoadButton.Name = "LifecycleWorksheetOptionsLoadButton";
+            this.LifecycleWorksheetOptionsLoadButton.Size = new System.Drawing.Size(101, 39);
+            this.LifecycleWorksheetOptionsLoadButton.TabIndex = 5;
+            this.LifecycleWorksheetOptionsLoadButton.Text = "Load";
+            this.LifecycleWorksheetOptionsLoadButton.UseVisualStyleBackColor = true;
+            this.LifecycleWorksheetOptionsLoadButton.Click += new System.EventHandler(this.LifecycleWorksheetOptionsLoadButton_Click);
+            // 
+            // LifecycleWorksheetOptionsSaveButton
+            // 
+            this.LifecycleWorksheetOptionsSaveButton.Location = new System.Drawing.Point(4, 152);
+            this.LifecycleWorksheetOptionsSaveButton.Margin = new System.Windows.Forms.Padding(2);
+            this.LifecycleWorksheetOptionsSaveButton.Name = "LifecycleWorksheetOptionsSaveButton";
+            this.LifecycleWorksheetOptionsSaveButton.Size = new System.Drawing.Size(101, 39);
+            this.LifecycleWorksheetOptionsSaveButton.TabIndex = 4;
+            this.LifecycleWorksheetOptionsSaveButton.Text = "Save";
+            this.LifecycleWorksheetOptionsSaveButton.UseVisualStyleBackColor = true;
+            this.LifecycleWorksheetOptionsSaveButton.Click += new System.EventHandler(this.LifecycleWorksheetOptionsSaveButton_Click);
+            // 
+            // LifecycleWorksheetOptionsDefaultButton
+            // 
+            this.LifecycleWorksheetOptionsDefaultButton.Location = new System.Drawing.Point(214, 152);
+            this.LifecycleWorksheetOptionsDefaultButton.Margin = new System.Windows.Forms.Padding(2);
+            this.LifecycleWorksheetOptionsDefaultButton.Name = "LifecycleWorksheetOptionsDefaultButton";
+            this.LifecycleWorksheetOptionsDefaultButton.Size = new System.Drawing.Size(101, 39);
+            this.LifecycleWorksheetOptionsDefaultButton.TabIndex = 6;
+            this.LifecycleWorksheetOptionsDefaultButton.Text = "Default";
+            this.LifecycleWorksheetOptionsDefaultButton.UseVisualStyleBackColor = true;
+            this.LifecycleWorksheetOptionsDefaultButton.Click += new System.EventHandler(this.LifecycleWorksheetOptionsDefaultButton_Click);
             // 
             // LifecycleWorksheetOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(358, 217);
+            this.ClientSize = new System.Drawing.Size(329, 199);
+            this.Controls.Add(this.LifecycleWorksheetOptionsDefaultButton);
             this.Controls.Add(this.LifecycleWorksheetOptionsLoadButton);
-            this.Controls.Add(this.WorkSheetOptionsSplitter);
             this.Controls.Add(this.LifecycleWorksheetOptionsSaveButton);
             this.Controls.Add(this.WorksheetOptionsTabControl);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -337,10 +390,19 @@ namespace LifeCycleWorkflowTool
             this.WorksheetOptionsTabControl.ResumeLayout(false);
             this.WorksheetOptionsTabPageDetailsProduct.ResumeLayout(false);
             this.WorksheetOptionsTabPageDetailsProduct.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DetailsProductReferenceRowValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DetailsProductFormulaRowValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DetailsProductHeaderRowValue)).EndInit();
             this.WorksheetOptionsTabPageInactiveUpc.ResumeLayout(false);
             this.WorksheetOptionsTabPageInactiveUpc.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InactiveUpcReferenceRowValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InactiveUpcFormulaRowValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InactiveUpcHeaderRowValue)).EndInit();
             this.WorksheetOptionsTabPageNosCombined.ResumeLayout(false);
             this.WorksheetOptionsTabPageNosCombined.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NosCombinedReferenceRowValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NosCombinedFormulaRowValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NosCombinedHeaderRowValue)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -351,26 +413,26 @@ namespace LifeCycleWorkflowTool
         private System.Windows.Forms.TabPage WorksheetOptionsTabPageDetailsProduct;
         private System.Windows.Forms.TabPage WorksheetOptionsTabPageInactiveUpc;
         private System.Windows.Forms.Label DetailsProductReferenceRowLabel;
-        private System.Windows.Forms.TextBox DetailsProductReferenceRowValue;
         private System.Windows.Forms.Label DetailsProductFormulaRowLabel;
-        private System.Windows.Forms.TextBox DetailsProductFormulaRowValue;
-        private System.Windows.Forms.TextBox DetailsProductHeaderRowValue;
         private System.Windows.Forms.Label DetailsProductHeaderRowLabel;
         private System.Windows.Forms.Label InactiveUpcReferenceRowLabel;
-        private System.Windows.Forms.TextBox InactiveUpcReferenceRowValue;
         private System.Windows.Forms.Label InactiveUpcFormulaRowLabel;
-        private System.Windows.Forms.TextBox InactiveUpcFormulaRowValue;
-        private System.Windows.Forms.TextBox InactiveUpcHeaderRowValue;
         private System.Windows.Forms.Label InactiveUpcHeaderRowLabel;
         private System.Windows.Forms.TabPage WorksheetOptionsTabPageNosCombined;
         private System.Windows.Forms.Label NosCombinedReferenceRowLabel;
-        private System.Windows.Forms.TextBox NosCombinedReferenceRowValue;
         private System.Windows.Forms.Label NosCombinedFormulaRowLabel;
-        private System.Windows.Forms.TextBox NosCombinedFormulaRowValue;
-        private System.Windows.Forms.TextBox NosCombinedHeaderRowValue;
         private System.Windows.Forms.Label NosCombinedHeaderRowLabel;
         private System.Windows.Forms.Button LifecycleWorksheetOptionsLoadButton;
         private System.Windows.Forms.Button LifecycleWorksheetOptionsSaveButton;
-        private System.Windows.Forms.Splitter WorkSheetOptionsSplitter;
+        private System.Windows.Forms.NumericUpDown DetailsProductReferenceRowValue;
+        private System.Windows.Forms.NumericUpDown DetailsProductFormulaRowValue;
+        private System.Windows.Forms.NumericUpDown DetailsProductHeaderRowValue;
+        private System.Windows.Forms.NumericUpDown InactiveUpcReferenceRowValue;
+        private System.Windows.Forms.NumericUpDown InactiveUpcFormulaRowValue;
+        private System.Windows.Forms.NumericUpDown InactiveUpcHeaderRowValue;
+        private System.Windows.Forms.NumericUpDown NosCombinedReferenceRowValue;
+        private System.Windows.Forms.NumericUpDown NosCombinedFormulaRowValue;
+        private System.Windows.Forms.NumericUpDown NosCombinedHeaderRowValue;
+        private System.Windows.Forms.Button LifecycleWorksheetOptionsDefaultButton;
     }
 }
