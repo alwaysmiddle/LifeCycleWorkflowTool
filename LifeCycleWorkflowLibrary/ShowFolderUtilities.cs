@@ -31,7 +31,7 @@ namespace LifeCycleWorkflowLibrary
 
         private void CreateSecondPathIfEmpty(string firstPath, string secondPath)
         {
-            if (firstPath == "")
+            if (firstPath == "" || firstPath == null)
             {
                 Directory.CreateDirectory(secondPath);
                 Process.Start(secondPath);

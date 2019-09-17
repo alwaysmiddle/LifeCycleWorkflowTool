@@ -51,6 +51,18 @@ namespace LifeCycleWorkflowLibrary
         /// </summary>
         public static class OutputDirectory
         {
+            public static string DefaultOutputFolder
+            {
+                get
+                {
+                    return Properties.Settings.Default.DefaultOutputLocation;
+                }
+                set
+                {
+                    Properties.Settings.Default.DefaultOutputLocation = value;
+                    Save();
+                }
+            }
             public static class TheBay
             {
                 //Work in progress output location

@@ -12,7 +12,24 @@ namespace LifeCycleWorkflowTool
         {
             InitializeComponent();
 
-            
+            //Set the default save location in app settings, these are used to persist through different runs
+            if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultLocation)
+            {
+                StoredSettings.OutputDirectory.DefaultOutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\LifecycleDailyWorkflow\";
+                StoredSettings.OutputDirectory.TheBay.WipOutputLocation = StoredSettings.OutputDirectory.DefaultOutputFolder + @"\TheBay";
+                StoredSettings.OutputDirectory.TheBay.FinalOutputLocation = StoredSettings.OutputDirectory.DefaultOutputFolder + @"\TheBay";
+            }
+
+            if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultWorksheetOptions)
+            {
+                InitializeTheBayWsOptionsCustomSettings();
+            }
+
+            //TODO add file location validation, if network location is not avaialable, then terminate the program
+            //TODO check user settings on startup, give warning if some critical values are not set
+
+            //Set Generate WIP file button and Generate Final File to unavailable
+            MainFormStateCheck();
         }
 
         /// <summary>
@@ -57,7 +74,7 @@ namespace LifeCycleWorkflowTool
 
         private void ManualLoadButtonWIP_Click(object sender, EventArgs e)
         {
-            
+            TheBayManualFileProcess.ProcessWipFiles();
             MainFormStateCheck();
         }
 
@@ -122,29 +139,6 @@ namespace LifeCycleWorkflowTool
                 optionsForm.ShowDialog();
                 //optionsForm.Dispose();
             }
-        }
-
-        private void LifecycleWorkflowForm_Load(object sender, EventArgs e)
-        {
-            //Set the default save location in app settings, these are used to persist through different runs
-            if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultLocation)
-            {
-                StoredSettings.OutputDirectory.TheBay.WipOutputLocation =
-                    Globals.TheBay.PathHolder.OutputWipFile;
-                StoredSettings.OutputDirectory.TheBay.FinalOutputLocation =
-                    Globals.TheBay.PathHolder.OutputFinalFile;
-            }
-
-            if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultWorksheetOptions)
-            {
-                InitializeTheBayWsOptionsCustomSettings();
-            }
-
-            //TODO add file location validation, if network location is not avaialable, then terminate the program
-            //TODO check user settings on startup, give warning if some critical values are not set
-
-            //Set Generate WIP file button and Generate Final File to unavailable
-            MainFormStateCheck();
         }
 
         private void LifecycleWorkflowForm_Activated(object sender, EventArgs e)

@@ -24,8 +24,8 @@ namespace LifeCycleWorkflowTool
 
         private void ReadSavedLocations()
         {
-            TheBayTemplateLocationsWipValue.Text = StoredSettings.OutputDirectory.TheBay.WipOutputLocation;
-            TheBayTemplateLocationsFinalValue.Text = StoredSettings.OutputDirectory.TheBay.WipOutputLocation;
+            TheBayTemplateLocationsWipValue.Text = StoredSettings.TemplateLocations.TheBay.WipTempalteLocation;
+            TheBayTemplateLocationsFinalValue.Text = StoredSettings.TemplateLocations.TheBay.FinalTemplateLocation;
         }
 
         private void TemplateLocationsWipFilePicker_Click(object sender, EventArgs e)

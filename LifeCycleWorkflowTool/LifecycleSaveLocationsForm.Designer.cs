@@ -121,7 +121,7 @@
             this.SaveLocationsTabPageTheBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveLocationsTabPageTheBay.Location = new System.Drawing.Point(4, 29);
             this.SaveLocationsTabPageTheBay.Name = "SaveLocationsTabPageTheBay";
-            this.SaveLocationsTabPageTheBay.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.SaveLocationsTabPageTheBay.Padding = new System.Windows.Forms.Padding(3);
             this.SaveLocationsTabPageTheBay.Size = new System.Drawing.Size(511, 212);
             this.SaveLocationsTabPageTheBay.TabIndex = 1;
             this.SaveLocationsTabPageTheBay.Text = "TheBay";

@@ -1,39 +1,34 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ClosedXML.Excel;
 
 namespace LifeCycleWorkflowLibrary
 {
     public static class TheBayManualFileProcess
     {
-        //public static bool ProcessWipFiles()
-        //{
-        //    //Loading Work in progress tempalte location saved in AppSetting
+        private static string tempTemplateFileName { get; set; }
+        private static Dictionary<string, WorksheetCustomSettings> customSettings { get; set; }
+        public static void ProcessWipFiles()
+        {
+            InitializeProperties();
+            //Generate the final output filename
+            string newWipFilename = "PIM_" + Globals.General.OutputFileDate.ToString("M.d.yyyy") + "_Daily_Workflow_Report_BAY";
 
-        //    //Copy the template to the desired outPut folder
-        //    //TODO Process the file locally first, then do the copy function afterwards
-        //    string newWipFilename = "PIM_" + lifeCycleDateTimePicker.Value.ToString("M.d.yyyy") + "_Daily_Workflow_Report_BAY";
-        //    string newWipFullFileName = LifeCycleFileUtilities.CopyFile(path, Properties.Settings.Default.SaveLocationTheBayWIP, newWipFilename);
-        //    Globals.TheBayOutputWipFile = newWipFullFileName;
+            //Running Main Processes
+            //TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosFile);
+            //TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
+            //TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
 
-        //    //Running Main Processes
-        //    TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
-        //    //TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
-        //    //TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
+            Globals.TheBay.PathHolder.OutputWipFile = tempTemplateFileName;
+            Globals.General.StateControl.WipFileProcessSucessful = true;
+        }
 
-        //    Globals.WipFileProcessSucessful = true;
-
-        //    return false;
-        //}
-
-        public static bool ProcessFinalFiles()
+        public static void ProcessFinalFiles()
         {
             //Loading Final tempalte location saved in AppSetting
             //string path = Properties.Settings.Default.TheBayFinalTemplatePath;
@@ -45,51 +40,51 @@ namespace LifeCycleWorkflowLibrary
             //Globals.TheBayOutputFinalFile = newFinalFullFilename;
 
             //Globals.FinalFilePrcoessSucessful = true;
-            return false;
         }
-        
-        //public static bool ProcessNosCombinedFile(string NosFileName)
-        //{
-        //    //Input file validation
-        //    if (Globals.TheBayOutputWipFile == "" || Globals.TheBayOutputWipFile == null)
-        //    {
-        //        //TODO Convert this to debug
-        //        MessageBox.Show("The output file is not found, possibly due to copying error, or file permissions error");
-        //        return false;
-        //    }
+        private static void InitializeProperties()
+        {
+            //Generate temperary local file for faster processing
+            tempTemplateFileName = LifeCycleFileUtilities.CopyFile(
+                StoredSettings.TemplateLocations.TheBay.WipTempalteLocation, StoredSettings.OutputDirectory.TheBay.WipOutputLocation, Guid.NewGuid().ToString());
 
-        //    string wsName = Globals.TheBayTemplateWsNameNosCombined;
+            //Load all customSettings
+            WorksheetCustomSettingsHolder allCustomSettings = new WorksheetCustomSettingsHolder();
+            allCustomSettings = WorksheetCustomSettingsHolder.Load();
 
-        //    using (XLWorkbook templateWb = new XLWorkbook(Globals.TheBayOutputWipFile))
-        //    {
-        //        templateWb.EventTracking = XLEventTracking.Disabled;
-        //        IXLWorksheet wsNos = templateWb.Worksheet(wsName);
-        //        DataTable dt = DataTableImporter.ReadCsvFile(NosFileName);
+            customSettings = new Dictionary<string, WorksheetCustomSettings>();
+            customSettings = allCustomSettings.SettingsCollection;
+        }
 
-        //        //reading customized settings
-        //        WorksheetCustomSettingsHolder allCustomSettings = new WorksheetCustomSettingsHolder();
-        //        allCustomSettings = WorksheetCustomSettingsHolder.Load();
-        //        WorksheetCustomSettings customSettings = new WorksheetCustomSettings();
-        //        customSettings = allCustomSettings.SettingsCollection[wsName];
+        public static void ProcessNosCombinedFile(string NosFileName)
+        {
+            using (ExcelPackage templatePackage = new ExcelPackage(new FileInfo(tempTemplateFileName)))
+            {
+                var templateWb = templatePackage.Workbook;
+                string wsName = Globals.TheBay.TemplateWorksheetNames.NosCombined;
+                var wsNos = templateWb.Worksheets[wsName];
+                DataTable dt = DataTableImporter.ReadCsvFile(NosFileName);
+                
+                WorksheetCustomSettings nosSettings = new WorksheetCustomSettings();
+                nosSettings = customSettings[wsName];
 
-        //        if (wsNos.LastRowUsed().RowNumber() > customSettings.HeaderRow)
-        //        {
-        //            wsNos.Range(wsNos.Cell(customSettings.HeaderRow + 1, 1), wsNos.LastCell()).Clear();
-        //        }
+                if (wsNos.Dimension.End.Row > nosSettings.HeaderRow)
+                {
+                    wsNos.Cells[nosSettings.HeaderRow + 1, 1, wsNos.Dimension.End.Row, wsNos.Dimension.End.Column].Clear();
+                }
 
-        //        wsNos.Cell(customSettings.HeaderRow + 1, 1).InsertData(dt.AsEnumerable());
+                wsNos.Cells[nosSettings.HeaderRow + 1, 1].LoadFromDataTable(dt, true);
 
-        //        FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos);
-        //        processWsFormula.ProcessFormulaRow(dt);
+                //FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos);
+                //processWsFormula.ProcessFormulaRow(dt);
 
-        //        templateWb.Save();
+                templatePackage.Save();
 
-        //        //clean up
-        //        dt.Dispose();
-        //        dt = null;
-        //    }   
-        //    return false;
-        //}
+                //clean up
+                dt.Dispose();
+                dt = null;
+                Process.Start(tempTemplateFileName);
+            }
+        }
 
         public static bool ProcessInactiveUPC(string InactiveUpcFilename)
         {

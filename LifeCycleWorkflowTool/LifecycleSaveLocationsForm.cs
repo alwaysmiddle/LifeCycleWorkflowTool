@@ -47,7 +47,7 @@ namespace LifeCycleWorkflowTool
         {
             bool allValid = true;
             TextBoxValidation outputLocationValidation
-                = new TextBoxValidation(OutputLocationsColl, LifecycleSaveLocationsErrorProvider, TextBoxValidation.ValidationType.File);
+                = new TextBoxValidation(OutputLocationsColl, LifecycleSaveLocationsErrorProvider, TextBoxValidation.ValidationType.Folder);
 
             allValid = outputLocationValidation.ValidateTextBox();
 
@@ -61,6 +61,7 @@ namespace LifeCycleWorkflowTool
 
         private void SaveLocationsButtonRestoreDefault_Click(object sender, EventArgs e)
         {
+            StoredSettings.UseDefaultOptions.TheBay.UseDefaultLocation = true;
             TheBayOutputLocationWipValue.Text = Globals.TheBay.PathHolder.DefaultWipOutputFolder;
             TheBayOutputLocationFinalValue.Text = Globals.TheBay.PathHolder.DefaultFinalOutputFolder;
         }

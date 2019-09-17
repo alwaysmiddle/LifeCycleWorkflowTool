@@ -256,7 +256,6 @@
             this.Name = "LifecycleWorkflowForm";
             this.Text = "Lifecycle Excel Workflow Generator";
             this.Activated += new System.EventHandler(this.LifecycleWorkflowForm_Activated);
-            this.Load += new System.EventHandler(this.LifecycleWorkflowForm_Load);
             this.WorkflowTabSettings.ResumeLayout(false);
             this.WorkflowTabManual.ResumeLayout(false);
             this.WorkflowTabManual.PerformLayout();
