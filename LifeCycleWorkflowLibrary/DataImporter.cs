@@ -1,35 +1,57 @@
 ﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using GenericParsing;
+using System.Collections.Generic;
+using Microsoft.VisualBasic.FileIO;
+using OfficeOpenXml;
 
 namespace LifeCycleWorkflowLibrary
 {
-    static class DataTableImporter
+    class DataImporter
     {
-        public static DataTable ReadCsvFile(string filename, bool FirstRowAsHeaders = true)
+        private static List<string[]> csvList { get; set; }
+        private static bool dataIsRead = false;
+
+        public static void ReadCsvFile(string filename)
         {
-            DataTable wfData = new DataTable();
-
-            try
+            csvList = new List<string[]>();
+            
+            //TODO add error logging
+            using (TextFieldParser parser = new TextFieldParser(filename))
             {
-                using (GenericParserAdapter parser = new GenericParserAdapter())
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.TrimWhiteSpace = true;
+
+                while (!parser.EndOfData)
                 {
-                    parser.SetDataSource(filename);
-
-                    parser.ColumnDelimiter = ',';
-                    parser.FirstRowHasHeader = FirstRowAsHeaders;
-                    parser.MaxBufferSize = 4096;
-
-                    wfData = parser.GetDataTable();
+                    //Processing row
+                    string[] thisline = parser.ReadFields();
+                    csvList.Add(thisline);
                 }
-
-                return wfData;
             }
-            catch (Exception ex)
+
+            if(csvList.Count > 0)
             {
-                MessageBox.Show(ex.Message.ToString());
-                return null;
+                dataIsRead = true;
+            }
+        }
+
+        public static void WriteToExcelSheet(ExcelWorksheet worksheet, string startAddress, bool importHeader = true)
+        {
+            if (dataIsRead)
+            {
+                int row = worksheet.Cells[startAddress].Start.Row;
+                int col = worksheet.Cells[startAddress].Start.Column;
+
+                foreach (var line in csvList)
+                {
+                    col = worksheet.Cells[startAddress].Start.Column;
+                    foreach (var cell in line)
+                    {
+                        worksheet.Cells[row, col].Value = cell;
+                        col++;
+                    }
+                    row++;
+                }
             }
         }
     }

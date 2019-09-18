@@ -20,7 +20,7 @@ namespace LifeCycleWorkflowLibrary
             string newWipFilename = "PIM_" + Globals.General.OutputFileDate.ToString("M.d.yyyy") + "_Daily_Workflow_Report_BAY";
 
             //Running Main Processes
-            //TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosFile);
+            TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosFile);
             //TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
             //TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
 
@@ -57,12 +57,13 @@ namespace LifeCycleWorkflowLibrary
 
         public static void ProcessNosCombinedFile(string NosFileName)
         {
-            using (ExcelPackage templatePackage = new ExcelPackage(new FileInfo(tempTemplateFileName)))
+            FileInfo templateFile = new FileInfo(tempTemplateFileName);
+            using (ExcelPackage templatePackage = new ExcelPackage(templateFile))
             {
                 var templateWb = templatePackage.Workbook;
                 string wsName = Globals.TheBay.TemplateWorksheetNames.NosCombined;
                 var wsNos = templateWb.Worksheets[wsName];
-                DataTable dt = DataTableImporter.ReadCsvFile(NosFileName);
+                //DataImporter.ReadCsvFile(NosFileName);
                 
                 WorksheetCustomSettings nosSettings = new WorksheetCustomSettings();
                 nosSettings = customSettings[wsName];
@@ -72,18 +73,15 @@ namespace LifeCycleWorkflowLibrary
                     wsNos.Cells[nosSettings.HeaderRow + 1, 1, wsNos.Dimension.End.Row, wsNos.Dimension.End.Column].Clear();
                 }
 
-                wsNos.Cells[nosSettings.HeaderRow + 1, 1].LoadFromDataTable(dt, true);
+                //DataImporter.WriteToExcelSheet(wsNos, wsNos.Cells[nosSettings.HeaderRow + 1, 1].Address);
 
                 //FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos);
                 //processWsFormula.ProcessFormulaRow(dt);
 
-                templatePackage.Save();
-
-                //clean up
-                dt.Dispose();
-                dt = null;
-                Process.Start(tempTemplateFileName);
+                templatePackage.SaveAs(templateFile);
             }
+
+            Process.Start(tempTemplateFileName);
         }
 
         public static bool ProcessInactiveUPC(string InactiveUpcFilename)
