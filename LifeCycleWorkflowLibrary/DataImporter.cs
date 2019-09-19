@@ -1,58 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualBasic.FileIO;
-using OfficeOpenXml;
 
 namespace LifeCycleWorkflowLibrary
 {
-    class DataImporter
+    public static class DataImporter
     {
-        private static List<string[]> csvList { get; set; }
-        private static bool dataIsRead = false;
-
-        public static void ReadCsvFile(string filename)
+        // Load a CSV file into an array of rows and columns.
+        // Assume there may be blank lines but every line has
+        // the same number of fields.
+        public static object[,] ReadCsvFile(string filename)
         {
-            csvList = new List<string[]>();
-            
-            //TODO add error logging
+            List<string[]> allLines = new List<string[]>();
             using (TextFieldParser parser = new TextFieldParser(filename))
             {
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
-                parser.TrimWhiteSpace = true;
+                parser.HasFieldsEnclosedInQuotes = true;
 
                 while (!parser.EndOfData)
                 {
-                    //Processing row
-                    string[] thisline = parser.ReadFields();
-                    csvList.Add(thisline);
+                    allLines.Add(parser.ReadFields());
                 }
             }
 
-            if(csvList.Count > 0)
-            {
-                dataIsRead = true;
-            }
-        }
+            // See how many rows and columns there are.
+            int num_rows = allLines.Count;
+            int num_cols = allLines[0].Length;
 
-        public static void WriteToExcelSheet(ExcelWorksheet worksheet, string startAddress, bool importHeader = true)
-        {
-            if (dataIsRead)
-            {
-                int row = worksheet.Cells[startAddress].Start.Row;
-                int col = worksheet.Cells[startAddress].Start.Column;
+            // Allocate the data array.
+            object[,] values = new object[num_rows, num_cols];
 
-                foreach (var line in csvList)
+            // Load the array.
+            for (int r = 0; r < num_rows; r++)
+            {
+                for (int c = 0; c < num_cols; c++)
                 {
-                    col = worksheet.Cells[startAddress].Start.Column;
-                    foreach (var cell in line)
-                    {
-                        worksheet.Cells[row, col].Value = cell;
-                        col++;
-                    }
-                    row++;
+                    values[r, c] = allLines[r][c];
                 }
             }
+
+            // Return the values.
+            return values;
         }
     }
 }

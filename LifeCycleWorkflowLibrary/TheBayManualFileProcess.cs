@@ -1,5 +1,4 @@
-﻿using OfficeOpenXml;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -58,6 +57,7 @@ namespace LifeCycleWorkflowLibrary
         public static void ProcessNosCombinedFile(string NosFileName)
         {
             FileInfo templateFile = new FileInfo(tempTemplateFileName);
+            FileInfo dataFile = new FileInfo(NosFileName);
             using (ExcelPackage templatePackage = new ExcelPackage(templateFile))
             {
                 var templateWb = templatePackage.Workbook;
@@ -73,15 +73,22 @@ namespace LifeCycleWorkflowLibrary
                     wsNos.Cells[nosSettings.HeaderRow + 1, 1, wsNos.Dimension.End.Row, wsNos.Dimension.End.Column].Clear();
                 }
 
+                var format = new ExcelTextFormat();
+                format.Delimiter = ',';
+                format.EOL = "\r";
+                format.TextQualifier = '"';
+
+                wsNos.Cells[nosSettings.HeaderRow + 1, 1].LoadFromText(dataFile, format);
+
                 //DataImporter.WriteToExcelSheet(wsNos, wsNos.Cells[nosSettings.HeaderRow + 1, 1].Address);
 
                 //FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos);
                 //processWsFormula.ProcessFormulaRow(dt);
 
-                templatePackage.SaveAs(templateFile);
+                templatePackage.Save();
             }
 
-            Process.Start(tempTemplateFileName);
+            //Process.Start(tempTemplateFileName);
         }
 
         public static bool ProcessInactiveUPC(string InactiveUpcFilename)
