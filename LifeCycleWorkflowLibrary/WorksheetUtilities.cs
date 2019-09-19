@@ -60,6 +60,15 @@ namespace LifeCycleWorkflowLibrary
 
         }
 
+        public void ClearAllDataUnderRow(int RowNumber)
+        {
+            if (_ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row > RowNumber)
+            {
+                _ws.Range[_ws.Cells[RowNumber + 1, 1],
+                        _ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)].Delete(XlDeleteShiftDirection.xlShiftUp);
+            }
+        }
+
         static T[,] TransposeArray<T>(T[,] array2D)
         {
             var rows = array2D.GetLength(0);

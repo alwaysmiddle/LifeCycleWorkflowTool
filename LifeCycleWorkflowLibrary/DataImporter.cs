@@ -8,7 +8,7 @@ namespace LifeCycleWorkflowLibrary
         // Load a CSV file into an array of rows and columns.
         // Assume there may be blank lines but every line has
         // the same number of fields.
-        public static object[,] ReadCsvFile(string filename)
+        public static object[,] ReadCsvFile(string filename, bool skipFirstLine = false)
         {
             List<string[]> allLines = new List<string[]>();
             using (TextFieldParser parser = new TextFieldParser(filename))
@@ -17,9 +17,22 @@ namespace LifeCycleWorkflowLibrary
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
 
+                bool firstLine = true;
+
                 while (!parser.EndOfData)
                 {
-                    allLines.Add(parser.ReadFields());
+                    string[] line = parser.ReadFields();
+                    if(line != null && line.Length > 0)
+                    {
+                        if(skipFirstLine && firstLine)
+                        {
+                            firstLine = false;
+                        }
+                        else
+                        {
+                            allLines.Add(line);
+                        }
+                    }
                 }
             }
 
