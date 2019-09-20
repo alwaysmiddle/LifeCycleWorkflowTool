@@ -25,11 +25,20 @@ namespace LifeCycleWorkflowLibrary
 
             wipWb = excel.Workbooks.Open(tempTemplateFileName);
             //Running Main Processes
-            TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
-            TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
-            TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
+            try
+            {
+                excel.Visible = true;
+                //TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
+                TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
+                //TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
 
-            excel.Visible = true;
+                
+            }
+            catch
+            {
+                excel.Quit();
+            }
+
 
             Globals.TheBay.PathHolder.OutputWipFile = tempTemplateFileName;
             Globals.General.StateControl.WipFileProcessSucessful = true;
@@ -64,6 +73,7 @@ namespace LifeCycleWorkflowLibrary
             excel = new Excel.Application();
         }
 
+        //NosCombined
         public static void ProcessNosCombinedFile(string NosFileName)
         {
             try
@@ -83,17 +93,17 @@ namespace LifeCycleWorkflowLibrary
                 //load in data from csv files
                 wsNosUtility.WriteArrayToCell<object>(data, nosSettings.HeaderRow + 1, 1);
 
-                //FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos);
-                //processWsFormula.ProcessFormulaRow(dt);
+                FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos, nosSettings);
+                processWsFormula.ProcessFormulaRow();
 
                 wipWb.Save();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
                 excel.Quit();
             }
 
-            //Process.Start(tempTemplateFileName);
         }
 
         public static void ProcessInactiveUPC(string InactiveUpcFilename)
@@ -120,6 +130,10 @@ namespace LifeCycleWorkflowLibrary
 
                 //load data in
                 wsInactiveDataUtility.WriteArrayToCell<object>(data, "A1");
+
+                //Process formula row
+                FormulaRowHandler processWsFormula = new FormulaRowHandler(wsInactive, inactiveUpcSettings, true);
+                processWsFormula.ProcessFormulaRow();
 
                 wipWb.Save();
             }catch(Exception ex)

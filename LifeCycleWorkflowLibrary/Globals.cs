@@ -28,7 +28,7 @@ namespace LifeCycleWorkflowLibrary
                 public static bool FinalFilePrcoessSucessful { get; set; } = false;
             }
             //Critical Keywords
-            public static string MatchHeaderOperationKeyword { get; set; } = "Match Header";
+            public static string MatchHeaderOperationKeyword { get; set; } = "MatchHeader";
 
             //User Inputs
             public static DateTime OutputFileDate { get; set; }
