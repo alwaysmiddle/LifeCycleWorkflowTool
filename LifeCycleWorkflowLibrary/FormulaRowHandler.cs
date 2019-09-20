@@ -11,7 +11,6 @@ namespace LifeCycleWorkflowLibrary
         private WorksheetCustomSettings customSettings { get; set; }
         private static Worksheet passedWorksheet { get; set; }
         private static Worksheet referenceWs { get; set; }
-        private static WorksheetUtilities passedWorkSheetUtility { get; set; }
         private static string MatchHeaderOperationKeyword { get; set; } = Globals.General.MatchHeaderOperationKeyword;
         private static bool matchHeaderFunctionality { get; set; }
 
@@ -22,7 +21,6 @@ namespace LifeCycleWorkflowLibrary
         public FormulaRowHandler(Worksheet worksheet, WorksheetCustomSettings settings, bool useMatchHeader = false)
         {
             passedWorksheet = worksheet;
-            passedWorkSheetUtility = new WorksheetUtilities(passedWorksheet);
             customSettings = settings;
             matchHeaderFunctionality = useMatchHeader;
 
@@ -100,8 +98,9 @@ namespace LifeCycleWorkflowLibrary
                 {
                     //Grab the range below the found cell
                     int lastRow = referenceWs.UsedRange.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
-                    object[,] resultData = referenceWs.Range[resultRange.Offset[1, 0], referenceWs.Cells[lastRow, resultRange.Column]].Value2;
-                    passedWorkSheetUtility.WriteArrayToCell<object>(resultData, referenceWs.Cells[customSettings.HeaderRow+1, cell.Column].Address);
+                    referenceWs.Range[resultRange.Offset[1, 0], referenceWs.Cells[lastRow, resultRange.Column]].Copy();
+                    passedWorksheet.Cells[customSettings.HeaderRow+1, cell.Column].PasteSpecial(XlPasteType.xlPasteValuesAndNumberFormats,
+                                   XlPasteSpecialOperation.xlPasteSpecialOperationNone);
                 }
             }
         }
