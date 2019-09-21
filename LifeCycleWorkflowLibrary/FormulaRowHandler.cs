@@ -113,7 +113,7 @@ namespace LifeCycleWorkflowLibrary
                 //fetch addresses of the column directly below
                 int lastRow = referenceWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
 
-                if (lastRow < 500000)
+                if (lastRow < 500000)// prevents executions if the last row is set to very large number
                 {
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
                     var sameColumnLastCell = passedWorksheet.Cells[lastRow, cell.Column];
@@ -125,7 +125,7 @@ namespace LifeCycleWorkflowLibrary
                 //fetch addresses of the column directly below
                 int lastRow = referenceWs.UsedRange.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
 
-                if (lastRow < 500000)
+                if (lastRow < 500000)// prevents executions if the last row is set to very large number
                 { 
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
                     var sameColumnLastCell = passedWorksheet.Cells[lastRow - 1, cell.Column];

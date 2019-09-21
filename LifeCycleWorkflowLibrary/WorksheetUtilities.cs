@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace LifeCycleWorkflowLibrary
 {
+    /// <summary>
+    /// WorksheetUtility structure is designed as extensions of functionality of specific worksheet. Therefore initial reference is required when constructing this object.
+    /// </summary>
     public class WorksheetUtilities
     {
         Worksheet ws { get; set; }

@@ -31,8 +31,6 @@ namespace LifeCycleWorkflowLibrary
                 //TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
                 TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
                 //TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
-
-                
             }
             catch
             {
@@ -135,6 +133,8 @@ namespace LifeCycleWorkflowLibrary
                 FormulaRowHandler processWsFormula = new FormulaRowHandler(wsInactive, inactiveUpcSettings, true);
                 processWsFormula.ProcessFormulaRow();
 
+                //SpecialRules
+
                 wipWb.Save();
             }catch(Exception ex)
             {
@@ -165,6 +165,10 @@ namespace LifeCycleWorkflowLibrary
                 wsDetailsProductUtility.ClearAllDataUnderRow(detailsProductSettings.HeaderRow);
 
                 wsDetailsProductDataUtility.WriteArrayToCell<object>(data, "A1");
+
+                //Process formula row
+                FormulaRowHandler processWsFormula = new FormulaRowHandler(wsDetailsProduct, detailsProductSettings, true);
+                processWsFormula.ProcessFormulaRow();
 
                 wipWb.Save();
             }
