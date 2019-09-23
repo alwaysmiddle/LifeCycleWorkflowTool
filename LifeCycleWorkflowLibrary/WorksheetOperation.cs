@@ -161,6 +161,48 @@ namespace LifeCycleWorkflowLibrary
             }
         }
 
+        /// <summary>
+        /// Total inventory calculation for TheBay.
+        /// </summary>
+        /// <param name="data"></param>
+        public void TheBaySpecialRule2(object[,] data)
+        {
+            //Hard coded range for vlookup operations
+            Range metricsRange = ws.Range[ws.Cells[3, 3], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, 3]];
+            object[,] rowValues = new object[1, 3];
+
+            //use dictionary as lookup
+            Dictionary<string, object[,]> dataDict = new Dictionary<string, object[,]>();
+
+            //data is 0 based
+            for(int i = 1; i < data.GetLength(0); i++)
+            {
+                try
+                {
+                    rowValues[0, 0] = data[i, 2];
+                    rowValues[0, 1] = data[i, 3];
+                    rowValues[0, 2] = data[i, 4];
+                    dataDict.Add(data[i, 1].ToString(), rowValues);
+                }
+                catch
+                {
+                    //TODO add error report for dupilcated values in column, so dictionary can not index it.
+                }
+            }
+
+            foreach (Range cell in metricsRange)
+            {
+                if (cell.Value2 != null)
+                {
+                    string tempStr = cell.Value2.ToString();
+                    if (dataDict.ContainsKey(tempStr))
+                    {
+                        cell.Offset[0, 1].Resize[1, 3].Value2 = dataDict[tempStr];
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Update the reference column row number for other worksheets.

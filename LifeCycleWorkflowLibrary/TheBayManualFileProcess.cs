@@ -225,6 +225,18 @@ namespace LifeCycleWorkflowLibrary
             }
         }
 
+        //InventoryValue
+        private static void ProcessInventoryValue(string inventoryValueFilename)
+        {
+            //Read the inventory value file
+            object[,] data = DataImporter.ReadBitReport(inventoryValueFilename, "DMM");
+            //then send this file to process
+            //string wsName = Globals.TheBay.TemplateWorksheetNames.;
+
+            //save
+            //calculate formula
+        }
+
         //Update Pivot Tables
         private static void UpdatePivots()
         {
