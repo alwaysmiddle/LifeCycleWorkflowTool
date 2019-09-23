@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace LifeCycleWorkflowLibrary
 {
@@ -29,41 +26,47 @@ namespace LifeCycleWorkflowLibrary
             try
             {
                 excel.ScreenUpdating = false;
-                excel.Calculation = Excel.XlCalculation.xlCalculationManual;
+                excel.Calculation = XlCalculation.xlCalculationManual;
                 excel.EnableEvents = false;
                 excel.DisplayStatusBar = false;
                 excel.PrintCommunication = false;    // Excel 2010+ only
 
                 //TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
                 //TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
-                TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
+                //TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
+                //TheBayManualFileProcess.UpdatePivots();
+                TheBayManualFileProcess.UpateDate();
 
-                excel.Visible = true;
-            }
-            catch
-            {
-                excel.Quit();
+                //excel.Visible = true;
+
+                Globals.TheBay.PathHolder.OutputWipFile = tempTemplateFileName;
+                Globals.General.StateControl.WipFileProcessSucessful = true;
             }
             finally
             {
                 excel.ScreenUpdating = true;
-                excel.Calculation = Excel.XlCalculation.xlCalculationAutomatic;
+                excel.Calculation = XlCalculation.xlCalculationAutomatic;
                 excel.EnableEvents = true;
                 excel.DisplayStatusBar = true;
                 excel.PrintCommunication = true;    // Excel 2010+ only
 
                 excel.DisplayAlerts = false;
+                wipWb.Save();
+                wipWb.Close();
                 excel.Quit();
-                if (excel != null)
-                {
-                    Marshal.ReleaseComObject(excel);
-                    excel = null;
-                }
+            }
+            
+            //After local file processing, copy to final destination (possible virutal LAN as destination)
+            if (Globals.General.StateControl.WipFileProcessSucessful)
+            {
+                //LifeCycleFileUtilities.CopyFile(tempTemplateFileName, StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newWipFilename);
             }
 
-
-            Globals.TheBay.PathHolder.OutputWipFile = tempTemplateFileName;
-            Globals.General.StateControl.WipFileProcessSucessful = true;
+            if (excel != null)
+            {
+                Marshal.ReleaseComObject(excel);
+                excel = null;
+            }
         }
 
         public static void ProcessFinalFiles()
@@ -81,6 +84,7 @@ namespace LifeCycleWorkflowLibrary
         }
         private static void InitializeProperties()
         {
+            // Path.GetTempPath()
             //Generate temperary local file for faster processing
             tempTemplateFileName = LifeCycleFileUtilities.CopyFile(
                 StoredSettings.TemplateLocations.TheBay.WipTempalteLocation, StoredSettings.OutputDirectory.TheBay.WipOutputLocation, Guid.NewGuid().ToString());
@@ -96,7 +100,7 @@ namespace LifeCycleWorkflowLibrary
         }
 
         //NosCombined
-        public static void ProcessNosCombinedFile(string NosFileName)
+        private static void ProcessNosCombinedFile(string NosFileName)
         {
             try
             {
@@ -126,12 +130,11 @@ namespace LifeCycleWorkflowLibrary
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
-                excel.Quit();
             }
 
 }
-
-        public static void ProcessInactiveUPC(string InactiveUpcFilename)
+        //Inactive UPC
+        private static void ProcessInactiveUPC(string InactiveUpcFilename)
         {
             try
             {
@@ -174,11 +177,11 @@ namespace LifeCycleWorkflowLibrary
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
-                excel.Quit();
             }
         }
 
-        public static void ProcessProductDetails(string productDetailsFilename)
+        //Details Product
+        private static void ProcessProductDetails(string productDetailsFilename)
         {
             try { 
                 string wsName = Globals.TheBay.TemplateWorksheetNames.DetailsProduct;
@@ -212,17 +215,43 @@ namespace LifeCycleWorkflowLibrary
 
                 detailsProductOperations.CalculateAndPasteAsValues();
 
+                detailsProductOperations.TheBaySpeicalRule1();
+
                 wipWb.Save();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
-                excel.Quit();
             }
         }
 
-        
+        //Update Pivot Tables
+        private static void UpdatePivots()
+        {
+            Worksheet pivots = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.Pivots];
+            PivotTables ptTables = pivots.PivotTables();
+            int count = ptTables.Count;
+            if(count > 0)
+            {
+                for(int i = 1; i <= count; i++)
+                {
+                    PivotTable pt = ptTables.Item(i);
+                    pt.RefreshTable();
+                }
+            }
 
+            if (pivots != null)
+            {
+                Marshal.ReleaseComObject(pivots);
+                pivots = null;
+            }
+        }
 
+        //Update WF summary date
+        private static void UpateDate()
+        {
+            Worksheet wsSummaryChart = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.SummaryChart];
+            wsSummaryChart.Range["N5"].Value2 = Globals.General.OutputFileDate;
+        }
     }
 }

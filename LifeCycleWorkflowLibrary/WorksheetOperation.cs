@@ -113,26 +113,52 @@ namespace LifeCycleWorkflowLibrary
 
         /// <summary>
         /// Filter "Re-Work: Complete Fur Attributes" on "Re-Work Status" Column (BI),
+        /// Deselect "Exception" on current workflow status.
         /// Update current_workflow_status from “Awaiting Final Copy” to “Awaiting Complete Copy Attributes”
         /// Update Current Team from “Copy” to “Sample Management”
         /// </summary>
         /// <param name="ws"></param>
         /// <param name="columneName"></param>
-        private static void TheBaySpeicalRule1(Range headerCell)
+        public void TheBaySpeicalRule1()
         {
-            Worksheet ws = headerCell.Parent;
-            Range columnRange = ws.Range[headerCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, headerCell.Column]];
-            object[,] array = columnRange.Value2;
+            Range headerRange = ws.Range[ws.Cells[headerRow, 1],
+                   ws.Cells[headerRow, ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Column]];
 
-            for (int i = 1; i <= array.GetLength(0); i++)
+            Range reworkStatusCell = wsUtilities.FindCellBasedOnValue<string>("ReWork_Status", headerRange.Address);
+            Range currentWorkflowStatusCell = wsUtilities.FindCellBasedOnValue<string>("Current_Workflow_Status", headerRange.Address);
+            Range currentTeamCell = wsUtilities.FindCellBasedOnValue<string>("Current Team", headerRange.Address);
+
+            if (reworkStatusCell != null && currentWorkflowStatusCell != null && currentTeamCell != null)
             {
-                if (int.Parse(array[i, 1].ToString()) == 27)
-                {
-                    array[i, 1] = 5;
-                }
-            }
 
-            columnRange.Value2 = array;
+                Range reworkStatusRange = ws.Range[reworkStatusCell.Offset[1, 0],
+                    ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, reworkStatusCell.Column]];
+                Range currentWorkflowStatusRange = ws.Range[currentWorkflowStatusCell.Offset[1, 0],
+                    ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, currentWorkflowStatusCell.Column]];
+                Range currentTeamRange = ws.Range[currentTeamCell.Offset[1, 0],
+                    ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, currentTeamCell.Column]];
+
+                object[,] reworkStatusArray = reworkStatusRange.Value2;
+                object[,] currentWorkflowStatusArray = currentWorkflowStatusRange.Value2;
+                object[,] currentTeamArray = currentTeamRange.Value2;
+
+
+                for (int i = 1; i <= reworkStatusArray.GetLength(0); i++)
+                {
+                    if (reworkStatusArray[i,1] != null  && 
+                        reworkStatusArray[i, 1].ToString().Equals("Re-Work: Complete Fur Attributes", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (currentWorkflowStatusArray[i, 1].ToString().Equals("Awaiting Final Copy", StringComparison.OrdinalIgnoreCase))
+                        {
+                            currentWorkflowStatusArray[i, 1] = "Awaiting Complete Copy Attributes";
+                            currentTeamArray[i, 1] = "Sample Management";
+                        }
+                    }
+                }
+
+                currentWorkflowStatusRange.Value2 = currentWorkflowStatusArray;
+                currentTeamRange.Value2 = currentTeamArray;
+            }
         }
 
 
@@ -164,18 +190,15 @@ namespace LifeCycleWorkflowLibrary
 
         public void CalculateAndPasteAsValues()
         {
+
+            ws.Calculate();
             Range lastCell = ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
 
             if (lastCell.Row > headerRow)
             {
                 Range dataRange = ws.Range[ws.Cells[headerRow + 1, 1], lastCell];
-                dataRange.Replace("#N/A", 0);
-                dataRange.Replace("REF!", 0);
-                ws.Calculate();
 
                 dataRange.Value2 = dataRange.Value2;
-                dataRange.Replace(-2146826246, 0);
-                dataRange.Replace("-2146826246", "0");
             }
         }
     }

@@ -159,7 +159,6 @@
             this.lifeCycleDateTimePicker.Name = "lifeCycleDateTimePicker";
             this.lifeCycleDateTimePicker.Size = new System.Drawing.Size(222, 23);
             this.lifeCycleDateTimePicker.TabIndex = 7;
-            this.lifeCycleDateTimePicker.ValueChanged += new System.EventHandler(this.LifeCycleDateTimePicker_ValueChanged);
             // 
             // ManualLoadProgressBar
             // 

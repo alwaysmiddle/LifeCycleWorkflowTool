@@ -74,6 +74,7 @@ namespace LifeCycleWorkflowTool
 
         private void ManualLoadButtonWIP_Click(object sender, EventArgs e)
         {
+            Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
             TheBayManualFileProcess.ProcessWipFiles();
             MainFormStateCheck();
         }
@@ -150,11 +151,6 @@ namespace LifeCycleWorkflowTool
             }
         }
 
-        private void LifeCycleDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            //Ensure Dynamic date reading
-            Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
-        }
 
         //Settings initializations
 
@@ -166,7 +162,7 @@ namespace LifeCycleWorkflowTool
             WorksheetCustomSettings detailsProductSetting = new WorksheetCustomSettings();
             detailsProductSetting.FormulaeRow = 3;
             detailsProductSetting.HeaderRow = 7;
-            detailsProductSetting.ReferenceRow = 5;
+            detailsProductSetting.ReferenceRow = 4;
             worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.DetailsProduct, detailsProductSetting);
 
             WorksheetCustomSettings inactiveUpcSetting = new WorksheetCustomSettings();

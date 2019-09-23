@@ -107,7 +107,7 @@ namespace LifeCycleWorkflowLibrary
                 {
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
                     var sameColumnLastCell = passedWorksheet.Cells[customSettings.HeaderRow + lastRow - 1, cell.Column];
-                    cell.Copy(passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell]);
+                    passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell].FormulaR1C1 = cell.FormulaR1C1;
                 }
             }
             else
@@ -119,7 +119,7 @@ namespace LifeCycleWorkflowLibrary
                 { 
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
                     var sameColumnLastCell = passedWorksheet.Cells[lastRow - 1, cell.Column];
-                    cell.Copy(passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell]);
+                    passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell].FormulaR1C1 = cell.FormulaR1C1;
                 }
             }
         }
