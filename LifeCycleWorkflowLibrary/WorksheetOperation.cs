@@ -1,0 +1,182 @@
+﻿using Microsoft.Office.Interop.Excel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace LifeCycleWorkflowLibrary
+{
+    /// <summary>
+    /// This class is repository of all the operations that can be done on a sheet within this application.
+    /// </summary>
+    public class WorksheetOperation
+    {
+        private Worksheet ws { get; set; }
+        private WorksheetUtilities wsUtilities { get; set; }
+        private int headerRow { get; set; }
+
+
+        public WorksheetOperation(Worksheet ReferenceWorksheet, int HeaderRow = 1)
+        {
+            ws = ReferenceWorksheet;
+            headerRow = HeaderRow;
+            wsUtilities = new WorksheetUtilities(ws);
+        }
+
+        //Data Loading
+
+        public void LoadDataAtCell<T>(T[,] Data, int RowNumber, int ColNumber)
+        {
+            //clear old data
+            wsUtilities.ClearAllDataUnderRow(headerRow);
+
+            wsUtilities.WriteArrayToCell<T>(Data, RowNumber, ColNumber);
+        }
+
+        public void LoadDataAtCell<T>(T[,] data, string CellAddress)
+        {
+            //clear old data
+            wsUtilities.ClearAllDataUnderRow(headerRow);
+
+            wsUtilities.WriteArrayToCell<T>(data, CellAddress);
+        }
+
+
+        //========================Special Processes==========================
+
+        /// <summary>
+        /// Changes another column based on integer value of first column
+        /// </summary>
+        /// <param name="ws"></param>
+        /// <param name="columneName"></param>
+        public void ChangeNumberInColumn(string RefenceColumnName, string ChangingColumnName, int ChangeFrom, int ChangeTo)
+        {
+            Range headerRange = ws.Range[ws.Cells[headerRow, 1],
+                   ws.Cells[headerRow, ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Column]];
+            Range referenceColumnCell = wsUtilities.FindCellBasedOnValue<string>(RefenceColumnName, headerRange.Address);
+            Range changingColumnCell = wsUtilities.FindCellBasedOnValue<string>(ChangingColumnName, headerRange.Address);
+
+            if (referenceColumnCell != null && changingColumnCell != null)
+            {
+                Range columnRange = ws.Range[referenceColumnCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, referenceColumnCell.Column]];
+                Range changeColumnRange = ws.Range[changingColumnCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, changingColumnCell.Column]];
+                object[,] array = columnRange.Value2;
+
+                for (int i = 1; i <= array.GetLength(0); i++)
+                {
+                    if (int.Parse(array[i, 1].ToString()) == ChangeFrom)
+                    {
+                        array[i, 1] = ChangeTo;
+                    }
+                }
+
+                changeColumnRange.Value2 = array;
+            }
+        }
+
+        /// <summary>
+        /// Make comparison of "Reference Column", then change "Changing Column" to another string value.
+        /// </summary>
+        /// <param name="RefenceColumnName"></param>
+        /// <param name="ChangingColumnName"></param>
+        /// <param name="ChangeFrom">Use equality of this value for comparison</param>
+        /// <param name="ChangeTo"></param>
+        /// <param name="IgnoreCase"></param>
+        public void ChangeStringInColumn(string RefenceColumnName, string ChangingColumnName, 
+            string ChangeFrom, string ChangeTo, StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase)
+        {
+            Range headerRange = ws.Range[ws.Cells[headerRow, 1],
+                   ws.Cells[headerRow, ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Column]];
+            Range referenceColumnCell = wsUtilities.FindCellBasedOnValue<string>(RefenceColumnName, headerRange.Address);
+            Range changingColumnCell = wsUtilities.FindCellBasedOnValue<string>(ChangingColumnName, headerRange.Address);
+
+            if (referenceColumnCell != null && changingColumnCell != null)
+            {
+                Range columnRange = ws.Range[referenceColumnCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, referenceColumnCell.Column]];
+                Range changeColumnRange = ws.Range[changingColumnCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, changingColumnCell.Column]];
+                object[,] array = columnRange.Value2;
+                object[,] changeArray = changeColumnRange.Value2;
+
+                for (int i = 1; i <= array.GetLength(0); i++)
+                {
+                    if (array[i, 1].ToString().Trim().Equals(ChangeFrom, IgnoreCase))
+                    {
+                        changeArray[i, 1] = ChangeTo;
+                    }
+                }
+
+                changeColumnRange.Value2 = changeArray;
+            }
+        }
+
+        /// <summary>
+        /// Filter "Re-Work: Complete Fur Attributes" on "Re-Work Status" Column (BI),
+        /// Update current_workflow_status from “Awaiting Final Copy” to “Awaiting Complete Copy Attributes”
+        /// Update Current Team from “Copy” to “Sample Management”
+        /// </summary>
+        /// <param name="ws"></param>
+        /// <param name="columneName"></param>
+        private static void TheBaySpeicalRule1(Range headerCell)
+        {
+            Worksheet ws = headerCell.Parent;
+            Range columnRange = ws.Range[headerCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, headerCell.Column]];
+            object[,] array = columnRange.Value2;
+
+            for (int i = 1; i <= array.GetLength(0); i++)
+            {
+                if (int.Parse(array[i, 1].ToString()) == 27)
+                {
+                    array[i, 1] = 5;
+                }
+            }
+
+            columnRange.Value2 = array;
+        }
+
+
+        /// <summary>
+        /// Update the reference column row number for other worksheets.
+        /// </summary>
+        /// <param name="headerCell"></param>
+        public void UpdateRowReferences(string ReferenceColumnName, int StartValue)
+        {
+            Range headerRange = ws.Range[ws.Cells[headerRow, 1],
+                   ws.Cells[headerRow, ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Column]];
+            Range columnHeaderCell = wsUtilities.FindCellBasedOnValue<string>(ReferenceColumnName, headerRange.Address);
+
+            if (columnHeaderCell != null)
+            {
+                Range columnRange = ws.Range[columnHeaderCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, columnHeaderCell.Column]];
+                object[,] array = columnRange.Value2;
+
+                int refNumber = StartValue;
+
+                for (int i = 1; i <= array.GetLength(0); i++)
+                {
+                    array[i, 1] = refNumber;
+                    refNumber++;
+                }
+                columnRange.Value2 = array;
+            }
+        }
+
+        public void CalculateAndPasteAsValues()
+        {
+            Range lastCell = ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
+
+            if (lastCell.Row > headerRow)
+            {
+                Range dataRange = ws.Range[ws.Cells[headerRow + 1, 1], lastCell];
+                dataRange.Replace("#N/A", 0);
+                dataRange.Replace("REF!", 0);
+                ws.Calculate();
+
+                dataRange.Value2 = dataRange.Value2;
+                dataRange.Replace(-2146826246, 0);
+                dataRange.Replace("-2146826246", "0");
+            }
+        }
+    }
+}

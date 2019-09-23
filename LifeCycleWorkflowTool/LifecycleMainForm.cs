@@ -141,11 +141,6 @@ namespace LifeCycleWorkflowTool
             }
         }
 
-        private void LifecycleWorkflowForm_Activated(object sender, EventArgs e)
-        {
-            MainFormStateCheck();
-        }
-
         private void SettingsButtonTemplateLocations_Click(object sender, EventArgs e)
         {
             using (LifecycleTemplateLocationForm templateForm = new LifecycleTemplateLocationForm())
@@ -186,6 +181,11 @@ namespace LifeCycleWorkflowTool
             worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.NosCombined, nosCombinedSetting);
 
             worksheetSettings.Save(Globals.TheBay.PathHolder.WsOptionsDefaultFileName);
+        }
+
+        private void LifecycleWorkflowForm_Activated(object sender, EventArgs e)
+        {
+            MainFormStateCheck();
         }
     }
 }

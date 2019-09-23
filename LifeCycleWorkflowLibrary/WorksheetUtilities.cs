@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 
 namespace LifeCycleWorkflowLibrary
@@ -65,6 +66,66 @@ namespace LifeCycleWorkflowLibrary
             {
                 ws.Range[ws.Cells[RowNumber + 1, 1],
                         ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)].Delete(XlDeleteShiftDirection.xlShiftUp);
+            }
+        }
+
+
+        public Range FindCellBasedOnValue<T>(T searchValue, string searchRange = "", XlLookAt matchFullCell = XlLookAt.xlPart)
+        {
+            Range cellToSearch = null;
+            try
+            {
+                if (searchRange == "")
+                {
+                    cellToSearch = ws.UsedRange.Find(
+                        What: searchValue,
+                        LookIn: XlFindLookIn.xlValues,
+                        LookAt: matchFullCell,
+                        SearchOrder: XlSearchOrder.xlByRows,
+                        SearchDirection: XlSearchDirection.xlNext
+                        );
+
+                    return cellToSearch;
+                }
+                else
+                {
+                    cellToSearch = ws.Range[searchRange].Find(
+                        What: searchValue,
+                        LookIn: XlFindLookIn.xlValues,
+                        LookAt: matchFullCell,
+                        SearchOrder: XlSearchOrder.xlByRows,
+                        SearchDirection: XlSearchDirection.xlNext
+                        );
+
+                    return cellToSearch;
+                }
+            }catch(Exception ex)
+            {
+                //TODO write this to error log
+                return cellToSearch;
+            }
+        }
+
+        public Range FindColumnInHeaderRow<T>(T searchValue, Range headerStartCell, XlLookAt matchFullCell = XlLookAt.xlPart)
+        {
+            Range cellToSearch = null;
+            try
+            {
+                Range headerRange = ws.Range[headerStartCell, ws.Cells[headerStartCell.Row, ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)]];
+                cellToSearch = headerRange.Find(
+                    What: searchValue,
+                    LookIn: XlFindLookIn.xlValues,
+                    LookAt: matchFullCell,
+                    SearchOrder: XlSearchOrder.xlByRows,
+                    SearchDirection: XlSearchDirection.xlNext
+                    );
+
+                return cellToSearch;
+            }
+            catch (Exception ex)
+            {
+                //TODO write this to error log
+                return cellToSearch;
             }
         }
 

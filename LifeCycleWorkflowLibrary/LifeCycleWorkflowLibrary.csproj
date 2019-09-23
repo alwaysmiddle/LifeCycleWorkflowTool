@@ -69,6 +69,7 @@
     <Compile Include="StoredSettings.cs" />
     <Compile Include="TheBayManualFileProcess.cs" />
     <Compile Include="WorksheetCustomSettings.cs" />
+    <Compile Include="WorksheetOperation.cs" />
     <Compile Include="WorksheetUtilities.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@ namespace LifeCycleWorkflowLibrary
         private static Worksheet passedWorksheet { get; set; }
         private static Worksheet referenceWs { get; set; }
         private static string MatchHeaderOperationKeyword { get; set; } = Globals.General.MatchHeaderOperationKeyword;
-        private static bool matchHeaderFunctionality { get; set; }
+        private bool matchHeaderFunctionality { get; set; }
 
         /// <summary>
         /// Reads the option settings for the worksheet passed in.
@@ -27,14 +27,15 @@ namespace LifeCycleWorkflowLibrary
             initializeReferenceWorksheet();
         }
 
-        private static void initializeReferenceWorksheet()
+        private void initializeReferenceWorksheet()
         {
             if (matchHeaderFunctionality)
             {
                 Range referenceWsCell = passedWorksheet.Range["B4"];
                 try
                 {
-                    referenceWs = passedWorksheet.Parent.Worksheets[referenceWsCell.Value];
+                    referenceWs = new Worksheet();
+                    referenceWs = passedWorksheet.Parent.Worksheets[referenceWsCell.Value2];
                 }
                 catch
                 {
@@ -45,7 +46,7 @@ namespace LifeCycleWorkflowLibrary
 
         public void ProcessFormulaRow()
         {
-            int lastCol = passedWorksheet.UsedRange.SpecialCells(XlCellType.xlCellTypeLastCell).Column;
+            int lastCol = passedWorksheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Column;
 
             Range formulaRowCells = passedWorksheet.Range[
                 passedWorksheet.Cells[customSettings.FormulaeRow, 1],
@@ -68,17 +69,6 @@ namespace LifeCycleWorkflowLibrary
                         MatchDataColumn(formulaRowCell, referenceWs);
                     }
                 }
-            }
-
-            passedWorksheet.Calculate();
-
-            //Get rid of all the formula, if data successfully calculated
-            Range lastCell = passedWorksheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
-            
-            if (lastCell.Row > customSettings.HeaderRow)
-            {
-                Range dataRange = passedWorksheet.Range[passedWorksheet.Cells[customSettings.HeaderRow + 1, 1], lastCell];
-                dataRange.Value2 = dataRange.Value2;
             }
         }
 
@@ -116,20 +106,20 @@ namespace LifeCycleWorkflowLibrary
                 if (lastRow < 500000)// prevents executions if the last row is set to very large number
                 {
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
-                    var sameColumnLastCell = passedWorksheet.Cells[lastRow, cell.Column];
-                    passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell].FormulaR1C1 = cell.FormulaR1C1;
+                    var sameColumnLastCell = passedWorksheet.Cells[customSettings.HeaderRow + lastRow - 1, cell.Column];
+                    cell.Copy(passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell]);
                 }
             }
             else
             {
                 //fetch addresses of the column directly below
-                int lastRow = referenceWs.UsedRange.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
+                int lastRow = passedWorksheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
 
                 if (lastRow < 500000)// prevents executions if the last row is set to very large number
                 { 
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
                     var sameColumnLastCell = passedWorksheet.Cells[lastRow - 1, cell.Column];
-                    passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell].FormulaR1C1 = cell.FormulaR1C1;
+                    cell.Copy(passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell]);
                 }
             }
         }

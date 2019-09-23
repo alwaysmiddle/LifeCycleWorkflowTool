@@ -61,7 +61,7 @@
             this.WorkflowTabSettings.Controls.Add(this.SettingsButtonSaveLocation);
             this.WorkflowTabSettings.Location = new System.Drawing.Point(4, 26);
             this.WorkflowTabSettings.Name = "WorkflowTabSettings";
-            this.WorkflowTabSettings.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.WorkflowTabSettings.Padding = new System.Windows.Forms.Padding(3);
             this.WorkflowTabSettings.Size = new System.Drawing.Size(514, 239);
             this.WorkflowTabSettings.TabIndex = 2;
             this.WorkflowTabSettings.Text = "Settings";
@@ -117,7 +117,7 @@
             this.WorkflowTabManual.Controls.Add(this.ManualTabLabelBanner);
             this.WorkflowTabManual.Location = new System.Drawing.Point(4, 26);
             this.WorkflowTabManual.Name = "WorkflowTabManual";
-            this.WorkflowTabManual.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.WorkflowTabManual.Padding = new System.Windows.Forms.Padding(3);
             this.WorkflowTabManual.Size = new System.Drawing.Size(514, 239);
             this.WorkflowTabManual.TabIndex = 0;
             this.WorkflowTabManual.Text = "Manual Load";
