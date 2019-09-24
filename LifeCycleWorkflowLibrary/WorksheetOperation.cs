@@ -43,32 +43,35 @@ namespace LifeCycleWorkflowLibrary
         //========================Special Processes==========================
 
         /// <summary>
-        /// Changes another column based on integer value of first column
+        /// Change the value of another column, based on integer values of passed column.
         /// </summary>
-        /// <param name="ws"></param>
-        /// <param name="columneName"></param>
+        /// <param name="RefenceColumnName"></param>
+        /// <param name="ChangingColumnName"></param>
+        /// <param name="ChangeFrom"></param>
+        /// <param name="ChangeTo"></param>
         public void ChangeNumberInColumn(string RefenceColumnName, string ChangingColumnName, int ChangeFrom, int ChangeTo)
         {
             Range headerRange = ws.Range[ws.Cells[headerRow, 1],
                    ws.Cells[headerRow, ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Column]];
-            Range referenceColumnCell = wsUtilities.FindCellBasedOnValue<string>(RefenceColumnName, headerRange.Address);
-            Range changingColumnCell = wsUtilities.FindCellBasedOnValue<string>(ChangingColumnName, headerRange.Address);
+            Range referenceColumnCell = wsUtilities.FindCellBasedOnValue<string>(RefenceColumnName, headerRange.Address, XlLookAt.xlWhole);
+            Range changingColumnCell = wsUtilities.FindCellBasedOnValue<string>(ChangingColumnName, headerRange.Address, XlLookAt.xlWhole);
 
             if (referenceColumnCell != null && changingColumnCell != null)
             {
                 Range columnRange = ws.Range[referenceColumnCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, referenceColumnCell.Column]];
                 Range changeColumnRange = ws.Range[changingColumnCell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, changingColumnCell.Column]];
                 object[,] array = columnRange.Value2;
+                object[,] changeArray = changeColumnRange.Value2;
 
                 for (int i = 1; i <= array.GetLength(0); i++)
                 {
                     if (int.Parse(array[i, 1].ToString()) == ChangeFrom)
                     {
-                        array[i, 1] = ChangeTo;
+                        changeArray[i, 1] = ChangeTo;
                     }
                 }
 
-                changeColumnRange.Value2 = array;
+                changeColumnRange.Value2 = changeArray;
             }
         }
 
@@ -144,7 +147,7 @@ namespace LifeCycleWorkflowLibrary
                     if (reworkStatusArray[i, 1] != null &&
                         reworkStatusArray[i, 1].ToString().Equals("Re-Work: Complete Fur Attributes", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (currentWorkflowStatusArray[i, 1].ToString().Equals("Awaiting Final Copy", StringComparison.OrdinalIgnoreCase))
+                        if (currentWorkflowStatusArray[i, 1]!= null && currentWorkflowStatusArray[i, 1].ToString().Equals("Awaiting Final Copy", StringComparison.OrdinalIgnoreCase))
                         {
                             currentWorkflowStatusArray[i, 1] = "Awaiting Complete Copy Attributes";
                             currentTeamArray[i, 1] = "Sample Management";
@@ -163,9 +166,10 @@ namespace LifeCycleWorkflowLibrary
         /// <param name="data"></param>
         public void TheBaySpecialRule2(object[,] data)
         {
+            int lastRow = ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
+
             //Hard coded range for vlookup operations
-            Range metricsRange = ws.Range[ws.Cells[3, 3], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, 3]];
-            object[,] rowValues = new object[1, 3];
+            Range metricsRange = ws.Range[ws.Cells[3,3], ws.Cells[lastRow, 3]];
 
             //use dictionary as lookup
             Dictionary<string, object[,]> dataDict = new Dictionary<string, object[,]>();
@@ -175,9 +179,7 @@ namespace LifeCycleWorkflowLibrary
             {
                 try
                 {
-                    rowValues[0, 0] = data[i, 2];
-                    rowValues[0, 1] = data[i, 3];
-                    rowValues[0, 2] = data[i, 4];
+                    object[,] rowValues = { { data[i, 2], data[i, 3], data[i, 4] }};
                     dataDict.Add(data[i, 1].ToString(), rowValues);
                 }
                 catch
@@ -197,6 +199,13 @@ namespace LifeCycleWorkflowLibrary
                     }
                 }
             }
+
+            //Sum the columns after matching
+            ws.Range["D2"].Formula = string.Format("=SUM(D3:D{0})", lastRow);
+            ws.Range["E2"].Formula = string.Format("=SUM(E3:E{0})", lastRow);
+            ws.Range["F2"].Formula = string.Format("=SUM(F3:F{0})", lastRow);
+
+            ws.Calculate();
         }
 
 
@@ -239,5 +248,6 @@ namespace LifeCycleWorkflowLibrary
                 dataRange.Value2 = dataRange.Value2;
             }
         }
+
     }
 }

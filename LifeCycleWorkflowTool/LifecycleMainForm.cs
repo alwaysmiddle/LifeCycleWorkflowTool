@@ -84,6 +84,8 @@ namespace LifeCycleWorkflowTool
         /// <param name="e"></param>
         private void ManualLoadButtonFinalFile_Click(object sender, EventArgs e)
         {
+            Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
+            TheBayManualFileProcess.ProcessFinalFiles();
             MainFormStateCheck();
         }
 

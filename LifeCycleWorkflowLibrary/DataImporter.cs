@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LifeCycleWorkflowLibrary
@@ -93,6 +95,24 @@ namespace LifeCycleWorkflowLibrary
             string csvFileName = Path.GetTempPath() + Guid.NewGuid().ToString() + ".csv";
 
             wb.SaveAs(csvFileName, Excel.XlFileFormat.xlCSVWindows);
+
+            //Quitting this file
+            app.DisplayAlerts = false;
+            wb.Close();
+
+            app.Quit();
+
+            if(wb != null)
+            {
+                Marshal.ReleaseComObject(wb);
+                wb = null;
+            }
+
+            if(app != null)
+            {
+                Marshal.ReleaseComObject(app);
+                app = null;
+            }
 
             var oldLines = File.ReadAllLines(csvFileName);
             var newLines = oldLines.Where(line => line.IndexOf("Total", StringComparison.OrdinalIgnoreCase) < 0);

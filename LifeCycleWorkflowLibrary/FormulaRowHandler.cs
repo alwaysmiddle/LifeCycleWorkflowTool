@@ -77,7 +77,7 @@ namespace LifeCycleWorkflowLibrary
                 Range resultRange = referenceWs.UsedRange.Rows[1].Find(
                     What: passedWorksheet.Cells[customSettings.ReferenceRow, cell.Column].Value2,
                     LookIn: XlFindLookIn.xlValues,
-                    LookAt: XlLookAt.xlPart,
+                    LookAt: XlLookAt.xlWhole,
                     SearchOrder: XlSearchOrder.xlByRows,
                     SearchDirection: XlSearchDirection.xlNext
                     );
@@ -105,7 +105,7 @@ namespace LifeCycleWorkflowLibrary
                 {
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
                     var sameColumnLastCell = passedWorksheet.Cells[customSettings.HeaderRow + lastRow - 1, cell.Column];
-                    passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell].FormulaR1C1 = cell.FormulaR1C1;
+                    cell.Copy(passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell]);
                 }
             }
             else
@@ -117,7 +117,7 @@ namespace LifeCycleWorkflowLibrary
                 {
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
                     var sameColumnLastCell = passedWorksheet.Cells[lastRow - 1, cell.Column];
-                    passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell].FormulaR1C1 = cell.FormulaR1C1;
+                    cell.Copy(passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell]);
                 }
             }
         }

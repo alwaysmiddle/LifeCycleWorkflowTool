@@ -71,6 +71,7 @@ namespace LifeCycleWorkflowLibrary
                 public static string DetailsProductData { get; set; } = "Looker_Data";
                 public static string Pivots { get; set; } = "Pivots";
                 public static string SummaryChart { get; set; } = "WF Summary Chart";
+                public static string InventoryValue { get; set; } = "Ttl_Inv";
             }
         }
     }
