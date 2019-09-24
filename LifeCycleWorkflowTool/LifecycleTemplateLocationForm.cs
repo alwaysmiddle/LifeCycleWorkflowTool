@@ -1,6 +1,6 @@
-﻿using System;
+﻿using LifeCycleWorkflowLibrary;
+using System;
 using System.Collections.Generic;
-using LifeCycleWorkflowLibrary;
 using System.Windows.Forms;
 
 namespace LifeCycleWorkflowTool
@@ -41,7 +41,7 @@ namespace LifeCycleWorkflowTool
         private void TemplateLocationsButtonSaveSettings_Click(object sender, EventArgs e)
         {
             bool allValid = true;
-            
+
             TextBoxValidation templateLocationValidation
             = new TextBoxValidation(TemplateLocationsColl, TemplateLocationsErrorProvider, TextBoxValidation.ValidationType.File);
 

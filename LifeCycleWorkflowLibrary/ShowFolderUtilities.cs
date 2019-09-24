@@ -16,13 +16,13 @@ namespace LifeCycleWorkflowLibrary
 
         public void DisplayFolder()
         {
-            if(_banner == Globals.Banner.TheBay)
+            if (_banner == Globals.Banner.TheBay)
             {
-                if(_process == Globals.ProcessType.WorkInProgress)
+                if (_process == Globals.ProcessType.WorkInProgress)
                 {
                     CreateSecondPathIfEmpty(StoredSettings.OutputDirectory.TheBay.WipOutputLocation, Globals.TheBay.PathHolder.DefaultWipOutputFolder);
                 }
-                else if(_process == Globals.ProcessType.Final)
+                else if (_process == Globals.ProcessType.Final)
                 {
                     CreateSecondPathIfEmpty(StoredSettings.OutputDirectory.TheBay.FinalOutputLocation, Globals.TheBay.PathHolder.DefaultFinalOutputFolder);
                 }

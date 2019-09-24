@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.VisualBasic.FileIO;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LifeCycleWorkflowLibrary
@@ -26,9 +26,9 @@ namespace LifeCycleWorkflowLibrary
                 while (!parser.EndOfData)
                 {
                     string[] line = parser.ReadFields();
-                    if(line != null && line.Length > 0)
+                    if (line != null && line.Length > 0)
                     {
-                        if(skipFirstLine && firstLine)
+                        if (skipFirstLine && firstLine)
                         {
                             firstLine = false;
                         }

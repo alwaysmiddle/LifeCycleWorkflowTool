@@ -1,13 +1,13 @@
-﻿using System;
+﻿using LifeCycleWorkflowLibrary;
+using System;
 using System.Collections.Generic;
-using LifeCycleWorkflowLibrary;
 using System.Windows.Forms;
 
 namespace LifeCycleWorkflowTool
 {
     public partial class LifecycleSaveLocationsForm : Form
     {
-        private List<TextBox> OutputLocationsColl{ get; set; }
+        private List<TextBox> OutputLocationsColl { get; set; }
 
         public LifecycleSaveLocationsForm()
         {
@@ -51,9 +51,9 @@ namespace LifeCycleWorkflowTool
 
             allValid = outputLocationValidation.ValidateTextBox();
 
-            if(allValid)
+            if (allValid)
             {
-                StoredSettings.OutputDirectory.TheBay.WipOutputLocation= TheBayOutputLocationWipValue.Text;
+                StoredSettings.OutputDirectory.TheBay.WipOutputLocation = TheBayOutputLocationWipValue.Text;
                 StoredSettings.OutputDirectory.TheBay.FinalOutputLocation = TheBayOutputLocationFinalValue.Text;
                 this.Close();
             }

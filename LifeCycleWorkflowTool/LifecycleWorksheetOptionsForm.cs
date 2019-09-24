@@ -31,7 +31,7 @@ namespace LifeCycleWorkflowTool
             WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBay.TemplateWorksheetNames.InactiveUpc;
             WorksheetOptionsTabPageNosCombined.Text = Globals.TheBay.TemplateWorksheetNames.NosCombined;
         }
-        
+
         //TODO build a better design to save, load worksheetoptions
 
         private void LifecycleWorksheetOptionsSaveButton_Click(object sender, EventArgs e)
@@ -73,7 +73,7 @@ namespace LifeCycleWorkflowTool
             StoredSettings.UseDefaultOptions.TheBay.UseDefaultWorksheetOptions = true;
             worksheetSettings = WorksheetCustomSettingsHolder.Load(Globals.TheBay.PathHolder.WsOptionsDefaultFileName).SettingsCollection;
             LoadSettings();
-        } 
+        }
 
         private void LoadSettings()
         {

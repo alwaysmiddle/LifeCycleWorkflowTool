@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -56,9 +55,9 @@ namespace LifeCycleWorkflowTool
                 {
                     _errorMessage = "Error: File path is not valid, please make sure you have valid filename selected.";
                     _erorrProvider.SetError(tBox, _errorMessage);
-                    valid = false;   
+                    valid = false;
                 }
-                else if(_type == ValidationType.Folder && !Directory.Exists(tBox.Text))
+                else if (_type == ValidationType.Folder && !Directory.Exists(tBox.Text))
                 {
                     _errorMessage = "Error: Folder path is not valid, please make sure you have valid folder path selected.";
                     _erorrProvider.SetError(tBox, _errorMessage);

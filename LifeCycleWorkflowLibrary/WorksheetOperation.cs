@@ -1,10 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace LifeCycleWorkflowLibrary
 {
@@ -84,7 +80,7 @@ namespace LifeCycleWorkflowLibrary
         /// <param name="ChangeFrom">Use equality of this value for comparison</param>
         /// <param name="ChangeTo"></param>
         /// <param name="IgnoreCase"></param>
-        public void ChangeStringInColumn(string RefenceColumnName, string ChangingColumnName, 
+        public void ChangeStringInColumn(string RefenceColumnName, string ChangingColumnName,
             string ChangeFrom, string ChangeTo, StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase)
         {
             Range headerRange = ws.Range[ws.Cells[headerRow, 1],
@@ -145,7 +141,7 @@ namespace LifeCycleWorkflowLibrary
 
                 for (int i = 1; i <= reworkStatusArray.GetLength(0); i++)
                 {
-                    if (reworkStatusArray[i,1] != null  && 
+                    if (reworkStatusArray[i, 1] != null &&
                         reworkStatusArray[i, 1].ToString().Equals("Re-Work: Complete Fur Attributes", StringComparison.OrdinalIgnoreCase))
                     {
                         if (currentWorkflowStatusArray[i, 1].ToString().Equals("Awaiting Final Copy", StringComparison.OrdinalIgnoreCase))
@@ -175,7 +171,7 @@ namespace LifeCycleWorkflowLibrary
             Dictionary<string, object[,]> dataDict = new Dictionary<string, object[,]>();
 
             //data is 0 based
-            for(int i = 1; i < data.GetLength(0); i++)
+            for (int i = 1; i < data.GetLength(0); i++)
             {
                 try
                 {

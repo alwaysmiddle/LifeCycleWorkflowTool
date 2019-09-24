@@ -1,7 +1,7 @@
-﻿using System;
+﻿using LifeCycleWorkflowLibrary;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using LifeCycleWorkflowLibrary;
 
 namespace LifeCycleWorkflowTool
 {
@@ -47,7 +47,7 @@ namespace LifeCycleWorkflowTool
         private void ManualDataLoadConfirmButton_Click(object sender, EventArgs e)
         {
             bool allValid = true;
-            TextBoxValidation manualLoadValidation 
+            TextBoxValidation manualLoadValidation
                 = new TextBoxValidation(TextBoxColl, ManualDataLoadTheBayErrorProvider, TextBoxValidation.ValidationType.File);
 
             allValid = manualLoadValidation.ValidateTextBox();

@@ -2,7 +2,7 @@
 
 namespace LifeCycleWorkflowTool
 {
-     static class FileFolderPickerUtility
+    static class FileFolderPickerUtility
     {
         /// <summary>
         /// Popluate the textbox control with a choice of filepicker (value: 0) or folderpicker(value: 1)
@@ -31,7 +31,7 @@ namespace LifeCycleWorkflowTool
                 }
             }
 
-            if(pickerType == 1)
+            if (pickerType == 1)
             {
                 FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
                 folderBrowserDialog.ShowNewFolderButton = true;
@@ -43,5 +43,5 @@ namespace LifeCycleWorkflowTool
         }
     }
 
-    
+
 }

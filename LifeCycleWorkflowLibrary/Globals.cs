@@ -51,13 +51,14 @@ namespace LifeCycleWorkflowLibrary
                         return Properties.Settings.Default.OutputLocationTheBayWip;
                     }
                 }
-                public static string DefaultFinalOutputFolder {
+                public static string DefaultFinalOutputFolder
+                {
                     get
                     {
                         return Properties.Settings.Default.OutputLocationTheBayFinal;
                     }
                 }
-                    
+
             }
 
             public static class TemplateWorksheetNames

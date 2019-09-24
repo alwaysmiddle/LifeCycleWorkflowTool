@@ -1,8 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
-using System.Data;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace LifeCycleWorkflowLibrary
 {
@@ -58,13 +55,14 @@ namespace LifeCycleWorkflowLibrary
             foreach (Range formulaRowCell in formulaRowCells)
             {
                 //Data matching operation
-                if(formulaRowCell.Value2 != null)
+                if (formulaRowCell.Value2 != null)
                 {
                     if (formulaRowCell.HasFormula)
                     {
                         CopyFormula(formulaRowCell);
-                    }else if (matchHeaderFunctionality && 
-                        formulaRowCell.Value2.ToString().Trim().Equals(MatchHeaderOperationKeyword, StringComparison.OrdinalIgnoreCase))
+                    }
+                    else if (matchHeaderFunctionality &&
+                       formulaRowCell.Value2.ToString().Trim().Equals(MatchHeaderOperationKeyword, StringComparison.OrdinalIgnoreCase))
                     {
                         MatchDataColumn(formulaRowCell, referenceWs);
                     }
@@ -74,7 +72,7 @@ namespace LifeCycleWorkflowLibrary
 
         private void MatchDataColumn(Range cell, Worksheet referenceWs)
         {
-            if(referenceWs.UsedRange.Cells.Count > 0)
+            if (referenceWs.UsedRange.Cells.Count > 0)
             {
                 Range resultRange = referenceWs.UsedRange.Rows[1].Find(
                     What: passedWorksheet.Cells[customSettings.ReferenceRow, cell.Column].Value2,
@@ -89,7 +87,7 @@ namespace LifeCycleWorkflowLibrary
                     //Grab the range below the found cell
                     int lastRow = referenceWs.UsedRange.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
                     referenceWs.Range[resultRange.Offset[1, 0], referenceWs.Cells[lastRow, resultRange.Column]].Copy();
-                    passedWorksheet.Cells[customSettings.HeaderRow+1, cell.Column].PasteSpecial(XlPasteType.xlPasteValuesAndNumberFormats,
+                    passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column].PasteSpecial(XlPasteType.xlPasteValuesAndNumberFormats,
                                    XlPasteSpecialOperation.xlPasteSpecialOperationNone);
                 }
             }
@@ -116,7 +114,7 @@ namespace LifeCycleWorkflowLibrary
                 int lastRow = passedWorksheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
 
                 if (lastRow < 500000)// prevents executions if the last row is set to very large number
-                { 
+                {
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
                     var sameColumnLastCell = passedWorksheet.Cells[lastRow - 1, cell.Column];
                     passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell].FormulaR1C1 = cell.FormulaR1C1;

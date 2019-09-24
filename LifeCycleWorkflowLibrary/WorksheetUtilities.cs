@@ -99,7 +99,8 @@ namespace LifeCycleWorkflowLibrary
 
                     return cellToSearch;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 //TODO write this to error log
                 return cellToSearch;

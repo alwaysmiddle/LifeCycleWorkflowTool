@@ -1,8 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using LifeCycleWorkflowLibrary;
+using System;
 using System.Windows.Forms;
-using LifeCycleWorkflowLibrary;
 
 namespace LifeCycleWorkflowTool
 {
@@ -114,7 +112,7 @@ namespace LifeCycleWorkflowTool
 
         private void SettingsButtonSaveLocation_Click(object sender, EventArgs e)
         {
-            using(LifecycleSaveLocationsForm saveLocations = new LifecycleSaveLocationsForm())
+            using (LifecycleSaveLocationsForm saveLocations = new LifecycleSaveLocationsForm())
             {
                 saveLocations.ShowDialog();
                 saveLocations.Dispose();

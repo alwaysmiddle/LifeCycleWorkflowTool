@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using Microsoft.Office.Interop.Excel;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
-using System.IO;
+using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LifeCycleWorkflowLibrary
 {
@@ -55,7 +54,7 @@ namespace LifeCycleWorkflowLibrary
                 wipWb.Close();
                 excel.Quit();
             }
-            
+
             //After local file processing, copy to final destination (possible virutal LAN as destination)
             if (Globals.General.StateControl.WipFileProcessSucessful)
             {
@@ -106,7 +105,7 @@ namespace LifeCycleWorkflowLibrary
             {
                 string wsName = Globals.TheBay.TemplateWorksheetNames.NosCombined;
                 Worksheet wsNos = wipWb.Worksheets[wsName];
-                
+
                 WorksheetCustomSettings nosSettings = new WorksheetCustomSettings();
                 nosSettings = customSettings[wsName];
 
@@ -124,7 +123,7 @@ namespace LifeCycleWorkflowLibrary
                 processWsFormula.ProcessFormulaRow();
 
                 nosOperations.CalculateAndPasteAsValues();
-                
+
                 wipWb.Save();
             }
             catch (Exception ex)
@@ -132,7 +131,7 @@ namespace LifeCycleWorkflowLibrary
                 MessageBox.Show(ex.Message.ToString());
             }
 
-}
+        }
         //Inactive UPC
         private static void ProcessInactiveUPC(string InactiveUpcFilename)
         {
@@ -183,13 +182,14 @@ namespace LifeCycleWorkflowLibrary
         //Details Product
         private static void ProcessProductDetails(string productDetailsFilename)
         {
-            try { 
+            try
+            {
                 string wsName = Globals.TheBay.TemplateWorksheetNames.DetailsProduct;
                 string dataWsName = Globals.TheBay.TemplateWorksheetNames.DetailsProductData;
 
                 Worksheet wsDetailsProduct = wipWb.Worksheets[wsName];
                 Worksheet wsDetailsProductData = wipWb.Worksheets[dataWsName];
-                
+
                 object[,] data = DataImporter.ReadCsvFile(productDetailsFilename);
 
                 //reading customized settings
@@ -243,9 +243,9 @@ namespace LifeCycleWorkflowLibrary
             Worksheet pivots = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.Pivots];
             PivotTables ptTables = pivots.PivotTables();
             int count = ptTables.Count;
-            if(count > 0)
+            if (count > 0)
             {
-                for(int i = 1; i <= count; i++)
+                for (int i = 1; i <= count; i++)
                 {
                     PivotTable pt = ptTables.Item(i);
                     pt.RefreshTable();
