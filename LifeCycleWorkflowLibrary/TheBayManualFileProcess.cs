@@ -38,10 +38,9 @@ namespace LifeCycleWorkflowLibrary
 
                 excel.Visible = true;
 
-
+                TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
                 TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
                 TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
-                TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
                 TheBayManualFileProcess.ProcessInventoryValue(Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile);
                 TheBayManualFileProcess.UpdatePivots();
                 TheBayManualFileProcess.UpdateDate();
@@ -103,38 +102,14 @@ namespace LifeCycleWorkflowLibrary
         {
             InitializeFinalProperties();
 
+            //Copy the template to the temporary outPut folder
+            string newFinalFilename = Globals.General.OutputFileDate.ToString("MM.dd.yy") + "_Daily Workflow_Report_BAY";
+
             Workbooks wbs = excel.Workbooks;
             wipWb = wbs.Open(tempWipTemplateFileName);
             finalWb = wbs.Open(tempFinalTemplateFilename);
 
-            //Copy the template to the temporary outPut folder
-            string newFinalFilename = Globals.General.OutputFileDate.ToString("MM.dd.yy") + "_Daily Workflow_Report_BAY";
-
-            //Copy into final wb
-            Worksheet wipSummaryChartWs = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.SummaryChart];
-            Worksheet finalSummaryChartWs = finalWb.Worksheets["Summary Chart"];
-
-            Range summaryChartRange = wipSummaryChartWs.Range[wipSummaryChartWs.Range["N1"],
-                wipSummaryChartWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
-
-            summaryChartRange.Copy(finalSummaryChartWs.Range["N1"]);
-            finalSummaryChartWs.Cells.Replace("#DIV/0!", 0);
-
-            Worksheet wipInactiveWs = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.InactiveUpc];
-            Worksheet finalInactiveWs = finalWb.Worksheets["Additional Color Sizes Report"];
-
-            Range nosWsRange = wipInactiveWs.Range[wipInactiveWs.Range["C8"],
-                wipInactiveWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
-
-            nosWsRange.Copy(finalInactiveWs.Range["C4"]);
-
-            Worksheet wipDetailsWs = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.DetailsProduct];
-            Worksheet finalDetailWs = finalWb.Worksheets["Workflow Details"];
-
-            Range detailsWsRange = wipDetailsWs.Range[wipDetailsWs.Range["C8"],
-                wipDetailsWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
-
-            detailsWsRange.Copy(finalDetailWs.Range["C4"]);
+            
 
             finalWb.Save();
 
@@ -143,13 +118,25 @@ namespace LifeCycleWorkflowLibrary
             finalWb.Close();
 
             Globals.TheBay.PathHolder.OutputFinalFile = tempFinalTemplateFilename;
-
+            
             Globals.General.StateControl.FinalFilePrcoessSucessful = true;
 
             //After local file processing, copy to final destination (possible virutal LAN as destination)
             if (Globals.General.StateControl.FinalFilePrcoessSucessful)
             {
-                LifeCycleFileUtilities.CopyFile(tempFinalTemplateFilename, StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newFinalFilename);
+                LifeCycleFileUtilities.CopyFile(tempFinalTemplateFilename, 
+                    StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newFinalFilename);
+            }
+
+
+            try
+            {
+                File.Delete(Globals.TheBay.PathHolder.OutputFinalFile);
+                File.Delete(Globals.TheBay.PathHolder.OutputWipFile);
+            }
+            catch
+            {
+                //TODO add this to error log, file deletion failed.
             }
         }
 
@@ -165,7 +152,7 @@ namespace LifeCycleWorkflowLibrary
         {
             try
             {
-                string wsName = Globals.TheBay.TemplateWorksheetNames.NosCombined;
+                string wsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined;
                 Worksheet wsNos = wipWb.Worksheets[wsName];
 
                 WorksheetCustomSettings nosSettings = new WorksheetCustomSettings();
@@ -198,8 +185,8 @@ namespace LifeCycleWorkflowLibrary
         {
             try
             {
-                string wsName = Globals.TheBay.TemplateWorksheetNames.InactiveUpc;
-                string dataWsName = Globals.TheBay.TemplateWorksheetNames.InactiveUpcData;
+                string wsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc;
+                string dataWsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpcData;
 
                 Worksheet wsInactive = wipWb.Worksheets[wsName];
                 Worksheet wsInactiveData = wipWb.Worksheets[dataWsName];
@@ -243,8 +230,8 @@ namespace LifeCycleWorkflowLibrary
         {
             try
             {
-                string wsName = Globals.TheBay.TemplateWorksheetNames.DetailsProduct;
-                string dataWsName = Globals.TheBay.TemplateWorksheetNames.DetailsProductData;
+                string wsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct;
+                string dataWsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProductData;
 
                 Worksheet wsDetailsProduct = wipWb.Worksheets[wsName];
                 Worksheet wsDetailsProductData = wipWb.Worksheets[dataWsName];
@@ -285,7 +272,7 @@ namespace LifeCycleWorkflowLibrary
         //InventoryValue
         private static void ProcessInventoryValue(string inventoryValueFilename)
         {
-            string wsName = Globals.TheBay.TemplateWorksheetNames.InventoryValue;
+            string wsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InventoryValue;
 
             //then send this file to process
             Worksheet wsInventoryValueWs = wipWb.Worksheets[wsName];
@@ -304,31 +291,45 @@ namespace LifeCycleWorkflowLibrary
         private static void UpdatePivots()
         {
             wipWb.RefreshAll();
-
-            //Worksheet pivots = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.Pivots];
-            //PivotTables ptTables = pivots.PivotTables();
-            //int count = ptTables.Count;
-            //if (count > 0)
-            //{
-            //    for (int i = 1; i <= count; i++)
-            //    {
-            //        PivotTable pt = ptTables.Item(i);
-            //        pt.RefreshTable();
-            //    }
-            //}
-
-            //if (pivots != null)
-            //{
-            //    Marshal.ReleaseComObject(pivots);
-            //    pivots = null;
-            //}
         }
 
         //Update WF summary date
         private static void UpdateDate()
         {
-            Worksheet wsSummaryChart = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.SummaryChart];
+            Worksheet wsSummaryChart = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.SummaryChart];
             wsSummaryChart.Range["N5"].Value2 = Globals.General.OutputFileDate;
+        }
+
+
+        private static void CopyIntoFinalFile()
+        {
+            string wipWsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.SummaryChart;
+            string finalWsName = Globals.TheBay.TemplateWorksheetNames.FinalTemplateNames.SummaryChart;
+            //Copy into final wb
+            Worksheet wipSummaryChartWs = wipWb.Worksheets[wipWsName];
+            Worksheet finalSummaryChartWs = finalWb.Worksheets[finalWsName];
+
+            Range summaryChartRange = wipSummaryChartWs.Range[wipSummaryChartWs.Range["N1"],
+                wipSummaryChartWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
+
+            summaryChartRange.Copy(finalSummaryChartWs.Range["N1"]);
+            finalSummaryChartWs.Cells.Replace("#DIV/0!", 0);
+
+            Worksheet wipInactiveWs = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames];
+            Worksheet finalInactiveWs = finalWb.Worksheets["Additional Color Sizes Report"];
+
+            Range nosWsRange = wipInactiveWs.Range[wipInactiveWs.Range["C8"],
+                wipInactiveWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
+
+            nosWsRange.Copy(finalInactiveWs.Range["C4"]);
+
+            Worksheet wipDetailsWs = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames];
+            Worksheet finalDetailWs = finalWb.Worksheets["Workflow Details"];
+
+            Range detailsWsRange = wipDetailsWs.Range[wipDetailsWs.Range["C8"],
+                wipDetailsWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
+
+            detailsWsRange.Copy(finalDetailWs.Range["C4"]);
         }
     }
 }

@@ -63,15 +63,24 @@ namespace LifeCycleWorkflowLibrary
 
             public static class TemplateWorksheetNames
             {
-                //Worksheet Names
-                public static string NosCombined { get; set; } = "NOS_Colour_Combined";
-                public static string InactiveUpc { get; set; } = "Inactive_UPC";
-                public static string InactiveUpcData { get; set; } = "UPC_Looker";
-                public static string DetailsProduct { get; set; } = "Details_Products";
-                public static string DetailsProductData { get; set; } = "Looker_Data";
-                public static string Pivots { get; set; } = "Pivots";
-                public static string SummaryChart { get; set; } = "WF Summary Chart";
-                public static string InventoryValue { get; set; } = "Ttl_Inv";
+                public static class WipTemplateNames
+                {
+                    public static string NosCombined { get; set; } = "NOS_Colour_Combined";
+                    public static string InactiveUpc { get; set; } = "Inactive_UPC";
+                    public static string InactiveUpcData { get; set; } = "UPC_Looker";
+                    public static string DetailsProduct { get; set; } = "Details_Products";
+                    public static string DetailsProductData { get; set; } = "Looker_Data";
+                    public static string Pivots { get; set; } = "Pivots";
+                    public static string SummaryChart { get; set; } = "WF Summary Chart";
+                    public static string InventoryValue { get; set; } = "Ttl_Inv";
+                }
+
+                public static class FinalTemplateNames
+                {
+                    public static string SummaryChart { get; set; } = "Summary Chart";
+                    public static string WorkflowDetails { get; set; } = "Workflow Details";
+                    public static string NosCombined { get; set; } = "Additional Color Sizes Report";
+                }
             }
         }
     }

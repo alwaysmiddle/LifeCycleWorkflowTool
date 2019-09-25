@@ -130,6 +130,20 @@ namespace LifeCycleWorkflowLibrary
             }
         }
 
+        public Range DefineCurrentAreaRange(Range startCell)
+        {
+            Range currentRegion = startCell.CurrentRegion;
+            if (currentRegion.Count > 1)
+            {
+                Range lastCell = startCell.CurrentRegion.Cells[currentRegion.Rows.Count, currentRegion.Columns.Count];
+                return lastCell;
+            }
+            else
+            {
+                return startCell;
+            }
+        }
+
         static T[,] TransposeArray<T>(T[,] array2D)
         {
             var rows = array2D.GetLength(0);

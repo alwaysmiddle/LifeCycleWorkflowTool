@@ -163,18 +163,18 @@ namespace LifeCycleWorkflowTool
             detailsProductSetting.FormulaeRow = 3;
             detailsProductSetting.HeaderRow = 7;
             detailsProductSetting.ReferenceRow = 4;
-            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.DetailsProduct, detailsProductSetting);
+            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct, detailsProductSetting);
 
             WorksheetCustomSettings inactiveUpcSetting = new WorksheetCustomSettings();
             inactiveUpcSetting.FormulaeRow = 3;
             inactiveUpcSetting.HeaderRow = 7;
             inactiveUpcSetting.ReferenceRow = 4;
-            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.InactiveUpc, inactiveUpcSetting);
+            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc, inactiveUpcSetting);
 
             WorksheetCustomSettings nosCombinedSetting = new WorksheetCustomSettings();
             nosCombinedSetting.FormulaeRow = 1;
             nosCombinedSetting.HeaderRow = 2;
-            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.NosCombined, nosCombinedSetting);
+            worksheetSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined, nosCombinedSetting);
 
             worksheetSettings.Save(Globals.TheBay.PathHolder.WsOptionsDefaultFileName);
         }

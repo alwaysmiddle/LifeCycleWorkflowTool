@@ -188,6 +188,8 @@ namespace LifeCycleWorkflowLibrary
                 }
             }
 
+            int[,] defaultValues = { { 0, 0, 0 } };
+
             foreach (Range cell in metricsRange)
             {
                 if (cell.Value2 != null)
@@ -196,6 +198,10 @@ namespace LifeCycleWorkflowLibrary
                     if (dataDict.ContainsKey(tempStr))
                     {
                         cell.Offset[0, 1].Resize[1, 3].Value2 = dataDict[tempStr];
+                    }
+                    else
+                    {
+                        cell.Offset[0,1].Resize[1,3].Value2 = defaultValues;
                     }
                 }
             }
