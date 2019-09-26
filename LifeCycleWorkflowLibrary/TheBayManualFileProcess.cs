@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -36,7 +37,7 @@ namespace LifeCycleWorkflowLibrary
                 excel.PrintCommunication = false;    // Excel 2010+ only
                 excel.DisplayAlerts = false;
 
-                excel.Visible = true;
+                excel.Visible = false;
 
                 TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
                 TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
@@ -71,31 +72,7 @@ namespace LifeCycleWorkflowLibrary
             {
                 LifeCycleFileUtilities.CopyFile(tempWipTemplateFileName, StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newWipFilename);
             }
-
-            if (wipWb != null)
-            {
-                Marshal.ReleaseComObject(wipWb);
-                wipWb = null;
-            }
         }
-
-        private static void InitializeWipProperties()
-        {
-
-            //Generate temperary local file for faster processing
-            tempWipTemplateFileName = LifeCycleFileUtilities.CopyFile(
-                StoredSettings.TemplateLocations.TheBay.WipTempalteLocation, Path.GetTempPath(), Guid.NewGuid().ToString());
-
-            //Load all customSettings
-            WorksheetCustomSettingsHolder allCustomSettings = new WorksheetCustomSettingsHolder();
-            allCustomSettings = WorksheetCustomSettingsHolder.Load();
-
-            customSettings = new Dictionary<string, WorksheetCustomSettings>();
-            customSettings = allCustomSettings.SettingsCollection;
-
-            excel = new Excel.Application();
-        }
-
 
         //==========FINAL============
         public static void ProcessFinalFiles()
@@ -120,8 +97,9 @@ namespace LifeCycleWorkflowLibrary
             finalWb.Save();
 
             excel.DisplayAlerts = false;
-            wipWb.Close();
-            finalWb.Close();
+            wipWb.Close(0);
+            finalWb.Close(0);
+            wbs.Close();
 
             Globals.TheBay.PathHolder.OutputFinalFile = tempFinalTemplateFilename;
             
@@ -139,11 +117,56 @@ namespace LifeCycleWorkflowLibrary
             {
                 File.Delete(Globals.TheBay.PathHolder.OutputFinalFile);
                 File.Delete(Globals.TheBay.PathHolder.OutputWipFile);
+                excel.Quit();
+
+                if(wipWb != null)
+                {
+                    Marshal.ReleaseComObject(wipWb);
+                    wipWb = null;
+                }
+
+                if(finalWb != null)
+                {
+                    Marshal.ReleaseComObject(finalWb);
+                    finalWb = null;
+                }
+
+                if (wbs != null)
+                {
+                    Marshal.ReleaseComObject(wbs);
+                    wbs = null;
+                }
+
+                if (excel != null)
+                {
+                    Marshal.ReleaseComObject(excel);
+                    excel = null;
+                }
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
             catch
             {
                 //TODO add this to error log, file deletion failed.
             }
+        }
+
+        private static void InitializeWipProperties()
+        {
+
+            //Generate temperary local file for faster processing
+            tempWipTemplateFileName = LifeCycleFileUtilities.CopyFile(
+                StoredSettings.TemplateLocations.TheBay.WipTempalteLocation, Path.GetTempPath(), Guid.NewGuid().ToString());
+
+            //Load all customSettings
+            WorksheetCustomSettingsHolder allCustomSettings = new WorksheetCustomSettingsHolder();
+            allCustomSettings = WorksheetCustomSettingsHolder.Load();
+
+            customSettings = new Dictionary<string, WorksheetCustomSettings>();
+            customSettings = allCustomSettings.SettingsCollection;
+
+            excel = new Excel.Application();
         }
 
         private static void InitializeFinalProperties()
@@ -325,7 +348,7 @@ namespace LifeCycleWorkflowLibrary
             summaryChartRange.Copy(finalSummaryChartWs.Range["N8"]);
             try
             {
-                finalSummaryChartWs.Cells.Replace("#DIV/0!", 0);
+                finalSummaryChartWs.UsedRange.Replace("#DIV/0!", 0);
             }
             catch
             {
@@ -342,7 +365,7 @@ namespace LifeCycleWorkflowLibrary
             Worksheet finalDetailWs = finalWb.Worksheets[finalWsName];
 
             WorksheetOperation wipDetailsWsOperation = new WorksheetOperation(wipDetailsWs, customSettings[wipWsName].HeaderRow);
-            Range copyFromCell = wipDetailsWs.Range[customSettings[wipWsName].HeaderRow + 1, 1];
+            Range copyFromCell = wipDetailsWs.Cells[customSettings[wipWsName].HeaderRow + 1, 1];
             wipDetailsWsOperation.CopyFromCurrentRegionToDestination(copyFromCell, finalDetailWs.Range["A4"]);
         }
 
@@ -355,7 +378,7 @@ namespace LifeCycleWorkflowLibrary
             Worksheet finalInactiveWs = finalWb.Worksheets[finalWsName];
 
             WorksheetOperation wipInactiveUpcOperation = new WorksheetOperation(wipInactiveWs, customSettings[wipWsName].HeaderRow);
-            Range copyFromCell = wipInactiveWs.Range[customSettings[wipWsName].HeaderRow + 1, 1];
+            Range copyFromCell = wipInactiveWs.Cells[customSettings[wipWsName].HeaderRow + 1, 1];
 
             wipInactiveUpcOperation.CopyFromCurrentRegionToDestination(copyFromCell, finalInactiveWs.Range["A4"]);
         }
@@ -369,7 +392,7 @@ namespace LifeCycleWorkflowLibrary
             Worksheet finalInactiveWs = finalWb.Worksheets[finalWsName];
 
             WorksheetOperation wipInactiveUpcOperation = new WorksheetOperation(wipInactiveWs, customSettings[wipWsName].HeaderRow);
-            Range copyFromCell = wipInactiveWs.Range[customSettings[wipWsName].HeaderRow, 1];
+            Range copyFromCell = wipInactiveWs.Cells[customSettings[wipWsName].HeaderRow, 1];
 
             wipInactiveUpcOperation.CopyFromCurrentRegionToDestination(copyFromCell, finalInactiveWs.Range["A1"]);
         }
