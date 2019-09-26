@@ -109,7 +109,13 @@ namespace LifeCycleWorkflowLibrary
             wipWb = wbs.Open(tempWipTemplateFileName);
             finalWb = wbs.Open(tempFinalTemplateFilename);
 
-            
+            CopySummaryChart();
+
+            CopyDetailsProduct();
+
+            CopyInactiveUpc();
+
+            CopyNosCombined();
 
             finalWb.Save();
 
@@ -146,6 +152,8 @@ namespace LifeCycleWorkflowLibrary
                  StoredSettings.OutputDirectory.TheBay.FinalOutputLocation, Guid.NewGuid().ToString());
         }
         
+
+        //========================Wip Implementation============================
 
         //NosCombined
         private static void ProcessNosCombinedFile(string NosFileName)
@@ -284,7 +292,6 @@ namespace LifeCycleWorkflowLibrary
             WorksheetOperation inventoryValueOperations = new WorksheetOperation(wsInventoryValueWs);
 
             inventoryValueOperations.TheBaySpecialRule2(data);
-
         }
 
         //Update Pivot Tables
@@ -300,36 +307,71 @@ namespace LifeCycleWorkflowLibrary
             wsSummaryChart.Range["N5"].Value2 = Globals.General.OutputFileDate;
         }
 
+        //========================Final Implementation============================
 
-        private static void CopyIntoFinalFile()
+        private static void CopySummaryChart()
         {
+            //Copy Summary Chart
             string wipWsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.SummaryChart;
             string finalWsName = Globals.TheBay.TemplateWorksheetNames.FinalTemplateNames.SummaryChart;
-            //Copy into final wb
+
             Worksheet wipSummaryChartWs = wipWb.Worksheets[wipWsName];
             Worksheet finalSummaryChartWs = finalWb.Worksheets[finalWsName];
 
-            Range summaryChartRange = wipSummaryChartWs.Range[wipSummaryChartWs.Range["N1"],
-                wipSummaryChartWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
+            WorksheetUtilities wipSummaryChartWsUtilities = new WorksheetUtilities(wipSummaryChartWs);
 
-            summaryChartRange.Copy(finalSummaryChartWs.Range["N1"]);
-            finalSummaryChartWs.Cells.Replace("#DIV/0!", 0);
+            Range summaryChartRange = wipSummaryChartWsUtilities.DefineCurrentAreaRange(wipSummaryChartWs.Range["N8"]);
+            summaryChartRange.Value2 = summaryChartRange.Value2;
+            summaryChartRange.Copy(finalSummaryChartWs.Range["N8"]);
+            try
+            {
+                finalSummaryChartWs.Cells.Replace("#DIV/0!", 0);
+            }
+            catch
+            {
+                //TODO write error to logfile that replacement of div/0 failed.
+            }
+        }
 
-            Worksheet wipInactiveWs = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames];
-            Worksheet finalInactiveWs = finalWb.Worksheets["Additional Color Sizes Report"];
+        private static void CopyDetailsProduct()
+        {
+            string wipWsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct;
+            string finalWsName = Globals.TheBay.TemplateWorksheetNames.FinalTemplateNames.WorkflowDetails;
 
-            Range nosWsRange = wipInactiveWs.Range[wipInactiveWs.Range["C8"],
-                wipInactiveWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
+            Worksheet wipDetailsWs = wipWb.Worksheets[wipWsName];
+            Worksheet finalDetailWs = finalWb.Worksheets[finalWsName];
 
-            nosWsRange.Copy(finalInactiveWs.Range["C4"]);
+            WorksheetOperation wipDetailsWsOperation = new WorksheetOperation(wipDetailsWs, customSettings[wipWsName].HeaderRow);
+            Range copyFromCell = wipDetailsWs.Range[customSettings[wipWsName].HeaderRow + 1, 1];
+            wipDetailsWsOperation.CopyFromCurrentRegionToDestination(copyFromCell, finalDetailWs.Range["A4"]);
+        }
 
-            Worksheet wipDetailsWs = wipWb.Worksheets[Globals.TheBay.TemplateWorksheetNames];
-            Worksheet finalDetailWs = finalWb.Worksheets["Workflow Details"];
+        private static void CopyInactiveUpc()
+        {
+            string wipWsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc;
+            string finalWsName = Globals.TheBay.TemplateWorksheetNames.FinalTemplateNames.AdditionalColor;
 
-            Range detailsWsRange = wipDetailsWs.Range[wipDetailsWs.Range["C8"],
-                wipDetailsWs.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)];
+            Worksheet wipInactiveWs = wipWb.Worksheets[wipWsName];
+            Worksheet finalInactiveWs = finalWb.Worksheets[finalWsName];
 
-            detailsWsRange.Copy(finalDetailWs.Range["C4"]);
+            WorksheetOperation wipInactiveUpcOperation = new WorksheetOperation(wipInactiveWs, customSettings[wipWsName].HeaderRow);
+            Range copyFromCell = wipInactiveWs.Range[customSettings[wipWsName].HeaderRow + 1, 1];
+
+            wipInactiveUpcOperation.CopyFromCurrentRegionToDestination(copyFromCell, finalInactiveWs.Range["A4"]);
+        }
+
+        private static void CopyNosCombined()
+        {
+            string wipWsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined;
+            string finalWsName = Globals.TheBay.TemplateWorksheetNames.FinalTemplateNames.NosCombined;
+
+            Worksheet wipInactiveWs = wipWb.Worksheets[wipWsName];
+            Worksheet finalInactiveWs = finalWb.Worksheets[finalWsName];
+
+            WorksheetOperation wipInactiveUpcOperation = new WorksheetOperation(wipInactiveWs, customSettings[wipWsName].HeaderRow);
+            Range copyFromCell = wipInactiveWs.Range[customSettings[wipWsName].HeaderRow, 1];
+
+            wipInactiveUpcOperation.CopyFromCurrentRegionToDestination(copyFromCell, finalInactiveWs.Range["A1"]);
         }
     }
 }

@@ -27,9 +27,9 @@ namespace LifeCycleWorkflowTool
 
         private void WorksheetOptionsTabPageDetailsProduct_Click(object sender, EventArgs e)
         {
-            WorksheetOptionsTabPageDetailsProduct.Text = Globals.TheBay.TemplateWorksheetNames.DetailsProduct;
-            WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBay.TemplateWorksheetNames.InactiveUpc;
-            WorksheetOptionsTabPageNosCombined.Text = Globals.TheBay.TemplateWorksheetNames.NosCombined;
+            WorksheetOptionsTabPageDetailsProduct.Text = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct;
+            WorksheetOptionsTabPageInactiveUpc.Text = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc;
+            WorksheetOptionsTabPageNosCombined.Text = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined;
         }
 
         //TODO build a better design to save, load worksheetoptions
@@ -44,19 +44,22 @@ namespace LifeCycleWorkflowTool
             detailsProductSetting.FormulaeRow = (int)DetailsProductFormulaRowValue.Value;
             detailsProductSetting.HeaderRow = (int)DetailsProductHeaderRowValue.Value;
             detailsProductSetting.ReferenceRow = (int)DetailsProductReferenceRowValue.Value;
-            newSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.DetailsProduct, detailsProductSetting);
+            newSettings.SettingsCollection.Add(
+                Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct, detailsProductSetting);
 
             WorksheetCustomSettings inactiveUpcSetting = new WorksheetCustomSettings();
             inactiveUpcSetting.FormulaeRow = (int)InactiveUpcFormulaRowValue.Value;
             inactiveUpcSetting.HeaderRow = (int)InactiveUpcHeaderRowValue.Value;
             inactiveUpcSetting.ReferenceRow = (int)InactiveUpcReferenceRowValue.Value;
-            newSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.InactiveUpc, inactiveUpcSetting);
+            newSettings.SettingsCollection.Add(
+                Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc, inactiveUpcSetting);
 
             WorksheetCustomSettings nosCombinedSetting = new WorksheetCustomSettings();
             nosCombinedSetting.FormulaeRow = (int)NosCombinedFormulaRowValue.Value;
             nosCombinedSetting.HeaderRow = (int)NosCombinedHeaderRowValue.Value;
             nosCombinedSetting.ReferenceRow = (int)NosCombinedReferenceRowValue.Value;
-            newSettings.SettingsCollection.Add(Globals.TheBay.TemplateWorksheetNames.NosCombined, nosCombinedSetting);
+            newSettings.SettingsCollection.Add(
+                Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined, nosCombinedSetting);
 
             newSettings.Save();
             this.Close();
@@ -77,17 +80,26 @@ namespace LifeCycleWorkflowTool
 
         private void LoadSettings()
         {
-            DetailsProductHeaderRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.DetailsProduct].HeaderRow;
-            DetailsProductFormulaRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.DetailsProduct].FormulaeRow;
-            DetailsProductReferenceRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.DetailsProduct].ReferenceRow;
+            DetailsProductHeaderRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct].HeaderRow;
+            DetailsProductFormulaRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct].FormulaeRow;
+            DetailsProductReferenceRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct].ReferenceRow;
 
-            InactiveUpcHeaderRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.InactiveUpc].HeaderRow;
-            InactiveUpcFormulaRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.InactiveUpc].FormulaeRow;
-            InactiveUpcReferenceRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.InactiveUpc].ReferenceRow;
+            InactiveUpcHeaderRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc].HeaderRow;
+            InactiveUpcFormulaRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc].FormulaeRow;
+            InactiveUpcReferenceRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc].ReferenceRow;
 
-            NosCombinedHeaderRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.NosCombined].HeaderRow;
-            NosCombinedFormulaRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.NosCombined].FormulaeRow;
-            NosCombinedReferenceRowValue.Value = worksheetSettings[Globals.TheBay.TemplateWorksheetNames.NosCombined].ReferenceRow;
+            NosCombinedHeaderRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined].HeaderRow;
+            NosCombinedFormulaRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined].FormulaeRow;
+            NosCombinedReferenceRowValue.Value = 
+                worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined].ReferenceRow;
         }
 
         private void NosCombinedHeaderRowValue_ValueChanged(object sender, EventArgs e)

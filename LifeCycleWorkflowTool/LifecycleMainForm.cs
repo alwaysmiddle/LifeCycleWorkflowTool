@@ -138,7 +138,7 @@ namespace LifeCycleWorkflowTool
             using (LifecycleWorksheetOptionsForm optionsForm = new LifecycleWorksheetOptionsForm())
             {
                 optionsForm.ShowDialog();
-                //optionsForm.Dispose();
+                optionsForm.Dispose();
             }
         }
 

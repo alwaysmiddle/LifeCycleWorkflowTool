@@ -30,12 +30,14 @@ namespace LifeCycleWorkflowTool
 
         private void SaveLocationsWipFilePicker_Click(object sender, EventArgs e)
         {
-            FileFolderPickerUtility.PopulateTextBox(TheBayOutputLocationWipValue, 1);
+            FileFolderPickerUtility.PopulateTextBox(TheBayOutputLocationWipValue, 
+                FileFolderPickerUtility.PickerType.Folder);
         }
 
         private void SaveLocationFinalFilePicker_Click(object sender, EventArgs e)
         {
-            FileFolderPickerUtility.PopulateTextBox(TheBayOutputLocationFinalValue, 1);
+            FileFolderPickerUtility.PopulateTextBox(TheBayOutputLocationFinalValue, 
+                FileFolderPickerUtility.PickerType.Folder);
         }
 
         /// <summary>

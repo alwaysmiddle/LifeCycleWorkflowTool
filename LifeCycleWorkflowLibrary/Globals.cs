@@ -79,7 +79,8 @@ namespace LifeCycleWorkflowLibrary
                 {
                     public static string SummaryChart { get; set; } = "Summary Chart";
                     public static string WorkflowDetails { get; set; } = "Workflow Details";
-                    public static string NosCombined { get; set; } = "Additional Color Sizes Report";
+                    public static string NosCombined { get; set; } = "NOS_Colour_Combined";
+                    public static string AdditionalColor { get; set; } = "Additional Color Sizes Report";
                 }
             }
         }

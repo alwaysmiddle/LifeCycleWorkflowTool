@@ -111,6 +111,22 @@ namespace LifeCycleWorkflowLibrary
         }
 
         /// <summary>
+        /// Only support single cell address parameter.
+        /// </summary>
+        /// <param name="CopyFromCell"></param>
+        /// <param name="CopyToCell"></param>
+        /// <param name="pasteType"></param>
+        public void CopyFromCurrentRegionToDestination(Range CopyFromCell, Range CopyToCell, XlPasteType pasteType = XlPasteType.xlPasteAll)
+        {
+            if (CopyToCell.Count == 1 && CopyToCell.Count == 1)
+            {
+                Range copyRange = wsUtilities.DefineCurrentAreaRange(CopyFromCell);
+                copyRange.Copy();
+                CopyToCell.PasteSpecial(pasteType);
+            }
+        }
+
+        /// <summary>
         /// Filter "Re-Work: Complete Fur Attributes" on "Re-Work Status" Column (BI),
         /// Deselect "Exception" on current workflow status.
         /// Update current_workflow_status from “Awaiting Final Copy” to “Awaiting Complete Copy Attributes”

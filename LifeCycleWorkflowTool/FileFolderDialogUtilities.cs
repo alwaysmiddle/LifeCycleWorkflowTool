@@ -4,15 +4,21 @@ namespace LifeCycleWorkflowTool
 {
     static class FileFolderPickerUtility
     {
+        public enum PickerType
+        {
+            File,
+            Folder
+        }
         /// <summary>
         /// Popluate the textbox control with a choice of filepicker (value: 0) or folderpicker(value: 1)
         /// depending on pickertype value passed.
         /// </summary>
         /// <param name="tBox"></param>
         /// <param name="pickerType"></param>
-        public static void PopulateTextBox(TextBox tBox, int pickerType = 0, string customFilter = "")
+        public static void PopulateTextBox(TextBox tBox, 
+            PickerType pickerType = PickerType.File, string customFilter = "")
         {
-            if (pickerType == 0)
+            if (pickerType == PickerType.File)
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Title = "Open Input Files";
@@ -31,7 +37,7 @@ namespace LifeCycleWorkflowTool
                 }
             }
 
-            if (pickerType == 1)
+            if (pickerType == PickerType.Folder)
             {
                 FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
                 folderBrowserDialog.ShowNewFolderButton = true;

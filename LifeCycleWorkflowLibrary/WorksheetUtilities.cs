@@ -50,16 +50,6 @@ namespace LifeCycleWorkflowLibrary
 
         }
 
-        public void WriteListToCell<T>(List<T> alist, string CellAddress, bool Transpose = false)
-        {
-
-        }
-
-        public void WriteListToCell<T>(List<T> alist, int RowNumber, int ColumnNumber, bool Transpose = false)
-        {
-
-        }
-
         public void ClearAllDataUnderRow(int RowNumber)
         {
             if (ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row > RowNumber)
@@ -68,7 +58,6 @@ namespace LifeCycleWorkflowLibrary
                         ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell)].Delete(XlDeleteShiftDirection.xlShiftUp);
             }
         }
-
 
         public Range FindCellBasedOnValue<T>(T searchValue, string searchRange = "", XlLookAt matchFullCell = XlLookAt.xlPart)
         {
@@ -136,7 +125,7 @@ namespace LifeCycleWorkflowLibrary
             if (currentRegion.Count > 1)
             {
                 Range lastCell = startCell.CurrentRegion.Cells[currentRegion.Rows.Count, currentRegion.Columns.Count];
-                return lastCell;
+                return ws.Range[startCell, lastCell];
             }
             else
             {
