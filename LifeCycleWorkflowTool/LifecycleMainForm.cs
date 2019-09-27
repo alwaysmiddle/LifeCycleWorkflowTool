@@ -1,6 +1,8 @@
 ﻿using LifeCycleWorkflowLibrary;
 using System;
 using System.Windows.Forms;
+using Squirrel;
+using System.Threading.Tasks;
 
 namespace LifeCycleWorkflowTool
 {
@@ -29,6 +31,7 @@ namespace LifeCycleWorkflowTool
             //Set Generate WIP file button and Generate Final File to unavailable
             MainFormStateCheck();
         }
+
 
         /// <summary>
         /// Responsible to set controls to correct state.
@@ -182,6 +185,21 @@ namespace LifeCycleWorkflowTool
         private void LifecycleWorkflowForm_Activated(object sender, EventArgs e)
         {
             MainFormStateCheck();
+        }
+
+        private void GetUpdateButton_Click(object sender, EventArgs e)
+        {
+            GetUpdate();
+        }
+
+        private async Task GetUpdate()
+        {
+            string releasePath = @"\\t49-vol4\ECommerce\Merch Ops\Site Operations & Improvements\
+                                 Saks Direct Site Operations\Work Flow\Master Templates\Workflow Automated Tool\Releases";
+            using (var mgr = new UpdateManager(releasePath))
+            {
+                await mgr.UpdateApp();
+            }
         }
     }
 }

@@ -47,6 +47,7 @@
             this.ManualTabLabelBanner = new System.Windows.Forms.Label();
             this.WorkflowTabControl = new System.Windows.Forms.TabControl();
             this.ManualLoadErorrProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.GetUpdateButton = new System.Windows.Forms.Button();
             this.WorkflowTabSettings.SuspendLayout();
             this.WorkflowTabManual.SuspendLayout();
             this.WorkflowTabControl.SuspendLayout();
@@ -56,6 +57,7 @@
             // WorkflowTabSettings
             // 
             this.WorkflowTabSettings.BackColor = System.Drawing.Color.Gainsboro;
+            this.WorkflowTabSettings.Controls.Add(this.GetUpdateButton);
             this.WorkflowTabSettings.Controls.Add(this.SettingsButtonTemplateLocations);
             this.WorkflowTabSettings.Controls.Add(this.SettingsButtonWorksheetOptions);
             this.WorkflowTabSettings.Controls.Add(this.SettingsButtonSaveLocation);
@@ -245,6 +247,18 @@
             this.ManualLoadErorrProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ManualLoadErorrProvider.ContainerControl = this;
             // 
+            // GetUpdateButton
+            // 
+            this.GetUpdateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GetUpdateButton.ForeColor = System.Drawing.Color.Black;
+            this.GetUpdateButton.Location = new System.Drawing.Point(262, 197);
+            this.GetUpdateButton.Name = "GetUpdateButton";
+            this.GetUpdateButton.Size = new System.Drawing.Size(236, 34);
+            this.GetUpdateButton.TabIndex = 6;
+            this.GetUpdateButton.Text = "Get Updates";
+            this.GetUpdateButton.UseVisualStyleBackColor = true;
+            this.GetUpdateButton.Click += new System.EventHandler(this.GetUpdateButton_Click);
+            // 
             // LifecycleWorkflowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,6 +297,7 @@
         private System.Windows.Forms.Button ManualLoadButtonFinalFileShowFolder;
         private System.Windows.Forms.Button SettingsButtonWorksheetOptions;
         private System.Windows.Forms.Button SettingsButtonTemplateLocations;
+        private System.Windows.Forms.Button GetUpdateButton;
     }
 }
 
