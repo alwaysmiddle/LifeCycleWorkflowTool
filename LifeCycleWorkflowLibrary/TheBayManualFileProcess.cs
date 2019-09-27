@@ -40,9 +40,8 @@ namespace LifeCycleWorkflowLibrary
                 excel.Visible = false;
 
                 TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
-                TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);
                 TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
-                TheBayManualFileProcess.ProcessInventoryValue(Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile);
+                TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);                TheBayManualFileProcess.ProcessInventoryValue(Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile);
                 TheBayManualFileProcess.UpdatePivots();
                 TheBayManualFileProcess.UpdateDate();
 
