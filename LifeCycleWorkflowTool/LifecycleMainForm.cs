@@ -11,6 +11,7 @@ namespace LifeCycleWorkflowTool
         public LifecycleWorkflowForm()
         {
             InitializeComponent();
+            GetUpdate();
 
             //Set the default save location in app settings, these are used to persist through different runs
             if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultLocation)
@@ -189,16 +190,19 @@ namespace LifeCycleWorkflowTool
 
         private void GetUpdateButton_Click(object sender, EventArgs e)
         {
-            GetUpdate();
+            GetUpdate(true);
         }
 
-        private async Task GetUpdate()
+        private async Task GetUpdate(bool forceUpdate = false)
         {
-            string releasePath = @"\\t49-vol4\ECommerce\Merch Ops\Site Operations & Improvements\
-                                 Saks Direct Site Operations\Work Flow\Master Templates\Workflow Automated Tool\Releases";
+            string releasePath = @"\\t49-vol4\ECommerce\Merch Ops\Site Operations & Improvements\Saks Direct Site Operations\Work Flow\Master Templates\Workflow Automated Tool\Releases";
             using (var mgr = new UpdateManager(releasePath))
             {
                 await mgr.UpdateApp();
+                if (forceUpdate)
+                {
+                    MessageBox.Show("Update Finished! Please restart your program for the lastest changes to take effect.");
+                }
             }
         }
     }

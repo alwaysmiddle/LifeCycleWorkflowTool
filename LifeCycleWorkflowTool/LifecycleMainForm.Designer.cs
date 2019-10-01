@@ -31,10 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifecycleWorkflowForm));
             this.WorkflowTabSettings = new System.Windows.Forms.TabPage();
+            this.GetUpdateButton = new System.Windows.Forms.Button();
             this.SettingsButtonTemplateLocations = new System.Windows.Forms.Button();
             this.SettingsButtonWorksheetOptions = new System.Windows.Forms.Button();
             this.SettingsButtonSaveLocation = new System.Windows.Forms.Button();
             this.WorkflowTabManual = new System.Windows.Forms.TabPage();
+            this.ProgressLabel = new System.Windows.Forms.Label();
             this.ManualLoadButtonFinalFileShowFolder = new System.Windows.Forms.Button();
             this.ManualLoadWipShowFolder = new System.Windows.Forms.Button();
             this.ManualLoadLabelDate = new System.Windows.Forms.Label();
@@ -47,7 +49,6 @@
             this.ManualTabLabelBanner = new System.Windows.Forms.Label();
             this.WorkflowTabControl = new System.Windows.Forms.TabControl();
             this.ManualLoadErorrProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.GetUpdateButton = new System.Windows.Forms.Button();
             this.WorkflowTabSettings.SuspendLayout();
             this.WorkflowTabManual.SuspendLayout();
             this.WorkflowTabControl.SuspendLayout();
@@ -64,9 +65,21 @@
             this.WorkflowTabSettings.Location = new System.Drawing.Point(4, 26);
             this.WorkflowTabSettings.Name = "WorkflowTabSettings";
             this.WorkflowTabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.WorkflowTabSettings.Size = new System.Drawing.Size(514, 239);
+            this.WorkflowTabSettings.Size = new System.Drawing.Size(518, 255);
             this.WorkflowTabSettings.TabIndex = 2;
             this.WorkflowTabSettings.Text = "Settings";
+            // 
+            // GetUpdateButton
+            // 
+            this.GetUpdateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GetUpdateButton.ForeColor = System.Drawing.Color.Black;
+            this.GetUpdateButton.Location = new System.Drawing.Point(262, 197);
+            this.GetUpdateButton.Name = "GetUpdateButton";
+            this.GetUpdateButton.Size = new System.Drawing.Size(236, 34);
+            this.GetUpdateButton.TabIndex = 6;
+            this.GetUpdateButton.Text = "Force Updates";
+            this.GetUpdateButton.UseVisualStyleBackColor = true;
+            this.GetUpdateButton.Click += new System.EventHandler(this.GetUpdateButton_Click);
             // 
             // SettingsButtonTemplateLocations
             // 
@@ -107,6 +120,7 @@
             // WorkflowTabManual
             // 
             this.WorkflowTabManual.BackColor = System.Drawing.Color.Gainsboro;
+            this.WorkflowTabManual.Controls.Add(this.ProgressLabel);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonFinalFileShowFolder);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadWipShowFolder);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadLabelDate);
@@ -120,9 +134,17 @@
             this.WorkflowTabManual.Location = new System.Drawing.Point(4, 26);
             this.WorkflowTabManual.Name = "WorkflowTabManual";
             this.WorkflowTabManual.Padding = new System.Windows.Forms.Padding(3);
-            this.WorkflowTabManual.Size = new System.Drawing.Size(514, 239);
+            this.WorkflowTabManual.Size = new System.Drawing.Size(518, 255);
             this.WorkflowTabManual.TabIndex = 0;
             this.WorkflowTabManual.Text = "Manual Load";
+            // 
+            // ProgressLabel
+            // 
+            this.ProgressLabel.AutoSize = true;
+            this.ProgressLabel.Location = new System.Drawing.Point(29, 224);
+            this.ProgressLabel.Name = "ProgressLabel";
+            this.ProgressLabel.Size = new System.Drawing.Size(0, 17);
+            this.ProgressLabel.TabIndex = 11;
             // 
             // ManualLoadButtonFinalFileShowFolder
             // 
@@ -238,7 +260,7 @@
             this.WorkflowTabControl.Location = new System.Drawing.Point(0, 0);
             this.WorkflowTabControl.Name = "WorkflowTabControl";
             this.WorkflowTabControl.SelectedIndex = 0;
-            this.WorkflowTabControl.Size = new System.Drawing.Size(522, 269);
+            this.WorkflowTabControl.Size = new System.Drawing.Size(526, 285);
             this.WorkflowTabControl.TabIndex = 0;
             // 
             // ManualLoadErorrProvider
@@ -247,23 +269,11 @@
             this.ManualLoadErorrProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ManualLoadErorrProvider.ContainerControl = this;
             // 
-            // GetUpdateButton
-            // 
-            this.GetUpdateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GetUpdateButton.ForeColor = System.Drawing.Color.Black;
-            this.GetUpdateButton.Location = new System.Drawing.Point(262, 197);
-            this.GetUpdateButton.Name = "GetUpdateButton";
-            this.GetUpdateButton.Size = new System.Drawing.Size(236, 34);
-            this.GetUpdateButton.TabIndex = 6;
-            this.GetUpdateButton.Text = "Get Updates";
-            this.GetUpdateButton.UseVisualStyleBackColor = true;
-            this.GetUpdateButton.Click += new System.EventHandler(this.GetUpdateButton_Click);
-            // 
             // LifecycleWorkflowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 269);
+            this.ClientSize = new System.Drawing.Size(526, 285);
             this.Controls.Add(this.WorkflowTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LifecycleWorkflowForm";
@@ -298,6 +308,7 @@
         private System.Windows.Forms.Button SettingsButtonWorksheetOptions;
         private System.Windows.Forms.Button SettingsButtonTemplateLocations;
         private System.Windows.Forms.Button GetUpdateButton;
+        private System.Windows.Forms.Label ProgressLabel;
     }
 }
 

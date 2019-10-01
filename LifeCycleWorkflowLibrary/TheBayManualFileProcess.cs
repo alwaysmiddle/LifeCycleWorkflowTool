@@ -70,6 +70,7 @@ namespace LifeCycleWorkflowLibrary
             if (Globals.General.StateControl.WipFileProcessSucessful)
             {
                 LifeCycleFileUtilities.CopyFile(tempWipTemplateFileName, StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newWipFilename);
+                MessageBox.Show("Work in progress file generated successfully!");
             }
         }
 
@@ -109,6 +110,7 @@ namespace LifeCycleWorkflowLibrary
             {
                 LifeCycleFileUtilities.CopyFile(tempFinalTemplateFilename, 
                     StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newFinalFilename);
+                MessageBox.Show("Final file generated successfully!");
             }
 
 
@@ -171,7 +173,7 @@ namespace LifeCycleWorkflowLibrary
         private static void InitializeFinalProperties()
         {
             tempFinalTemplateFilename =  LifeCycleFileUtilities.CopyFile(StoredSettings.TemplateLocations.TheBay.FinalTemplateLocation,
-                 StoredSettings.OutputDirectory.TheBay.FinalOutputLocation, Guid.NewGuid().ToString());
+                 Path.GetTempPath(), Guid.NewGuid().ToString());
         }
         
 
@@ -259,7 +261,7 @@ namespace LifeCycleWorkflowLibrary
         private static void ProcessProductDetails(string productDetailsFilename)
         {
             try
-            {
+            { 
                 string wsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct;
                 string dataWsName = Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProductData;
 
