@@ -257,18 +257,12 @@ namespace LifeCycleWorkflowLibrary
             }
         }
 
-        public void CalculateAndPasteAsValues()
+        public void AddToValueList(Dictionary<string, string> rangeDict)
         {
-
-            ws.Calculate();
             Range lastCell = ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
+            Range dataRangeOnSheet = ws.Range[ws.Cells[headerRow + 1, 1], lastCell];
 
-            if (lastCell.Row > headerRow)
-            {
-                Range dataRange = ws.Range[ws.Cells[headerRow + 1, 1], lastCell];
-
-                dataRange.Value2 = dataRange.Value2;
-            }
+            rangeDict.Add(ws.Name, dataRangeOnSheet.Address);
         }
 
     }

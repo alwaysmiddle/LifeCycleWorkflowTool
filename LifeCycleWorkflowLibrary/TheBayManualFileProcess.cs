@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LifeCycleWorkflowLibrary
 {
@@ -14,9 +14,10 @@ namespace LifeCycleWorkflowLibrary
         private static string tempWipTemplateFileName { get; set; }
         private static string tempFinalTemplateFilename { get; set; }
         private static Dictionary<string, WorksheetCustomSettings> customSettings { get; set; }
-        private static Excel.Application excel { get; set; }
+        private static Microsoft.Office.Interop.Excel.Application excel { get; set; }
         private static Workbook wipWb { get; set; }
         private static Workbook finalWb { get; set; }
+        private static Dictionary<string, string> processedRanges {get; set;}
 
         //==========WIP============
         public static void ProcessWipFiles()
@@ -41,7 +42,11 @@ namespace LifeCycleWorkflowLibrary
 
                 TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
                 TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
-                TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile);                TheBayManualFileProcess.ProcessInventoryValue(Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile);
+                TheBayManualFileProcess.ProcessNosCombinedFile(Properties.Settings.Default.TheBayManualDataLoadNosCombinedFile); 
+                TheBayManualFileProcess.ProcessInventoryValue(Properties.Settings.Default.TheBayManualDataLoadInventoryAmountFile);
+                excel.Calculate();
+                TheBayManualFileProcess.ConvertToValuesOnly();
+
                 TheBayManualFileProcess.UpdatePivots();
                 TheBayManualFileProcess.UpdateDate();
 
@@ -70,7 +75,6 @@ namespace LifeCycleWorkflowLibrary
             if (Globals.General.StateControl.WipFileProcessSucessful)
             {
                 LifeCycleFileUtilities.CopyFile(tempWipTemplateFileName, StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newWipFilename);
-                MessageBox.Show("Work in progress file generated successfully!");
             }
         }
 
@@ -86,47 +90,64 @@ namespace LifeCycleWorkflowLibrary
             wipWb = wbs.Open(tempWipTemplateFileName);
             finalWb = wbs.Open(tempFinalTemplateFilename);
 
-            CopySummaryChart();
-
-            CopyDetailsProduct();
-
-            CopyInactiveUpc();
-
-            CopyNosCombined();
-
-            finalWb.Save();
-
-            excel.DisplayAlerts = false;
-            wipWb.Close(0);
-            finalWb.Close(0);
-            wbs.Close();
-
-            Globals.TheBay.PathHolder.OutputFinalFile = tempFinalTemplateFilename;
-            
-            Globals.General.StateControl.FinalFilePrcoessSucessful = true;
-
-            //After local file processing, copy to final destination (possible virutal LAN as destination)
-            if (Globals.General.StateControl.FinalFilePrcoessSucessful)
-            {
-                LifeCycleFileUtilities.CopyFile(tempFinalTemplateFilename, 
-                    StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newFinalFilename);
-                MessageBox.Show("Final file generated successfully!");
-            }
-
-
             try
             {
+                //excel.ScreenUpdating = false;
+                excel.Calculation = XlCalculation.xlCalculationManual;
+                //excel.EnableEvents = false;
+                //excel.DisplayStatusBar = false;
+                excel.PrintCommunication = false;    // Excel 2010+ only
+                excel.DisplayAlerts = false;
+
+                CopySummaryChart();
+
+                CopyDetailsProduct();
+
+                CopyInactiveUpc();
+
+                CopyNosCombined();
+
+                finalWb.Save();
+
+                excel.DisplayAlerts = false;
+                wipWb.Close(0);
+                finalWb.Close(0);
+                wbs.Close();
+
+                Globals.TheBay.PathHolder.OutputFinalFile = tempFinalTemplateFilename;
+
+                Globals.General.StateControl.FinalFilePrcoessSucessful = true;
+
+                //After local file processing, copy to final destination (possible virutal LAN as destination)
+                if (Globals.General.StateControl.FinalFilePrcoessSucessful)
+                {
+                    LifeCycleFileUtilities.CopyFile(tempFinalTemplateFilename,
+                        StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newFinalFilename);
+                }
+            }
+            catch
+            {
+                //TODO add this to error log, file deletion failed.
+            }
+            finally
+            {
+                excel.ScreenUpdating = true;
+                excel.Calculation = XlCalculation.xlCalculationAutomatic;
+                excel.EnableEvents = true;
+                excel.DisplayStatusBar = true;
+                excel.PrintCommunication = true;    // Excel 2010+ only
+
                 File.Delete(Globals.TheBay.PathHolder.OutputFinalFile);
                 File.Delete(Globals.TheBay.PathHolder.OutputWipFile);
                 excel.Quit();
 
-                if(wipWb != null)
+                if (wipWb != null)
                 {
                     Marshal.ReleaseComObject(wipWb);
                     wipWb = null;
                 }
 
-                if(finalWb != null)
+                if (finalWb != null)
                 {
                     Marshal.ReleaseComObject(finalWb);
                     finalWb = null;
@@ -146,16 +167,15 @@ namespace LifeCycleWorkflowLibrary
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
-            }
-            catch
-            {
-                //TODO add this to error log, file deletion failed.
+
+                KillSpecificExcelFileProcess(tempFinalTemplateFilename);
             }
         }
 
         private static void InitializeWipProperties()
         {
-
+            processedRanges = null;
+            processedRanges = new Dictionary<string, string>();
             //Generate temperary local file for faster processing
             tempWipTemplateFileName = LifeCycleFileUtilities.CopyFile(
                 StoredSettings.TemplateLocations.TheBay.WipTempalteLocation, Path.GetTempPath(), Guid.NewGuid().ToString());
@@ -167,11 +187,13 @@ namespace LifeCycleWorkflowLibrary
             customSettings = new Dictionary<string, WorksheetCustomSettings>();
             customSettings = allCustomSettings.SettingsCollection;
 
-            excel = new Excel.Application();
+            excel = new Microsoft.Office.Interop.Excel.Application();
         }
 
         private static void InitializeFinalProperties()
         {
+            processedRanges = null;
+            processedRanges = new Dictionary<string, string>();
             tempFinalTemplateFilename =  LifeCycleFileUtilities.CopyFile(StoredSettings.TemplateLocations.TheBay.FinalTemplateLocation,
                  Path.GetTempPath(), Guid.NewGuid().ToString());
         }
@@ -203,7 +225,7 @@ namespace LifeCycleWorkflowLibrary
                 FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos, nosSettings);
                 processWsFormula.ProcessFormulaRow();
 
-                nosOperations.CalculateAndPasteAsValues();
+                nosOperations.AddToValueList(processedRanges);
 
             }
             catch (Exception ex)
@@ -249,7 +271,7 @@ namespace LifeCycleWorkflowLibrary
                 //Add row reference
                 inactiveUpcOperations.UpdateRowReferences("ROW_REFERENCE", 2);
 
-                inactiveUpcOperations.CalculateAndPasteAsValues();
+                inactiveUpcOperations.AddToValueList(processedRanges);
             }
             catch (Exception ex)
             {
@@ -291,7 +313,7 @@ namespace LifeCycleWorkflowLibrary
                 processWsFormula.ProcessFormulaRow();
                 detailsProductOperations.UpdateRowReferences("ROW_REFERENCE", 2);
 
-                detailsProductOperations.CalculateAndPasteAsValues();
+                detailsProductOperations.AddToValueList(processedRanges);
 
                 detailsProductOperations.TheBaySpeicalRule1();
             }
@@ -396,6 +418,33 @@ namespace LifeCycleWorkflowLibrary
             Range copyFromCell = wipInactiveWs.Cells[customSettings[wipWsName].HeaderRow, 1];
 
             wipInactiveUpcOperation.CopyFromCurrentRegionToDestination(copyFromCell, finalInactiveWs.Range["A1"]);
+        }
+
+        private static void ConvertToValuesOnly()
+        {
+            foreach(KeyValuePair<string, string> item in processedRanges)
+            {
+                Worksheet tempWs = wipWb.Worksheets[item.Key];
+                tempWs.Range[item.Value].Value2 = tempWs.Range[item.Value].Value2;
+
+                if (tempWs != null)
+                {
+                    Marshal.ReleaseComObject(tempWs);
+                    tempWs = null;
+                }
+            }
+        }
+
+        private static void KillSpecificExcelFileProcess(string excelFileName)
+        {
+            var processes = from p in Process.GetProcessesByName("EXCEL")
+                            select p;
+
+            foreach (var process in processes)
+            {
+                if (process.MainWindowTitle == "Microsoft Excel - " + excelFileName)
+                    process.Kill();
+            }
         }
     }
 }
