@@ -136,6 +136,7 @@ namespace LifeCycleWorkflowLibrary
         /// <param name="columneName"></param>
         public void TheBaySpeicalRule1()
         {
+            ws.Calculate();
             Range headerRange = ws.Range[ws.Cells[headerRow, 1],
                    ws.Cells[headerRow, ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Column]];
 

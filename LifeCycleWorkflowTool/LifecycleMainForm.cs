@@ -76,9 +76,12 @@ namespace LifeCycleWorkflowTool
 
         private void ManualLoadButtonWIP_Click(object sender, EventArgs e)
         {
-            Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
-            TheBayManualFileProcess.ProcessWipFiles();
-            MainFormStateCheck();
+            if (ValidateState())
+            {
+                Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
+                TheBayManualFileProcess.ProcessWipFiles();
+                MainFormStateCheck();
+            }
         }
 
         /// <summary>
@@ -88,9 +91,12 @@ namespace LifeCycleWorkflowTool
         /// <param name="e"></param>
         private void ManualLoadButtonFinalFile_Click(object sender, EventArgs e)
         {
-            Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
-            TheBayManualFileProcess.ProcessFinalFiles();
-            MainFormStateCheck();
+            if (ValidateState())
+            {
+                Globals.General.OutputFileDate = lifeCycleDateTimePicker.Value;
+                TheBayManualFileProcess.ProcessFinalFiles();
+                MainFormStateCheck();
+            }
         }
 
         /// <summary>
@@ -186,6 +192,19 @@ namespace LifeCycleWorkflowTool
         private void LifecycleWorkflowForm_Activated(object sender, EventArgs e)
         {
             MainFormStateCheck();
+        }
+
+
+        private bool ValidateState()
+        {
+            if(StoredSettings.TemplateLocations.TheBay.WipTempalteLocation == "" 
+                || StoredSettings.TemplateLocations.TheBay.FinalTemplateLocation == "")
+            {
+                MessageBox.Show("The template path are empty, please set the template path!");
+                return false;
+            }
+
+            return true;
         }
 
         private void GetUpdateButton_Click(object sender, EventArgs e)

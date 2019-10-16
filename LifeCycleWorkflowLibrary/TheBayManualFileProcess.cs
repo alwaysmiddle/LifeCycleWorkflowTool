@@ -38,7 +38,7 @@ namespace LifeCycleWorkflowLibrary
                 excel.PrintCommunication = false;    // Excel 2010+ only
                 excel.DisplayAlerts = false;
 
-                excel.Visible = false;
+                excel.Visible = true;
 
                 TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
                 TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
@@ -305,7 +305,7 @@ namespace LifeCycleWorkflowLibrary
                 WorksheetOperation detailsProductDataOperations = new WorksheetOperation(wsDetailsProductData);
 
                 detailsProductDataOperations.LoadDataAtCell<object>(data, "A1"); //load data into UPC_Looker sheet
-                wsDetailsProduct.Calculate();
+                wsDetailsProduct.Calculate();//this calculation is for the row finding formula to update
 
                 detailsProductDataOperations.ChangeNumberInColumn("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5); //Change GMM to
                 //Process formula row

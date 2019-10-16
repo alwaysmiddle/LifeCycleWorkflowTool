@@ -38,8 +38,14 @@ namespace LifeCycleWorkflowLibrary
             else
             {
                 string destPath = Path.Combine(CopyToPath, RenameTo + Path.GetExtension(FileToCopy));
-                File.Copy(FileToCopy, destPath, true);
-
+                try
+                {
+                    File.Copy(FileToCopy, destPath, true);
+                }
+                catch
+                {
+                    //TODO error log this copy failed;
+                }
                 return destPath;
             }
         }
