@@ -49,6 +49,7 @@
             this.ManualTabLabelBanner = new System.Windows.Forms.Label();
             this.WorkflowTabControl = new System.Windows.Forms.TabControl();
             this.ManualLoadErorrProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.VersionNumberLabel = new System.Windows.Forms.Label();
             this.WorkflowTabSettings.SuspendLayout();
             this.WorkflowTabManual.SuspendLayout();
             this.WorkflowTabControl.SuspendLayout();
@@ -120,6 +121,7 @@
             // WorkflowTabManual
             // 
             this.WorkflowTabManual.BackColor = System.Drawing.Color.Gainsboro;
+            this.WorkflowTabManual.Controls.Add(this.VersionNumberLabel);
             this.WorkflowTabManual.Controls.Add(this.ProgressLabel);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadButtonFinalFileShowFolder);
             this.WorkflowTabManual.Controls.Add(this.ManualLoadWipShowFolder);
@@ -269,6 +271,15 @@
             this.ManualLoadErorrProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ManualLoadErorrProvider.ContainerControl = this;
             // 
+            // VersionNumberLabel
+            // 
+            this.VersionNumberLabel.AutoSize = true;
+            this.VersionNumberLabel.Location = new System.Drawing.Point(361, 24);
+            this.VersionNumberLabel.Name = "VersionNumberLabel";
+            this.VersionNumberLabel.Size = new System.Drawing.Size(64, 17);
+            this.VersionNumberLabel.TabIndex = 12;
+            this.VersionNumberLabel.Text = "Version: ";
+            // 
             // LifecycleWorkflowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -309,6 +320,7 @@
         private System.Windows.Forms.Button SettingsButtonTemplateLocations;
         private System.Windows.Forms.Button GetUpdateButton;
         private System.Windows.Forms.Label ProgressLabel;
+        private System.Windows.Forms.Label VersionNumberLabel;
     }
 }
 

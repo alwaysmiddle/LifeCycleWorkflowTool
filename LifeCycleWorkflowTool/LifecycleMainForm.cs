@@ -12,6 +12,7 @@ namespace LifeCycleWorkflowTool
         {
             InitializeComponent();
             GetUpdate();
+            VersionNumberLabel.Text = "Version: " + Application.ProductVersion;
 
             //Set the default save location in app settings, these are used to persist through different runs
             if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultLocation)

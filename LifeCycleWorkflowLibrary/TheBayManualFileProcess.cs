@@ -38,7 +38,7 @@ namespace LifeCycleWorkflowLibrary
                 excel.PrintCommunication = false;    // Excel 2010+ only
                 excel.DisplayAlerts = false;
 
-                excel.Visible = true;
+                excel.Visible = false;
 
                 TheBayManualFileProcess.ProcessProductDetails(Properties.Settings.Default.TheBayManualDataLoadNosFile);
                 TheBayManualFileProcess.ProcessInactiveUPC(Properties.Settings.Default.TheBayManualDataLoadInactiveUpcFile);
