@@ -15,10 +15,14 @@ namespace LifeCycleWorkflowTool
             VersionNumberLabel.Text = "Version: " + Application.ProductVersion;
 
             //Set the default save location in app settings, these are used to persist through different runs
-            if (StoredSettings.UseDefaultOptions.TheBay.UseDefaultLocation)
+
+            StoredSettings.OutputDirectory.DefaultOutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\LifecycleDailyWorkflow";
+            if(StoredSettings.OutputDirectory.TheBay.WipOutputLocation.ToString() == "")
             {
-                StoredSettings.OutputDirectory.DefaultOutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\LifecycleDailyWorkflow";
                 StoredSettings.OutputDirectory.TheBay.WipOutputLocation = StoredSettings.OutputDirectory.DefaultOutputFolder + @"\TheBay";
+            }
+            if(StoredSettings.OutputDirectory.TheBay.FinalOutputLocation.ToString() == "")
+            {
                 StoredSettings.OutputDirectory.TheBay.FinalOutputLocation = StoredSettings.OutputDirectory.DefaultOutputFolder + @"\TheBay";
             }
 

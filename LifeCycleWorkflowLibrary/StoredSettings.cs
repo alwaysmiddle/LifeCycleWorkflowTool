@@ -11,19 +11,6 @@
         {
             public static class TheBay
             {
-                public static bool UseDefaultLocation
-                {
-
-                    get
-                    {
-                        return Properties.Settings.Default.UseDefaultOutputLocations;
-                    }
-                    set
-                    {
-                        Properties.Settings.Default.UseDefaultOutputLocations = value;
-                    }
-                }
-
                 public static bool UseDefaultWorksheetOptions
                 {
 
