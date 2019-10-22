@@ -132,7 +132,6 @@ namespace LifeCycleWorkflowLibrary
             finally
             {
                 excel.ScreenUpdating = true;
-                excel.Calculation = XlCalculation.xlCalculationAutomatic;
                 excel.EnableEvents = true;
                 excel.DisplayStatusBar = true;
                 excel.PrintCommunication = true;    // Excel 2010+ only
@@ -220,6 +219,7 @@ namespace LifeCycleWorkflowLibrary
 
                 //modify data with special rules
                 nosOperations.ChangeNumberInColumn("GROUP ID", "Divisionid", 27, 5);
+                //nosOperations.ChangeNumberInTwoColumn("Divisionid", "Group ID", 7, 71, 5, 28);
 
                 //Process formula
                 FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos, nosSettings);
@@ -262,7 +262,8 @@ namespace LifeCycleWorkflowLibrary
                 inactiveUpcDataOperations.LoadDataAtCell<object>(data, "A1"); //load data into UPC_Looker sheet
                 wsInactive.Calculate();
 
-                inactiveUpcDataOperations.ChangeNumberInColumn("GROUP ID", "Divisionid", 27, 5);
+                inactiveUpcDataOperations.ChangeNumberInColumn("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5);
+                //inactiveUpcDataOperations.ChangeNumberInTwoColumn("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 71, 5, 28);
 
                 //Process formula row
                 FormulaRowHandler processWsFormula = new FormulaRowHandler(wsInactive, inactiveUpcSettings, true);
@@ -307,7 +308,10 @@ namespace LifeCycleWorkflowLibrary
                 detailsProductDataOperations.LoadDataAtCell<object>(data, "A1"); //load data into UPC_Looker sheet
                 wsDetailsProduct.Calculate();//this calculation is for the row finding formula to update
 
-                detailsProductDataOperations.ChangeNumberInColumn("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5); //Change GMM to
+                //reclassification
+                detailsProductDataOperations.ChangeNumberInColumn("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5);
+                //detailsProductDataOperations.ChangeNumberInTwoColumn("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 71, 5, 28);
+
                 //Process formula row
                 FormulaRowHandler processWsFormula = new FormulaRowHandler(wsDetailsProduct, detailsProductSettings, true);
                 processWsFormula.ProcessFormulaRow();
@@ -401,9 +405,20 @@ namespace LifeCycleWorkflowLibrary
             Worksheet finalInactiveWs = finalWb.Worksheets[finalWsName];
 
             WorksheetOperation wipInactiveUpcOperation = new WorksheetOperation(wipInactiveWs, customSettings[wipWsName].HeaderRow);
+            WorksheetUtilities finalInactiveUpcUtilities = new WorksheetUtilities(finalInactiveWs);
             Range copyFromCell = wipInactiveWs.Cells[customSettings[wipWsName].HeaderRow + 1, 1];
 
             wipInactiveUpcOperation.CopyFromCurrentRegionToDestination(copyFromCell, finalInactiveWs.Range["A4"]);
+
+            Range headerRange = finalInactiveWs.Range[finalInactiveWs.Cells[3, 1], 
+                finalInactiveWs.Cells[3, finalInactiveWs.UsedRange.SpecialCells(XlCellType.xlCellTypeLastCell).Column]];
+
+            Range findCell = finalInactiveUpcUtilities.FindCellBasedOnValue("DUPES REMOVED", headerRange.Address, XlLookAt.xlWhole);
+
+            if(findCell != null)
+            {
+                findCell.EntireColumn.Delete(XlDeleteShiftDirection.xlShiftToLeft);
+            }
         }
 
         private static void CopyNosCombined()

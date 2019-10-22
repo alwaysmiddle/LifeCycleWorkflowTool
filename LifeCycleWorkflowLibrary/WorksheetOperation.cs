@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace LifeCycleWorkflowLibrary
 {
@@ -107,6 +108,44 @@ namespace LifeCycleWorkflowLibrary
                 }
 
                 changeColumnRange.Value2 = changeArray;
+            }
+        }
+
+        /// <summary>
+        /// Find two columns based on name and change values of the these two columns when matched with criteria. 
+        /// The value in the column have to match change1From AND match change2From in order to trigger the change.
+        /// </summary>
+        /// <param name="RefenceColumnName"></param>
+        /// <param name="ChangingColumnName"></param>
+        /// <param name="ChangeFrom"></param>
+        /// <param name="ChangeTo"></param>
+        public void ChangeNumberInTwoColumn(string refenceColumnName1, string refenceColumnName2, 
+            int change1From, int change2From, int change1To, int change2To)
+        {
+            Range headerRange = ws.Range[ws.Cells[headerRow, 1],
+                   ws.Cells[headerRow, ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Column]];
+            Range referenceColumn1Cell = wsUtilities.FindCellBasedOnValue<string>(refenceColumnName1, headerRange.Address);
+            Range referenceColumn2Cell = wsUtilities.FindCellBasedOnValue<string>(refenceColumnName2, headerRange.Address);
+
+            if (referenceColumn1Cell != null && referenceColumn2Cell != null)
+            {
+                Range referenceColumn1Range = ws.Range[referenceColumn1Cell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, referenceColumn1Cell.Column]];
+                Range referenceColumn2Range = ws.Range[referenceColumn2Cell.Offset[1, 0], ws.Cells[ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row, referenceColumn2Cell.Column]];
+                object[,] array1 = referenceColumn1Range.Value2;
+                object[,] array2 = referenceColumn2Range.Value2;
+
+                for (int i = 1; i <= array1.GetLength(0); i++)
+                {
+                    if (int.Parse(array1[i, 1].ToString()) == change1From &&
+                        int.Parse(array2[i, 1].ToString()) == change2From)
+                    {
+                        array1[i, 1] = change1To;
+                        array2[i, 1] = change2To;
+                    }
+                }
+
+                referenceColumn1Range.Value2 = array1;
+                referenceColumn2Range.Value2 = array2;
             }
         }
 

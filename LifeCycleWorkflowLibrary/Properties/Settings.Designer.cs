@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace LifeCycleWorkflowLibrary.Properties {
     
     
@@ -136,29 +134,8 @@ namespace LifeCycleWorkflowLibrary.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UseDefaultOutputLocations {
-            get {
-                try
-                {
-                    return ((bool)(this["UseDefaultOutputLocations"]));
-                }
-                catch(Exception ex)
-                {
-
-                    return ((bool)(this["UseDefaultOutputLocations"]));
-                }
-            }
-            set {
-                this["UseDefaultOutputLocations"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool UseDefaultWorksheetOptions {
             get {
-                //TODO parse the error message to delete the user setting in case of an error.
                 return ((bool)(this["UseDefaultWorksheetOptions"]));
             }
             set {
