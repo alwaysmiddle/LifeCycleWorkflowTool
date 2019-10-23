@@ -122,7 +122,7 @@ namespace LifeCycleWorkflowLibrary
                 if (Globals.General.StateControl.FinalFilePrcoessSucessful)
                 {
                     LifeCycleFileUtilities.CopyFile(tempFinalTemplateFilename,
-                        StoredSettings.OutputDirectory.TheBay.WipOutputLocation, newFinalFilename);
+                        StoredSettings.OutputDirectory.TheBay.FinalOutputLocation, newFinalFilename);
                 }
             }
             catch
