@@ -3,6 +3,8 @@ using System;
 using System.Windows.Forms;
 using Squirrel;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Text;
 
 namespace LifeCycleWorkflowTool
 {
@@ -222,10 +224,36 @@ namespace LifeCycleWorkflowTool
             string releasePath = @"\\t49-vol4\ECommerce\Merch Ops\Site Operations & Improvements\Saks Direct Site Operations\Work Flow\Master Templates\Workflow Automated Tool\Releases";
             using (var mgr = new UpdateManager(releasePath))
             {
-                await mgr.UpdateApp();
-                if (forceUpdate)
+                var updateInfo = await mgr.CheckForUpdate();
+
+                if (updateInfo.ReleasesToApply.Any())
                 {
-                    MessageBox.Show("Update Finished! Please restart your program for the lastest changes to take effect.");
+                    
+                    int versionCount = updateInfo.ReleasesToApply.Count;
+
+                    string versionWord = versionCount > 1 ? "versions" : "version";
+                    string message = new StringBuilder().AppendLine($"App is {versionCount} {versionWord} behind.").
+                                                      AppendLine("If you choose to update, changes wont take affect until App is restarted.").
+                                                      AppendLine("Would you like to download and install them?").
+                                                      ToString();
+
+                    DialogResult result = MessageBox.Show(message, "App Update", MessageBoxButtons.YesNo);
+                    if (result != DialogResult.Yes)
+                    {
+                        return;
+                    }
+
+                    await mgr.UpdateApp();
+                    LifeCycleWorkflowLibrary.Properties.Settings.Default.Upgrade();
+                    LifeCycleWorkflowLibrary.Properties.Settings.Default.Save();
+
+                    if (forceUpdate)
+                    {
+                        MessageBox.Show("Update Finished! Please restart your program for the lastest changes to take effect.");
+                    }
+                }else if (!updateInfo.ReleasesToApply.Any() && forceUpdate)
+                {
+                    MessageBox.Show("No new updates are found!");
                 }
             }
         }

@@ -219,7 +219,7 @@ namespace LifeCycleWorkflowLibrary
 
                 //modify data with special rules
                 nosOperations.ChangeNumberInColumn("GROUP ID", "Divisionid", 27, 5);
-                //nosOperations.ChangeNumberInTwoColumn("Divisionid", "Group ID", 7, 71, 5, 28);
+                nosOperations.ChangeNumberInTwoColumn("Divisionid", "Group ID", 7, 28, 5, 28);
 
                 //Process formula
                 FormulaRowHandler processWsFormula = new FormulaRowHandler(wsNos, nosSettings);
@@ -263,7 +263,7 @@ namespace LifeCycleWorkflowLibrary
                 wsInactive.Calculate();
 
                 inactiveUpcDataOperations.ChangeNumberInColumn("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5);
-                //inactiveUpcDataOperations.ChangeNumberInTwoColumn("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 71, 5, 28);
+                inactiveUpcDataOperations.ChangeNumberInTwoColumn("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 28, 5, 28);
 
                 //Process formula row
                 FormulaRowHandler processWsFormula = new FormulaRowHandler(wsInactive, inactiveUpcSettings, true);
@@ -310,7 +310,7 @@ namespace LifeCycleWorkflowLibrary
 
                 //reclassification
                 detailsProductDataOperations.ChangeNumberInColumn("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5);
-                //detailsProductDataOperations.ChangeNumberInTwoColumn("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 71, 5, 28);
+                detailsProductDataOperations.ChangeNumberInTwoColumn("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 28, 5, 28);
 
                 //Process formula row
                 FormulaRowHandler processWsFormula = new FormulaRowHandler(wsDetailsProduct, detailsProductSettings, true);
