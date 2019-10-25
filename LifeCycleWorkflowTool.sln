@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeCycleWorkflowLibrary", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CopyOfTemplates", "CopyOfTemplates", "{FB0A9648-8D53-4B9A-8695-E639FEEACA64}"
 	ProjectSection(SolutionItems) = preProject
-		CopyOfTemplates\BAY_DailyWorkflow_Template.xlsm = CopyOfTemplates\BAY_DailyWorkflow_Template.xlsm
+		CopyOfTemplates\BAY_DailyWorkflow_TemplateV1.xlsm = CopyOfTemplates\BAY_DailyWorkflow_TemplateV1.xlsm
 		CopyOfTemplates\Workflow_Report_BAY.xlsx = CopyOfTemplates\Workflow_Report_BAY.xlsx
 	EndProjectSection
 EndProject

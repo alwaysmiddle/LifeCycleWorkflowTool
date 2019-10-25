@@ -370,9 +370,16 @@ namespace LifeCycleWorkflowLibrary
 
             WorksheetUtilities wipSummaryChartWsUtilities = new WorksheetUtilities(wipSummaryChartWs);
 
+            //Copy the WF summary, massive table
             Range summaryChartRange = wipSummaryChartWsUtilities.DefineCurrentAreaRange(wipSummaryChartWs.Range["N8"]);
             summaryChartRange.Value2 = summaryChartRange.Value2;
             summaryChartRange.Copy(finalSummaryChartWs.Range["N8"]);
+
+            //Copy the chart below the main chart, small table
+            Range reportChartRange = wipSummaryChartWsUtilities.DefineCurrentAreaRange(wipSummaryChartWs.Range["N78"]);
+            reportChartRange.Value2 = reportChartRange.Value2;
+            summaryChartRange.Copy(finalSummaryChartWs.Range["N78"]);
+
             try
             {
                 finalSummaryChartWs.UsedRange.Replace("#DIV/0!", 0);
