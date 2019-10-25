@@ -382,7 +382,7 @@ namespace LifeCycleWorkflowLibrary
             //Copy the chart below the main chart, small table
             Range reportChartRange = wipSummaryChartWsUtilities.DefineCurrentAreaRange(wipSummaryChartWs.Range["N78"]);
             reportChartRange.Value2 = reportChartRange.Value2;
-            summaryChartRange.Copy(finalSummaryChartWs.Range["N78"]);
+            reportChartRange.Copy(finalSummaryChartWs.Range["N78"]);
 
             try
             {
