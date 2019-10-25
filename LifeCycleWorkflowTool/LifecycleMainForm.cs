@@ -12,8 +12,10 @@ namespace LifeCycleWorkflowTool
     {
         public LifecycleWorkflowForm()
         {
+            GeneralUtilities.RestoreSettings();
             InitializeComponent();
             GetUpdate();
+
             VersionNumberLabel.Text = "Version: " + Application.ProductVersion;
 
             //Set the default save location in app settings, these are used to persist through different runs
@@ -244,18 +246,15 @@ namespace LifeCycleWorkflowTool
                     }
 
                     await mgr.UpdateApp();
-                    LifeCycleWorkflowLibrary.Properties.Settings.Default.Upgrade();
-                    LifeCycleWorkflowLibrary.Properties.Settings.Default.Save();
+                    GeneralUtilities.BackupSettings();
 
-                    if (forceUpdate)
-                    {
-                        MessageBox.Show("Update Finished! Please restart your program for the lastest changes to take effect.");
-                    }
+                    MessageBox.Show("Update Finished! Please restart your program for the lastest changes to take effect.");
                 }else if (!updateInfo.ReleasesToApply.Any() && forceUpdate)
                 {
                     MessageBox.Show("No new updates are found!");
                 }
             }
         }
+
     }
 }

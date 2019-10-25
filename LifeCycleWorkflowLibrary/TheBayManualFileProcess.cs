@@ -107,8 +107,7 @@ namespace LifeCycleWorkflowLibrary
 
                 CopyNosCombined();
 
-                finalWb.Final = true;
-                finalWb.Save();
+                finalWb.SaveAs(Filename:finalWb.FullName,WriteResPassword:"ecom678",ReadOnlyRecommended:true);
                 
                 excel.DisplayAlerts = false;
                 wipWb.Close(0);

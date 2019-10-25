@@ -33,7 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>HBC.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DeltaCompressionDotNet, Version=1.1.0.0, Culture=neutral, PublicKeyToken=1d14d6e5194e7f4a, processorArchitecture=MSIL">
@@ -88,6 +89,7 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="DataImporter.cs" />
     <Compile Include="FormulaRowHandler.cs" />
+    <Compile Include="GeneralUtilities.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="LifecycleFileUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
