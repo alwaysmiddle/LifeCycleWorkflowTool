@@ -107,8 +107,9 @@ namespace LifeCycleWorkflowLibrary
 
                 CopyNosCombined();
 
+                finalWb.Final = true;
                 finalWb.Save();
-
+                
                 excel.DisplayAlerts = false;
                 wipWb.Close(0);
                 finalWb.Close(0);
@@ -369,6 +370,9 @@ namespace LifeCycleWorkflowLibrary
             Worksheet finalSummaryChartWs = finalWb.Worksheets[finalWsName];
 
             WorksheetUtilities wipSummaryChartWsUtilities = new WorksheetUtilities(wipSummaryChartWs);
+
+            //Copy the date
+            finalSummaryChartWs.Range["N5"].Value2 = wipSummaryChartWs.Range["N5"].Value2;
 
             //Copy the WF summary, massive table
             Range summaryChartRange = wipSummaryChartWsUtilities.DefineCurrentAreaRange(wipSummaryChartWs.Range["N8"]);

@@ -116,7 +116,7 @@ namespace LifeCycleWorkflowLibrary
                 if (lastRow < 500000)// prevents executions if the last row is set to very large number
                 {
                     var sameColumnHeaderCell = passedWorksheet.Cells[customSettings.HeaderRow + 1, cell.Column];
-                    var sameColumnLastCell = passedWorksheet.Cells[customSettings.HeaderRow + lastRow - 1, cell.Column];
+                    var sameColumnLastCell = passedWorksheet.Cells[lastRow, cell.Column];
                     cell.Copy(passedWorksheet.Range[sameColumnHeaderCell, sameColumnLastCell]);
                 }
             }
