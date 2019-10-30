@@ -124,7 +124,7 @@
             // 
             // TheBayTemplateLocationsWipFilePicker
             // 
-            this.TheBayTemplateLocationsWipFilePicker.Location = new System.Drawing.Point(459, 41);
+            this.TheBayTemplateLocationsWipFilePicker.Location = new System.Drawing.Point(459, 40);
             this.TheBayTemplateLocationsWipFilePicker.Name = "TheBayTemplateLocationsWipFilePicker";
             this.TheBayTemplateLocationsWipFilePicker.Size = new System.Drawing.Size(35, 27);
             this.TheBayTemplateLocationsWipFilePicker.TabIndex = 2;

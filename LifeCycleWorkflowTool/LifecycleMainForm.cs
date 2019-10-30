@@ -5,6 +5,7 @@ using Squirrel;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace LifeCycleWorkflowTool
 {
@@ -210,6 +211,13 @@ namespace LifeCycleWorkflowTool
                 || StoredSettings.TemplateLocations.TheBay.FinalTemplateLocation == "")
             {
                 MessageBox.Show("The template path are empty, please set the template path!");
+                return false;
+            }
+
+            if(!File.Exists(StoredSettings.TemplateLocations.TheBay.WipTempalteLocation) 
+                || !File.Exists(StoredSettings.TemplateLocations.TheBay.FinalTemplateLocation))
+            {
+                MessageBox.Show("One of the template files no longer exists, please check the template filenames!");
                 return false;
             }
 

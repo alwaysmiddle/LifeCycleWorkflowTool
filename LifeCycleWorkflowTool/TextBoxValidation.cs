@@ -42,6 +42,11 @@ namespace LifeCycleWorkflowTool
                     allValid = false;
                 }
             }
+
+            if (allValid)
+            {
+                _erorrProvider.Clear();
+            }
             return allValid;
         }
 
@@ -49,32 +54,29 @@ namespace LifeCycleWorkflowTool
         {
             bool valid = true;
 
-            if (tBox.Text != "")
-            {
-                if (_type == ValidationType.File && !File.Exists(tBox.Text))
-                {
-                    _errorMessage = "Error: File path is not valid, please make sure you have valid filename selected.";
-                    _erorrProvider.SetError(tBox, _errorMessage);
-                    valid = false;
-                }
-                else if (_type == ValidationType.Folder && !Directory.Exists(tBox.Text))
-                {
-                    _errorMessage = "Error: Folder path is not valid, please make sure you have valid folder path selected.";
-                    _erorrProvider.SetError(tBox, _errorMessage);
-                    valid = false;
-                }
-                else
-                {
-                    _erorrProvider.Clear();
-                    valid = true;
-                }
-            }
-            else if (tBox.Text == "")
+            if (string.IsNullOrWhiteSpace(tBox.Text))
             {
                 _errorMessage = "Error: Can not leave this field blank!";
                 _erorrProvider.SetError(tBox, _errorMessage);
                 valid = false;
+            }else if (_type == ValidationType.File && !File.Exists(tBox.Text))
+            {
+                _errorMessage = "Error: File path is not valid, please make sure you have valid filename selected.";
+                _erorrProvider.SetError(tBox, _errorMessage);
+                valid = false;
             }
+            else if (_type == ValidationType.Folder && !Directory.Exists(tBox.Text))
+            {
+                _errorMessage = "Error: Folder path is not valid, please make sure you have valid folder path selected.";
+                _erorrProvider.SetError(tBox, _errorMessage);
+                valid = false;
+            }
+            else
+            {
+                _erorrProvider.SetError(tBox, "");
+                valid = true;
+            }
+
             return valid;
         }
     }

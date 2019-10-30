@@ -69,6 +69,9 @@ namespace LifeCycleWorkflowLibrary
 
                 wipWb.Save();
                 wipWb.Close();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
 
             //After local file processing, copy to final destination (possible virutal LAN as destination)
@@ -107,7 +110,9 @@ namespace LifeCycleWorkflowLibrary
 
                 CopyNosCombined();
 
-                finalWb.SaveAs(Filename:finalWb.FullName,WriteResPassword:"ecom678",ReadOnlyRecommended:true);
+                SaveWFasPDF(newFinalFilename);
+
+                finalWb.SaveAs(Filename:finalWb.FullName,WriteResPassword:"ecom678");
                 
                 excel.DisplayAlerts = false;
                 wipWb.Close(0);
@@ -139,30 +144,6 @@ namespace LifeCycleWorkflowLibrary
                 File.Delete(Globals.TheBay.PathHolder.OutputFinalFile);
                 File.Delete(Globals.TheBay.PathHolder.OutputWipFile);
                 excel.Quit();
-
-                if (wipWb != null)
-                {
-                    Marshal.ReleaseComObject(wipWb);
-                    wipWb = null;
-                }
-
-                if (finalWb != null)
-                {
-                    Marshal.ReleaseComObject(finalWb);
-                    finalWb = null;
-                }
-
-                if (wbs != null)
-                {
-                    Marshal.ReleaseComObject(wbs);
-                    wbs = null;
-                }
-
-                if (excel != null)
-                {
-                    Marshal.ReleaseComObject(excel);
-                    excel = null;
-                }
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
@@ -470,6 +451,19 @@ namespace LifeCycleWorkflowLibrary
                 if (process.MainWindowTitle == "Microsoft Excel - " + excelFileName)
                     process.Kill();
             }
+        }
+
+        /// <summary>
+        /// The PDF saving was part of workflow and needed to export the WF page as PDF.
+        /// </summary>
+        private static void SaveWFasPDF(string pdfFilename)
+        {
+            string finalWsName = Globals.TheBay.TemplateWorksheetNames.FinalTemplateNames.SummaryChart;
+            string finalPdfFilename = Path.Combine(StoredSettings.OutputDirectory.TheBay.FinalOutputLocation, pdfFilename);
+            Worksheet finalSummaryChartWs = finalWb.Worksheets[finalWsName];
+
+            finalSummaryChartWs.ExportAsFixedFormat(Type: XlFixedFormatType.xlTypePDF, Filename: finalPdfFilename,
+                    Quality: XlFixedFormatQuality.xlQualityStandard);
         }
     }
 }
