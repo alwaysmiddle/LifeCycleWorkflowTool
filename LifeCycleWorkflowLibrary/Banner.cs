@@ -18,5 +18,7 @@ namespace LifeCycleWorkflowLibrary
         {
             _banner = Banner;
         }
+
+        
     }
 }
