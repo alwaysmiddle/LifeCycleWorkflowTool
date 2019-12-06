@@ -89,9 +89,11 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="Banner.cs" />
     <Compile Include="DataImporter.cs" />
+    <Compile Include="ExternalSettings.cs" />
     <Compile Include="FormulaRowHandler.cs" />
     <Compile Include="GeneralUtilities.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Settings\IExternalSettings.cs" />
     <Compile Include="LifecycleFileUtilities.cs" />
     <Compile Include="NewClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
