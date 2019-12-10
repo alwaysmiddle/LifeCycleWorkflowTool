@@ -86,14 +86,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSettings.cs" />
     <Compile Include="Banner.cs" />
     <Compile Include="DataImporter.cs" />
-    <Compile Include="ExternalSettings.cs" />
     <Compile Include="FormulaRowHandler.cs" />
     <Compile Include="GeneralUtilities.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="Settings\IExternalSettings.cs" />
+    <Compile Include="Settings\IAppSettingsBase.cs" />
     <Compile Include="LifecycleFileUtilities.cs" />
     <Compile Include="NewClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +100,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings\LocalSettings.cs" />
     <Compile Include="ShowFolderUtilities.cs" />
     <Compile Include="StoredSettings.cs" />
     <Compile Include="TheBayManualFileProcess.cs" />

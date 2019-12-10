@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LifeCycleWorkflowLibrary
 {
-    interface IExternalSettings
+    interface IAppSettingsBase
     {
         void Load();
         void Save();
