@@ -100,6 +100,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings\WorksheetSettings\IReferable.cs" />
+    <Compile Include="Settings\WorksheetSettings\WorksheetSettingsBase.cs" />
     <Compile Include="Settings\LocalSettings.cs" />
     <Compile Include="ShowFolderUtilities.cs" />
     <Compile Include="StoredSettings.cs" />

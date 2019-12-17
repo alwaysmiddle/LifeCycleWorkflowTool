@@ -9,7 +9,8 @@ using System.Web.Script.Serialization;
 namespace LifeCycleWorkflowLibrary.Settings
 {
     class LocalSettings : IAppSettingsBase
-    { 
+    {
+        private string settingsDirectory;
 
         public void Save(string fileName)
         {
