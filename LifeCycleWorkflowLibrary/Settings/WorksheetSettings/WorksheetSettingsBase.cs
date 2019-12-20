@@ -4,14 +4,11 @@ namespace LifeCycleWorkflowLibrary.Settings
 {
     abstract class WorksheetSettingsBase
     {
-        private readonly string _worksheetName;
-        private readonly string _internalRef;
-        private readonly HbcBanner _banner;
-        private readonly int _headerRow;
+        private string _internalRef;
+        private HbcBanner _banner;
+        private int _headerRow;
+        private string _startingAddress;
+        private ProcessType _worksheetProcessType;
 
-        public WorksheetSettingsBase()
-        {
-           
-        }
     }
 }

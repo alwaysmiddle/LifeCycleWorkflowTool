@@ -2,13 +2,7 @@
 
 namespace LifeCycleWorkflowLibrary
 {
-    public enum HbcBanner
-    {
-        TheBay,
-        Saks,
-        SaksO5,
-        LordAndTaylor
-    }
+    
     class Banner
     {
         private string _banner;

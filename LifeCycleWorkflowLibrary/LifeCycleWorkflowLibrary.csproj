@@ -87,13 +87,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banner.cs" />
-    <Compile Include="DataImporter.cs" />
-    <Compile Include="FormulaRowHandler.cs" />
-    <Compile Include="GeneralUtilities.cs" />
-    <Compile Include="Globals.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="OlderParts\DataImporter.cs" />
+    <Compile Include="OlderParts\FormulaRowHandler.cs" />
+    <Compile Include="OlderParts\GeneralUtilities.cs" />
+    <Compile Include="OlderParts\Globals.cs" />
     <Compile Include="Settings\IAppSettingsBase.cs" />
-    <Compile Include="LifecycleFileUtilities.cs" />
-    <Compile Include="NewClass.cs" />
+    <Compile Include="OlderParts\LifecycleFileUtilities.cs" />
+    <Compile Include="OlderParts\NewClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -103,12 +104,12 @@
     <Compile Include="Settings\WorksheetSettings\IReferable.cs" />
     <Compile Include="Settings\WorksheetSettings\WorksheetSettingsBase.cs" />
     <Compile Include="Settings\LocalSettings.cs" />
-    <Compile Include="ShowFolderUtilities.cs" />
-    <Compile Include="StoredSettings.cs" />
-    <Compile Include="TheBayManualFileProcess.cs" />
-    <Compile Include="WorksheetCustomSettings.cs" />
-    <Compile Include="WorksheetOperation.cs" />
-    <Compile Include="WorksheetUtilities.cs" />
+    <Compile Include="OlderParts\ShowFolderUtilities.cs" />
+    <Compile Include="OlderParts\StoredSettings.cs" />
+    <Compile Include="OlderParts\TheBayManualFileProcess.cs" />
+    <Compile Include="OlderParts\WorksheetCustomSettings.cs" />
+    <Compile Include="OlderParts\WorksheetOperation.cs" />
+    <Compile Include="OlderParts\WorksheetUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

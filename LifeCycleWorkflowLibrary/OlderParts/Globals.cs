@@ -4,18 +4,6 @@ namespace LifeCycleWorkflowLibrary
 {
     public static class Globals
     {
-
-        public enum ProcessType
-        {
-            WorkInProgress,
-            Final
-        }
-
-        public enum Banner
-        {
-            TheBay
-        }
-
         public static class General
         {
             public static class StateControl
