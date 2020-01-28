@@ -9,16 +9,11 @@ namespace LifeCycleWorkflowLibrary.Settings
     class WorkflowWorksheet : WorksheetSettingsBase
     {
         public string WorksheetName { get; protected set; }
-        private HbcBanner _banner;
-        private ProcessType _worksheetProcessType;
+        public HbcBanner Banner { get; protected set; }
+        public ProcessType WorksheetProcessType { get; protected set; }
 
-        public WorkflowWorksheet(int HeaderRow, string StartingAddress, ) : base(HeaderRow, StartingAddress)
+        public WorkflowWorksheet(int HeaderRow, string StartingAddress ) : base(HeaderRow, StartingAddress)
         {
-        }
-
-        public HbcBanner GetBanner()
-        {
-            return _banner;
         }
 
     }
