@@ -92,6 +92,7 @@
     <Compile Include="OlderParts\FormulaRowHandler.cs" />
     <Compile Include="OlderParts\GeneralUtilities.cs" />
     <Compile Include="OlderParts\Globals.cs" />
+    <Compile Include="Settings\BannerSettings\IBannerSettingsBase.cs" />
     <Compile Include="Settings\IAppSettingsBase.cs" />
     <Compile Include="OlderParts\LifecycleFileUtilities.cs" />
     <Compile Include="OlderParts\NewClass.cs" />

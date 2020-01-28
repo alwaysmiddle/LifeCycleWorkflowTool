@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeCycleWorkflowLibrary.Settings.WorksheetSettings
+namespace LifeCycleWorkflowLibrary.Settings
 {
     interface IReferable
     {

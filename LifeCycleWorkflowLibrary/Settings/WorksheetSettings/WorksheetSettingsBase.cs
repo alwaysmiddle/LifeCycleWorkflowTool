@@ -4,17 +4,16 @@ namespace LifeCycleWorkflowLibrary.Settings
 {
     abstract class WorksheetSettingsBase
     {
-        private int _headerRow;
-        private string _startingAddress;   
+        public int HeaderRow { get; protected set; }
+        public string StartingAddress { get; protected set; }
 
-        public int GetHeaderRowNumber()
+        public WorksheetSettingsBase(int HeaderRow, string StartingAddress)
         {
-            return _headerRow;
+            this.HeaderRow = HeaderRow;
+            this.StartingAddress = StartingAddress;
         }
 
-        public string GetStartingAddress()
-        {
-            return _startingAddress;
-        }
+        public override string ToString()
+            => $"Header Row: {HeaderRow}, Starting Address: {StartingAddress} ";
     }
 }

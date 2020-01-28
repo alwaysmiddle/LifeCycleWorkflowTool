@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LifeCycleWorkflowLibrary.Settings
+{
+    class IBannerSettingsBase
+    {
+        private string _banner;
+        private string _wipTemplateLanDirectory;
+        private string _finalTemplateLanDirectory;
+        private string _wipOutputLanDirectory;
+        private string _finalOutputLanDirectory;
+        private string _temporaryStorageDirectory;
+
+        public string GetBanner()
+        {
+            return _banner;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="Banner"></param>
+        /// <param name="settingDirectory"></param>
+        public Banner(HbcBanner banner, string settingDirectory)
+        {
+            _banner = banner.ToString();
+        }
+    }
+}
