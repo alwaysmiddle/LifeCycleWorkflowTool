@@ -8,7 +8,7 @@ namespace LifeCycleWorkflowLibrary.Settings
 {
     class WorkflowWorksheet : WorksheetSettingsBase
     {
-        public string WorksheetName { get; }
+        public string WorksheetName { get; protected set; }
         private HbcBanner _banner;
         private ProcessType _worksheetProcessType;
 
