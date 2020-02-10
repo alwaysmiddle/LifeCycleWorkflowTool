@@ -8,7 +8,7 @@ namespace LifeCycleWorkflowLibrary.Settings
 {
     interface IReferable
     {
-        int GetReferenceRow();
-        int GetFormulaRow();
+        int ReferenceRow { get; set; }
+        int FormulaRow { get; set; }
     }
 }
