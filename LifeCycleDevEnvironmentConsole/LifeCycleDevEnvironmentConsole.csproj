@@ -43,11 +43,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BannerOperations\BannerOperationBase.cs" />
+    <Compile Include="BannerOperations\O5Operations.cs" />
+    <Compile Include="BannerOperations\SaksOperations.cs" />
+    <Compile Include="BannerOperations\TheBayOperations.cs" />
+    <Compile Include="BannerSettings\BannerSettings.cs" />
+    <Compile Include="BannerSettings\BannerSettingsEssence.cs" />
+    <Compile Include="BitReportHandler.cs" />
+    <Compile Include="ExcelUtilities.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FormulaRowHandler.cs" />
+    <Compile Include="ProcessManagement\ExcelProcessControl.cs" />
+    <Compile Include="ProcessManagement\Job.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="WorkFlow Data\O5\O5 WORKFLOW REPORT TRAINING.docx" />
+    <None Include="WorkFlow Data\O5\Templates Before modification\O5_Daily_Workflow_Template_WIP_v1.xlsm" />
+    <None Include="WorkFlow Data\O5\Templates Before modification\XX.XX.20_Daily_Workflow_Report_O5.xlsx" />
+    <None Include="WorkFlow Data\O5\Template\Daily Workflow_O5_Final_Template_2020.xlsx" />
+    <None Include="WorkFlow Data\O5\Template\Daily Workflow_O5_Wip_Template_2020.xlsm" />
+    <None Include="WorkFlow Data\O5\Test Data\DM_O5_OH_INACTV_UPC20200512.xlsx" />
+    <None Include="WorkFlow Data\O5\Test Data\MIS-IB004A_2 - SO5-Ecomm by Colour Count.xlsx" />
+    <None Include="WorkFlow Data\O5\Test Data\O5_DM_WORKFLOW_REPORT_O5.xlsx" />
+    <None Include="WorkFlow Data\O5\Thumbs.db" />
+    <None Include="WorkFlow Data\Saks\Input Files\DM_SAKS_OH_INACTV_UPC20200605.xls" />
+    <None Include="WorkFlow Data\Saks\Input Files\DM_WORKFLOW_RPT20200605.xls" />
+    <None Include="WorkFlow Data\Saks\Input Files\MIS-IB004A_2 - Saks-Ecomm by Colour Count.xlsx" />
+    <None Include="WorkFlow Data\Saks\SAKS WORKFLOW REPORT TRAINING.docx" />
+    <None Include="WorkFlow Data\Saks\Template\Current Templates\UPDATEDSAKS_Daily Workflow_Template_2019_v2.xlsm" />
+    <None Include="WorkFlow Data\Saks\Template\Current Templates\UPDATEDXX.XX.19_Daily Workflow Report_SAKS.xlsx" />
+    <None Include="WorkFlow Data\Saks\Template\Daily Workflow_SAKS_Final_Template_2020.xlsx" />
+    <None Include="WorkFlow Data\Saks\Template\Daily Workflow_SAKS_Wip_Template_2020.xlsm" />
+    <None Include="WorkFlow Data\Saks\Template\~%24BAY_Daily Workflow_Template_2019_v9.xlsm" />
+    <None Include="WorkFlow Data\Saks\WIP\~%24PIM_8.9.2019_Daily_Workflow_Report_BAY.xlsx" />
+    <None Include="WorkFlow Data\TheBay\Template Before Mod\BAY_DailyWorkflow_TemplateV5.xlsm" />
+    <None Include="WorkFlow Data\TheBay\Template Before Mod\MM.DD.YY_Daily Workflow Report_BAY.xlsx" />
+    <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Final_Template_2020.xlsx" />
+    <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Wip_Template_2020.xlsm" />
+    <None Include="WorkFlow Data\TheBay\Test Data\BAY Ecomm by Colour Count 5.27.20.xlsx" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Inactive UPC 2020-05-27T0845.csv" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Inactive UPC 2020-05-27T0845.xlsx" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay NOS combined 2020-05-27T0844.csv" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Workflow and Not On Site 2020-05-27T0843.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WorkFlow Data\Saks\Final\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
