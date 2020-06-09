@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BannerOperations\BannerOperationBase.cs" />
+    <Compile Include="BannerOperations\CommonOperations.cs" />
     <Compile Include="BannerOperations\O5Operations.cs" />
     <Compile Include="BannerOperations\SaksOperations.cs" />
     <Compile Include="BannerOperations\TheBayOperations.cs" />
@@ -80,7 +81,6 @@
     <None Include="WorkFlow Data\Saks\Template\Current Templates\UPDATEDXX.XX.19_Daily Workflow Report_SAKS.xlsx" />
     <None Include="WorkFlow Data\Saks\Template\Daily Workflow_SAKS_Final_Template_2020.xlsx" />
     <None Include="WorkFlow Data\Saks\Template\Daily Workflow_SAKS_Wip_Template_2020.xlsm" />
-    <None Include="WorkFlow Data\Saks\Template\~%24BAY_Daily Workflow_Template_2019_v9.xlsm" />
     <None Include="WorkFlow Data\Saks\WIP\~%24PIM_8.9.2019_Daily_Workflow_Report_BAY.xlsx" />
     <None Include="WorkFlow Data\TheBay\Template Before Mod\BAY_DailyWorkflow_TemplateV5.xlsm" />
     <None Include="WorkFlow Data\TheBay\Template Before Mod\MM.DD.YY_Daily Workflow Report_BAY.xlsx" />

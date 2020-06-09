@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LifeCycleDevEnvironmentConsole.BannerOperations;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -8,14 +9,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 
-namespace ConsoleApp2
+namespace LifeCycleDevEnvironmentConsole
 {
     class Program
     {
         static void Main(string[] args)
         {
             string exeDir = Path.GetFullPath(Path.Combine(Assembly.GetExecutingAssembly().Location, @"..\..\..\"));
-            Console.WriteLine(exeDir);
 
             string saksPath = @"WorkFlow Data\Saks\";
             //saks

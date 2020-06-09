@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
     public class BannerOperationBase
     {

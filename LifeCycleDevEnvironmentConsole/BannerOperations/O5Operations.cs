@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
     public sealed class O5Operations : BannerOperationBase
     {

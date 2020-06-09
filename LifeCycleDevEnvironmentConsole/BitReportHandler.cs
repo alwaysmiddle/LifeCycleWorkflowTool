@@ -8,8 +8,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using ProcessManagement;
+using System.Diagnostics;
 
-namespace ConsoleApp2
+namespace LifeCycleDevEnvironmentConsole
 {
     public class BitReportHandler
     {
@@ -76,6 +77,8 @@ namespace ConsoleApp2
 
             File.WriteAllLines(csvFileName, cleansedNewLines);
 
+            Process.Start(csvFileName);
+
             string cnnStr = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
                 "Extended Properties=\"Text;HDR=Yes;FORMAT=Delimited\"", Path.GetDirectoryName(csvFileName));
             string sql = @"SELECT * FROM [" + Path.GetFileName(csvFileName) + "]";
@@ -90,6 +93,8 @@ namespace ConsoleApp2
                     }
                 }
             }
+
+            Console.WriteLine(DumpDataTable(_dt));
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 
-namespace ConsoleApp2
+namespace LifeCycleDevEnvironmentConsole
 {
     /// <summary>
     /// This is the extension class for various components needed for workflow project.
