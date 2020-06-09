@@ -79,29 +79,5 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 excelProcess.Dispose();
             }
         }
-
-        private void O5ReworkFurRule(Worksheet ws)
-        {
-            Range furAttributeRange = ws.FindColumnInHeaderRow<string>("ReWork_Status", 7);
-            System.Data.DataTable dt = new System.Data.DataTable();
-
-            if (furAttributeRange.Cells.Count > 1)
-            {
-                string writeToAddress = furAttributeRange.Cells[2, 1].Address; //cell under rework column name
-                dt = ExcelUtilities.OledbExcelFileAsTable(ws.Parent.Fullname, ws.Name, furAttributeRange.Resize[ColumnSize: 5].Address);
-
-                var rowToUpdate = dt.AsEnumerable()
-                    .Where(r => r.Field<string>("ReWork_Status") == "Re-Work: Complete Fur Attributes"
-                                && r.Field<string>("Workflow Exception Type") == null);
-
-                foreach (System.Data.DataRow row in rowToUpdate)
-                {
-                    row.SetField<string>(dt.Columns["Current_Workflow_Status"], "Awaiting Complete Copy Attributes");
-                    row.SetField<string>(dt.Columns["Current Team"], "Sample Management");
-                }
-
-                dt.WriteToExcelSheets(ws, writeToAddress, false);
-            }
-        }
     }
 }

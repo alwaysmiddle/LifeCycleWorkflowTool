@@ -40,23 +40,23 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
                 inputDataTable.WriteToExcelSheets(inventoryValueWs, "A1");
 
-                //Inactive UPC
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameInactiveUpc, 1);
-                SaksSpecialRule1(inputDataTable);
-                inputDataTable.WriteToExcelSheets(inactiveWs, "A3", false);
-                inactiveWs.ProcessFormulaRow(inputDataTable, 1, 2, 3);
-                inputDataTable = null;
+                ////Inactive UPC
+                //inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameInactiveUpc, 1);
+                //SaksSpecialRule1(inputDataTable);
+                //inputDataTable.WriteToExcelSheets(inactiveWs, "A3", false);
+                //inactiveWs.ProcessFormulaRow(inputDataTable, 1, 2, 3);
+                //inputDataTable = null;
 
-                ////Workflow DM
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
-                SaksSpecialRule1(inputDataTable);
-                inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
-                detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
-                inputDataTable = null;
-                wb.Save();
-                detailsProductWs.Calculate();
-                //detailsProductWs.ConvertAllDataUnderRowToValues(7);
-                CommonOperations.ReworkFurRule(detailsProductWs);
+                //////Workflow DM
+                //inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
+                //SaksSpecialRule1(inputDataTable);
+                //inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
+                //detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
+                //inputDataTable = null;
+                //wb.Save();
+                //detailsProductWs.Calculate();
+                ////detailsProductWs.ConvertAllDataUnderRowToValues(7);
+                //CommonOperations.ReworkFurRule(detailsProductWs);
 
                 excelApp.Calculate();
                 wb.Save();

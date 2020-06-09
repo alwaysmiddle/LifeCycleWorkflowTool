@@ -179,5 +179,15 @@ namespace LifeCycleDevEnvironmentConsole
                     || value is double
                     || value is decimal;
         }
+
+
+        public static string CopyToTempFile(string filename)
+        {
+            string destName = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetExtension(filename));
+
+            File.Copy(filename, destName);
+
+            return destName;
+        }
     }
 }

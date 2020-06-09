@@ -16,20 +16,25 @@ namespace LifeCycleDevEnvironmentConsole
     {
         private System.Data.DataTable _dt = new System.Data.DataTable();
         private string _filename;
-        private string _tempFilename;
 
         /// <summary>
         /// Accepts all excel file formats, will eliminate any spacings between data columns.
         /// </summary>
         public BitReportHandler(string fileName)
         {
-            _filename = fileName;
-            _tempFilename = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".csv");
-
             try
             {
-                this.ConvertExcelToCsv(_filename, _tempFilename);
-                this.TrimBitReport(_tempFilename);
+                if (Path.GetExtension(fileName) == ".csv")
+                {
+                    _filename = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".xlsx");
+                    this.ConvertCsvToExcel(fileName, _filename);
+                }
+                else
+                {
+                    _filename = ExcelUtilities.CopyToTempFile(fileName);
+                }
+
+                this.TrimBitReport(_filename);
             }
             catch (Exception)
             {
@@ -42,16 +47,11 @@ namespace LifeCycleDevEnvironmentConsole
             return _dt;           
         }
 
-        public override string ToString()
-        {
-            return _tempFilename;
-        }
-
         /// <summary>
         /// BIT report formatting is altered on server side with incorrect spacing.
         /// This method meant to eliminate spacing and look for table start with value "DMM" as top left most cell.
         /// </summary>
-        private void TrimBitReport(string csvFileName)
+        private void TrimBitReport(string excelFileName)
         {
             var oldLines = File.ReadAllLines(csvFileName);
             var newLines = oldLines.Where(line => line.IndexOf("Total", StringComparison.OrdinalIgnoreCase) < 0);
@@ -77,7 +77,7 @@ namespace LifeCycleDevEnvironmentConsole
 
             File.WriteAllLines(csvFileName, cleansedNewLines);
 
-            Process.Start(csvFileName);
+            //Process.Start(csvFileName);
 
             string cnnStr = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
                 "Extended Properties=\"Text;HDR=Yes;FORMAT=Delimited\"", Path.GetDirectoryName(csvFileName));
@@ -94,7 +94,7 @@ namespace LifeCycleDevEnvironmentConsole
                 }
             }
 
-            Console.WriteLine(DumpDataTable(_dt));
+            //Console.WriteLine(DumpDataTable(_dt));
         }
 
         /// <summary>
@@ -181,21 +181,21 @@ namespace LifeCycleDevEnvironmentConsole
             return dtCloned;
         }
 
-        private void ConvertExcelToCsv(string excelFilePath, string csvOutputFile, int worksheetNumber = 1)
+        private void ConvertCsvToExcel(string csvFilePath, string excelOutputFile)
         {
-            if (!File.Exists(excelFilePath)) throw new FileNotFoundException(excelFilePath);
+            if (!File.Exists(csvFilePath)) throw new FileNotFoundException(csvFilePath);
 
             Application excelApp = new Application();
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
 
-            Workbook wb = excelApp.Workbooks.Open(excelFilePath);
-            Worksheet ws = wb.Worksheets[worksheetNumber];
+            Workbook wb = excelApp.Workbooks.Open(csvFilePath);
+            Worksheet ws = wb.Worksheets[1];
             excelApp.DisplayAlerts = false;
 
             try
             {    
                 ws.Select();
-                wb.SaveAs(Filename: csvOutputFile, FileFormat: XlFileFormat.xlCSV, XlSaveAsAccessMode.xlNoChange,
+                wb.SaveAs(Filename: excelOutputFile, FileFormat: XlFileFormat.xlOpenXMLWorkbook, XlSaveAsAccessMode.xlExclusive,
                           ConflictResolution: XlSaveConflictResolution.xlLocalSessionChanges);
                 
             }
