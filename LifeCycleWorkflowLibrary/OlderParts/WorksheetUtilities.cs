@@ -59,42 +59,42 @@ namespace LifeCycleWorkflowLibrary
             }
         }
 
-        public Range FindCellBasedOnValue<T>(T searchValue, string searchRange = "", XlLookAt matchFullCell = XlLookAt.xlPart)
+    public Range FindCellBasedOnValue<T>(T searchValue, string searchRange = "", XlLookAt matchFullCell = XlLookAt.xlPart)
+    {
+        Range cellToSearch = null;
+        try
         {
-            Range cellToSearch = null;
-            try
+            if (searchRange == "")
             {
-                if (searchRange == "")
-                {
-                    cellToSearch = ws.UsedRange.Find(
-                        What: searchValue,
-                        LookIn: XlFindLookIn.xlValues,
-                        LookAt: matchFullCell,
-                        SearchOrder: XlSearchOrder.xlByRows,
-                        SearchDirection: XlSearchDirection.xlNext
-                        );
+                cellToSearch = ws.UsedRange.Find(
+                    What: searchValue,
+                    LookIn: XlFindLookIn.xlValues,
+                    LookAt: matchFullCell,
+                    SearchOrder: XlSearchOrder.xlByRows,
+                    SearchDirection: XlSearchDirection.xlNext
+                    );
 
-                    return cellToSearch;
-                }
-                else
-                {
-                    cellToSearch = ws.Range[searchRange].Find(
-                        What: searchValue,
-                        LookIn: XlFindLookIn.xlValues,
-                        LookAt: matchFullCell,
-                        SearchOrder: XlSearchOrder.xlByRows,
-                        SearchDirection: XlSearchDirection.xlNext
-                        );
-
-                    return cellToSearch;
-                }
+                return cellToSearch;
             }
-            catch (Exception ex)
+            else
             {
-                //TODO write this to error log
+                cellToSearch = ws.Range[searchRange].Find(
+                    What: searchValue,
+                    LookIn: XlFindLookIn.xlValues,
+                    LookAt: matchFullCell,
+                    SearchOrder: XlSearchOrder.xlByRows,
+                    SearchDirection: XlSearchDirection.xlNext
+                    );
+
                 return cellToSearch;
             }
         }
+        catch (Exception ex)
+        {
+            //TODO write this to error log
+            return cellToSearch;
+        }
+    }
 
         public Range FindColumnInHeaderRow<T>(T searchValue, Range headerStartCell, XlLookAt matchFullCell = XlLookAt.xlPart)
         {

@@ -33,5 +33,10 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 dt.WriteToExcelSheets(ws, writeToAddress, false);
             }
         }
+
+        public static void FormatColumnsAsAccounting(Worksheet ws)
+        {
+            
+        }
     }
 }

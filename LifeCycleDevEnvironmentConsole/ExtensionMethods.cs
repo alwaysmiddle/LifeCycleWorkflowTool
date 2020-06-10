@@ -55,20 +55,27 @@ namespace LifeCycleDevEnvironmentConsole
             {
                 ws.Cells[cellRow, cellCol].Resize[dt.Rows.Count, dt.Columns.Count].Value2 = values;
             }
-            
-
         }
 
         /// <summary>
         /// Deletes all rows under specified row, not including that row.
         /// </summary>
-        public static void ClearAllDataUnderRow(this Worksheet ws, int startUnderRow)
+        public static void ClearAllRowsUnderRow(this Worksheet ws, int belowTheRow)
         {
             Range lastCell = ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
-            if (lastCell.Row > startUnderRow)
+            if (lastCell.Row > belowTheRow)
             {
-                ws.Range["A" + startUnderRow + 1, lastCell].Delete(XlDeleteShiftDirection.xlShiftUp);
+                ws.Range["A" + belowTheRow + 1, lastCell].Delete(XlDeleteShiftDirection.xlShiftUp);
             }
+        }
+
+        /// <summary>
+        /// Deletes all rows above specified row, not including that row.
+        /// </summary>
+        public static void ClearAllRowsAboveRow(this Worksheet ws, int aboveTheRow)
+        {
+            if(aboveTheRow > 1)
+            ws.Rows[string.Format("1:{0}", aboveTheRow - 1)].Delete(XlDeleteShiftDirection.xlShiftUp);
         }
 
         /// <summary>
@@ -126,6 +133,33 @@ namespace LifeCycleDevEnvironmentConsole
             {
                 return cellToSearch;
             }
+        }
+
+        public static Range FindCellBasedOnValue<T>(this Worksheet ws, T searchValue, string searchRange = "", XlLookAt matchFullCell = XlLookAt.xlPart)
+        {
+            Range cellToSearch = null;
+            
+            if (searchRange == "")
+            {
+                cellToSearch = ws.UsedRange.Find(
+                    What: searchValue,
+                    LookIn: XlFindLookIn.xlValues,
+                    LookAt: matchFullCell,
+                    SearchOrder: XlSearchOrder.xlByRows,
+                    SearchDirection: XlSearchDirection.xlNext
+                    );
+            }
+            else
+            {
+                cellToSearch = ws.Range[searchRange].Find(
+                    What: searchValue,
+                    LookIn: XlFindLookIn.xlValues,
+                    LookAt: matchFullCell,
+                    SearchOrder: XlSearchOrder.xlByRows,
+                    SearchDirection: XlSearchDirection.xlNext
+                    );
+            }
+            return cellToSearch;
         }
     }
 }

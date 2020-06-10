@@ -53,48 +53,43 @@ namespace LifeCycleDevEnvironmentConsole
         /// </summary>
         private void TrimBitReport(string excelFileName)
         {
-            var oldLines = File.ReadAllLines(csvFileName);
-            var newLines = oldLines.Where(line => line.IndexOf("Total", StringComparison.OrdinalIgnoreCase) < 0);
-            List<string> cleansedNewLines = new List<string>();
+            Application excelApp = new Application();
+            ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
 
-            bool startWriting = false;
+            Workbook wb = excelApp.Workbooks.Open(excelFileName);
+            Worksheet ws = wb.Worksheets[1];
+            excelApp.DisplayAlerts = false;
 
-            foreach (var line in newLines)
+            try
             {
-                string[] arr = line.Split(',');
-                if(arr[0].IndexOf("DMM", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    startWriting = true;
-                }
+                Range topLeftCell = ws.FindCellBasedOnValue<string>("DMM", matchFullCell: XlLookAt.xlWhole);
+                ws.ClearAllRowsAboveRow(topLeftCell.Row);
+                wb.Save();
 
-                if (startWriting)
-                {
-                    var temp = line.Replace(",,", ",");
-                    temp = temp.Replace("$", "");
-                    cleansedNewLines.Add(temp);
-                }
+                Range totalCell = ws.FindCellBasedOnValue<string>("Total", matchFullCell: XlLookAt.xlWhole);
+                totalCell.EntireRow.Delete(XlDeleteShiftDirection.xlShiftUp);
+                ws.UsedRange.SpecialCells(XlCellType.xlCellTypeBlanks).Delete(XlDeleteShiftDirection.xlShiftToLeft);
+                wb.Save();
+            }
+            catch (Exception ex)
+            {
+                //TODO write exceptions
+            }
+            finally
+            {
+                wb.Close();
+                excelApp.DisplayAlerts = true;
+                excelApp.Quit();
+                
+                if (ws != null) Marshal.ReleaseComObject(ws);
+                if (wb != null) Marshal.ReleaseComObject(wb);
+                if (excelApp != null) Marshal.ReleaseComObject(excelApp);
+                excelProcess.Dispose();
             }
 
-            File.WriteAllLines(csvFileName, cleansedNewLines);
+            _dt = ExcelUtilities.OledbExcelFileAsTable(excelFileName, 1);
 
-            //Process.Start(csvFileName);
-
-            string cnnStr = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
-                "Extended Properties=\"Text;HDR=Yes;FORMAT=Delimited\"", Path.GetDirectoryName(csvFileName));
-            string sql = @"SELECT * FROM [" + Path.GetFileName(csvFileName) + "]";
-
-            using (OleDbConnection connection = new OleDbConnection(cnnStr))
-            {
-                using (OleDbCommand command = new OleDbCommand(sql, connection))
-                {
-                    using (OleDbDataAdapter adapter = new OleDbDataAdapter(command))
-                    {
-                        adapter.Fill(_dt);
-                    }
-                }
-            }
-
-            //Console.WriteLine(DumpDataTable(_dt));
+            Console.WriteLine(DumpDataTable(_dt));
         }
 
         /// <summary>
@@ -107,6 +102,7 @@ namespace LifeCycleDevEnvironmentConsole
                                where row["DMM"].ToString().Equals("Total", StringComparison.OrdinalIgnoreCase)
                                select row;
 
+            Console.WriteLine(DumpDataTable(table));
             //delete total row, first store it in array to only process data in tables.
             object[] totalRow = rowsToDelete.FirstOrDefault().ItemArray.ToArray();
 
@@ -205,8 +201,8 @@ namespace LifeCycleDevEnvironmentConsole
             }
             finally
             {
-                excelApp.DisplayAlerts = true;
                 wb.Close();
+                excelApp.DisplayAlerts = true;
                 excelApp.Quit();
 
                 if (ws != null) Marshal.ReleaseComObject(ws);
