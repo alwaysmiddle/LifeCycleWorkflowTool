@@ -106,7 +106,6 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 }
                 
             }
-            
         }
     }
 }
