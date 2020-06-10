@@ -23,13 +23,13 @@ namespace LifeCycleDevEnvironmentConsole
             string saksInput2 = Path.Combine(exeDir, saksPath, @"Input Files\MIS-IB004A_2 - Saks-Ecomm by Colour Count.xlsx");
             string saksInput3 = Path.Combine(exeDir, saksPath, @"Input Files\DM_SAKS_OH_INACTV_UPC20200605.xls");
 
-            string o5Path = @"WorlkFlow Data\O5\";
+            string o5Path = @"WorkFlow Data\O5\";
             //O5
             string o5Input1 = Path.Combine(exeDir, o5Path, @"Test Data\O5_DM_WORKFLOW_REPORT_O5.xlsx");
             string o5Input2 = Path.Combine(exeDir, o5Path, @"Test Data\MIS-IB004A_2 - SO5-Ecomm by Colour Count.xlsx");
             string o5Input3 = Path.Combine(exeDir, o5Path, @"Test Data\DM_O5_OH_INACTV_UPC20200512.xlsx");
 
-            string theBayPath = @"WorlkFlow Data\TheBay\";
+            string theBayPath = @"WorkFlow Data\TheBay\";
             //The Bay
             string theBayInput1 = Path.Combine(exeDir, theBayPath , @"Test Data\SFCC_Bay Workflow and Not On Site 2020-05-27T0843.csv");
             string theBayInput2 = Path.Combine(exeDir, theBayPath, @"Test Data\BAY Ecomm by Colour Count 5.27.20.xlsx");
@@ -44,7 +44,7 @@ namespace LifeCycleDevEnvironmentConsole
 
             Console.WriteLine(oDirectory);
 
-            ////saks settings
+            //saks settings
             BannerSettings.BannerSettingsEssence settingsEssence = new BannerSettings.BannerSettingsEssence(Banner.Saks);
             settingsEssence.DefaultOutputFilename = "Saks_Workflow";
             settingsEssence.OutputDate = new DateTime(2020, 6, 5);
@@ -63,7 +63,7 @@ namespace LifeCycleDevEnvironmentConsole
             saksOps.RunOperation();
             Console.WriteLine("Saks Operation finished");
 
-            ////O5 settings
+            //O5 settings
             //BannerSettings.BannerSettingsEssence settingsEssence = new BannerSettings.BannerSettingsEssence(Banner.O5);
             //settingsEssence.DefaultOutputFilename = "O5_Workflow";
             //settingsEssence.OutputDate = new DateTime(2020, 5, 12);
@@ -83,7 +83,7 @@ namespace LifeCycleDevEnvironmentConsole
             //o5Ops.RunOperation();
             //Console.WriteLine("O5 Operation finished");
 
-            ////TheBay settings
+            //TheBay settings
             //BannerSettings.BannerSettingsEssence settingsEssence = new BannerSettings.BannerSettingsEssence(Banner.TheBay);
             //settingsEssence.DefaultOutputFilename = "TheBay_Workflow";
             //settingsEssence.OutputDate = new DateTime(2020, 5, 27);

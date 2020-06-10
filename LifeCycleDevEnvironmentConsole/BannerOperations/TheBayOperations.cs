@@ -30,8 +30,10 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             excelApp.Visible = false;
             try
             {
-                Worksheet inactiveWs = wb.Worksheets["UPC_Looker"];
+                Worksheet inactiveWs = wb.Worksheets["Inactive_UPC"];
+                Worksheet inactiveDataWs = wb.Worksheets["UPC_Looker"];
                 Worksheet detailsProductWs = wb.Worksheets["Details-Products"];
+                Worksheet detailsProductDataWs = wb.Worksheets["Looker_Data"];
                 Worksheet inventoryValueWs = wb.Worksheets["Ttl_Inv"];
 
                 //Bit report
@@ -40,23 +42,32 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
 
                 inputDataTable.WriteToExcelSheets(inventoryValueWs, "A1");
+                CommonOperations.FormatColumnsAsAccounting(inventoryValueWs, "OH $ @R");
+                inputDataTable = null;
+                bitReport = null;
 
                 //Inactive UPC
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameInactiveUpc, 1);
 
-                inputDataTable.WriteToExcelSheets(inactiveWs, "A1", true);
+                inputDataTable.WriteToExcelSheets(inactiveDataWs, "A1", true);
+                inactiveWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
                 inputDataTable = null;
 
-                //////Workflow DM
-                //inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameWorkflow, 1);
+                inactiveWs.Calculate();
+                wb.Save();
 
-                //inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
-                //detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
-                //inputDataTable = null;
-                //wb.Save();
-                //detailsProductWs.Calculate();
-                ////detailsProductWs.ConvertAllDataUnderRowToValues(7);
-                //O5ReworkFurRule(detailsProductWs);
+
+                //Workflow DM
+                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameWorkflow, 1);
+
+                inputDataTable.WriteToExcelSheets(detailsProductDataWs, "A1", true);
+                detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
+                inputDataTable = null;
+
+                detailsProductWs.Calculate();
+                wb.Save();
+                //detailsProductWs.ConvertAllDataUnderRowToValues(7);
+                CommonOperations.ReworkFurRule(detailsProductWs);
 
                 excelApp.Calculate();
                 wb.Save();

@@ -37,8 +37,11 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 BitReportHandler bitReport = new BitReportHandler(_saksSetting.InputFilenameBitReport);
                 templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.OutputFileFullNameWip, inventoryValueWs.Name);
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
-
+                
                 inputDataTable.WriteToExcelSheets(inventoryValueWs, "A1");
+                CommonOperations.FormatColumnsAsAccounting(inventoryValueWs, "OH $ @R");
+                inputDataTable = null;
+                bitReport = null;
 
                 ////Inactive UPC
                 //inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameInactiveUpc, 1);

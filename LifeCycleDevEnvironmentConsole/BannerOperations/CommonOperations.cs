@@ -34,9 +34,11 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             }
         }
 
-        public static void FormatColumnsAsAccounting(Worksheet ws)
+        public static void FormatColumnsAsAccounting(Worksheet ws, string columnHeader)
         {
-            
+            Range columnToFormat = ws.FindColumnInHeaderRow<string>(columnHeader, 1);
+
+            columnToFormat.NumberFormat = "$#,##0.00_);($#,##0.00)";
         }
     }
 }

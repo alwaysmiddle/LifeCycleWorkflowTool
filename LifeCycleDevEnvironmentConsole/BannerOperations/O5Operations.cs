@@ -40,6 +40,9 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
 
                 inputDataTable.WriteToExcelSheets(inventoryValueWs, "A1");
+                CommonOperations.FormatColumnsAsAccounting(inventoryValueWs, "OH $ @R");
+                inputDataTable = null;
+                bitReport = null;
 
                 //Inactive UPC
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_o5Settings.InputFilenameInactiveUpc, 1);
@@ -54,8 +57,10 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
                 detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
                 inputDataTable = null;
-                wb.Save();
+               
                 detailsProductWs.Calculate();
+                wb.Save();
+
                 //detailsProductWs.ConvertAllDataUnderRowToValues(7);
                 CommonOperations.ReworkFurRule(detailsProductWs);
 
