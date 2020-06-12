@@ -51,6 +51,7 @@
     <Compile Include="BannerOperations\O5Operations.cs" />
     <Compile Include="BannerOperations\SaksOperations.cs" />
     <Compile Include="BannerOperations\TheBayOperations.cs" />
+    <Compile Include="BannerSettings\BannerOperationSettings.cs" />
     <Compile Include="BannerSettings\BannerSettings.cs" />
     <Compile Include="BannerSettings\BannerSettingsEssence.cs" />
     <Compile Include="BitReportHandler.cs" />
@@ -82,6 +83,7 @@
     <None Include="WorkFlow Data\Saks\Template\Daily Workflow_SAKS_Final_Template_2020.xlsx" />
     <None Include="WorkFlow Data\Saks\Template\Daily Workflow_SAKS_Wip_Template_2020.xlsm" />
     <None Include="WorkFlow Data\Saks\WIP\~%24PIM_8.9.2019_Daily_Workflow_Report_BAY.xlsx" />
+    <None Include="WorkFlow Data\TheBay\Bay Workflow Training.docx" />
     <None Include="WorkFlow Data\TheBay\Template Before Mod\BAY_DailyWorkflow_TemplateV5.xlsm" />
     <None Include="WorkFlow Data\TheBay\Template Before Mod\MM.DD.YY_Daily Workflow Report_BAY.xlsx" />
     <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Final_Template_2020.xlsx" />

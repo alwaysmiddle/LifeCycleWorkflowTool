@@ -89,7 +89,7 @@ namespace LifeCycleDevEnvironmentConsole
 
             _dt = ExcelUtilities.OledbExcelFileAsTable(excelFileName, 1);
 
-            Console.WriteLine(DumpDataTable(_dt));
+            //Console.WriteLine(DumpDataTable(_dt));
         }
 
         /// <summary>
@@ -102,7 +102,6 @@ namespace LifeCycleDevEnvironmentConsole
                                where row["DMM"].ToString().Equals("Total", StringComparison.OrdinalIgnoreCase)
                                select row;
 
-            Console.WriteLine(DumpDataTable(table));
             //delete total row, first store it in array to only process data in tables.
             object[] totalRow = rowsToDelete.FirstOrDefault().ItemArray.ToArray();
 
