@@ -80,25 +80,25 @@ namespace LifeCycleWorkflowTool
 
         private void LoadSettings()
         {
-            DetailsProductHeaderRowValue.Value = 
+            DetailsProductHeaderRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct].HeaderRow;
-            DetailsProductFormulaRowValue.Value = 
+            DetailsProductFormulaRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct].FormulaeRow;
-            DetailsProductReferenceRowValue.Value = 
+            DetailsProductReferenceRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.DetailsProduct].ReferenceRow;
 
-            InactiveUpcHeaderRowValue.Value = 
+            InactiveUpcHeaderRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc].HeaderRow;
-            InactiveUpcFormulaRowValue.Value = 
+            InactiveUpcFormulaRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc].FormulaeRow;
-            InactiveUpcReferenceRowValue.Value = 
+            InactiveUpcReferenceRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.InactiveUpc].ReferenceRow;
 
-            NosCombinedHeaderRowValue.Value = 
+            NosCombinedHeaderRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined].HeaderRow;
-            NosCombinedFormulaRowValue.Value = 
+            NosCombinedFormulaRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined].FormulaeRow;
-            NosCombinedReferenceRowValue.Value = 
+            NosCombinedReferenceRowValue.Value =
                 worksheetSettings[Globals.TheBay.TemplateWorksheetNames.WipTemplateNames.NosCombined].ReferenceRow;
         }
 

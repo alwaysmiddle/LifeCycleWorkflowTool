@@ -46,10 +46,6 @@ namespace LifeCycleWorkflowLibrary
         /// <summary>
         /// Change the value of another column, based on integer values of passed column.
         /// </summary>
-        /// <param name="RefenceColumnName"></param>
-        /// <param name="ChangingColumnName"></param>
-        /// <param name="ChangeFrom"></param>
-        /// <param name="ChangeTo"></param>
         public void ChangeNumberInColumn(string RefenceColumnName, string ChangingColumnName, int ChangeFrom, int ChangeTo)
         {
             Range headerRange = ws.Range[ws.Cells[headerRow, 1],
@@ -79,11 +75,6 @@ namespace LifeCycleWorkflowLibrary
         /// <summary>
         /// Make comparison of "Reference Column", then change "Changing Column" to another string value.
         /// </summary>
-        /// <param name="RefenceColumnName"></param>
-        /// <param name="ChangingColumnName"></param>
-        /// <param name="ChangeFrom">Use equality of this value for comparison</param>
-        /// <param name="ChangeTo"></param>
-        /// <param name="IgnoreCase"></param>
         public void ChangeStringInColumn(string RefenceColumnName, string ChangingColumnName,
             string ChangeFrom, string ChangeTo, StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase)
         {
@@ -115,10 +106,6 @@ namespace LifeCycleWorkflowLibrary
         /// Find two columns based on name and change values of the these two columns when matched with criteria. 
         /// The value in the column have to match change1From AND match change2From in order to trigger the change.
         /// </summary>
-        /// <param name="RefenceColumnName"></param>
-        /// <param name="ChangingColumnName"></param>
-        /// <param name="ChangeFrom"></param>
-        /// <param name="ChangeTo"></param>
         public void ChangeNumberInTwoColumn(string refenceColumnName1, string refenceColumnName2, 
             int change1From, int change2From, int change1To, int change2To)
         {

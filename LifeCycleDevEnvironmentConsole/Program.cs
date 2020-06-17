@@ -19,9 +19,9 @@ namespace LifeCycleDevEnvironmentConsole
 
             string saksPath = @"WorkFlow Data\Saks\";
             //saks
-            string saksInput1 = Path.Combine(exeDir, saksPath, @"Input Files\DM_WORKFLOW_RPT20200605.xls");
-            string saksInput2 = Path.Combine(exeDir, saksPath, @"Input Files\MIS-IB004A_2 - Saks-Ecomm by Colour Count.xlsx");
-            string saksInput3 = Path.Combine(exeDir, saksPath, @"Input Files\DM_SAKS_OH_INACTV_UPC20200605.xls");
+            string saksInput1 = Path.Combine(exeDir, saksPath, @"Input Files\DM_WORKFLOW_RPT20200616.xls");
+            string saksInput2 = Path.Combine(exeDir, saksPath, @"Input Files\MIS-IB004A_2 - Saks (63).xlsx");
+            string saksInput3 = Path.Combine(exeDir, saksPath, @"Input Files\DM_SAKS_OH_INACTV_UPC20200616.xls");
 
             string o5Path = @"WorkFlow Data\O5\";
             //O5
@@ -47,7 +47,7 @@ namespace LifeCycleDevEnvironmentConsole
             //saks settings
             BannerSettings.BannerSettingsEssence settingsEssence = new BannerSettings.BannerSettingsEssence(Banner.Saks);
             settingsEssence.DefaultOutputFilename = "Saks_Workflow";
-            settingsEssence.OutputDate = new DateTime(2020, 6, 5);
+            settingsEssence.OutputDate = new DateTime(2020, 6, 15);
             settingsEssence.OutputDirectoryWip = oDirectory;
             settingsEssence.OutputDirectoryFinal = oDirectory;
             settingsEssence.TemplateFilenameWip = templateSaksWip;

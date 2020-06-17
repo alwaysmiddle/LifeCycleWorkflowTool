@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using ProcessManagement;
 using System.Diagnostics;
+using LifeCycleDevEnvironmentConsole.ExtensionMethods;
 
 namespace LifeCycleDevEnvironmentConsole
 {
@@ -62,6 +63,7 @@ namespace LifeCycleDevEnvironmentConsole
 
             try
             {
+                ws.UsedRange.UnMerge();
                 Range topLeftCell = ws.FindCellBasedOnValue<string>("DMM", matchFullCell: XlLookAt.xlWhole);
                 ws.ClearAllRowsAboveRow(topLeftCell.Row);
                 wb.Save();
@@ -89,7 +91,7 @@ namespace LifeCycleDevEnvironmentConsole
 
             _dt = ExcelUtilities.OledbExcelFileAsTable(excelFileName, 1);
 
-            //Console.WriteLine(DumpDataTable(_dt));
+            Console.WriteLine(DumpDataTable(_dt));
         }
 
         /// <summary>

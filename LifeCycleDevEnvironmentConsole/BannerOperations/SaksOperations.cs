@@ -6,6 +6,7 @@ using System.IO;
 using Microsoft.Office.Interop.Excel;
 using System.Data;
 using ProcessManagement;
+using LifeCycleDevEnvironmentConsole.ExtensionMethods;
 
 namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
@@ -52,7 +53,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
                 //////Workflow DM
                 //inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
-                //SaksSpecialRule1(inputDataTable);
+                //inputDataTable.SetValueInColumnBasedOnOneReferenceColumn<double>("GROUP_ID", "GROUP_ID", 34, 33);
                 //inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
                 //detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
                 //inputDataTable = null;
@@ -83,11 +84,9 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             }
         }
 
-
         /// <summary>
         /// This special rule changes group id from 34 to 33.
         /// </summary>
-        /// <param name="dt"></param>
         private void SaksSpecialRule1(System.Data.DataTable dt)
         {
             foreach (System.Data.DataColumn col in dt.Columns)
@@ -104,7 +103,6 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                         }
                     }
                 }
-                
             }
         }
     }
