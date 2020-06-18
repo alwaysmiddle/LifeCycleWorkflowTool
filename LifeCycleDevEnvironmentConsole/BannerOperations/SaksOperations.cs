@@ -27,7 +27,9 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
 
             Workbook wb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullNameWip);
+            excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
+
             try
             {
                 Worksheet inactiveWs = wb.Worksheets["Additional Color Sizes Report"];
@@ -44,23 +46,23 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inputDataTable = null;
                 bitReport = null;
 
-                ////Inactive UPC
-                //inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameInactiveUpc, 1);
-                //SaksSpecialRule1(inputDataTable);
-                //inputDataTable.WriteToExcelSheets(inactiveWs, "A3", false);
-                //inactiveWs.ProcessFormulaRow(inputDataTable, 1, 2, 3);
-                //inputDataTable = null;
+                //Inactive UPC
+                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameInactiveUpc, 1);
+                SaksSpecialRule1(inputDataTable);
+                inputDataTable.WriteToExcelSheets(inactiveWs, "A3", false);
+                inactiveWs.ProcessFormulaRow(inputDataTable, 1, 2, 3);
+                inputDataTable = null;
 
-                //////Workflow DM
-                //inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
-                //inputDataTable.SetValueInColumnBasedOnOneReferenceColumn<double>("GROUP_ID", "GROUP_ID", 34, 33);
-                //inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
-                //detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
-                //inputDataTable = null;
-                //wb.Save();
-                //detailsProductWs.Calculate();
-                ////detailsProductWs.ConvertAllDataUnderRowToValues(7);
-                //CommonOperations.ReworkFurRule(detailsProductWs);
+                ////Workflow DM
+                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
+                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>("GROUP_ID", "GROUP_ID", 34, 33);
+                inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
+                detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
+                inputDataTable = null;
+                wb.Save();
+                detailsProductWs.Calculate();
+                //detailsProductWs.ConvertAllDataUnderRowToValues(7);
+                CommonOperations.ReworkFurRule(detailsProductWs);
 
                 excelApp.Calculate();
                 wb.Save();
@@ -73,6 +75,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             finally
             {
                 excelApp.DisplayAlerts = false;
+                excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
                 wb.Save();
                 wb.Close();
                 excelApp.Quit();

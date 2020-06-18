@@ -66,7 +66,6 @@ namespace LifeCycleDevEnvironmentConsole
                 ws.UsedRange.UnMerge();
                 Range topLeftCell = ws.FindCellBasedOnValue<string>("DMM", matchFullCell: XlLookAt.xlWhole);
                 ws.ClearAllRowsAboveRow(topLeftCell.Row);
-                wb.Save();
 
                 Range totalCell = ws.FindCellBasedOnValue<string>("Total", matchFullCell: XlLookAt.xlWhole);
                 totalCell.EntireRow.Delete(XlDeleteShiftDirection.xlShiftUp);
@@ -91,7 +90,7 @@ namespace LifeCycleDevEnvironmentConsole
 
             _dt = ExcelUtilities.OledbExcelFileAsTable(excelFileName, 1);
 
-            Console.WriteLine(DumpDataTable(_dt));
+            //Console.WriteLine(DumpDataTable(_dt));
         }
 
         /// <summary>

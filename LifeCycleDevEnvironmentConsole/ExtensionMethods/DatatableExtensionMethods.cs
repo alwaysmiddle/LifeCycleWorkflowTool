@@ -58,9 +58,9 @@ namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
         }
 
         /// <summary>
-        /// 
+        /// Update values of one column based on reference column value. ColumnName matches are case insensitive.
         /// </summary>
-        public static void SetValueInColumnBasedOnOneReferenceColumn<T>
+        public static void SetValueInColumnBasedOnReferenceColumn<T>
             (this System.Data.DataTable dt, string refColumnName, string baseColumnName, T valueToRef, T valueToSet)
         {
             bool caseSensitivity = dt.CaseSensitive;
@@ -69,12 +69,13 @@ namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
             if (!dt.Columns.Contains(refColumnName)) throw new ArgumentException(string.Format("{0} does not exist inside this datatable.", refColumnName));
             if (!dt.Columns.Contains(baseColumnName)) throw new ArgumentException(string.Format("{0} does not exist inside this datatable.", baseColumnName));
 
-            System.Data.DataRow[] groupRows = dt.Select(string.Format("{0} = {1}", refColumnName, valueToRef));
+            System.Data.DataRow[] groupRows = dt.Select(string.Format("[{0}] = \'{1}\'", refColumnName, valueToRef));
             if (groupRows != null)
             {
+                int columnIndex = dt.Columns[baseColumnName].Ordinal;
                 foreach (System.Data.DataRow row in groupRows)
                 {
-                    row[dt.Columns[baseColumnName].Ordinal] = valueToSet;
+                    row[columnIndex] = valueToSet;
                 }
             }
 
@@ -82,11 +83,32 @@ namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
         }
 
         /// <summary>
-        /// 
+        /// Find two columns based on name and change values of the these two columns when matched with criteria. 
+        /// The value in the column have to match valueToRefCol1 AND match ValueToRefCol2 in order to trigger the change.
+        /// ColumnName matches are case insensitive.
         /// </summary>
-        public static void SetValueInColumnBasedOnTwoReferenceColumn<T>(this System.Data.DataTable dt)
+        public static void UpdateValueOfTwoColumns<T>
+            (this System.Data.DataTable dt, string nameCol1, string nameCol2, T valueToRefCol1, T ValueToRefCol2, T valueToSetCol1, T valueToSetCol2)
         {
+            bool caseSensitivity = dt.CaseSensitive;
+            dt.CaseSensitive = false;
 
+            if (!dt.Columns.Contains(nameCol1)) throw new ArgumentException(string.Format("{0} does not exist inside this datatable.", nameCol1));
+            if (!dt.Columns.Contains(nameCol2)) throw new ArgumentException(string.Format("{0} does not exist inside this datatable.", nameCol2));
+
+            System.Data.DataRow[] groupRows = dt.Select(string.Format("[{0}] = \'{1}\'", nameCol1, valueToRefCol1) + " AND " + string.Format("[{0}] = \'{1}\'", nameCol2, ValueToRefCol2));
+            if (groupRows != null)
+            {
+                int column1Index = dt.Columns[nameCol1].Ordinal;
+                int column2Index = dt.Columns[nameCol2].Ordinal;
+                foreach (System.Data.DataRow row in groupRows)
+                {
+                    row[column1Index] = valueToSetCol1;
+                    row[column2Index] = valueToSetCol2;
+                }
+            }
+
+            dt.CaseSensitive = caseSensitivity;
         }
     }
 }

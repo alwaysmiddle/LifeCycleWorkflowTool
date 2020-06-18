@@ -26,8 +26,9 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
             Application excelApp = new Application();
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
-
             Workbook wb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullNameWip);
+            
+            excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
             try
             {
@@ -36,6 +37,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 Worksheet detailsProductWs = wb.Worksheets["Details-Products"];
                 Worksheet detailsProductDataWs = wb.Worksheets["Looker_Data"];
                 Worksheet inventoryValueWs = wb.Worksheets["Ttl_Inv"];
+                Worksheet nosCombineWs = wb.Worksheets["NOS_Colour_Combined"];
 
                 //Bit report
                 BitReportHandler bitReport = new BitReportHandler(_theBaySettings.InputFilenameBitReport);
@@ -47,22 +49,39 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inputDataTable = null;
                 bitReport = null;
 
+                //NOS Combined
+
+                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameNosCombined, 1);
+
+                inputDataTable.WriteToExcelSheets(nosCombineWs, "A3", false);
+                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5);
+                inputDataTable.UpdateValueOfTwoColumns<double>("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 28, 5, 28);
+                nosCombineWs.ProcessFormulaRow(inputDataTable, 1, 2, 3);
+                inputDataTable = null;
+
+                inactiveWs.Calculate();
+                wb.Save();
+
                 //Inactive UPC
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameInactiveUpc, 1);
 
                 inputDataTable.WriteToExcelSheets(inactiveDataWs, "A1", true);
+                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5);
+                inputDataTable.UpdateValueOfTwoColumns<double>("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 28, 5, 28);
                 inactiveWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
                 inputDataTable = null;
 
                 inactiveWs.Calculate();
                 wb.Save();
 
-
                 //Workflow DM
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameWorkflow, 1);
 
+                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>("PIM PRODUCTS Group ID", "PIM PRODUCTS Divisionid", 27, 5);
+                inputDataTable.UpdateValueOfTwoColumns<double>("PIM PRODUCTS Divisionid", "PIM PRODUCTS Group ID", 7, 28, 5, 28);
                 inputDataTable.WriteToExcelSheets(detailsProductDataWs, "A1", true);
                 detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
+
                 inputDataTable = null;
 
                 detailsProductWs.Calculate();
@@ -81,6 +100,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             finally
             {
                 excelApp.DisplayAlerts = false;
+                excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
                 wb.Save();
                 wb.Close();
                 excelApp.Quit();

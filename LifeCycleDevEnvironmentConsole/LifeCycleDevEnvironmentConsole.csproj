@@ -79,7 +79,6 @@
     <None Include="WorkFlow Data\O5\Test Data\DM_O5_OH_INACTV_UPC20200512.xlsx" />
     <None Include="WorkFlow Data\O5\Test Data\MIS-IB004A_2 - SO5-Ecomm by Colour Count.xlsx" />
     <None Include="WorkFlow Data\O5\Test Data\O5_DM_WORKFLOW_REPORT_O5.xlsx" />
-    <None Include="WorkFlow Data\O5\Thumbs.db" />
     <None Include="WorkFlow Data\Saks\Input Files\DM_SAKS_OH_INACTV_UPC20200616.xls" />
     <None Include="WorkFlow Data\Saks\Input Files\DM_WORKFLOW_RPT20200616.xls" />
     <None Include="WorkFlow Data\Saks\Input Files\MIS-IB004A_2 - Saks %2863%29.xlsx" />
@@ -94,11 +93,10 @@
     <None Include="WorkFlow Data\TheBay\Template Before Mod\MM.DD.YY_Daily Workflow Report_BAY.xlsx" />
     <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Final_Template_2020.xlsx" />
     <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Wip_Template_2020.xlsm" />
-    <None Include="WorkFlow Data\TheBay\Test Data\BAY Ecomm by Colour Count 5.27.20.xlsx" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Inactive UPC 2020-05-27T0845.csv" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Inactive UPC 2020-05-27T0845.xlsx" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay NOS combined 2020-05-27T0844.csv" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Workflow and Not On Site 2020-05-27T0843.csv" />
+    <None Include="WorkFlow Data\TheBay\Test Data\BAY Ecomm by Colour Count 6.15.20.xlsx" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Inactive UPC 2020-06-15T0846.csv" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay NOS combined 2020-06-15T0845.csv" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Workflow and Not On Site 2020-06-15T0838.csv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="WorkFlow Data\Saks\Final\" />

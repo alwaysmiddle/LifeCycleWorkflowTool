@@ -28,6 +28,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
 
             Workbook wb = excelApp.Workbooks.Open(_o5Settings.OutputFileFullNameWip);
+            excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
             try
             {
@@ -64,6 +65,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
                 //detailsProductWs.ConvertAllDataUnderRowToValues(7);
                 CommonOperations.ReworkFurRule(detailsProductWs);
+                O5SpeicalRule1(detailsProductWs);
 
                 excelApp.Calculate();
                 wb.Save();
@@ -76,6 +78,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             finally
             {
                 excelApp.DisplayAlerts = false;
+                excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
                 wb.Save();
                 wb.Close();
                 excelApp.Quit();
@@ -84,6 +87,31 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 Marshal.ReleaseComObject(excelApp);
 
                 excelProcess.Dispose();
+            }
+        }
+
+
+        private void O5SpeicalRule1(Worksheet ws)
+        {
+            Range furAttributeRange = ws.FindColumnInHeaderRow<string>("Active_PIM", 7);
+            System.Data.DataTable dt = new System.Data.DataTable();
+
+            if (furAttributeRange.Cells.Count > 1)
+            {
+                string writeToAddress = furAttributeRange.Cells[2, 1].Address; //cell under rework column name
+                dt = ExcelUtilities.OledbExcelFileAsTable(ws.Parent.Fullname, ws.Name, furAttributeRange.Resize[ColumnSize: 43].Address);
+
+                var rowToUpdate = dt.AsEnumerable()
+                    .Where(r => r.Field<string>("Active_PIM") == "Yes" && r.Field<string>("ReadyforProd_PIM") == "Yes" &&
+                            r.Field<string>("Current_Workflow_Status") == "Not in PIM Workflow" || r.Field<string>("Current_Workflow_Status") == "Workflow Complete" );
+
+                foreach (System.Data.DataRow row in rowToUpdate)
+                {
+                    row.SetField<string>(dt.Columns["Current_Workflow_Status"], "Not Flagged for eCOM");
+                    row.SetField<string>(dt.Columns["Current Team"], "Merchants");
+                }
+
+                dt.WriteToExcelSheets(ws, writeToAddress, false);
             }
         }
     }

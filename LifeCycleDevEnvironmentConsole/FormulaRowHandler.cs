@@ -20,7 +20,7 @@ namespace LifeCycleDevEnvironmentConsole
             {
                 Range headerRowCell = ws.Cells[headerRow, formulaRowCell.Column];
                 //Data matching operation
-                if (formulaRowCell.Value2 != null)
+                if (!string.IsNullOrWhiteSpace(formulaRowCell.Text))
                 {
                     if (formulaRowCell.HasFormula)
                     {
