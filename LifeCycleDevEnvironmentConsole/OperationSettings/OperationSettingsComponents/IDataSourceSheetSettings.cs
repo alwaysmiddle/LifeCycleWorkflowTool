@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeCycleDevEnvironmentConsole.OperationSettings.OperationSettingsBuilder
+namespace LifeCycleDevEnvironmentConsole.OperationSettings
 {
-    public class BasicOperationBuilder
+    interface IDataSourceSheetSettings
     {
+        
     }
 }
