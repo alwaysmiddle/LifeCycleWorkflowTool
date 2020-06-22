@@ -1,4 +1,5 @@
 ﻿using LifeCycleDevEnvironmentConsole.ExtensionMethods;
+using LifeCycleDevEnvironmentConsole.Utilities;
 using Microsoft.Office.Interop.Excel;
 using ProcessManagement;
 using System;
@@ -27,7 +28,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             Application excelApp = new Application();
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
 
-            Workbook wb = excelApp.Workbooks.Open(_o5Settings.OutputFileFullNameWip);
+            Workbook wb = excelApp.Workbooks.Open(_o5Settings.OutputFileFullnameWip);
             excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
             try
@@ -38,7 +39,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
                 //Bit report
                 BitReportHandler bitReport = new BitReportHandler(_o5Settings.InputFilenameBitReport);
-                templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_o5Settings.OutputFileFullNameWip, inventoryValueWs.Name);
+                templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_o5Settings.OutputFileFullnameWip, inventoryValueWs.Name);
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
 
                 inputDataTable.WriteToExcelSheets(inventoryValueWs, "A1");

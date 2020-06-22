@@ -1,4 +1,5 @@
 ﻿using LifeCycleDevEnvironmentConsole.ExtensionMethods;
+using LifeCycleDevEnvironmentConsole.Utilities;
 using Microsoft.Office.Interop.Excel;
 using ProcessManagement;
 using System;
@@ -26,7 +27,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
             Application excelApp = new Application();
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
-            Workbook wb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullNameWip);
+            Workbook wb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullnameWip);
             
             excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
@@ -41,7 +42,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
                 //Bit report
                 BitReportHandler bitReport = new BitReportHandler(_theBaySettings.InputFilenameBitReport);
-                templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.OutputFileFullNameWip, inventoryValueWs.Name);
+                templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.OutputFileFullnameWip, inventoryValueWs.Name);
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
 
                 inputDataTable.WriteToExcelSheets(inventoryValueWs, "A1");

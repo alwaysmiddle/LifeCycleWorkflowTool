@@ -10,8 +10,9 @@ using System.Text;
 using ProcessManagement;
 using System.Diagnostics;
 using LifeCycleDevEnvironmentConsole.ExtensionMethods;
+using LifeCycleDevEnvironmentConsole.Utilities;
 
-namespace LifeCycleDevEnvironmentConsole
+namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
     public class BitReportHandler
     {

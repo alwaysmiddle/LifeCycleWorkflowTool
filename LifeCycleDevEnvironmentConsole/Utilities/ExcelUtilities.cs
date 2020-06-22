@@ -8,7 +8,7 @@ using System.Linq;
 
 
 
-namespace LifeCycleDevEnvironmentConsole
+namespace LifeCycleDevEnvironmentConsole.Utilities
 {
     public static class ExcelUtilities
     {

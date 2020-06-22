@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,17 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BannerOperations\BannerOperationBase.cs" />
-    <Compile Include="BannerOperations\CommonOperations.cs" />
+    <Compile Include="BannerOperations\BannerCommonComponents\CommonOperations.cs" />
     <Compile Include="BannerOperations\O5Operations.cs" />
     <Compile Include="BannerOperations\SaksOperations.cs" />
     <Compile Include="BannerOperations\TheBayOperations.cs" />
     <Compile Include="BannerSettings\BannerSettings.cs" />
-    <Compile Include="BannerSettings\BannerSettingsEssence.cs" />
-    <Compile Include="BitReportHandler.cs" />
-    <Compile Include="ExcelUtilities.cs" />
+    <Compile Include="BannerOperations\BannerCommonComponents\BitReportHandler.cs" />
+    <Compile Include="Utilities\ExcelUtilities.cs" />
     <Compile Include="ExtensionMethods\DatatableExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\WorksheetExtensionMethods.cs" />
-    <Compile Include="FormulaRowHandler.cs" />
+    <Compile Include="BannerOperations\BannerCommonComponents\FormulaRowHandler.cs" />
     <Compile Include="OperationSettings\OperationSettingsComponents\DataSourceSheetSettings.cs" />
     <Compile Include="OperationSettings\OperationSettingsComponents\FinalSheetSettings.cs" />
     <Compile Include="OperationSettings\OperationSettingsComponents\IDataSourceSheetSettings.cs" />
@@ -74,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="WorkFlow Data\O5\O5 WORKFLOW REPORT TRAINING.docx" />
     <None Include="WorkFlow Data\O5\Templates Before modification\O5_Daily_Workflow_Template_WIP_v1.xlsm" />
     <None Include="WorkFlow Data\O5\Templates Before modification\XX.XX.20_Daily_Workflow_Report_O5.xlsx" />
