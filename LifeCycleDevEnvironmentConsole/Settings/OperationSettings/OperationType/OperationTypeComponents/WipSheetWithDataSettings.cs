@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeCycleDevEnvironmentConsole.OperationSettings.OperationType.OperationTypeComponents
+namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType.OperationTypeComponents
 {
     public class WipSheetWithDataSettings : IWipSheetSettings
     {

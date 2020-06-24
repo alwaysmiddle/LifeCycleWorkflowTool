@@ -1,4 +1,4 @@
-﻿using LifeCycleDevEnvironmentConsole.OperationSettings.OperationType;
+﻿using LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,27 +6,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeCycleDevEnvironmentConsole.OperationSettings
+namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings
 {
     public interface IBaseOperationSettings
     {
-        IBasicTypeOperation BitReportSettings { get; }
+        IBasicTypeOperation BitreportSettings { get; }
         IBasicTypeOperation WorkflowSettings { get; }
         IBasicTypeOperation InactiveUpcSettings { get; }
     }
     public class BaseOperationSettings: IBaseOperationSettings
     {
         [JsonProperty]
-        public IBasicTypeOperation BitReportSettings { get; }
+        public IBasicTypeOperation BitreportSettings { get; }
         [JsonProperty]
         public IBasicTypeOperation WorkflowSettings { get; }
         [JsonProperty]
         public IBasicTypeOperation InactiveUpcSettings { get; }
 
         [JsonConstructor]
-        public BaseOperationSettings(BasicTypeOperation bitReportSettings, DataSourceTypeOperation workflowSettings, DataSourceTypeOperation inactiveUpcSettings)
+        public BaseOperationSettings(BasicTypeOperation bitreportSettings ,DataSourceTypeOperation workflowSettings, DataSourceTypeOperation inactiveUpcSettings)
         {
-            BitReportSettings = bitReportSettings;
+            BitreportSettings = bitreportSettings;
             WorkflowSettings = workflowSettings;
             InactiveUpcSettings = inactiveUpcSettings;
         }

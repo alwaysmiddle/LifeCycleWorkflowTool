@@ -1,4 +1,5 @@
 ﻿using LifeCycleDevEnvironmentConsole.ExtensionMethods;
+using LifeCycleDevEnvironmentConsole.Settings;
 using LifeCycleDevEnvironmentConsole.Utilities;
 using Microsoft.Office.Interop.Excel;
 using ProcessManagement;
@@ -54,7 +55,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inactiveWs.ProcessFormulaRow(inputDataTable, 1, 2, 3);
                 inputDataTable = null;
 
-                ////Workflow DM
+                //Workflow DM
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_o5Settings.InputFilenameWorkflow, 1);
 
                 inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);

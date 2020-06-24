@@ -1,4 +1,4 @@
-﻿using LifeCycleDevEnvironmentConsole.OperationSettings.OperationType.OperationTypeComponents;
+﻿using LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType.OperationTypeComponents;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeCycleDevEnvironmentConsole.OperationSettings.OperationType
+namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType
 {
     public class DataSourceTypeOperation : IBasicTypeOperation
     {

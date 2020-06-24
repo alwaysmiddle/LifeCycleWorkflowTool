@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace LifeCycleDevEnvironmentConsole.OperationSettings.OperationType.OperationTypeComponents
+namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType.OperationTypeComponents
 {
     public interface IFinalSheetSettings
     {

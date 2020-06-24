@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeCycleDevEnvironmentConsole
+namespace LifeCycleDevEnvironmentConsole.Settings
 {
     public enum Banner
     {

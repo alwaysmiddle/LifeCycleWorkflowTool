@@ -8,6 +8,7 @@ using System.Data;
 using ProcessManagement;
 using LifeCycleDevEnvironmentConsole.ExtensionMethods;
 using LifeCycleDevEnvironmentConsole.Utilities;
+using LifeCycleDevEnvironmentConsole.Settings;
 
 namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
@@ -54,7 +55,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inactiveWs.ProcessFormulaRow(inputDataTable, 1, 2, 3);
                 inputDataTable = null;
 
-                ////Workflow DM
+                //Workflow DM
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
                 inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>("GROUP_ID", "GROUP_ID", 34, 33);
                 inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
