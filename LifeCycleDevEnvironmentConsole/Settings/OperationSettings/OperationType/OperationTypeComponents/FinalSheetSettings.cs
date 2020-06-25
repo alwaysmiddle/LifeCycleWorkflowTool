@@ -2,13 +2,7 @@
 
 namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType.OperationTypeComponents
 {
-    public interface IFinalSheetSettings
-    {
-        string WorksheetName { get; }
-        string WritingAddress { get; }
-    }
-
-    public class FinalSheetSettings : IFinalSheetSettings
+    public class FinalSheetSettings
     {
         public string WorksheetName { get; }
         public string WritingAddress { get; }

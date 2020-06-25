@@ -11,23 +11,25 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings
     public class TheBayOperationSettings : IBaseOperationSettings
     {
         [JsonProperty]
-        public IBasicTypeOperation BitreportSettings { get; }
+        public ReportTypeOperation ReportSettings { get; }
         [JsonProperty]
-        public IBasicTypeOperation WorkflowSettings { get; }
+        public BasicTypeOperation BitreportSettings { get; }
         [JsonProperty]
-        public IBasicTypeOperation InactiveUpcSettings { get; }
+        public DataSourceTypeOperation WorkflowSettings { get; }
         [JsonProperty]
-        public IBasicTypeOperation NosCombinedSettings { get; }
-
-        
+        public DataSourceTypeOperation InactiveUpcSettings { get; }
+        [JsonProperty]
+        public DataSourceTypeOperation NosCombinedSettings { get; }
 
         [JsonConstructor]
         public TheBayOperationSettings(
+            ReportTypeOperation reportSettings,
             BasicTypeOperation bitreportSettings,
             DataSourceTypeOperation workflowSettings, 
             DataSourceTypeOperation inactiveUpcSettings, 
             DataSourceTypeOperation nosCombinedSettings)
         {
+            ReportSettings = reportSettings;
             BitreportSettings = bitreportSettings;
             WorkflowSettings = workflowSettings;
             InactiveUpcSettings = inactiveUpcSettings;

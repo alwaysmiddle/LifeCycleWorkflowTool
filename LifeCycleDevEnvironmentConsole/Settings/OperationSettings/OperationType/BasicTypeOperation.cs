@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType
 {
 
-    public class BasicTypeOperation : IBasicTypeOperation
+    public class BasicTypeOperation 
     {
         [JsonProperty]
-        public IWipSheetSettings WipSettings { get; }
+        public WipSheetSettings WipSettings { get; }
 
         [JsonConstructor]
         public BasicTypeOperation(WipSheetSettings wipSettings)

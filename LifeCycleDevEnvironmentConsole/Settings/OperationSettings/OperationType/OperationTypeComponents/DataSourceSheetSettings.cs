@@ -2,13 +2,7 @@
 
 namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType.OperationTypeComponents
 {
-    public interface IDataSourceSheetSettings
-    {
-        int HeaderRow { get; }
-        string WorksheetName { get; }
-    }
-
-    public class DataSourceSheetSettings : IDataSourceSheetSettings
+    public class DataSourceSheetSettings
     {
         public int HeaderRow { get; }
         public int WritingRow { get; }

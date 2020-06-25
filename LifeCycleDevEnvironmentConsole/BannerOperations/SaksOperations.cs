@@ -9,16 +9,19 @@ using ProcessManagement;
 using LifeCycleDevEnvironmentConsole.ExtensionMethods;
 using LifeCycleDevEnvironmentConsole.Utilities;
 using LifeCycleDevEnvironmentConsole.Settings;
+using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
 
 namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
     public sealed class SaksOperations : BannerOperationBase
     {
-        private BannerSettings _saksSetting { get; set; }
+        private BannerSettings _saksSetting { get;}
+        private BaseOperationSettings _saksWorksheetSettings { get; }
 
         public SaksOperations(BannerSettings settings) : base(settings)
         {
             _saksSetting = settings;
+            _saksWorksheetSettings = (BaseOperationSettings)settings.WorksheetSettings;
         }
         public void RunOperation()
         {
@@ -28,22 +31,32 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             Application excelApp = new Application();
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
 
-            Workbook wb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullnameWip);
+            Workbook wipWb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullnameWip);
+            //Workbook finalWb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullnameFinal);
             excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
 
             try
             {
-                Worksheet inactiveWs = wb.Worksheets["Additional Color Sizes Report"];
-                Worksheet detailsProductWs = wb.Worksheets["Details-Products"];
-                Worksheet inventoryValueWs = wb.Worksheets["Ttl_Inv"];
+                Worksheet inventoryValueWs = wipWb.Worksheets[_saksWorksheetSettings.BitreportSettings.WipSettings.WorksheetName];
+                Worksheet inactiveWs = wipWb.Worksheets[_saksWorksheetSettings.InactiveUpcSettings.WipSettings.WorksheetName];
+                Worksheet detailsProductWs = wipWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.WipSettings.WorksheetName];
+                Worksheet detailsProductDataSourceWs = wipWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.DataSourceSettings.WorksheetName];
+
+                //Worksheet inactiveWsFinal = finalWb.Worksheets[_saksWorksheetSettings.InactiveUpcSettings.FinalSettings.WorksheetName];
+                //Worksheet detailProductWsFinal = finalWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.FinalSettings.WorksheetName];
+
+                //Temp variables
+                string writingAddress;
 
                 //Bit report
                 BitReportHandler bitReport = new BitReportHandler(_saksSetting.InputFilenameBitReport);
                 templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.OutputFileFullnameWip, inventoryValueWs.Name);
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
                 
-                inputDataTable.WriteToExcelSheets(inventoryValueWs, "A1");
+                writingAddress = string.Format("A{0}", _saksWorksheetSettings.BitreportSettings.WipSettings.WritingRow);
+                inputDataTable.WriteToExcelSheets(inventoryValueWs, writingAddress);
+
                 CommonOperations.FormatColumnsAsAccounting(inventoryValueWs, "OH $ @R");
                 inputDataTable = null;
                 bitReport = null;
@@ -51,23 +64,34 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 //Inactive UPC
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameInactiveUpc, 1);
                 SaksSpecialRule1(inputDataTable);
-                inputDataTable.WriteToExcelSheets(inactiveWs, "A3", false);
-                inactiveWs.ProcessFormulaRow(inputDataTable, 1, 2, 3);
+                writingAddress = string.Format("A{0}", _saksWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
+                inputDataTable.WriteToExcelSheets(inactiveWs, writingAddress, false);
+                inactiveWs.ProcessFormulaRow(
+                    refTable: inputDataTable,
+                    formulaRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.FormulaRow,
+                    headerRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow,
+                    outputRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
                 inputDataTable = null;
 
                 //Workflow DM
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
                 inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>("GROUP_ID", "GROUP_ID", 34, 33);
-                inputDataTable.WriteToExcelSheets((Worksheet)wb.Worksheets["DM_Data"], "A1", true);
-                detailsProductWs.ProcessFormulaRow(inputDataTable, 3, 4, 8);
+
+                writingAddress = string.Format("A{0}", _saksWorksheetSettings.WorkflowSettings.DataSourceSettings.WritingRow);
+                inputDataTable.WriteToExcelSheets(detailsProductDataSourceWs, writingAddress, true);
+                detailsProductWs.ProcessFormulaRow(
+                    refTable: inputDataTable,
+                    formulaRow: _saksWorksheetSettings.WorkflowSettings.WipSettings.FormulaRow,
+                    headerRow: _saksWorksheetSettings.WorkflowSettings.WipSettings.ReferenceRow,
+                    outputRow: _saksWorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
                 inputDataTable = null;
-                wb.Save();
+                wipWb.Save();
                 detailsProductWs.Calculate();
                 //detailsProductWs.ConvertAllDataUnderRowToValues(7);
                 CommonOperations.ReworkFurRule(detailsProductWs);
 
                 excelApp.Calculate();
-                wb.Save();
+                wipWb.Save();
             }
             catch (Exception ex)
             {
@@ -78,11 +102,11 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             {
                 excelApp.DisplayAlerts = false;
                 excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
-                wb.Save();
-                wb.Close();
+                wipWb.Save();
+                wipWb.Close();
                 excelApp.Quit();
 
-                Marshal.ReleaseComObject(wb);
+                Marshal.ReleaseComObject(wipWb);
                 Marshal.ReleaseComObject(excelApp);
 
                 excelProcess.Dispose();

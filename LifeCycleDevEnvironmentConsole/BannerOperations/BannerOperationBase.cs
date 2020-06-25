@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LifeCycleDevEnvironmentConsole.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         {
             _settings = settings;
 
-            File.Copy(_settings.TemplateFullnameWip, _settings.OutputFileFullNameWip, true);
+            File.Copy(_settings.TemplateFullnameWip, _settings.OutputFileFullnameWip, true);
+            File.Copy(_settings.TemplateFullnameFinal, _settings.OutputFileFullnameFinal, true);
         }
     }
 }

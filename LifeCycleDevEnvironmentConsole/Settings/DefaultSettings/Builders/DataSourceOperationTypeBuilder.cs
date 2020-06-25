@@ -10,11 +10,27 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
 {
     public class DataSourceTypeOperationBuilder
     {
-        private IBasicTypeOperation _typeOperation;
-        private IWipSheetSettings _wipSheet;
-        private IDataSourceSheetSettings _dataSource;
-        private IFinalSheetSettings _finalSheet;
-        
+        private DataSourceTypeOperation _typeOperation;
+        private WipSheetWithDataSettings _wipSheet;
+        private DataSourceSheetSettings _dataSource;
+        private FinalSheetSettings _finalSheet;
+
+        public DataSourceTypeOperationBuilder BuildReportSheetSetting(string sheetName,
+            int headerRow, int writingRow, int formulaRow, int referenceRow,
+            string readingAddress)
+        {
+            _wipSheet = new WipSheetWithDataSettings(
+                worksheetName: sheetName,
+                headerRow: headerRow,
+                formulaRow: formulaRow,
+                referenceRow: referenceRow,
+                writingRow: writingRow,
+                readingAddress: readingAddress
+                );
+            return this;
+        }
+
+
         public DataSourceTypeOperationBuilder BuildWipSheetSetting(string sheetName,
             int headerRow, int writingRow, int formulaRow, int referenceRow, 
             string readingAddress)
@@ -59,11 +75,11 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                 _dataSource != null)
             {
                 _typeOperation = new DataSourceTypeOperation(
-                    wipSettings: (WipSheetWithDataSettings)_wipSheet,
-                    finalSettings: (FinalSheetSettings)_finalSheet,
-                    dataSourceSettings:  (DataSourceSheetSettings)_dataSource
+                    wipSettings: _wipSheet,
+                    finalSettings: _finalSheet,
+                    dataSourceSettings:  _dataSource
                     );
-                return (DataSourceTypeOperation)_typeOperation;
+                return _typeOperation;
             }
             else
             {

@@ -2,15 +2,7 @@
 
 namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType.OperationTypeComponents
 {
-    public interface IWipSheetSettings
-    {
-        int HeaderRow { get; }
-        string ReadingAddress { get; }
-        string WorksheetName { get; }
-        int WritingRow { get; }
-    }
-
-    public class WipSheetSettings : IWipSheetSettings
+    public class WipSheetSettings
     {
         public string WorksheetName { get; }
         public int HeaderRow { get; }

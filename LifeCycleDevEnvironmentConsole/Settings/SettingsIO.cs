@@ -8,5 +8,9 @@ namespace LifeCycleDevEnvironmentConsole.Settings
 {
     public static class SettingsIO
     {
+        public static void WriteSaksDefaultSettingsToDrive()
+        {
+
+        }
     }
 }

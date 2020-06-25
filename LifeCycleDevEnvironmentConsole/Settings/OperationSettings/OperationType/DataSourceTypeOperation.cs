@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType
 {
-    public class DataSourceTypeOperation : IBasicTypeOperation
+    public class DataSourceTypeOperation
     {
         [JsonProperty]
-        public IWipSheetSettings WipSettings { get; }
+        public WipSheetWithDataSettings WipSettings { get; }
         [JsonProperty]
-        public IFinalSheetSettings FinalSettings { get; }
+        public FinalSheetSettings FinalSettings { get; }
         [JsonProperty]
-        public IDataSourceSheetSettings DataSourceSettings { get; }
+        public DataSourceSheetSettings DataSourceSettings { get; }
         
         [JsonConstructor]
         public DataSourceTypeOperation(WipSheetWithDataSettings wipSettings, FinalSheetSettings finalSettings, DataSourceSheetSettings dataSourceSettings)

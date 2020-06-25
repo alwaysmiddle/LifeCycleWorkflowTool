@@ -165,7 +165,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
         /// <summary>
         /// Test if an object is a value.
         /// </summary>
-        public static bool IsNumber(this object value)
+        public static bool IsNumber(object value)
         {
             return value is sbyte
                     || value is byte

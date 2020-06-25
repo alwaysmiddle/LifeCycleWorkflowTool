@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,13 +20,13 @@ namespace LifeCycleDevEnvironmentConsole.Settings
     {
         //Template related variables
         [JsonProperty(PropertyName = "WipOutputDirectory", DefaultValueHandling = DefaultValueHandling.Populate)]
-        private string _wipOutputDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private string _wipOutputDirectory;
 
         [JsonProperty(PropertyName = "FinalOutputDirectory", DefaultValueHandling = DefaultValueHandling.Populate)]
-        private string _finalOutputDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private string _finalOutputDirectory;
 
         [JsonProperty(PropertyName = "DefaulOutputFilename", DefaultValueHandling = DefaultValueHandling.Populate)]
-        private string _defaulOutputFilename = "OutputFile";
+        private string _defaulOutputFilename;
 
         [JsonProperty(PropertyName = "OutputDate")]
         private DateTime _outputDate;
@@ -47,6 +48,10 @@ namespace LifeCycleDevEnvironmentConsole.Settings
         public string TemplateFullnameWip { get; }
         public string TemplateFullnameFinal { get; }
 
+        //Worksheet Settings
+        [JsonProperty(PropertyName = "WorksheetSettings")]
+        public IBaseOperationSettings WorksheetSettings { get; }
+
         [JsonIgnore]
         public string OutputFileFullnameWip => _outputFilenameWip;
         [JsonIgnore]
@@ -57,14 +62,16 @@ namespace LifeCycleDevEnvironmentConsole.Settings
         /// Constructs an object that represent each banner's basic settings.
         /// </summary>
         [JsonConstructor]
-        public BannerSettings(Banner banner, string wipOutputDirectory, string finalOutputDirectory, string defaulOutputFilename,
+        public BannerSettings(Banner banner, 
             string inputFilenameWorkflow, string inputFilenameInactiveUpc, string inputFilenameBitReport,
             string templateFullnameWip, string templateFullnameFinal,
-            string inputFilenameNosCombined = "", DateTime? outputDate = null)
+            BaseOperationSettings worksheetSettings,
+            string wipOutputDirectory = null, string finalOutputDirectory = null, string defaulOutputFilename = null,
+            string inputFilenameNosCombined = null, DateTime? outputDate = null)
         {
-            _wipOutputDirectory = wipOutputDirectory;
-            _finalOutputDirectory = finalOutputDirectory;
-            _defaulOutputFilename = defaulOutputFilename;
+            _wipOutputDirectory = wipOutputDirectory ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            _finalOutputDirectory = finalOutputDirectory ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            _defaulOutputFilename = defaulOutputFilename ?? "OutputFile";
             _outputDate = outputDate ?? DateTime.Now;
             _banner = banner;
             InputFilenameWorkflow = inputFilenameWorkflow;
@@ -73,6 +80,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings
             InputFilenameNosCombined = inputFilenameNosCombined;
             TemplateFullnameWip = templateFullnameWip;
             TemplateFullnameFinal = templateFullnameFinal;
+            WorksheetSettings = worksheetSettings;
 
             ConstructOutputName();
             Validate();
@@ -122,6 +130,12 @@ namespace LifeCycleDevEnvironmentConsole.Settings
             {
                 throw new ArgumentException(_banner.ToString() + " Template filename Final is null or empty.", "TemplateFilenameFinal");
             }
+
+            if (WorksheetSettings == null)
+            {
+                throw new ArgumentNullException("WorksheetSettings from banner {0} is empty", _banner.ToString());
+            }
+
         }
 
         private void ConstructOutputName()
@@ -137,11 +151,11 @@ namespace LifeCycleDevEnvironmentConsole.Settings
                 _outputFilenameWip = temp;
             }
 
-            temp = _finalOutputDirectory + "\\" + _outputDate.ToString("MM.dd.yyyy_") + _defaulOutputFilename + "_Final.xlsm";
+            temp = _finalOutputDirectory + "\\" + _outputDate.ToString("MM.dd.yyyy_") + _defaulOutputFilename + "_Final.xlsx";
 
             if (File.Exists(temp))
             {
-                _outputFilenameFinal = _finalOutputDirectory + "\\" + _outputDate.ToString("MM.dd.yyyy") + DateTime.Now.ToString("_HH.mm.ss_") + _defaulOutputFilename + "_Final.xlsm";
+                _outputFilenameFinal = _finalOutputDirectory + "\\" + _outputDate.ToString("MM.dd.yyyy") + DateTime.Now.ToString("_HH.mm.ss_") + _defaulOutputFilename + "_Final.xlsx";
             }
             else
             {

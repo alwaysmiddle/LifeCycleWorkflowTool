@@ -11,8 +11,8 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
 {
     public class BasicTypeOperationBuilder
     {
-        private IBasicTypeOperation _typeOperation;
-        private IWipSheetSettings _wipSheet;
+        private BasicTypeOperation _typeOperation;
+        private WipSheetSettings _wipSheet;
 
         public BasicTypeOperationBuilder BuildWipSheetSetting(string sheetName,
             int headerRow, int writingRow, string readingAddress)
@@ -33,7 +33,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                 _typeOperation = new BasicTypeOperation(
                     (WipSheetSettings)_wipSheet
                     );
-                return (BasicTypeOperation)_typeOperation;
+                return _typeOperation;
             }
             else
             {

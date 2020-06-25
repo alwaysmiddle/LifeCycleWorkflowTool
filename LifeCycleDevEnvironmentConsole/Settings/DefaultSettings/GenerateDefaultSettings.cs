@@ -50,8 +50,8 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                     sheetName: "Details-Products",
                     headerRow: 7,
                     writingRow: 8,
-                    formulaRow: 2,
-                    referenceRow: 3,
+                    formulaRow: 3,
+                    referenceRow: 4,
                     readingAddress: "C:BS")
                 .BuildFinalSheetSettings(
                     sheetName: "Details-Products",
