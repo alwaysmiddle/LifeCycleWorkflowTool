@@ -22,10 +22,10 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                 reportTypeBuilder.BuildReportSheetSetting(
                     sheetName: "WF Summary Chart",
                     dateAddress: "N5",
-                    readingAddress: "E14:BI53")
+                    readingAddress: "E1:BI53")
                 .BuildFinalSheetSettings(
                     sheetName: "Summary Chart",
-                    writingAddress: "E14")
+                    writingAddress: "E1")
                 .Build();
 
             basicTypeBuilder = new BasicTypeOperationBuilder();
@@ -45,7 +45,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                     writingRow: 3,
                     formulaRow: 1,
                     referenceRow: 2,
-                    readingAddress: "A:AQ")
+                    readingAddress: "A:AR")
                 .BuildFinalSheetSettings(
                     sheetName: "Additional Color Sizes Report",
                     writingAddress: "A5")
@@ -65,7 +65,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                     referenceRow: 4,
                     readingAddress: "C:BS")
                 .BuildFinalSheetSettings(
-                    sheetName: "Details-Products",
+                    sheetName: "Workflow Details",
                     writingAddress: "A6")
                 .BuildDataSheetSetting(
                     sheetName: "DM_Data",

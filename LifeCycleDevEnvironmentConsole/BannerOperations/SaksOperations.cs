@@ -32,7 +32,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
 
             Workbook wipWb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullnameWip);
-            //Workbook finalWb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullnameFinal);
+            Workbook finalWb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullnameFinal);
             excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
 
@@ -42,15 +42,20 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 Worksheet inactiveWs = wipWb.Worksheets[_saksWorksheetSettings.InactiveUpcSettings.WipSettings.WorksheetName];
                 Worksheet detailsProductWs = wipWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.WipSettings.WorksheetName];
                 Worksheet detailsProductDataSourceWs = wipWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.DataSourceSettings.WorksheetName];
-                Worksheet reportWs = wipWb.Worksheets[_saksWorksheetSettings.ReportSettings.ReportSettings.WorksheetName]
-
-                //Worksheet inactiveWsFinal = finalWb.Worksheets[_saksWorksheetSettings.InactiveUpcSettings.FinalSettings.WorksheetName];
-                //Worksheet detailProductWsFinal = finalWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.FinalSettings.WorksheetName];
+                Worksheet reportWs = wipWb.Worksheets[_saksWorksheetSettings.SummarySettings.ReportSettings.WorksheetName];
 
                 //Temp variables
-                string writingAddress;
+                string writingAddress; //excel writing address for datatables and final workbook
+                string readingAddress; //excel reading address to aquire data areas
+                int colCount; //temporary count for resizing purposes
+                int rowCount;
+
+                //SummaryChart
+                string dateAddress = _saksWorksheetSettings.SummarySettings.ReportSettings.DateAddress;
+                reportWs.Range[dateAddress].Value = _saksSetting.OutputDate.ToOADate();
 
                 //Bit report
+                wipWb.Activate();
                 BitReportHandler bitReport = new BitReportHandler(_saksSetting.InputFilenameBitReport);
                 templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.OutputFileFullnameWip, inventoryValueWs.Name);
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
@@ -73,9 +78,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                     headerRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow,
                     outputRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
                 inputDataTable = null;
-                inactiveWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
-                wipWb.Save();
-
+                
                 //Workflow DM
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
                 inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>("GROUP_ID", "GROUP_ID", 34, 33);
@@ -90,12 +93,49 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inputDataTable = null;
                 detailsProductWs.Calculate();
                 CommonOperations.ReworkFurRule(detailsProductWs);
-                detailsProductWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
 
                 excelApp.Calculate();
+                inactiveWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
+                detailsProductWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
+
+                readingAddress = _saksWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
+                reportWs.Range[readingAddress].Value2 = reportWs.Range[readingAddress].Value2;
+
                 wipWb.Save();
 
+                //===============================Final Section================================
+                
+                Worksheet reportWsFinal = finalWb.Worksheets[_saksWorksheetSettings.SummarySettings.FinalSettings.WorksheetName];
+                Worksheet inactiveWsFinal = finalWb.Worksheets[_saksWorksheetSettings.InactiveUpcSettings.FinalSettings.WorksheetName];
+                Worksheet detailsProductWsFinal = finalWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.FinalSettings.WorksheetName];
 
+                finalWb.Activate();
+
+                //Summary Chart
+                
+
+                writingAddress = _saksWorksheetSettings.SummarySettings.FinalSettings.WritingAddress;
+                rowCount = reportWs.Range[readingAddress].Rows.Count;
+                colCount = reportWs.Range[readingAddress].Columns.Count;
+                reportWsFinal.Range[writingAddress].Resize[rowCount,colCount].Value = reportWs.Range[readingAddress].Value;
+
+                //Details Product
+                readingAddress = detailsProductWs.ConvertColumnAddressToPreciseAddress(
+                    _saksWorksheetSettings.WorkflowSettings.WipSettings.ReadingAddress,
+                    _saksWorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
+                writingAddress = _saksWorksheetSettings.WorkflowSettings.FinalSettings.WritingAddress;
+                rowCount = detailsProductWs.Range[readingAddress].Rows.Count;
+                colCount = detailsProductWs.Range[readingAddress].Columns.Count;
+                detailsProductWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = detailsProductWs.Range[readingAddress].Value;
+
+                //Inactive Upc
+                readingAddress = inactiveWs.ConvertColumnAddressToPreciseAddress(
+                    _saksWorksheetSettings.InactiveUpcSettings.WipSettings.ReadingAddress,
+                    _saksWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
+                writingAddress = _saksWorksheetSettings.InactiveUpcSettings.FinalSettings.WritingAddress;
+                rowCount = inactiveWs.Range[readingAddress].Rows.Count;
+                colCount = inactiveWs.Range[readingAddress].Columns.Count;
+                inactiveWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = inactiveWs.Range[readingAddress].Value;
             }
             catch (Exception ex)
             {
@@ -106,11 +146,16 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             {
                 excelApp.DisplayAlerts = false;
                 excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
+
                 wipWb.Save();
+                finalWb.Save();
+
                 wipWb.Close();
+                finalWb.Close();
                 excelApp.Quit();
 
                 Marshal.ReleaseComObject(wipWb);
+                Marshal.ReleaseComObject(finalWb);
                 Marshal.ReleaseComObject(excelApp);
 
                 excelProcess.Dispose();

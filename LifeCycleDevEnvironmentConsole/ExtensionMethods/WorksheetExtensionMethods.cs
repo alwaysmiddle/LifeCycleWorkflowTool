@@ -114,5 +114,15 @@ namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
             }
             return cellToSearch;
         }
+
+        public static string ConvertColumnAddressToPreciseAddress(this Worksheet ws, string addressWithColumns, int writingRow)
+        {
+            string[] arr = addressWithColumns.Split(':');
+            string preciseAddress = string.Format("{0}{1}:{2}{3}",
+                arr[0], writingRow,
+                arr[1], ws.UsedRange.SpecialCells(XlCellType.xlCellTypeLastCell).Row);
+
+            return preciseAddress;
+        }
     }
 }

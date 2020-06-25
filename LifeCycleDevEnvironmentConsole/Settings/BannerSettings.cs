@@ -43,10 +43,12 @@ namespace LifeCycleDevEnvironmentConsole.Settings
         public string InputFilenameBitReport { get; }
         public string InputFilenameNosCombined { get; }
 
-
         //Exposed Template Variables
         public string TemplateFullnameWip { get; }
         public string TemplateFullnameFinal { get; }
+
+        [JsonIgnore]
+        public DateTime OutputDate => _outputDate;
 
         //Worksheet Settings
         [JsonProperty(PropertyName = "WorksheetSettings")]

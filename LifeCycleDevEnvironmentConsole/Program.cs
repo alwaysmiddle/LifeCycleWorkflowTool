@@ -63,7 +63,7 @@ namespace LifeCycleDevEnvironmentConsole
                 inputFilenameWorkflow: saksInput1,
                 inputFilenameInactiveUpc: saksInput3,
                 worksheetSettings: GenerateDefaultSettings.GenerateSaksDefault(),
-                outputDate: DateTime.Now
+                outputDate: new DateTime(2020, 6, 16)
                 );
 
             Console.WriteLine("Starting Saks Operation");
