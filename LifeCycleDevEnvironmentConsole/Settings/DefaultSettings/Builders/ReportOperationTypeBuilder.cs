@@ -15,20 +15,15 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings.Builders
         private FinalSheetSettings _finalSheet;
 
         public ReportOperationTypeBuilder BuildReportSheetSetting(string sheetName,
-            int headerRow, int writingRow, int formulaRow, int referenceRow,
-            string readingAddress)
+            string dateAddress, string readingAddress)
         {
-            _wipSheet = new WipSheetWithDataSettings(
+            _reportsheet = new WipReportsSettings(
                 worksheetName: sheetName,
-                headerRow: headerRow,
-                formulaRow: formulaRow,
-                referenceRow: referenceRow,
-                writingRow: writingRow,
+                dateAddress: dateAddress,
                 readingAddress: readingAddress
                 );
             return this;
         }
-
 
         public ReportOperationTypeBuilder BuildFinalSheetSettings(string sheetName,
             string writingAddress)
@@ -42,12 +37,12 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings.Builders
 
         public ReportTypeOperation Build()
         {
-            if (_wipSheet != null &&
+            if (_reportsheet != null &&
                 _finalSheet != null)
             {
                 _typeOperation = new ReportTypeOperation(
-                    summarySettings: _re
-                    finalSettings: _finalSheet,
+                    reportSettings: _reportsheet,
+                    finalSettings: _finalSheet
                     );
                 return _typeOperation;
             }

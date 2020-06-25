@@ -11,14 +11,14 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
     public class ReportTypeOperation
     {
         [JsonConstructor]
-        public ReportTypeOperation(ReportTypeOperation reportSettings, FinalSheetSettings finalSettings)
+        public ReportTypeOperation(WipReportsSettings reportSettings, FinalSheetSettings finalSettings)
         {
             ReportSettings = reportSettings;
             FinalSettings = finalSettings;
         }
 
         [JsonProperty]
-        public ReportTypeOperation ReportSettings { get; }
+        public WipReportsSettings ReportSettings { get; }
         [JsonProperty]
         public FinalSheetSettings FinalSettings { get; }
     }
