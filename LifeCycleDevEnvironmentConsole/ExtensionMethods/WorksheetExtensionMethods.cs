@@ -40,7 +40,7 @@ namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
 
             if(lastCell.Row > startUnderRow)
             {
-                ws.Range["A" + startUnderRow + 1, lastCell].Value2 = ws.Range["A" + startUnderRow + 1, lastCell].Value2;
+                ws.Range["A" + (startUnderRow + 1), lastCell].Value2 = ws.Range["A" + (startUnderRow + 1), lastCell].Value2;
             }
         }
 

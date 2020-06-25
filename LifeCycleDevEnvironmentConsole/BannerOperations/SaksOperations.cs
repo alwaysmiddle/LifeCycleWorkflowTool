@@ -42,6 +42,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 Worksheet inactiveWs = wipWb.Worksheets[_saksWorksheetSettings.InactiveUpcSettings.WipSettings.WorksheetName];
                 Worksheet detailsProductWs = wipWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.WipSettings.WorksheetName];
                 Worksheet detailsProductDataSourceWs = wipWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.DataSourceSettings.WorksheetName];
+                Worksheet reportWs = wipWb.Worksheets[_saksWorksheetSettings.ReportSettings.ReportSettings.WorksheetName]
 
                 //Worksheet inactiveWsFinal = finalWb.Worksheets[_saksWorksheetSettings.InactiveUpcSettings.FinalSettings.WorksheetName];
                 //Worksheet detailProductWsFinal = finalWb.Worksheets[_saksWorksheetSettings.WorkflowSettings.FinalSettings.WorksheetName];
@@ -72,6 +73,8 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                     headerRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow,
                     outputRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
                 inputDataTable = null;
+                inactiveWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
+                wipWb.Save();
 
                 //Workflow DM
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
@@ -85,13 +88,14 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                     headerRow: _saksWorksheetSettings.WorkflowSettings.WipSettings.ReferenceRow,
                     outputRow: _saksWorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
                 inputDataTable = null;
-                wipWb.Save();
                 detailsProductWs.Calculate();
-                //detailsProductWs.ConvertAllDataUnderRowToValues(7);
                 CommonOperations.ReworkFurRule(detailsProductWs);
+                detailsProductWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
 
                 excelApp.Calculate();
                 wipWb.Save();
+
+
             }
             catch (Exception ex)
             {

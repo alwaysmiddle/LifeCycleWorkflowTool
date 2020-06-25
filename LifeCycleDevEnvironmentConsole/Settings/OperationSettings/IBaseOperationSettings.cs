@@ -10,7 +10,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings
 {
     public interface IBaseOperationSettings
     {
-        ReportTypeOperation ReportSettings { get; }
+        ReportTypeOperation SummarySettings { get; }
         BasicTypeOperation BitreportSettings { get; }
         DataSourceTypeOperation WorkflowSettings { get; }
         DataSourceTypeOperation InactiveUpcSettings { get; }
@@ -18,7 +18,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings
     public class BaseOperationSettings: IBaseOperationSettings
     {
         [JsonProperty]
-        public ReportTypeOperation ReportSettings { get; }
+        public ReportTypeOperation SummarySettings { get; }
         [JsonProperty]
         public BasicTypeOperation BitreportSettings { get; }
         [JsonProperty]
@@ -27,10 +27,10 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings
         public DataSourceTypeOperation InactiveUpcSettings { get; }
         
         [JsonConstructor]
-        public BaseOperationSettings(ReportTypeOperation reportSettings, BasicTypeOperation bitreportSettings, 
+        public BaseOperationSettings(ReportTypeOperation summarySettings, BasicTypeOperation bitreportSettings, 
             DataSourceTypeOperation workflowSettings, DataSourceTypeOperation inactiveUpcSettings)
         {
-            ReportSettings = reportSettings;
+            SummarySettings = summarySettings;
             BitreportSettings = bitreportSettings;
             WorkflowSettings = workflowSettings;
             InactiveUpcSettings = inactiveUpcSettings;

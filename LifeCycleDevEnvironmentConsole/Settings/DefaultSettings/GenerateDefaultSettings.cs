@@ -1,5 +1,4 @@
-﻿
-using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
+﻿using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
 using LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType;
 using System;
 using System.Collections.Generic;
@@ -16,6 +15,18 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
             BaseOperationSettings saksSettings;
             BasicTypeOperationBuilder basicTypeBuilder;
             DataSourceTypeOperationBuilder dataTypeBuilder;
+            ReportOperationTypeBuilder reportTypeBuilder;
+
+            reportTypeBuilder = new ReportOperationTypeBuilder();
+            ReportTypeOperation summarySettings =
+                reportTypeBuilder.BuildReportSheetSetting(
+                    sheetName: "WF Summary Chart",
+                    dateAddress: "N5",
+                    readingAddress: "E14:BI53")
+                .BuildFinalSheetSettings(
+                    sheetName: "Summary Chart",
+                    writingAddress: "E14")
+                .Build();
 
             basicTypeBuilder = new BasicTypeOperationBuilder();
             BasicTypeOperation bitReportSettings =
@@ -63,6 +74,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                 .Build();
 
             saksSettings = new BaseOperationSettings(
+                summarySettings: summarySettings,
                 bitreportSettings: bitReportSettings,
                 inactiveUpcSettings: inactiveUpcSettings,
                 workflowSettings: workflowDetailsSettings);
