@@ -18,8 +18,8 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
         }
 
         [JsonProperty]
-        public WipReportsSettings ReportSettings { get; }
+        public WipReportsSettings ReportSettings { get; private set; }
         [JsonProperty]
-        public FinalSheetSettings FinalSettings { get; }
+        public FinalSheetSettings FinalSettings { get; private set; }
     }
 }

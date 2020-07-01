@@ -11,11 +11,11 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
     public class DataSourceTypeOperation
     {
         [JsonProperty]
-        public WipSheetWithDataSettings WipSettings { get; }
+        public WipSheetWithDataSettings WipSettings { get; private set; }
         [JsonProperty]
-        public FinalSheetSettings FinalSettings { get; }
+        public FinalSheetSettings FinalSettings { get; private set; }
         [JsonProperty]
-        public DataSourceSheetSettings DataSourceSettings { get; }
+        public DataSourceSheetSettings DataSourceSettings { get; private set; }
         
         [JsonConstructor]
         public DataSourceTypeOperation(WipSheetWithDataSettings wipSettings, FinalSheetSettings finalSettings, DataSourceSheetSettings dataSourceSettings)

@@ -18,14 +18,16 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings
     public class BaseOperationSettings: IBaseOperationSettings
     {
         [JsonProperty]
-        public ReportTypeOperation SummarySettings { get; }
+        public ReportTypeOperation SummarySettings { get; private set; }
         [JsonProperty]
-        public BasicTypeOperation BitreportSettings { get; }
+        public BasicTypeOperation BitreportSettings { get; private set; }
         [JsonProperty]
-        public DataSourceTypeOperation WorkflowSettings { get; }
+        public DataSourceTypeOperation WorkflowSettings { get; private set; }
         [JsonProperty]
-        public DataSourceTypeOperation InactiveUpcSettings { get; }
-        
+        public DataSourceTypeOperation InactiveUpcSettings { get; private set; }
+
+        public BaseOperationSettings() { }
+
         [JsonConstructor]
         public BaseOperationSettings(ReportTypeOperation summarySettings, BasicTypeOperation bitreportSettings, 
             DataSourceTypeOperation workflowSettings, DataSourceTypeOperation inactiveUpcSettings)

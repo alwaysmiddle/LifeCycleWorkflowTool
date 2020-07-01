@@ -9,6 +9,13 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
 {
     public class WipReportsSettings
     {
+        [JsonProperty]
+        public string WorksheetName { get; private set; }
+        [JsonProperty]
+        public string DateAddress { get; private set; }
+        [JsonProperty]
+        public string ReadingAddress { get; private set; }
+
         [JsonConstructor]
         public WipReportsSettings(string worksheetName, string dateAddress, string readingAddress)
         {
@@ -16,9 +23,5 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
             DateAddress = dateAddress;
             ReadingAddress = readingAddress;
         }
-
-        public string WorksheetName { get; }
-        public string DateAddress { get; }
-        public string ReadingAddress { get; }
     }
 }

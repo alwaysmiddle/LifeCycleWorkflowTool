@@ -4,9 +4,12 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
 {
     public class DataSourceSheetSettings
     {
-        public int HeaderRow { get; }
-        public int WritingRow { get; }
-        public string WorksheetName { get; }
+        [JsonProperty]
+        public int HeaderRow { get; private set; }
+        [JsonProperty]
+        public int WritingRow { get; private set; }
+        [JsonProperty]
+        public string WorksheetName { get; private set; }
 
         [JsonConstructor]
         public DataSourceSheetSettings(string sheetname, int headerRow, int writingRow)

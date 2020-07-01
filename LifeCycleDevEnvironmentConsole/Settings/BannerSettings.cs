@@ -19,13 +19,13 @@ namespace LifeCycleDevEnvironmentConsole.Settings
     public class BannerSettings
     {
         //Template related variables
-        [JsonProperty(PropertyName = "WipOutputDirectory", DefaultValueHandling = DefaultValueHandling.Populate)]
+        [JsonProperty(PropertyName = "WipOutputDirectory")]
         private string _wipOutputDirectory;
 
-        [JsonProperty(PropertyName = "FinalOutputDirectory", DefaultValueHandling = DefaultValueHandling.Populate)]
+        [JsonProperty(PropertyName = "FinalOutputDirectory")]
         private string _finalOutputDirectory;
 
-        [JsonProperty(PropertyName = "DefaulOutputFilename", DefaultValueHandling = DefaultValueHandling.Populate)]
+        [JsonProperty(PropertyName = "DefaulOutputFilename")]
         private string _defaulOutputFilename;
 
         [JsonProperty(PropertyName = "OutputDate")]
@@ -38,21 +38,21 @@ namespace LifeCycleDevEnvironmentConsole.Settings
 
 
         //Input related variables
-        public string InputFilenameWorkflow { get; }
-        public string InputFilenameInactiveUpc { get; }
-        public string InputFilenameBitReport { get; }
-        public string InputFilenameNosCombined { get; }
+        public string InputFilenameWorkflow { get; private set; }
+        public string InputFilenameInactiveUpc { get; private set; }
+        public string InputFilenameBitReport { get; private set; }
+        public string InputFilenameNosCombined { get; private set; }
 
         //Exposed Template Variables
-        public string TemplateFullnameWip { get; }
-        public string TemplateFullnameFinal { get; }
+        public string TemplateFullnameWip { get; private set; }
+        public string TemplateFullnameFinal { get; private set; }
 
         [JsonIgnore]
         public DateTime OutputDate => _outputDate;
 
         //Worksheet Settings
         [JsonProperty(PropertyName = "WorksheetSettings")]
-        public IBaseOperationSettings WorksheetSettings { get; }
+        public IBaseOperationSettings WorksheetSettings { get; set; }
 
         [JsonIgnore]
         public string OutputFileFullnameWip => _outputFilenameWip;
@@ -67,7 +67,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings
         public BannerSettings(Banner banner, 
             string inputFilenameWorkflow, string inputFilenameInactiveUpc, string inputFilenameBitReport,
             string templateFullnameWip, string templateFullnameFinal,
-            BaseOperationSettings worksheetSettings,
+            IBaseOperationSettings worksheetSettings,
             string wipOutputDirectory = null, string finalOutputDirectory = null, string defaulOutputFilename = null,
             string inputFilenameNosCombined = null, DateTime? outputDate = null)
         {

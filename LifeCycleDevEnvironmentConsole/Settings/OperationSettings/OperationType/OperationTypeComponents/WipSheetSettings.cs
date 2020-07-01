@@ -4,10 +4,14 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
 {
     public class WipSheetSettings
     {
-        public string WorksheetName { get; }
-        public int HeaderRow { get; }
-        public int WritingRow { get; }
-        public string ReadingAddress { get; }
+        [JsonProperty]
+        public string WorksheetName { get; private set; }
+        [JsonProperty]
+        public int HeaderRow { get; private set; }
+        [JsonProperty]
+        public int WritingRow { get; private set; }
+        [JsonProperty]
+        public string ReadingAddress { get; private set; }
 
         [JsonConstructor]
         public WipSheetSettings(string worksheetName, int headerRow, int writingRow, string readingAddress)

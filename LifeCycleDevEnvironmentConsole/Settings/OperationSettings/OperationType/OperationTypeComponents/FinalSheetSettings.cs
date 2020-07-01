@@ -4,8 +4,10 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
 {
     public class FinalSheetSettings
     {
-        public string WorksheetName { get; }
-        public string WritingAddress { get; }
+        [JsonProperty]
+        public string WorksheetName { get; private set; }
+        [JsonProperty]
+        public string WritingAddress { get; private set; }
 
         [JsonConstructor]
         public FinalSheetSettings(string worksheetName, string writingAddress)

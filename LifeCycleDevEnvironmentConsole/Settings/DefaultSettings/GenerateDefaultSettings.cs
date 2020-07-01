@@ -84,12 +84,15 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
 
         public static void GenerateO5Default()
         {
-
+            //TODO Implement default
         }
 
-        public static void GenerateTheBayDefault()
+        public static TheBayOperationSettings GenerateTheBayDefault()
         {
+            //TODO implement default
+            //TheBayOperationSettings kekw;
 
+            return null;
         }
 
 

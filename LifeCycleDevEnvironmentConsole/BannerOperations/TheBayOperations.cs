@@ -34,12 +34,16 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             excelApp.Visible = false;
             try
             {
+                Worksheet summaryWsWip = wb.Worksheets["WF Summary Chart"];
                 Worksheet inactiveWs = wb.Worksheets["Inactive_UPC"];
                 Worksheet inactiveDataWs = wb.Worksheets["UPC_Looker"];
                 Worksheet detailsProductWs = wb.Worksheets["Details-Products"];
                 Worksheet detailsProductDataWs = wb.Worksheets["Looker_Data"];
                 Worksheet inventoryValueWs = wb.Worksheets["Ttl_Inv"];
                 Worksheet nosCombineWs = wb.Worksheets["NOS_Colour_Combined"];
+
+                //SummaryChart
+                summaryWsWip.Range["N5"].Value = _theBaySettings.OutputDate.ToOADate();
 
                 //Bit report
                 BitReportHandler bitReport = new BitReportHandler(_theBaySettings.InputFilenameBitReport);

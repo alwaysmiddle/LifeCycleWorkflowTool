@@ -12,7 +12,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationTyp
     public class BasicTypeOperation 
     {
         [JsonProperty]
-        public WipSheetSettings WipSettings { get; }
+        public WipSheetSettings WipSettings { get; private set; }
 
         [JsonConstructor]
         public BasicTypeOperation(WipSheetSettings wipSettings)

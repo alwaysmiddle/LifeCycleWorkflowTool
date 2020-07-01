@@ -52,24 +52,24 @@ namespace LifeCycleDevEnvironmentConsole
             Console.WriteLine(oDirectory);
 
             //saks settings
-            BannerSettings saksSettings = new BannerSettings(
-                banner: Banner.Saks,
-                wipOutputDirectory: oDirectory,
-                finalOutputDirectory: oDirectory,
-                defaulOutputFilename: "Saks_Daily_Workflow",
-                templateFullnameWip: templateSaksWip,
-                templateFullnameFinal: templateSaksFinal,
-                inputFilenameBitReport: saksInput2,
-                inputFilenameWorkflow: saksInput1,
-                inputFilenameInactiveUpc: saksInput3,
-                worksheetSettings: GenerateDefaultSettings.GenerateSaksDefault(),
-                outputDate: new DateTime(2020, 6, 16)
-                );
+            //BannerSettings saksSettings = new BannerSettings(
+            //    banner: Banner.Saks,
+            //    wipOutputDirectory: oDirectory,
+            //    finalOutputDirectory: oDirectory,
+            //    defaulOutputFilename: "Saks_Daily_Workflow",
+            //    templateFullnameWip: templateSaksWip,
+            //    templateFullnameFinal: templateSaksFinal,
+            //    inputFilenameBitReport: saksInput2,
+            //    inputFilenameWorkflow: saksInput1,
+            //    inputFilenameInactiveUpc: saksInput3,
+            //    worksheetSettings: GenerateDefaultSettings.GenerateSaksDefault(),
+            //    outputDate: new DateTime(2020, 6, 16)
+            //    );
 
-            Console.WriteLine("Starting Saks Operation");
-            SaksOperations saksOps = new SaksOperations(saksSettings);
-            saksOps.RunOperation();
-            Console.WriteLine("Saks Operation finished");
+            //Console.WriteLine("Starting Saks Operation");
+            //SaksOperations saksOps = new SaksOperations(saksSettings);
+            //saksOps.RunOperation();
+            //Console.WriteLine("Saks Operation finished");
 
             //O5 settings
             //BannerSettings o5Settings = new BannerSettings(
@@ -92,24 +92,25 @@ namespace LifeCycleDevEnvironmentConsole
             //Console.WriteLine("O5 Operation finished");
 
             //TheBay settings
-            //BannerSettings theBaySettings = new BannerSettings(
-            //    banner: Banner.TheBay,
-            //    wipOutputDirectory: oDirectory,
-            //    finalOutputDirectory: oDirectory,
-            //    defaulOutputFilename: "TheBay_Daily_Workflow",
-            //    templateFullnameWip: templateTheBayWip,
-            //    templateFullnameFinal: templateTheBayWip,
-            //    inputFilenameBitReport: theBayInput2,
-            //    inputFilenameWorkflow: theBayInput1,
-            //    inputFilenameInactiveUpc: theBayInput3,
-            //    inputFilenameNosCombined: theBayInput4,
-            //    outputDate: DateTime.Now
-            //    );
+            BannerSettings theBaySettings = new BannerSettings(
+                banner: Banner.TheBay,
+                wipOutputDirectory: oDirectory,
+                finalOutputDirectory: oDirectory,
+                defaulOutputFilename: "TheBay_Daily_Workflow",
+                templateFullnameWip: templateTheBayWip,
+                templateFullnameFinal: templateTheBayWip,
+                inputFilenameBitReport: theBayInput2,
+                inputFilenameWorkflow: theBayInput1,
+                inputFilenameInactiveUpc: theBayInput3,
+                inputFilenameNosCombined: theBayInput4,
+                worksheetSettings: GenerateDefaultSettings.GenerateTheBayDefault(),
+                outputDate: new DateTime(2020, 6, 15)
+                );
 
-            //Console.WriteLine("Starting TheBay Operation");
-            //TheBayOperations theBayOps = new TheBayOperations(theBaySettings);
-            //theBayOps.RunOperation();
-            //Console.WriteLine("TheBay Operation finished");
+            Console.WriteLine("Starting TheBay Operation");
+            TheBayOperations theBayOps = new TheBayOperations(theBaySettings);
+            theBayOps.RunOperation();
+            Console.WriteLine("TheBay Operation finished");
 
             Console.WriteLine("Operation Successful");
             Console.ReadKey();

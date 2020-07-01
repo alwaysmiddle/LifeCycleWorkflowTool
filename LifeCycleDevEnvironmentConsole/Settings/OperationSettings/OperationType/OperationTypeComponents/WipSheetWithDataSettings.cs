@@ -8,13 +8,19 @@ using System.Threading.Tasks;
 namespace LifeCycleDevEnvironmentConsole.Settings.OperationSettings.OperationType.OperationTypeComponents
 {
     public class WipSheetWithDataSettings
-    { 
-        public int FormulaRow { get; }
-        public int ReferenceRow { get; }
-        public string WorksheetName { get; }
-        public int HeaderRow { get; }
-        public int WritingRow { get; }
-        public string ReadingAddress { get; }
+    {
+        [JsonProperty]
+        public int FormulaRow { get; private set; }
+        [JsonProperty]
+        public int ReferenceRow { get; private set; }
+        [JsonProperty]
+        public string WorksheetName { get; private set; }
+        [JsonProperty]
+        public int HeaderRow { get; private set; }
+        [JsonProperty]
+        public int WritingRow { get; private set; }
+        [JsonProperty]
+        public string ReadingAddress { get; private set; }
 
         [JsonConstructor]
         public WipSheetWithDataSettings(string worksheetName, string readingAddress,
