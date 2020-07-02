@@ -1,4 +1,5 @@
-﻿using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
+﻿using LifeCycleDevEnvironmentConsole.Settings.IO;
+using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,8 @@ namespace LifeCycleDevEnvironmentConsole.Settings
 
         //Worksheet Settings
         [JsonProperty(PropertyName = "WorksheetSettings")]
-        public IBaseOperationSettings WorksheetSettings { get; set; }
+        [JsonConverter(typeof(IBaseOperationConverter))]
+        public IBaseOperationSettings WorksheetSettings { get; private set; }
 
         [JsonIgnore]
         public string OutputFileFullnameWip => _outputFilenameWip;

@@ -50,6 +50,9 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 int colCount; //temporary count for resizing purposes
                 int rowCount;
 
+                //Special rule column names
+                string specialRuleGroupId = "GROUP_ID";
+
                 //SummaryChart
                 string dateAddress = _saksWorksheetSettings.SummarySettings.ReportSettings.DateAddress;
                 reportWs.Range[dateAddress].Value = _saksSetting.OutputDate.ToOADate();
@@ -75,13 +78,13 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inactiveWs.ProcessFormulaRow(
                     refTable: inputDataTable,
                     formulaRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.FormulaRow,
-                    headerRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow,
+                    headerRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.ReferenceRow,
                     outputRow: _saksWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
                 inputDataTable = null;
                 
                 //Workflow DM
                 inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
-                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>("GROUP_ID", "GROUP_ID", 34, 33);
+                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleGroupId, 34, 33);
 
                 writingAddress = string.Format("A{0}", _saksWorksheetSettings.WorkflowSettings.DataSourceSettings.WritingRow);
                 inputDataTable.WriteToExcelSheets(detailsProductDataSourceWs, writingAddress, true);
@@ -98,6 +101,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inactiveWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
                 detailsProductWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
 
+                //Turn summary chart into values
                 readingAddress = _saksWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
                 reportWs.Range[readingAddress].Value2 = reportWs.Range[readingAddress].Value2;
 
@@ -112,12 +116,10 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 finalWb.Activate();
 
                 //Summary Chart
-                
-
                 writingAddress = _saksWorksheetSettings.SummarySettings.FinalSettings.WritingAddress;
                 rowCount = reportWs.Range[readingAddress].Rows.Count;
                 colCount = reportWs.Range[readingAddress].Columns.Count;
-                reportWsFinal.Range[writingAddress].Resize[rowCount,colCount].Value = reportWs.Range[readingAddress].Value;
+                reportWs.Range[readingAddress].Copy(reportWsFinal.Range[writingAddress].Resize[rowCount, colCount]);
 
                 //Details Product
                 readingAddress = detailsProductWs.ConvertColumnAddressToPreciseAddress(

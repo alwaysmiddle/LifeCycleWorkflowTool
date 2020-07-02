@@ -44,8 +44,8 @@ namespace LifeCycleDevEnvironmentConsole
             string templateTheBayWip = Path.Combine(exeDir, theBayPath, @"Template\Daily Workflow_TheBay_Wip_Template_2020.xlsm");
 
             string templateSaksFinal = Path.Combine(exeDir, saksPath, @"Template\Daily Workflow_SAKS_Final_Template_2020.xlsx");
-            string templateO5Final = ""; 
-            string templateTheBayFinal = "";
+            string templateO5Final = Path.Combine(exeDir, o5Path, @"Template\Daily Workflow_O5_Final_Template_2020.xlsx");
+            string templateTheBayFinal = Path.Combine(exeDir, theBayPath, @"Template\Daily Workflow_TheBay_Final_Template_2020.xlsx");
 
             string oDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
@@ -98,7 +98,7 @@ namespace LifeCycleDevEnvironmentConsole
                 finalOutputDirectory: oDirectory,
                 defaulOutputFilename: "TheBay_Daily_Workflow",
                 templateFullnameWip: templateTheBayWip,
-                templateFullnameFinal: templateTheBayWip,
+                templateFullnameFinal: templateTheBayFinal,
                 inputFilenameBitReport: theBayInput2,
                 inputFilenameWorkflow: theBayInput1,
                 inputFilenameInactiveUpc: theBayInput3,

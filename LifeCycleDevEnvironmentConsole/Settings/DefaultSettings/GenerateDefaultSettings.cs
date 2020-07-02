@@ -89,12 +89,93 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
 
         public static TheBayOperationSettings GenerateTheBayDefault()
         {
-            //TODO implement default
-            //TheBayOperationSettings kekw;
+            TheBayOperationSettings theBaySettings;
+            BasicTypeOperationBuilder basicTypeBuilder;
+            DataSourceTypeOperationBuilder dataTypeBuilder;
+            ReportOperationTypeBuilder reportTypeBuilder;
 
-            return null;
+            reportTypeBuilder = new ReportOperationTypeBuilder();
+            ReportTypeOperation summarySettings =
+                reportTypeBuilder.BuildReportSheetSetting(
+                    sheetName: "WF Summary Chart",
+                    dateAddress: "N5",
+                    readingAddress: "E1:BO99")
+                .BuildFinalSheetSettings(
+                    sheetName: "Summary Chart",
+                    writingAddress: "E1")
+                .Build();
+
+            basicTypeBuilder = new BasicTypeOperationBuilder();
+            BasicTypeOperation bitReportSettings =
+                basicTypeBuilder.BuildWipSheetSetting(
+                    sheetName: "Ttl_Inv",
+                    headerRow: 1,
+                    writingRow: 1,
+                    readingAddress: "A:E")
+                .Build();
+
+            dataTypeBuilder = new DataSourceTypeOperationBuilder();
+            DataSourceTypeOperation inactiveUpcSettings =
+                dataTypeBuilder.BuildWipSheetSetting(
+                    sheetName: "Inactive_UPC",
+                    headerRow: 7,
+                    writingRow: 8,
+                    formulaRow: 3,
+                    referenceRow: 4,
+                    readingAddress: "A:AS")
+                .BuildFinalSheetSettings(
+                    sheetName: "Additional Color Sizes Report",
+                    writingAddress: "A5")
+                .BuildDataSheetSetting(
+                    sheetName: "UPC_Looker",
+                    headerRow: 1,
+                    writingRow: 1)
+                .Build();
+
+            dataTypeBuilder = new DataSourceTypeOperationBuilder();
+            DataSourceTypeOperation workflowDetailsSettings =
+                dataTypeBuilder.BuildWipSheetSetting(
+                    sheetName: "Details-Products",
+                    headerRow: 7,
+                    writingRow: 8,
+                    formulaRow: 3,
+                    referenceRow: 4,
+                    readingAddress: "A:BT")
+                .BuildFinalSheetSettings(
+                    sheetName: "Workflow Details",
+                    writingAddress: "A4")
+                .BuildDataSheetSetting(
+                    sheetName: "Looker_Data",
+                    headerRow: 1,
+                    writingRow: 1)
+                .Build();
+
+            dataTypeBuilder = new DataSourceTypeOperationBuilder();
+            DataSourceTypeOperation nosCombinedSettings =
+                dataTypeBuilder.BuildWipSheetSetting(
+                    sheetName: "NOS_Colour_Combined",
+                    headerRow: 2,
+                    writingRow: 3,
+                    formulaRow: 1,
+                    referenceRow: 2,
+                    readingAddress: "A:CE")
+                .BuildFinalSheetSettings(
+                    sheetName: "NOS_Colour_Combined",
+                    writingAddress: "A2")
+                .BuildDataSheetSetting(
+                    sheetName: "NOS_Colour_Combined",
+                    headerRow: 2,
+                    writingRow: 3)
+                .Build();
+
+            theBaySettings = new TheBayOperationSettings(
+                summarySettings: summarySettings,
+                bitreportSettings: bitReportSettings,
+                inactiveUpcSettings: inactiveUpcSettings,
+                workflowSettings: workflowDetailsSettings,
+                nosCombinedSettings: nosCombinedSettings);
+
+            return theBaySettings;
         }
-
-
     }
 }

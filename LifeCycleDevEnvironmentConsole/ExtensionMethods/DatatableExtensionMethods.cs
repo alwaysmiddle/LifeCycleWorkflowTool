@@ -78,7 +78,7 @@ namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
                     row[columnIndex] = valueToSet;
                 }
             }
-
+            dt.AcceptChanges();
             dt.CaseSensitive = caseSensitivity;
         }
 
@@ -108,6 +108,7 @@ namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
                 }
             }
 
+            dt.AcceptChanges();
             dt.CaseSensitive = caseSensitivity;
         }
     }
