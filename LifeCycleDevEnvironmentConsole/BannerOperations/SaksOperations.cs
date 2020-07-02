@@ -15,12 +15,12 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
     public sealed class SaksOperations : BannerOperationBase
     {
-        private BannerSettings _saksSetting { get;}
-        private BaseOperationSettings _saksWorksheetSettings { get; }
+        private BannerSettings _saksSettings;
+        private BaseOperationSettings _saksWorksheetSettings;
 
         public SaksOperations(BannerSettings settings) : base(settings)
         {
-            _saksSetting = settings;
+            _saksSettings = settings;
             _saksWorksheetSettings = (BaseOperationSettings)settings.WorksheetSettings;
         }
         public void RunOperation()
@@ -31,8 +31,8 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             Application excelApp = new Application();
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
 
-            Workbook wipWb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullnameWip);
-            Workbook finalWb = excelApp.Workbooks.Open(_saksSetting.OutputFileFullnameFinal);
+            Workbook wipWb = excelApp.Workbooks.Open(_saksSettings.OutputFileFullnameWip);
+            Workbook finalWb = excelApp.Workbooks.Open(_saksSettings.OutputFileFullnameFinal);
             excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
 
@@ -55,12 +55,12 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
                 //SummaryChart
                 string dateAddress = _saksWorksheetSettings.SummarySettings.ReportSettings.DateAddress;
-                reportWs.Range[dateAddress].Value = _saksSetting.OutputDate.ToOADate();
+                reportWs.Range[dateAddress].Value = _saksSettings.OutputDate.ToOADate();
 
                 //Bit report
                 wipWb.Activate();
-                BitReportHandler bitReport = new BitReportHandler(_saksSetting.InputFilenameBitReport);
-                templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.OutputFileFullnameWip, inventoryValueWs.Name);
+                BitReportHandler bitReport = new BitReportHandler(_saksSettings.InputFilenameBitReport);
+                templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSettings.OutputFileFullnameWip, inventoryValueWs.Name);
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
                 
                 writingAddress = string.Format("A{0}", _saksWorksheetSettings.BitreportSettings.WipSettings.WritingRow);
@@ -71,7 +71,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 bitReport = null;
 
                 //Inactive UPC
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameInactiveUpc, 1);
+                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSettings.InputFilenameInactiveUpc, 1);
                 SaksSpecialRule1(inputDataTable);
                 writingAddress = string.Format("A{0}", _saksWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
                 inputDataTable.WriteToExcelSheets(inactiveWs, writingAddress, false);
@@ -83,7 +83,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inputDataTable = null;
                 
                 //Workflow DM
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSetting.InputFilenameWorkflow, 1);
+                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSettings.InputFilenameWorkflow, 1);
                 inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleGroupId, 34, 33);
 
                 writingAddress = string.Format("A{0}", _saksWorksheetSettings.WorkflowSettings.DataSourceSettings.WritingRow);

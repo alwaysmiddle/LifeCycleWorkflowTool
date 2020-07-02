@@ -16,8 +16,8 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
     public sealed class TheBayOperations : BannerOperationBase
     {
-        private BannerSettings _theBaySettings { get; }
-        private TheBayOperationSettings _theBayWorksheetSettings { get; }
+        private BannerSettings _theBaySettings;
+        private TheBayOperationSettings _theBayWorksheetSettings;
 
         public TheBayOperations(BannerSettings settings) : base(settings)
         {

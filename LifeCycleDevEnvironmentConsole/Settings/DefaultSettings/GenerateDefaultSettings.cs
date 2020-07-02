@@ -82,9 +82,76 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
             return saksSettings;
         }
 
-        public static void GenerateO5Default()
+        public static BaseOperationSettings GenerateO5Default()
         {
-            //TODO Implement default
+            BaseOperationSettings o5Settings;
+            BasicTypeOperationBuilder basicTypeBuilder;
+            DataSourceTypeOperationBuilder dataTypeBuilder;
+            ReportOperationTypeBuilder reportTypeBuilder;
+
+            reportTypeBuilder = new ReportOperationTypeBuilder();
+            ReportTypeOperation summarySettings =
+                reportTypeBuilder.BuildReportSheetSetting(
+                    sheetName: "Daily Dash",
+                    dateAddress: "N5",
+                    readingAddress: "E1:BI25")
+                .BuildFinalSheetSettings(
+                    sheetName: "Daily Dash",
+                    writingAddress: "E1")
+                .Build();
+
+            basicTypeBuilder = new BasicTypeOperationBuilder();
+            BasicTypeOperation bitReportSettings =
+                basicTypeBuilder.BuildWipSheetSetting(
+                    sheetName: "Ttl_Inv",
+                    headerRow: 1,
+                    writingRow: 1,
+                    readingAddress: "A:E")
+                .Build();
+
+            dataTypeBuilder = new DataSourceTypeOperationBuilder();
+            DataSourceTypeOperation inactiveUpcSettings =
+                dataTypeBuilder.BuildWipSheetSetting(
+                    sheetName: "UPCS",
+                    headerRow: 2,
+                    writingRow: 3,
+                    formulaRow: 1,
+                    referenceRow: 2,
+                    readingAddress: "A:AR")
+                .BuildFinalSheetSettings(
+                    sheetName: "Inactive UPC-New Color Report",
+                    writingAddress: "A5")
+                .BuildDataSheetSetting(
+                    sheetName: "UPCS",
+                    headerRow: 2,
+                    writingRow: 3)
+                .Build();
+
+            dataTypeBuilder = new DataSourceTypeOperationBuilder();
+            DataSourceTypeOperation workflowDetailsSettings =
+                dataTypeBuilder.BuildWipSheetSetting(
+                    sheetName: "Details-Products",
+                    headerRow: 7,
+                    writingRow: 8,
+                    formulaRow: 3,
+                    referenceRow: 4,
+                    readingAddress: "C:BO")
+                .BuildFinalSheetSettings(
+                    sheetName: "Workflow Details",
+                    writingAddress: "A3")
+                .BuildDataSheetSetting(
+                    sheetName: "DM_Data",
+                    headerRow: 1,
+                    writingRow: 1)
+                .Build();
+
+            o5Settings = new BaseOperationSettings(
+                summarySettings: summarySettings,
+                bitreportSettings: bitReportSettings,
+                inactiveUpcSettings: inactiveUpcSettings,
+                workflowSettings: workflowDetailsSettings);
+
+            return o5Settings;
         }
 
         public static TheBayOperationSettings GenerateTheBayDefault()

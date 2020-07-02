@@ -72,45 +72,46 @@ namespace LifeCycleDevEnvironmentConsole
             //Console.WriteLine("Saks Operation finished");
 
             //O5 settings
-            //BannerSettings o5Settings = new BannerSettings(
-            //    banner: Banner.O5,
-            //    wipOutputDirectory: oDirectory,
-            //    finalOutputDirectory: oDirectory,
-            //    defaulOutputFilename: "O5_Daily_Workflow",
-            //    templateFullnameWip: templateO5Wip,
-            //    templateFullnameFinal: templateO5Wip,
-            //    inputFilenameBitReport: o5Input2,
-            //    inputFilenameWorkflow: o5Input1,
-            //    inputFilenameInactiveUpc: o5Input3,
-            //    outputDate: new DateTime(2020, 6, 12)
-            //    );
-
-            //Console.WriteLine("Starting O5 Operation");
-
-            //O5Operations o5Ops = new O5Operations(o5Settings);
-            //o5Ops.RunOperation();
-            //Console.WriteLine("O5 Operation finished");
-
-            //TheBay settings
-            BannerSettings theBaySettings = new BannerSettings(
-                banner: Banner.TheBay,
+            BannerSettings o5Settings = new BannerSettings(
+                banner: Banner.O5,
                 wipOutputDirectory: oDirectory,
                 finalOutputDirectory: oDirectory,
-                defaulOutputFilename: "TheBay_Daily_Workflow",
-                templateFullnameWip: templateTheBayWip,
-                templateFullnameFinal: templateTheBayFinal,
-                inputFilenameBitReport: theBayInput2,
-                inputFilenameWorkflow: theBayInput1,
-                inputFilenameInactiveUpc: theBayInput3,
-                inputFilenameNosCombined: theBayInput4,
-                worksheetSettings: GenerateDefaultSettings.GenerateTheBayDefault(),
-                outputDate: new DateTime(2020, 6, 15)
+                defaulOutputFilename: "O5_Daily_Workflow",
+                templateFullnameWip: templateO5Wip,
+                templateFullnameFinal: templateO5Final,
+                inputFilenameBitReport: o5Input2,
+                inputFilenameWorkflow: o5Input1,
+                inputFilenameInactiveUpc: o5Input3,
+                outputDate: new DateTime(2020, 6, 12),
+                worksheetSettings: GenerateDefaultSettings.GenerateO5Default()
                 );
 
-            Console.WriteLine("Starting TheBay Operation");
-            TheBayOperations theBayOps = new TheBayOperations(theBaySettings);
-            theBayOps.RunOperation();
-            Console.WriteLine("TheBay Operation finished");
+            Console.WriteLine("Starting O5 Operation");
+
+            O5Operations o5Ops = new O5Operations(o5Settings);
+            o5Ops.RunOperation();
+            Console.WriteLine("O5 Operation finished");
+
+            //TheBay settings
+            //BannerSettings theBaySettings = new BannerSettings(
+            //    banner: Banner.TheBay,
+            //    wipOutputDirectory: oDirectory,
+            //    finalOutputDirectory: oDirectory,
+            //    defaulOutputFilename: "TheBay_Daily_Workflow",
+            //    templateFullnameWip: templateTheBayWip,
+            //    templateFullnameFinal: templateTheBayFinal,
+            //    inputFilenameBitReport: theBayInput2,
+            //    inputFilenameWorkflow: theBayInput1,
+            //    inputFilenameInactiveUpc: theBayInput3,
+            //    inputFilenameNosCombined: theBayInput4,
+            //    worksheetSettings: GenerateDefaultSettings.GenerateTheBayDefault(),
+            //    outputDate: new DateTime(2020, 6, 15)
+            //    );
+
+            //Console.WriteLine("Starting TheBay Operation");
+            //TheBayOperations theBayOps = new TheBayOperations(theBaySettings);
+            //theBayOps.RunOperation();
+            //Console.WriteLine("TheBay Operation finished");
 
             Console.WriteLine("Operation Successful");
             Console.ReadKey();
