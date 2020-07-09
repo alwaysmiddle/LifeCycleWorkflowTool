@@ -22,7 +22,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                 reportTypeBuilder.BuildReportSheetSetting(
                     sheetName: "WF Summary Chart",
                     dateAddress: "N5",
-                    readingAddress: "E1:BI53")
+                    readingAddress: "E1:BI79")
                 .BuildFinalSheetSettings(
                     sheetName: "Summary Chart",
                     writingAddress: "E1")
@@ -137,7 +137,7 @@ namespace LifeCycleDevEnvironmentConsole.Settings.DefaultSettings
                     referenceRow: 4,
                     readingAddress: "C:BO")
                 .BuildFinalSheetSettings(
-                    sheetName: "Workflow Details",
+                    sheetName: "Details",
                     writingAddress: "A3")
                 .BuildDataSheetSetting(
                     sheetName: "DM_Data",

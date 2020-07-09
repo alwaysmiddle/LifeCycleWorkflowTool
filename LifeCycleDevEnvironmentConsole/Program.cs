@@ -21,9 +21,9 @@ namespace LifeCycleDevEnvironmentConsole
 
             string saksPath = @"WorkFlow Data\Saks\";
             //saks
-            string saksInput1 = Path.Combine(exeDir, saksPath, @"Input Files\DM_WORKFLOW_RPT20200616.xls");
-            string saksInput2 = Path.Combine(exeDir, saksPath, @"Input Files\MIS-IB004A_2 - Saks (63).xlsx");
-            string saksInput3 = Path.Combine(exeDir, saksPath, @"Input Files\DM_SAKS_OH_INACTV_UPC20200616.xls");
+            string saksInput1 = Path.Combine(exeDir, saksPath, @"Input Files\DM_WORKFLOW_RPT20200709.xls");
+            string saksInput2 = Path.Combine(exeDir, saksPath, @"Input Files\MIS-IB004A.2 - Saks (11).xlsx");
+            string saksInput3 = Path.Combine(exeDir, saksPath, @"Input Files\DM_SAKS_OH_INACTV_UPC20200709.xls");
 
             string o5Path = @"WorkFlow Data\O5\";
             //O5
@@ -52,45 +52,45 @@ namespace LifeCycleDevEnvironmentConsole
             Console.WriteLine(oDirectory);
 
             //saks settings
-            //BannerSettings saksSettings = new BannerSettings(
-            //    banner: Banner.Saks,
-            //    wipOutputDirectory: oDirectory,
-            //    finalOutputDirectory: oDirectory,
-            //    defaulOutputFilename: "Saks_Daily_Workflow",
-            //    templateFullnameWip: templateSaksWip,
-            //    templateFullnameFinal: templateSaksFinal,
-            //    inputFilenameBitReport: saksInput2,
-            //    inputFilenameWorkflow: saksInput1,
-            //    inputFilenameInactiveUpc: saksInput3,
-            //    worksheetSettings: GenerateDefaultSettings.GenerateSaksDefault(),
-            //    outputDate: new DateTime(2020, 6, 16)
-            //    );
-
-            //Console.WriteLine("Starting Saks Operation");
-            //SaksOperations saksOps = new SaksOperations(saksSettings);
-            //saksOps.RunOperation();
-            //Console.WriteLine("Saks Operation finished");
-
-            //O5 settings
-            BannerSettings o5Settings = new BannerSettings(
-                banner: Banner.O5,
+            BannerSettings saksSettings = new BannerSettings(
+                banner: Banner.Saks,
                 wipOutputDirectory: oDirectory,
                 finalOutputDirectory: oDirectory,
-                defaulOutputFilename: "O5_Daily_Workflow",
-                templateFullnameWip: templateO5Wip,
-                templateFullnameFinal: templateO5Final,
-                inputFilenameBitReport: o5Input2,
-                inputFilenameWorkflow: o5Input1,
-                inputFilenameInactiveUpc: o5Input3,
-                outputDate: new DateTime(2020, 6, 12),
-                worksheetSettings: GenerateDefaultSettings.GenerateO5Default()
+                defaulOutputFilename: "Saks_Daily_Workflow",
+                templateFullnameWip: templateSaksWip,
+                templateFullnameFinal: templateSaksFinal,
+                inputFilenameBitReport: saksInput2,
+                inputFilenameWorkflow: saksInput1,
+                inputFilenameInactiveUpc: saksInput3,
+                worksheetSettings: GenerateDefaultSettings.GenerateSaksDefault(),
+                outputDate: new DateTime(2020, 6, 16)
                 );
 
-            Console.WriteLine("Starting O5 Operation");
+            Console.WriteLine("Starting Saks Operation");
+            SaksOperations saksOps = new SaksOperations(saksSettings);
+            saksOps.RunOperation();
+            Console.WriteLine("Saks Operation finished");
 
-            O5Operations o5Ops = new O5Operations(o5Settings);
-            o5Ops.RunOperation();
-            Console.WriteLine("O5 Operation finished");
+            //O5 settings
+            //BannerSettings o5Settings = new BannerSettings(
+            //    banner: Banner.O5,
+            //    wipOutputDirectory: oDirectory,
+            //    finalOutputDirectory: oDirectory,
+            //    defaulOutputFilename: "O5_Daily_Workflow",
+            //    templateFullnameWip: templateO5Wip,
+            //    templateFullnameFinal: templateO5Final,
+            //    inputFilenameBitReport: o5Input2,
+            //    inputFilenameWorkflow: o5Input1,
+            //    inputFilenameInactiveUpc: o5Input3,
+            //    outputDate: new DateTime(2020, 6, 12),
+            //    worksheetSettings: GenerateDefaultSettings.GenerateO5Default()
+            //    );
+
+            //Console.WriteLine("Starting O5 Operation");
+
+            //O5Operations o5Ops = new O5Operations(o5Settings);
+            //o5Ops.RunOperation();
+            //Console.WriteLine("O5 Operation finished");
 
             //TheBay settings
             //BannerSettings theBaySettings = new BannerSettings(

@@ -95,12 +95,12 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 O5SpeicalRule1(detailsProductWsWip);
 
                 excelApp.Calculate();
-                inactiveWsWip.ConvertAllDataUnderRowToValues(_o5WorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
-                detailsProductWsWip.ConvertAllDataUnderRowToValues(_o5WorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
+                //inactiveWsWip.ConvertAllDataUnderRowToValues(_o5WorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
+                //detailsProductWsWip.ConvertAllDataUnderRowToValues(_o5WorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
 
                 //Turn summary chart into values
                 readingAddress = _o5WorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
-                reportWsWip.Range[readingAddress].Value2 = reportWsWip.Range[readingAddress].Value2;
+                //reportWsWip.Range[readingAddress].Value2 = reportWsWip.Range[readingAddress].Value2;
 
                 wipWb.Save();
 

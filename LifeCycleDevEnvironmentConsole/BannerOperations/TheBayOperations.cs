@@ -19,6 +19,22 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         private BannerSettings _theBaySettings;
         private TheBayOperationSettings _theBayWorksheetSettings;
 
+        private Microsoft.Office.Interop.Excel.Application excelApp;
+        private Workbook wipWb;
+        private Workbook finalWb;
+
+        private Worksheet summaryWsWip;
+        private Worksheet inactiveWsWip;
+        private Worksheet inactiveDataWsWip;
+        private Worksheet detailsProductWsWip;
+        private Worksheet detailsProductDataWsWip;
+        private Worksheet inventoryValueWsWip;
+        private Worksheet nosCombineWsWip;
+        private Worksheet summaryWsFinal;
+        private Worksheet inactiveWsFinal;
+        private Worksheet detailsProductWsFinal;
+        private Worksheet nosCombinedFinal;
+
         public TheBayOperations(BannerSettings settings) : base(settings)
         {
             _theBaySettings = settings;
@@ -127,12 +143,12 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 CommonOperations.ReworkFurRule(detailsProductWsWip);
 
                 excelApp.Calculate();
-                inactiveWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
-                detailsProductWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
-                nosCombineWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.NosCombinedSettings.WipSettings.HeaderRow);
+                //inactiveWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
+                //detailsProductWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
+                //nosCombineWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.NosCombinedSettings.WipSettings.HeaderRow);
 
                 readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
-                summaryWsWip.Range[readingAddress].Value2 = summaryWsWip.Range[readingAddress].Value2;
+                //summaryWsWip.Range[readingAddress].Value2 = summaryWsWip.Range[readingAddress].Value2;
                 wipWb.Save();
 
                 //===============================Final Section================================
