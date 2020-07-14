@@ -48,8 +48,6 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             _theBayWorksheetSettings = (TheBayOperationSettings)settings.WorksheetSettings;
         }
 
-        
-
         public void RunOperation()
         {
             System.Data.DataTable inputDataTable = new System.Data.DataTable();
@@ -75,12 +73,9 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 WipWorkflowOp();
 
                 excelApp.Calculate();
-                //inactiveWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
-                //detailsProductWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
-                //nosCombineWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.NosCombinedSettings.WipSettings.HeaderRow);
 
-                string readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
-                //summaryWsWip.Range[readingAddress].Value2 = summaryWsWip.Range[readingAddress].Value2;
+                WipWbFormatAsValuesOnly(false);
+
                 wipWb.Save();
 
                 CopyToFinalWb();
@@ -164,6 +159,23 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 Console.WriteLine("Worksheet within workbook not found.");
             }
         }
+
+        /// <summary>
+        /// Make the wip workbook values only at the end. If this is not turned on, final workbook will have external links to the wip workbook.
+        /// </summary>
+        private void WipWbFormatAsValuesOnly(bool valuesOnlyOn)
+        {
+            if (valuesOnlyOn)
+            {
+                inactiveWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
+                detailsProductWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
+                nosCombineWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.NosCombinedSettings.WipSettings.HeaderRow);
+
+                string readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
+                summaryWsWip.Range[readingAddress].Value2 = summaryWsWip.Range[readingAddress].Value2;
+            }
+        }
+
 
         //===================================================WIP OPERATIONS======================================================
         #region TheBayWip
