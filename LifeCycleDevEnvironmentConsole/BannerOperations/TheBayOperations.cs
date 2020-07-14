@@ -23,6 +23,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         private Workbook wipWb;
         private Workbook finalWb;
 
+        //Wip worksheets
         private Worksheet summaryWsWip;
         private Worksheet inactiveWsWip;
         private Worksheet inactiveDataWsWip;
@@ -30,10 +31,16 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         private Worksheet detailsProductDataWsWip;
         private Worksheet inventoryValueWsWip;
         private Worksheet nosCombineWsWip;
+
+        //Final worksheets
         private Worksheet summaryWsFinal;
         private Worksheet inactiveWsFinal;
         private Worksheet detailsProductWsFinal;
         private Worksheet nosCombinedFinal;
+
+        //Column names for special rules
+        private readonly string specialRuleGroupId = "PIM PRODUCTS Group ID";
+        private readonly string specialRuleDivisionId = "PIM PRODUCTS Divisionid";
 
         public TheBayOperations(BannerSettings settings) : base(settings)
         {
@@ -41,157 +48,42 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             _theBayWorksheetSettings = (TheBayOperationSettings)settings.WorksheetSettings;
         }
 
+        
+
         public void RunOperation()
         {
             System.Data.DataTable inputDataTable = new System.Data.DataTable();
             System.Data.DataTable templateDataTable = new System.Data.DataTable();
 
-            Application excelApp = new Application();
+            excelApp = new Application();
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
-            Workbook wipWb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullnameWip);
-            Workbook finalWb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullnameFinal);
+            WipWbInitialization();
+            FinalWbInitialization();
+
             excelApp.Calculation = XlCalculation.xlCalculationManual;
             excelApp.Visible = false;
 
             try
             {
-                Worksheet summaryWsWip = wipWb.Worksheets[_theBayWorksheetSettings.SummarySettings.ReportSettings.WorksheetName];
-                Worksheet inactiveWsWip = wipWb.Worksheets[_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.WorksheetName];
-                Worksheet inactiveDataWsWip = wipWb.Worksheets[_theBayWorksheetSettings.InactiveUpcSettings.DataSourceSettings.WorksheetName];
-                Worksheet detailsProductWsWip = wipWb.Worksheets[_theBayWorksheetSettings.WorkflowSettings.WipSettings.WorksheetName];
-                Worksheet detailsProductDataWsWip = wipWb.Worksheets[_theBayWorksheetSettings.WorkflowSettings.DataSourceSettings.WorksheetName];
-                Worksheet inventoryValueWsWip = wipWb.Worksheets[_theBayWorksheetSettings.BitreportSettings.WipSettings.WorksheetName];
-                Worksheet nosCombineWsWip = wipWb.Worksheets[_theBayWorksheetSettings.NosCombinedSettings.WipSettings.WorksheetName];
-
-                //Temp variables
-                string writingAddress; //excel writing address for datatables and final workbook
-                string readingAddress; //excel reading address to aquire data areas
-                int colCount; //temporary count for resizing purposes
-                int rowCount;
-
-                //Special rule column names
-                string specialRuleGroupId = "PIM PRODUCTS Group ID";
-                string specialRuleDivisionId = "PIM PRODUCTS Divisionid";
-
                 //SummaryChart
                 string dateAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.DateAddress;
                 summaryWsWip.Range[dateAddress].Value = _theBaySettings.OutputDate.ToOADate();
 
-                //Bit report
-                BitReportHandler bitReport = new BitReportHandler(_theBaySettings.InputFilenameBitReport);
-                templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.OutputFileFullnameWip, inventoryValueWsWip.Name);
-                inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
-
-                writingAddress = string.Format("A{0}", _theBayWorksheetSettings.BitreportSettings.WipSettings.WritingRow);
-                inputDataTable.WriteToExcelSheets(inventoryValueWsWip, writingAddress);
-
-                CommonOperations.FormatColumnsAsAccounting(inventoryValueWsWip, "OH $ @R");
-                inputDataTable = null;
-                bitReport = null;
-
-                //NOS Combined
-
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameNosCombined, 1);
-
-                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
-                inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);
-
-                writingAddress = string.Format("A{0}", _theBayWorksheetSettings.NosCombinedSettings.DataSourceSettings.WritingRow);
-                inputDataTable.WriteToExcelSheets(nosCombineWsWip, writingAddress, false);
-                nosCombineWsWip.ProcessFormulaRow(
-                    refTable: inputDataTable,
-                    formulaRow: _theBayWorksheetSettings.NosCombinedSettings.WipSettings.FormulaRow,
-                    headerRow: _theBayWorksheetSettings.NosCombinedSettings.WipSettings.ReferenceRow,
-                    outputRow: _theBayWorksheetSettings.NosCombinedSettings.WipSettings.WritingRow);
-                inputDataTable = null;
-
-                inactiveWsWip.Calculate();
-                wipWb.Save();
-
-                //Inactive UPC
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameInactiveUpc, 1);
-
-                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
-                inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);
-
-                writingAddress = string.Format("A{0}", _theBayWorksheetSettings.InactiveUpcSettings.DataSourceSettings.WritingRow);
-                inputDataTable.WriteToExcelSheets(inactiveDataWsWip, writingAddress, true);
-                inactiveWsWip.ProcessFormulaRow(
-                    refTable: inputDataTable,
-                    formulaRow: _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.FormulaRow,
-                    headerRow: _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.ReferenceRow,
-                    outputRow: _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
-                inputDataTable = null;
-
-                inactiveWsWip.Calculate();
-
-                //Workflow DM
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameWorkflow, 1);
-
-                inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
-                inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);
-
-                writingAddress = string.Format("A{0}", _theBayWorksheetSettings.WorkflowSettings.DataSourceSettings.WritingRow);
-                inputDataTable.WriteToExcelSheets(detailsProductDataWsWip, writingAddress, true);
-                detailsProductWsWip.ProcessFormulaRow(refTable: inputDataTable,
-                    formulaRow: _theBayWorksheetSettings.WorkflowSettings.WipSettings.FormulaRow,
-                    headerRow: _theBayWorksheetSettings.WorkflowSettings.WipSettings.ReferenceRow,
-                    outputRow: _theBayWorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
-
-                inputDataTable = null;
-                detailsProductWsWip.Calculate();
-                CommonOperations.ReworkFurRule(detailsProductWsWip);
+                WipBitReportOp();
+                WipNosCombinedOp();
+                WipInactiveUpcOp();
+                WipWorkflowOp();
 
                 excelApp.Calculate();
                 //inactiveWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
                 //detailsProductWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
                 //nosCombineWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.NosCombinedSettings.WipSettings.HeaderRow);
 
-                readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
+                string readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
                 //summaryWsWip.Range[readingAddress].Value2 = summaryWsWip.Range[readingAddress].Value2;
                 wipWb.Save();
 
-                //===============================Final Section================================
-
-                Worksheet summaryWsFinal = finalWb.Worksheets[_theBayWorksheetSettings.SummarySettings.FinalSettings.WorksheetName];
-                Worksheet inactiveWsFinal = finalWb.Worksheets[_theBayWorksheetSettings.InactiveUpcSettings.FinalSettings.WorksheetName];
-                Worksheet detailsProductWsFinal = finalWb.Worksheets[_theBayWorksheetSettings.WorkflowSettings.FinalSettings.WorksheetName];
-                Worksheet nosCombinedFinal = finalWb.Worksheets[_theBayWorksheetSettings.NosCombinedSettings.FinalSettings.WorksheetName];
-
-                finalWb.Activate();
-
-                //Summary Chart
-                writingAddress = _theBayWorksheetSettings.SummarySettings.FinalSettings.WritingAddress;
-                rowCount = summaryWsWip.Range[readingAddress].Rows.Count;
-                colCount = summaryWsWip.Range[readingAddress].Columns.Count;
-                summaryWsWip.Range[readingAddress].Copy(summaryWsFinal.Range[writingAddress].Resize[rowCount, colCount]);
-
-                //Details Product
-                readingAddress = detailsProductWsWip.ConvertColumnAddressToPreciseAddress(
-                    _theBayWorksheetSettings.WorkflowSettings.WipSettings.ReadingAddress,
-                    _theBayWorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
-                writingAddress = _theBayWorksheetSettings.WorkflowSettings.FinalSettings.WritingAddress;
-                rowCount = detailsProductWsWip.Range[readingAddress].Rows.Count;
-                colCount = detailsProductWsWip.Range[readingAddress].Columns.Count;
-                detailsProductWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = detailsProductWsWip.Range[readingAddress].Value;
-
-                //Inactive Upc
-                readingAddress = inactiveWsWip.ConvertColumnAddressToPreciseAddress(
-                    _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.ReadingAddress,
-                    _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
-                writingAddress = _theBayWorksheetSettings.InactiveUpcSettings.FinalSettings.WritingAddress;
-                rowCount = inactiveWsWip.Range[readingAddress].Rows.Count;
-                colCount = inactiveWsWip.Range[readingAddress].Columns.Count;
-                inactiveWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = inactiveWsWip.Range[readingAddress].Value;
-
-                //Nos Combined
-                readingAddress = nosCombineWsWip.ConvertColumnAddressToPreciseAddress(
-                    _theBayWorksheetSettings.NosCombinedSettings.WipSettings.ReadingAddress,
-                    _theBayWorksheetSettings.NosCombinedSettings.WipSettings.WritingRow);
-                writingAddress = _theBayWorksheetSettings.InactiveUpcSettings.FinalSettings.WritingAddress;
-                rowCount = nosCombineWsWip.Range[readingAddress].Rows.Count;
-                colCount = nosCombineWsWip.Range[readingAddress].Columns.Count;
-                inactiveWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = nosCombineWsWip.Range[readingAddress].Value;
+                CopyToFinalWb();
             }
             catch (Exception ex)
             {
@@ -217,5 +109,187 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 excelProcess.Dispose();
             }
         }
+
+        private void WipWbInitialization()
+        {
+            try
+            {
+                wipWb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullnameWip);
+            }
+            catch (Exception ex)
+            {
+                //TODO Error Workbook failed to open.
+                Console.WriteLine("Workbook open failed.");
+            }
+
+            try
+            {
+                summaryWsWip = wipWb.Worksheets[_theBayWorksheetSettings.SummarySettings.ReportSettings.WorksheetName];
+                inactiveWsWip = wipWb.Worksheets[_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.WorksheetName];
+                inactiveDataWsWip = wipWb.Worksheets[_theBayWorksheetSettings.InactiveUpcSettings.DataSourceSettings.WorksheetName];
+                detailsProductWsWip = wipWb.Worksheets[_theBayWorksheetSettings.WorkflowSettings.WipSettings.WorksheetName];
+                detailsProductDataWsWip = wipWb.Worksheets[_theBayWorksheetSettings.WorkflowSettings.DataSourceSettings.WorksheetName];
+                inventoryValueWsWip = wipWb.Worksheets[_theBayWorksheetSettings.BitreportSettings.WipSettings.WorksheetName];
+                nosCombineWsWip = wipWb.Worksheets[_theBayWorksheetSettings.NosCombinedSettings.WipSettings.WorksheetName];
+            }
+            catch (Exception ex)
+            {
+                //TODO Error worksheet name not found
+                Console.WriteLine("Worksheet within workbook not found.");
+            }
+        }
+
+        private void FinalWbInitialization()
+        {
+            try
+            {
+                finalWb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullnameFinal);
+            }
+            catch (Exception ex)
+            {
+                //TODO Error Workbook failed to open.
+                Console.WriteLine("Workbook open failed.");
+            }
+
+            try
+            {
+                summaryWsFinal = finalWb.Worksheets[_theBayWorksheetSettings.SummarySettings.FinalSettings.WorksheetName];
+                inactiveWsFinal = finalWb.Worksheets[_theBayWorksheetSettings.InactiveUpcSettings.FinalSettings.WorksheetName];
+                detailsProductWsFinal = finalWb.Worksheets[_theBayWorksheetSettings.WorkflowSettings.FinalSettings.WorksheetName];
+                nosCombinedFinal = finalWb.Worksheets[_theBayWorksheetSettings.NosCombinedSettings.FinalSettings.WorksheetName];
+            }
+            catch (Exception ex)
+            {
+                //TODO Error worksheet name not found
+                Console.WriteLine("Worksheet within workbook not found.");
+            }
+        }
+
+        //===================================================WIP OPERATIONS======================================================
+        #region TheBayWip
+        private void WipBitReportOp()
+        {
+            System.Data.DataTable inputDataTable = new System.Data.DataTable();
+            System.Data.DataTable templateDataTable = new System.Data.DataTable();
+
+            BitReportHandler bitReport = new BitReportHandler(_theBaySettings.InputFilenameBitReport);
+            templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.OutputFileFullnameWip, inventoryValueWsWip.Name);
+            inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
+
+            string writingAddress = string.Format("A{0}", _theBayWorksheetSettings.BitreportSettings.WipSettings.WritingRow);
+            inputDataTable.WriteToExcelSheets(inventoryValueWsWip, writingAddress);
+
+            CommonOperations.FormatColumnsAsAccounting(inventoryValueWsWip, "OH $ @R");
+        }
+
+        private void WipNosCombinedOp()
+        {
+            System.Data.DataTable inputDataTable = new System.Data.DataTable();
+
+            inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameNosCombined, 1);
+
+            inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
+            inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);
+
+            string writingAddress = string.Format("A{0}", _theBayWorksheetSettings.NosCombinedSettings.DataSourceSettings.WritingRow);
+            inputDataTable.WriteToExcelSheets(nosCombineWsWip, writingAddress, false);
+            nosCombineWsWip.ProcessFormulaRow(
+                refTable: inputDataTable,
+                formulaRow: _theBayWorksheetSettings.NosCombinedSettings.WipSettings.FormulaRow,
+                headerRow: _theBayWorksheetSettings.NosCombinedSettings.WipSettings.ReferenceRow,
+                outputRow: _theBayWorksheetSettings.NosCombinedSettings.WipSettings.WritingRow);
+        }
+
+        private void WipInactiveUpcOp()
+        {
+            System.Data.DataTable inputDataTable = new System.Data.DataTable();
+
+            //Inactive UPC
+            inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameInactiveUpc, 1);
+
+            inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
+            inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);
+
+            string writingAddress = string.Format("A{0}", _theBayWorksheetSettings.InactiveUpcSettings.DataSourceSettings.WritingRow);
+            inputDataTable.WriteToExcelSheets(inactiveDataWsWip, writingAddress, true);
+            inactiveWsWip.ProcessFormulaRow(
+                refTable: inputDataTable,
+                formulaRow: _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.FormulaRow,
+                headerRow: _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.ReferenceRow,
+                outputRow: _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
+
+            inactiveWsWip.Calculate();
+        }
+
+        private void WipWorkflowOp()
+        {
+            System.Data.DataTable inputDataTable = new System.Data.DataTable();
+
+            inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameWorkflow, 1);
+
+            inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
+            inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);
+
+            string writingAddress = string.Format("A{0}", _theBayWorksheetSettings.WorkflowSettings.DataSourceSettings.WritingRow);
+            inputDataTable.WriteToExcelSheets(detailsProductDataWsWip, writingAddress, true);
+            detailsProductWsWip.ProcessFormulaRow(refTable: inputDataTable,
+                formulaRow: _theBayWorksheetSettings.WorkflowSettings.WipSettings.FormulaRow,
+                headerRow: _theBayWorksheetSettings.WorkflowSettings.WipSettings.ReferenceRow,
+                outputRow: _theBayWorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
+
+            inputDataTable = null;
+            detailsProductWsWip.Calculate();
+
+            CommonOperations.ReworkFurRule(detailsProductWsWip);
+        }
+        #endregion
+
+        //===================================================Final OPERATIONS======================================================
+        #region TheBayFinal
+        private void CopyToFinalWb()
+        {
+            //Temp variables
+            string writingAddress; //excel writing address for datatables and final workbook
+            string readingAddress; //excel reading address to aquire data areas
+            int colCount; //temporary count for resizing purposes
+            int rowCount;
+
+            finalWb.Activate();
+
+            //Summary Chart
+            readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
+            writingAddress = _theBayWorksheetSettings.SummarySettings.FinalSettings.WritingAddress;
+            rowCount = summaryWsWip.Range[readingAddress].Rows.Count;
+            colCount = summaryWsWip.Range[readingAddress].Columns.Count;
+            summaryWsWip.Range[readingAddress].Copy(summaryWsFinal.Range[writingAddress].Resize[rowCount, colCount]);
+
+            //Details Product
+            readingAddress = detailsProductWsWip.ConvertColumnAddressToPreciseAddress(
+                _theBayWorksheetSettings.WorkflowSettings.WipSettings.ReadingAddress,
+                _theBayWorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
+            writingAddress = _theBayWorksheetSettings.WorkflowSettings.FinalSettings.WritingAddress;
+            rowCount = detailsProductWsWip.Range[readingAddress].Rows.Count;
+            colCount = detailsProductWsWip.Range[readingAddress].Columns.Count;
+            detailsProductWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = detailsProductWsWip.Range[readingAddress].Value;
+
+            //Inactive Upc
+            readingAddress = inactiveWsWip.ConvertColumnAddressToPreciseAddress(
+                _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.ReadingAddress,
+                _theBayWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
+            writingAddress = _theBayWorksheetSettings.InactiveUpcSettings.FinalSettings.WritingAddress;
+            rowCount = inactiveWsWip.Range[readingAddress].Rows.Count;
+            colCount = inactiveWsWip.Range[readingAddress].Columns.Count;
+            inactiveWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = inactiveWsWip.Range[readingAddress].Value;
+
+            //Nos Combined
+            readingAddress = nosCombineWsWip.ConvertColumnAddressToPreciseAddress(
+                _theBayWorksheetSettings.NosCombinedSettings.WipSettings.ReadingAddress,
+                _theBayWorksheetSettings.NosCombinedSettings.WipSettings.WritingRow);
+            writingAddress = _theBayWorksheetSettings.InactiveUpcSettings.FinalSettings.WritingAddress;
+            rowCount = nosCombineWsWip.Range[readingAddress].Rows.Count;
+            colCount = nosCombineWsWip.Range[readingAddress].Columns.Count;
+            inactiveWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = nosCombineWsWip.Range[readingAddress].Value;
+        }
+        #endregion
     }
 }
