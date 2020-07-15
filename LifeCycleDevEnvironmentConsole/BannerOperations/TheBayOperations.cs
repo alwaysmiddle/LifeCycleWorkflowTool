@@ -50,9 +50,6 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
         public void RunOperation()
         {
-            System.Data.DataTable inputDataTable = new System.Data.DataTable();
-            System.Data.DataTable templateDataTable = new System.Data.DataTable();
-
             excelApp = new Application();
             ExcelProcessControl excelProcess = new ExcelProcessControl(excelApp);
             WipWbInitialization();
@@ -256,7 +253,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         }
         #endregion
 
-        //===================================================Final OPERATIONS======================================================
+        //===================================================Final OPERATIONS====================================================
         #region TheBayFinal
         private void CopyToFinalWb()
         {
