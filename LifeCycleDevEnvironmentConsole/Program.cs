@@ -82,7 +82,7 @@ namespace LifeCycleDevEnvironmentConsole
             //    inputFilenameBitReport: o5Input2,
             //    inputFilenameWorkflow: o5Input1,
             //    inputFilenameInactiveUpc: o5Input3,
-            //    outputDate: new DateTime(2020, 6, 12),
+            //    outputDate: new DateTime(2020, 5, 12),
             //    worksheetSettings: GenerateDefaultSettings.GenerateO5Default()
             //    );
 

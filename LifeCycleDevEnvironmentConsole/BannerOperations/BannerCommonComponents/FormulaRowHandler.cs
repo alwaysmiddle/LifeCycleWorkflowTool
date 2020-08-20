@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
+    /// <summary>
+    /// Has a structure of for loop over every row, then use specific columns to do calculations.
+    /// </summary>
     public static class FormulaRowHandler
     {
         public static void ProcessFormulaRow(this Worksheet ws, System.Data.DataTable refTable, int formulaRow, int headerRow, int outputRow)
@@ -58,12 +61,13 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                                 object[,] objArr = new object[refTable.Rows.Count, 1];
                                 for (int i = 0; i < refTable.Rows.Count; i++)
                                 {
-                                    if (refTable.Rows[i][headerRowStr] != (object)0) {
-                                        objArr[i, 0] = refTable.Rows[i][headerRowStr];
+                                    if (refTable.Rows[i][headerRowStr].ToString().Trim().Equals("0") || refTable.Rows[i][headerRowStr].ToString().Trim().Equals("") || refTable.Rows[i][headerRowStr] == DBNull.Value
+                                        || refTable.Rows[i][headerRowStr] == null || refTable.Rows[i][headerRowStr].ToString().Trim().Equals(DBNull.Value)) {
+                                        objArr[i, 0] = "-";
                                     }
                                     else
                                     {
-                                        objArr[i, 0] = '-';
+                                        objArr[i, 0] = refTable.Rows[i][headerRowStr];
                                     }
                                 }
 
@@ -81,6 +85,27 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                                     else
                                     {
                                         objArr[i, 0] = "No";
+                                    }
+                                }
+
+                                ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
+                            }else if (formulaCellStr.Equals("ReplaceZeroOrEmptyWithNoYes", StringComparison.OrdinalIgnoreCase))
+                            {
+                                object[,] objArr = new object[refTable.Rows.Count, 1];
+                                for (int i = 0; i < refTable.Rows.Count; i++)
+                                {
+                                    if (refTable.Rows[i][headerRowStr] == DBNull.Value
+                                        || refTable.Rows[i][headerRowStr] == null)
+                                    {
+                                        objArr[i, 0] = "No";
+                                    }
+                                    else if (refTable.Rows[i][headerRowStr].ToString().Trim().Equals("0"))
+                                    {
+                                        objArr[i, 0] = "No";
+                                    }
+                                    else
+                                    {
+                                        objArr[i, 0] = "Yes";
                                     }
                                 }
 

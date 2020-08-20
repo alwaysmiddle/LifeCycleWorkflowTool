@@ -56,7 +56,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             FinalWbInitialization();
 
             excelApp.Calculation = XlCalculation.xlCalculationManual;
-            excelApp.Visible = false;
+            excelApp.Visible = true;
 
             try
             {
@@ -64,9 +64,9 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 string dateAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.DateAddress;
                 summaryWsWip.Range[dateAddress].Value = _theBaySettings.OutputDate.ToOADate();
 
-                WipBitReportOp();
-                WipNosCombinedOp();
-                WipInactiveUpcOp();
+                //WipBitReportOp();
+                //WipNosCombinedOp();
+                //WipInactiveUpcOp();
                 WipWorkflowOp();
 
                 excelApp.Calculate();
