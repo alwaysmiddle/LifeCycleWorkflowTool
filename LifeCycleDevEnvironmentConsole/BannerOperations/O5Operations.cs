@@ -70,7 +70,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
                 excelApp.Calculate();
 
-                WipWbFormatAsValuesOnly(false);
+                WipWbFormatAsValuesOnly(true);
 
                 wipWb.Save();
 
