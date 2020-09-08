@@ -105,7 +105,7 @@ namespace LifeCycleDevEnvironmentConsole
                 inputFilenameInactiveUpc: theBayInput3,
                 inputFilenameNosCombined: theBayInput4,
                 worksheetSettings: GenerateDefaultSettings.GenerateTheBayDefault(),
-                outputDate: new DateTime(2020, 6, 15)
+                outputDate: new DateTime(2020, 9, 8)
                 );
 
             Console.WriteLine("Starting TheBay Operation");

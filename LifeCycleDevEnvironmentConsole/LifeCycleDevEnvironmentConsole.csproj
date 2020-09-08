@@ -99,10 +99,10 @@
     <None Include="WorkFlow Data\TheBay\Bay Workflow Training.docx" />
     <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Final_Template_2020.xlsx" />
     <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Wip_Template_2020.xlsm" />
-    <None Include="WorkFlow Data\TheBay\Test Data\BAY Ecomm by Colour Count 6.15.20.xlsx" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Inactive UPC 2020-06-15T0846.csv" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay NOS combined 2020-06-15T0845.csv" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Workflow and Not On Site 2020-06-15T0838.csv" />
+    <None Include="WorkFlow Data\TheBay\Test Data\9.8 MIS-IB004A.2 - LT-Ecomm by Colour Count %286%29.xlsx" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Inactive UPC 2020-09-08T0910.csv" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay NOS combined 2020-09-08T0910.csv" />
+    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Workflow and Not On Site 2020-09-08T0902.csv" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
