@@ -31,7 +31,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
             else if (fInfo.Extension.Equals(".csv"))
             {
                 excelConnString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
-                "Extended Properties=\"Text;HDR=Yes;FORMAT=Delimited;IMEX=1\"", Path.GetDirectoryName(filePath));
+                "Extended Properties=\"Text;HDR=YES;FORMAT=Delimited;IMEX=1\"", Path.GetDirectoryName(filePath));
             }
             else
             {
