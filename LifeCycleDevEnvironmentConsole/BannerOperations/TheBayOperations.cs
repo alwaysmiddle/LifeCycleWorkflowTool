@@ -182,7 +182,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             System.Data.DataTable templateDataTable = new System.Data.DataTable();
 
             BitReportHandler bitReport = new BitReportHandler(_theBaySettings.InputFilenameBitReport);
-            templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.OutputFileFullnameWip, inventoryValueWsWip.Name);
+            templateDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_theBaySettings.OutputFileFullnameWip, inventoryValueWsWip.Name);
             inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
 
             string writingAddress = string.Format("A{0}", _theBayWorksheetSettings.BitreportSettings.WipSettings.WritingRow);
@@ -195,7 +195,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         {
             System.Data.DataTable inputDataTable = new System.Data.DataTable();
 
-            inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameNosCombined, 1);
+            inputDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_theBaySettings.InputFilenameNosCombined, 1);
 
             inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
             inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);

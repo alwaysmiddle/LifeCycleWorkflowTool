@@ -1,233 +1,182 @@
-﻿using System;
+﻿using ExcelDataReader;
+using LifeCycleDevEnvironmentConsole.ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-
-
+using System.Text.RegularExpressions;
 
 namespace LifeCycleDevEnvironmentConsole.Utilities
 {
     public static class ExcelUtilities
     {
         /// <summary>
-        /// Read excelfile using oledb into datatable. Capable of reading excel file format xls, xlsx, xlsm, xlsb, csv.
+        /// Read excelfile using exceldatareader dependency into datatable. Capable of reading excel file format xls, xlsx, xlsm, xlsb, csv.
         /// </summary>
-        /// <param name="filePath">Accepts .xls, .xlsx, .csv</param>
-        /// <param name="worksheetNumber">Worksheet index starts at 1.</param>
-        /// <returns></returns>
-        public static System.Data.DataTable OledbExcelFileAsTable(string filePath, int worksheetNumber = 1, string rangeAddress = "")
+        public static System.Data.DataTable ReadExcelDataFileAsTable(string filePath, int worksheetNum = 1, string startRange = "")
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
 
-            string excelConnString = "Provider=Microsoft.{0}.OLEDB.{1};Data Source={2};Extended Properties=\"Excel {3};HDR=YES;IMEX=1\"";
+            DataSet result;
+
             FileInfo fInfo = new FileInfo(filePath);
-            if (fInfo.Extension.Equals(".xls"))
+            if (fInfo.Extension.Equals(".csv"))
             {
-                excelConnString = string.Format(excelConnString, "Jet", "4.0", filePath, "8.0");
-            }
-            else if (fInfo.Extension.Equals(".csv"))
-            {
-                excelConnString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
-                "Extended Properties=\"Text;HDR=YES;FORMAT=Delimited;IMEX=1\"", Path.GetDirectoryName(filePath));
-            }
-            else
-            {
-                excelConnString = string.Format(excelConnString, "Ace", "12.0", filePath, "12.0");
-            }
-
-
-            #region Create Connection to Excel work book 
-            using (OleDbConnection excelConnection = new OleDbConnection(excelConnString))
-            {
-                string sql;
-
-                if (fInfo.Extension.Equals(".csv"))
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    sql = string.Format(@"SELECT * FROM [{0}]", Path.GetFileName(filePath));
+                    using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                    {
+                        result = reader.AsDataSet();
+                    }
+                }
+                result.Tables[0].RemoveEmptyColumns();
+                result.Tables[0].AcceptChanges();
+
+                return result.Tables[0];
+            }
+            else if (fInfo.Extension.Equals(".xls") || fInfo.Extension.Equals(".xlsx") || fInfo.Extension.Equals(".xlsb") || fInfo.Extension.Equals(".xlsm"))
+            {
+                //Config for ExcelDatareader
+                ExcelDataSetConfiguration setConfig = new ExcelDataSetConfiguration();
+                ExcelDataTableConfiguration tableConfig = new ExcelDataTableConfiguration();
+
+                setConfig.UseColumnDataType = true;
+                if (worksheetNum != 1)
+                {
+                    //filter on the specific worksheetname, expect 1 worksheetname per function call.
+                    setConfig.FilterSheet = (tableReader, sheetIndex) => (sheetIndex == worksheetNum);
+                }
+
+                tableConfig.EmptyColumnNamePrefix = "EmptyColumn";
+                tableConfig.UseHeaderRow = true;
+
+                if (startRange != "")
+                {
+                    var match = Regex.Match(startRange, @"(?<col>[A-Z]+)(?<row>\d+)");
+                    var colStr = match.Groups["col"].ToString();
+                    var fromCol = colStr.Select((t, i) => (colStr[i] - 64) * Math.Pow(26, colStr.Length - i - 1)).Sum();
+                    var fromRow = int.Parse(match.Groups["row"].ToString());
+
+                    int j = 0;
+                    tableConfig.FilterRow = rowReader => fromRow <= ++j - 1;
+                    tableConfig.FilterColumn = (rowReader, colIndex) => fromCol <= colIndex;
+                }
+
+                setConfig.ConfigureDataTable = (tableReader) => tableConfig;
+
+
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                    {
+                        result = reader.AsDataSet(setConfig);
+                    }
+                }
+
+                //This function never expects to return whole workbook as dataset.
+                if (result.Tables.Count != 0)
+                {
+                    result.Tables[0].RemoveEmptyColumns();
+                    result.Tables[0].AcceptChanges();
+
+                    return result.Tables[0];
                 }
                 else
                 {
-                    excelConnection.Open();
-                    var schemaTable = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                    if (schemaTable.Rows.Count < worksheetNumber) throw new ArgumentException("The worksheet number provided cannot be found in the spreadsheet");
-                    string worksheet = schemaTable.Rows[worksheetNumber - 1]["table_name"].ToString().Replace("'", "").Replace("$", "");
-                    excelConnection.Close();
-
-                    if (rangeAddress != "")
-                    {
-                        rangeAddress = rangeAddress.Replace("$", "");
-                    }
-
-                    sql = String.Format("select * from [{0}${1}]", worksheet, rangeAddress);
+                    throw new ArgumentException("The worksheet name supplied cannot be found in the spreadsheet worksheets");
                 }
-
-                //Create OleDbCommand to fetch data from Excel 
-                using (OleDbCommand cmd = new OleDbCommand(sql, excelConnection))
-                {
-                    try
-                    {
-                        System.Data.DataTable table = new System.Data.DataTable();
-                        using (OleDbDataAdapter oledata = new OleDbDataAdapter(cmd))
-                        {
-                            oledata.Fill(table);
-                        }
-                        return table;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                        return null;
-                    }
-                }
-            }
-            #endregion
-        }
-
-        public static System.Data.DataTable ExcelDataAsTable(string filePath, int worksheetNumber = 1, string rangeAddress = "")
-        {
-            if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
-
-            string excelConnString = "Provider=Microsoft.{0}.OLEDB.{1};Data Source={2};Extended Properties=\"Excel {3};HDR=YES;IMEX=1\"";
-            FileInfo fInfo = new FileInfo(filePath);
-            if (fInfo.Extension.Equals(".xls"))
-            {
-                excelConnString = string.Format(excelConnString, "Jet", "4.0", filePath, "8.0");
-            }
-            else if (fInfo.Extension.Equals(".csv"))
-            {
-                excelConnString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
-                "Extended Properties=\"Text;HDR=Yes;FORMAT=Delimited\"", Path.GetDirectoryName(filePath));
             }
             else
             {
-                excelConnString = string.Format(excelConnString, "Ace", "12.0", filePath, "12.0");
+                Console.WriteLine("Unsupported format for file {0}", filePath);
+                return null;
             }
-
-
-            #region Create Connection to Excel work book 
-            using (OleDbConnection excelConnection = new OleDbConnection(excelConnString))
-            {
-                string sql;
-
-                if (fInfo.Extension.Equals(".csv"))
-                {
-                    sql = string.Format(@"SELECT * FROM [{0}]", Path.GetFileName(filePath));
-                }
-                else
-                {
-                    excelConnection.Open();
-                    var schemaTable = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                    if (schemaTable.Rows.Count < worksheetNumber) throw new ArgumentException("The worksheet number provided cannot be found in the spreadsheet");
-                    string worksheet = schemaTable.Rows[worksheetNumber - 1]["table_name"].ToString().Replace("'", "").Replace("$", "");
-                    excelConnection.Close();
-
-                    if (rangeAddress != "")
-                    {
-                        rangeAddress = rangeAddress.Replace("$", "");
-                    }
-
-                    sql = String.Format("select * from [{0}${1}]", worksheet, rangeAddress);
-                }
-
-                //Create OleDbCommand to fetch data from Excel 
-                using (OleDbCommand cmd = new OleDbCommand(sql, excelConnection))
-                {
-                    try
-                    {
-                        System.Data.DataTable table = new System.Data.DataTable();
-                        using (OleDbDataAdapter oledata = new OleDbDataAdapter(cmd))
-                        {
-                            oledata.Fill(table);
-                        }
-                        return table;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                        return null;
-                    }
-                }
-            }
-            #endregion
         }
 
         /// <summary>
-        /// Read excelfile using oledb into datatable. Capable of reading excel file format xls, xlsx, xlsm, xlsb, csv.
+        /// Read excelfile using exceldatareader dependency into datatable. Capable of reading excel file format xls, xlsx, xlsm, xlsb, csv.
         /// </summary>
-        /// <param name="filePath">Accepts .xls, .xlsx .xlsb .csv</param>
-        /// <param name="worksheetNumber">Worksheet index starts at 1.</param>
-        /// <returns></returns>
-        public static System.Data.DataTable OledbExcelFileAsTable(string filePath, string worksheetName = "Sheet1", string rangeAddress = "")
+        public static System.Data.DataTable ReadExcelDataFileAsTable(string filePath, string worksheetName = "", string startRange = "")
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
 
-            string excelConnString = "Provider=Microsoft.{0}.OLEDB.{1};Data Source={2};Extended Properties=\"Excel {3};HDR=YES;IMEX=1\"";
+            DataSet result;
+
             FileInfo fInfo = new FileInfo(filePath);
-            if (fInfo.Extension.Equals(".xls"))
+            if (fInfo.Extension.Equals(".csv"))
             {
-                excelConnString = String.Format(excelConnString, "Jet", "4.0", filePath, "8.0");
-            }else if (fInfo.Extension.Equals(".csv"))
-            {
-                excelConnString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
-                "Extended Properties=\"Text;HDR=YES;FORMAT=Delimited;\"", Path.GetDirectoryName(filePath));
-            }
-            else
-            {
-                excelConnString = String.Format(excelConnString, "Ace", "12.0", filePath, "12.0");
-            }
-
-            #region Create Connection to Excel work book 
-            using (OleDbConnection excelConnection = new OleDbConnection(excelConnString))
-            {
-                string sql;
-
-                if (fInfo.Extension.Equals(".csv"))
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    sql = string.Format(@"SELECT * FROM [{0}]", Path.GetFileName(filePath));
+                    using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                    {
+                        result = reader.AsDataSet();
+                    }
+                }
+                result.Tables[0].RemoveEmptyColumns();
+                result.Tables[0].AcceptChanges();
+
+                return result.Tables[0];
+            }
+            else if(fInfo.Extension.Equals(".xls") || fInfo.Extension.Equals(".xlsx") || fInfo.Extension.Equals(".xlsb") || fInfo.Extension.Equals(".xlsm"))
+            {
+                //Config for ExcelDatareader
+                ExcelDataSetConfiguration setConfig = new ExcelDataSetConfiguration();
+                ExcelDataTableConfiguration tableConfig = new ExcelDataTableConfiguration();
+
+                setConfig.UseColumnDataType = true;
+                if (worksheetName != "")
+                {
+                    //filter on the specific worksheetname, expect 1 worksheetname per function call.
+                    setConfig.FilterSheet = (tableReader, sheetIndex) => (string.Equals(tableReader.Name, worksheetName, StringComparison.OrdinalIgnoreCase));
+                }
+                
+                tableConfig.EmptyColumnNamePrefix = "EmptyColumn";
+                tableConfig.UseHeaderRow = true;
+
+                if(startRange != "")
+                {
+                    var match = Regex.Match(startRange, @"(?<col>[A-Z]+)(?<row>\d+)");
+                    var colStr = match.Groups["col"].ToString();
+                    var fromCol = colStr.Select((t, i) => (colStr[i] - 64) * Math.Pow(26, colStr.Length - i - 1)).Sum();
+                    var fromRow = int.Parse(match.Groups["row"].ToString());
+
+                    int j = 0;
+                    tableConfig.FilterRow = rowReader => fromRow <= ++j - 1;
+                    tableConfig.FilterColumn = (rowReader, colIndex) => fromCol <= colIndex;
+                }
+
+                setConfig.ConfigureDataTable = (tableReader) => tableConfig;
+
+
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                    {
+                        result = reader.AsDataSet(setConfig);
+                    }
+                }
+
+                //This function never expects to return whole workbook as dataset.
+                if (result.Tables.Count != 0)
+                {
+                    result.Tables[0].RemoveEmptyColumns();
+                    result.Tables[0].AcceptChanges();
+
+                    return result.Tables[0];
                 }
                 else
                 {
-                    excelConnection.Open();
-                    var schemaTable = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-
-                    worksheetName = worksheetName.Replace("'", "");
-                    bool sheetExists = schemaTable.AsEnumerable().Any(r => r.Field<string>("table_name").IndexOf(worksheetName, StringComparison.OrdinalIgnoreCase) >= 0);
-                    if (!sheetExists) throw new ArgumentException("The worksheet name supplied cannot be found in the spreadsheet worksheets");
-
-                    //excelConnection.Close();
-
-                    if (rangeAddress != "")
-                    {
-                        rangeAddress = rangeAddress.Replace("$", "");
-                    }
-
-                    sql = String.Format("select * from [{0}${1}]", worksheetName, rangeAddress);
+                    throw new ArgumentException("The worksheet name supplied cannot be found in the spreadsheet worksheets");
                 }
-
-                //Create OleDbCommand to fetch data from Excel 
-                using (OleDbCommand cmd = new OleDbCommand(sql, excelConnection))
-                {
-                    try
-                    {
-                        System.Data.DataTable table = new System.Data.DataTable();
-                        using (OleDbDataAdapter oledata = new OleDbDataAdapter(cmd))
-                        {
-                            oledata.Fill(table);
-                        }
-                        return table;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                        return null;
-                    }
-                }
-                
             }
-            #endregion
+            else
+            {
+                Console.WriteLine("Unsupported format for file {0}", filePath);
+                return null;
+            }
         }
 
         /// <summary>
@@ -257,5 +206,6 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
 
             return destName;
         }
+        
     }
 }

@@ -89,7 +89,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 excelProcess.Dispose();
             }
 
-            _dt = ExcelUtilities.OledbExcelFileAsTable(excelFileName, 1);
+            _dt = ExcelUtilities.ReadExcelDataFileAsTable(excelFileName, 1);
 
             //Console.WriteLine(DumpDataTable(_dt));
         }
