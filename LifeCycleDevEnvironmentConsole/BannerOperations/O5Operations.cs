@@ -65,7 +65,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 WipInactiveUpcOp();
                 WipWorkflowOp();
 
-                O5SpeicalRule1(detailsProductWsWip);
+                O5SpeicalRule1(detailsProductWsWip, _o5WorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
 
                 excelApp.Calculate();
 
@@ -101,15 +101,15 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         
         }
         //TODO O5 change reading size
-        private void O5SpeicalRule1(Worksheet ws)
+        private void O5SpeicalRule1(Worksheet ws, int headerRow)
         {
-            Range furAttributeRange = ws.FindColumnInHeaderRow<string>("Active_PIM", 7);
+            Range furAttributeRange = ws.FindColumnInHeaderRow<string>("Active_PIM", headerRow);
             System.Data.DataTable dt = new System.Data.DataTable();
 
             if (furAttributeRange.Cells.Count > 1)
             {
                 string writeToAddress = furAttributeRange.Cells[2, 1].Address; //cell under rework column name
-                dt = ExcelUtilities.OledbExcelFileAsTable(ws.Parent.Fullname, ws.Name, furAttributeRange.Resize[ColumnSize: 43].Address);
+                dt = ExcelUtilities.ReadWorksheetRangeAsTable(ws, furAttributeRange.Resize[ColumnSize: 43].Address);
 
                 var rowToUpdate = dt.AsEnumerable()
                     .Where(r => r.Field<string>("Active_PIM") == "Yes" && r.Field<string>("ReadyforProd_PIM") == "Yes" &&
@@ -242,7 +242,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 outputRow: _o5WorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
 
             detailsProductWsWip.Calculate();
-            CommonOperations.ReworkFurRule(detailsProductWsWip);
+            CommonOperations.ReworkFurRule(detailsProductWsWip, _o5WorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
         }
         #endregion
 

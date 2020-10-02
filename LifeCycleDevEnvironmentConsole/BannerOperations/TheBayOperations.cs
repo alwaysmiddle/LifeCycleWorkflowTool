@@ -248,7 +248,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             inputDataTable = null;
             detailsProductWsWip.Calculate();
 
-            CommonOperations.ReworkFurRule(detailsProductWsWip);
+            CommonOperations.ReworkFurRule(detailsProductWsWip, _theBayWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
         }
         #endregion
 

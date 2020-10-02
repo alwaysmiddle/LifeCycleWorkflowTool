@@ -11,15 +11,15 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 {
     public static class CommonOperations
     {
-        public static void ReworkFurRule(Worksheet ws)
+        public static void ReworkFurRule(Worksheet ws, int headerRow)
         {
-            Range furAttributeRange = ws.FindColumnInHeaderRow<string>("ReWork_Status", 7);
+            Range furAttributeRange = ws.FindColumnInHeaderRow<string>("ReWork_Status", headerRow);
             System.Data.DataTable dt = new System.Data.DataTable();
 
             if (furAttributeRange.Cells.Count > 1)
             {
                 string writeToAddress = furAttributeRange.Cells[2, 1].Address; //cell under rework column name
-                dt = ExcelUtilities.OledbExcelFileAsTable(ws.Parent.Fullname, ws.Name, furAttributeRange.Resize[ColumnSize: 5].Address);
+                dt = ExcelUtilities.ReadWorksheetRangeAsTable(ws, furAttributeRange.Resize[ColumnSize: 5].Address);
 
                 var rowToUpdate = dt.AsEnumerable()
                     .Where(r => r.Field<string>("ReWork_Status") == "Re-Work: Complete Fur Attributes"

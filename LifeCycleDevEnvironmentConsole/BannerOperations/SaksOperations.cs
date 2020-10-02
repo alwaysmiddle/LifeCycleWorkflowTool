@@ -94,7 +94,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                     outputRow: _saksWorksheetSettings.WorkflowSettings.WipSettings.WritingRow);
                 inputDataTable = null;
                 detailsProductWs.Calculate();
-                CommonOperations.ReworkFurRule(detailsProductWs);
+                CommonOperations.ReworkFurRule(detailsProductWs, _saksWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
 
                 excelApp.Calculate();
                 inactiveWs.ConvertAllDataUnderRowToValues(_saksWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
