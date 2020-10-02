@@ -19,9 +19,12 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
         public static System.Data.DataTable ReadExcelDataFileAsTable(string filePath, int worksheetNum = 1, string startRange = "")
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
-            if (!IsValidExcelCellAddress(startRange)) throw new ArgumentException(String.Format("{0} is not a valid single cell address", startRange));
+            if (startRange != "") {
+                if(!IsValidExcelCellAddress(startRange)) throw new ArgumentException(String.Format("{0} is not a valid single cell address", startRange));
+            }
 
             DataSet result;
+            const string EMPTY_COLUMN_PREFIX = "Empty_Column";
 
             FileInfo fInfo = new FileInfo(filePath);
             if (fInfo.Extension.Equals(".csv"))
@@ -30,12 +33,20 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
                 {
                     using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
                     {
-                        result = reader.AsDataSet();
+                        result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                        {
+                            UseColumnDataType = true,
+                            ConfigureDataTable = (tableReader) => new ExcelDataTableConfiguration()
+                            {
+                                EmptyColumnNamePrefix = EMPTY_COLUMN_PREFIX,
+                                UseHeaderRow = true
+                            }
+                        });
                     }
                 }
-                result.Tables[0].RemoveEmptyColumns();
-                result.Tables[0].AcceptChanges();
 
+                result.Tables[0].RemoveColumnsWithPrefix(EMPTY_COLUMN_PREFIX);
+                
                 return result.Tables[0];
             }
             else if (fInfo.Extension.Equals(".xls") || fInfo.Extension.Equals(".xlsx") || fInfo.Extension.Equals(".xlsb") || fInfo.Extension.Equals(".xlsm"))
@@ -51,7 +62,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
                     setConfig.FilterSheet = (tableReader, sheetIndex) => (sheetIndex == worksheetNum);
                 }
 
-                tableConfig.EmptyColumnNamePrefix = "EmptyColumn";
+                tableConfig.EmptyColumnNamePrefix = EMPTY_COLUMN_PREFIX;
                 tableConfig.UseHeaderRow = true;
 
                 if (startRange != "")
@@ -71,7 +82,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
 
                 using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
                     {
                         result = reader.AsDataSet(setConfig);
                     }
@@ -80,8 +91,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
                 //This function never expects to return whole workbook as dataset.
                 if (result.Tables.Count != 0)
                 {
-                    result.Tables[0].RemoveEmptyColumns();
-                    result.Tables[0].AcceptChanges();
+                    result.Tables[0].RemoveColumnsWithPrefix(EMPTY_COLUMN_PREFIX);
 
                     return result.Tables[0];
                 }
@@ -103,9 +113,13 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
         public static System.Data.DataTable ReadExcelDataFileAsTable(string filePath, string worksheetName = "", string startRange = "")
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
-            if (!IsValidExcelCellAddress(startRange)) throw new ArgumentException(String.Format("{0} is not a valid single cell address", startRange));
+            if (startRange != "")
+            {
+                if (!IsValidExcelCellAddress(startRange)) throw new ArgumentException(String.Format("{0} is not a valid single cell address", startRange));
+            }
 
             DataSet result;
+            const string EMPTY_COLUMN_PREFIX = "Empty_Column";
 
             FileInfo fInfo = new FileInfo(filePath);
             if (fInfo.Extension.Equals(".csv"))
@@ -114,11 +128,19 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
                 {
                     using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
                     {
-                        result = reader.AsDataSet();
+                        result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                        {
+                            UseColumnDataType = true,
+                            ConfigureDataTable = (tableReader) => new ExcelDataTableConfiguration()
+                            {
+                                EmptyColumnNamePrefix = EMPTY_COLUMN_PREFIX,
+                                UseHeaderRow = true
+                            }
+                        });
                     }
                 }
-                result.Tables[0].RemoveEmptyColumns();
-                result.Tables[0].AcceptChanges();
+
+                result.Tables[0].RemoveColumnsWithPrefix(EMPTY_COLUMN_PREFIX);
 
                 return result.Tables[0];
             }
@@ -135,7 +157,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
                     setConfig.FilterSheet = (tableReader, sheetIndex) => (string.Equals(tableReader.Name, worksheetName, StringComparison.OrdinalIgnoreCase));
                 }
                 
-                tableConfig.EmptyColumnNamePrefix = "EmptyColumn";
+                tableConfig.EmptyColumnNamePrefix = EMPTY_COLUMN_PREFIX;
                 tableConfig.UseHeaderRow = true;
 
                 if(startRange != "")
@@ -156,7 +178,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
 
                 using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
                     {
                         result = reader.AsDataSet(setConfig);
                     }
@@ -165,8 +187,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
                 //This function never expects to return whole workbook as dataset.
                 if (result.Tables.Count != 0)
                 {
-                    result.Tables[0].RemoveEmptyColumns();
-                    result.Tables[0].AcceptChanges();
+                    result.Tables[0].RemoveColumnsWithPrefix(EMPTY_COLUMN_PREFIX);
 
                     return result.Tables[0];
                 }

@@ -55,7 +55,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             FinalWbInitialization();
 
             excelApp.Calculation = XlCalculation.xlCalculationManual;
-            excelApp.Visible = true;
+            excelApp.Visible = false;
 
             try
             {
@@ -63,14 +63,14 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 string dateAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.DateAddress;
                 summaryWsWip.Range[dateAddress].Value = _theBaySettings.OutputDate.ToOADate();
 
-                //WipBitReportOp();
-                //WipNosCombinedOp();
-                //WipInactiveUpcOp();
+                WipBitReportOp();
+                WipNosCombinedOp();
+                WipInactiveUpcOp();
                 WipWorkflowOp();
 
                 excelApp.Calculate();
 
-                WipWbFormatAsValuesOnly(true);
+                WipWbFormatAsValuesOnly(false);
 
                 wipWb.Save();
 
@@ -181,7 +181,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             System.Data.DataTable templateDataTable = new System.Data.DataTable();
 
             BitReportHandler bitReport = new BitReportHandler(_theBaySettings.InputFilenameBitReport);
-            templateDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_theBaySettings.OutputFileFullnameWip, inventoryValueWsWip.Name);
+            templateDataTable = ExcelUtilities.ReadWorksheetRangeAsTable(inventoryValueWsWip, inventoryValueWsWip.UsedRange.Address);
             inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
 
             string writingAddress = string.Format("A{0}", _theBayWorksheetSettings.BitreportSettings.WipSettings.WritingRow);

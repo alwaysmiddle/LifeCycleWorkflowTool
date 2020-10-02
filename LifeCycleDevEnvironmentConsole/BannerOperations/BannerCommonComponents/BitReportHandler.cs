@@ -90,7 +90,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
             _dt = ExcelUtilities.ReadExcelDataFileAsTable(excelFileName, 1);
 
-            //Console.WriteLine(DumpDataTable(_dt));
+            Console.WriteLine(DumpDataTable(_dt));
         }
 
         /// <summary>
@@ -100,15 +100,15 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         public System.Data.DataTable JoinWithDataTable(System.Data.DataTable table)
         {
             var rowsToDelete = from row in table.AsEnumerable()
-                               where row["DMM"].ToString().Equals("Total", StringComparison.OrdinalIgnoreCase)
+                               where row["DMM"].ToString().IndexOf("Total", StringComparison.OrdinalIgnoreCase) >= 0
                                select row;
 
             //delete total row, first store it in array to only process data in tables.
             object[] totalRow = rowsToDelete.FirstOrDefault().ItemArray.ToArray();
 
-            foreach (DataRow r in rowsToDelete)
+            foreach (DataRow r in rowsToDelete.ToList())
             {
-                r.Delete();
+                table.Rows.Remove(r);
             }
             table.AcceptChanges();
 
@@ -122,7 +122,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             _dt.AsEnumerable().
                 Where(row => row["DMM"] == DBNull.Value || String.IsNullOrEmpty(row["DMM"].ToString().Trim()))
                             .ToList()
-                            .ForEach(row => row.Delete());
+                            .ForEach(row => _dt.Rows.Remove(row));
             _dt.AcceptChanges();
 
             //Console.WriteLine(DumpDataTable(_dt));

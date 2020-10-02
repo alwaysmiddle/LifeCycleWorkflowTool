@@ -33,10 +33,10 @@ namespace LifeCycleDevEnvironmentConsole
 
             string theBayPath = @"WorkFlow Data\TheBay\";
             //The Bay
-            string theBayInput1 = Path.Combine(exeDir, theBayPath , @"Test Data\SFCC_Bay Workflow and Not On Site 2020-06-15T0838.csv");
-            string theBayInput2 = Path.Combine(exeDir, theBayPath, @"Test Data\BAY Ecomm by Colour Count 6.15.20.xlsx");
-            string theBayInput3 = Path.Combine(exeDir, theBayPath, @"Test Data\SFCC_Bay Inactive UPC 2020-06-15T0846.csv");
-            string theBayInput4 = Path.Combine(exeDir, theBayPath, @"Test Data\SFCC_Bay NOS combined 2020-06-15T0845.csv");
+            string theBayInput1 = Path.Combine(exeDir, theBayPath , @"Test Data\SFCC_Bay Workflow and Not On Site 2020-09-24T0905.csv");
+            string theBayInput2 = Path.Combine(exeDir, theBayPath, @"Test Data\9.24 MIS-IB004A.2 - LT-Ecomm by Colour Count (6).xlsx");
+            string theBayInput3 = Path.Combine(exeDir, theBayPath, @"Test Data\SFCC_Bay Inactive UPC.V2 2020-09-24T0906.csv");
+            string theBayInput4 = Path.Combine(exeDir, theBayPath, @"Test Data\SFCC_Bay NOS combined 2020-09-24T0906.csv");
 
 
             string templateSaksWip = Path.Combine(exeDir, saksPath, @"Template\Daily Workflow_Saks_Wip_Template_2020.xlsm");
@@ -105,7 +105,7 @@ namespace LifeCycleDevEnvironmentConsole
                 inputFilenameInactiveUpc: theBayInput3,
                 inputFilenameNosCombined: theBayInput4,
                 worksheetSettings: GenerateDefaultSettings.GenerateTheBayDefault(),
-                outputDate: new DateTime(2020, 9, 8)
+                outputDate: new DateTime(2020, 9, 24)
                 );
 
             Console.WriteLine("Starting TheBay Operation");

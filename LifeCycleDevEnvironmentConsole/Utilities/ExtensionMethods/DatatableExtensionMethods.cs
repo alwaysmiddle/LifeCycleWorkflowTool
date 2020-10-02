@@ -112,6 +112,17 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
             dt.CaseSensitive = caseSensitivity;
         }
 
+        public static void RemoveColumnsWithPrefix(this System.Data.DataTable table, string columnPrefix)
+        {
+            for (int i = 0; i < table.Columns.Count - 1; i++)
+            {
+                if(table.Columns[i].ColumnName.IndexOf(columnPrefix, StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    table.Columns.RemoveAt(i);
+                }
+            }
+        }
+
         public static void RemoveEmptyColumns(this System.Data.DataTable table, int columnStartIndex = 0)
         {
             for (int i = table.Columns.Count - 1; i >= columnStartIndex; i--)
