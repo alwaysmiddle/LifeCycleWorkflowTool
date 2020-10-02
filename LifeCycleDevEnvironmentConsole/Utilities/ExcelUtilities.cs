@@ -200,35 +200,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
 
             object[,] data = sheetRange.Value2;
 
-            // Loading columns into datatable
-            for (int i = 1; i <= data.GetLength(1); i++)
-            {
-                var Column = new DataColumn();
-                Column.DataType = System.Type.GetType("System.Object");
-                if (data[1, i] == null || data[1, i] == DBNull.Value)
-                {
-                    Column.ColumnName = "Empty_Column" + i.ToString();
-                }
-                else
-                {
-                    Column.ColumnName = data[1, i].ToString();
-                }
-                dt.Columns.Add(Column);
-            }
-
-            // Filling in Data
-
-            for (int rCnt = 2; rCnt <= data.GetLength(0); rCnt++)
-            {
-                DataRow row = dt.NewRow();
-
-                for (int cCnt = 1; cCnt <= data.GetLength(1); cCnt++)
-                {
-                    row[cCnt - 1] = data[rCnt, cCnt];
-                }
-
-                dt.Rows.Add(row);
-            }
+            dt = ArraytoDatatable(data, useFirstRowAsHeader: true, useOneBasedIndex: true);
 
             return dt;
         }
@@ -323,6 +295,78 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
 
             return match;
         }
+
+        public static System.Data.DataTable ArraytoDatatable(Object[,] data, bool useFirstRowAsHeader = true, bool useOneBasedIndex = false)
+        {
+            System.Data.DataTable dt = new System.Data.DataTable();
+
+            int newI;
+
+            if (useFirstRowAsHeader)
+            {
+                string columnName;
+                newI = 1;
+
+                // Loading columns into datatable
+                for (int k = 0; k < data.GetLength(1); k++)
+                {
+                    int rowNum;
+                    int newK;
+                    if (useOneBasedIndex)
+                    {
+                        rowNum = 1;
+                        newK = k + 1;
+                    }
+                    else
+                    {
+                        rowNum = 0;
+                        newK = k;
+                    }
+
+                    if (data[rowNum, newK] == null || data[rowNum, newK] == DBNull.Value)
+                    {
+                        columnName = "Empty_Column" + (k + 1).ToString();
+                    }
+                    else
+                    {
+                        columnName = data[rowNum, newK].ToString();
+                    }
+
+                    dt.Columns.Add(columnName, System.Type.GetType("System.Object"));
+                }
+            }
+            else
+            {
+                newI = 0;
+                for (int i = 0; i < data.GetLength(1); i++)
+                {
+                    dt.Columns.Add("Column" + (i + 1), System.Type.GetType("System.Object"));
+                }
+            }
+
+
+            // Filling in Data
+            for (var i = newI; i < data.GetLength(0); ++i)
+            {
+                DataRow row = dt.NewRow();
+                for (var j = 0; j < data.GetLength(1); ++j)
+                {
+                    if (useOneBasedIndex)
+                    {
+                        row[j] = data[(i + 1), (j + 1)];
+                    }
+                    else
+                    {
+                        row[j] = data[i, j];
+                    }
+
+                }
+                dt.Rows.Add(row);
+            }
+
+            return dt;
+        }
+
 
         /// <summary>
         /// Test if an object is a value.
