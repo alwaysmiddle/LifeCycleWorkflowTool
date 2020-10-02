@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using ProcessManagement;
 using System.Diagnostics;
-using LifeCycleDevEnvironmentConsole.ExtensionMethods;
 using LifeCycleDevEnvironmentConsole.Utilities;
 
 namespace LifeCycleDevEnvironmentConsole.BannerOperations

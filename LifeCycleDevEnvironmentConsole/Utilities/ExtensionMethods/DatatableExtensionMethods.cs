@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
+namespace LifeCycleDevEnvironmentConsole.Utilities
 {
     public static class DatatableExtensionMethods
     {

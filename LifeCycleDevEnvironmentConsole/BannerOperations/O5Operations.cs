@@ -1,5 +1,4 @@
-﻿using LifeCycleDevEnvironmentConsole.ExtensionMethods;
-using LifeCycleDevEnvironmentConsole.Settings;
+﻿using LifeCycleDevEnvironmentConsole.Settings;
 using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
 using LifeCycleDevEnvironmentConsole.Utilities;
 using Microsoft.Office.Interop.Excel;
@@ -203,7 +202,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
             //Bit report
             BitReportHandler bitReport = new BitReportHandler(_o5Settings.InputFilenameBitReport);
-            templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_o5Settings.OutputFileFullnameWip, inventoryValueWsWip.Name);
+            templateDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_o5Settings.OutputFileFullnameWip, inventoryValueWsWip.Name);
             inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
 
             string writingAddress = string.Format("A{0}", _o5WorksheetSettings.BitreportSettings.WipSettings.WritingRow);
@@ -216,7 +215,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             System.Data.DataTable inputDataTable = new System.Data.DataTable();
 
             //Inactive UPC
-            inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_o5Settings.InputFilenameInactiveUpc, 1);
+            inputDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_o5Settings.InputFilenameInactiveUpc, 1);
 
             string writingAddress = string.Format("A{0}", _o5WorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
             inputDataTable.WriteToExcelSheets(inactiveWsWip, writingAddress, false);
@@ -232,7 +231,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             System.Data.DataTable inputDataTable = new System.Data.DataTable();
 
             //Workflow DM
-            inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_o5Settings.InputFilenameWorkflow, 1);
+            inputDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_o5Settings.InputFilenameWorkflow, 1);
 
             string writingAddress = string.Format("A{0}", _o5WorksheetSettings.WorkflowSettings.DataSourceSettings.WritingRow);
             inputDataTable.WriteToExcelSheets(detailsProductDataWsWip, writingAddress, true);

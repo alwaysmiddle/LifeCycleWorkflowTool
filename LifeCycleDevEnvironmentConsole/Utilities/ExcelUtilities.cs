@@ -1,5 +1,5 @@
 ﻿using ExcelDataReader;
-using LifeCycleDevEnvironmentConsole.ExtensionMethods;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,6 +19,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
         public static System.Data.DataTable ReadExcelDataFileAsTable(string filePath, int worksheetNum = 1, string startRange = "")
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
+            if (!IsValidExcelCellAddress(startRange)) throw new ArgumentException(String.Format("{0} is not a valid single cell address", startRange));
 
             DataSet result;
 
@@ -102,6 +103,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
         public static System.Data.DataTable ReadExcelDataFileAsTable(string filePath, string worksheetName = "", string startRange = "")
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
+            if (!IsValidExcelCellAddress(startRange)) throw new ArgumentException(String.Format("{0} is not a valid single cell address", startRange));
 
             DataSet result;
 
@@ -138,6 +140,7 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
 
                 if(startRange != "")
                 {
+                    startRange = startRange.Split(':')[0];
                     var match = Regex.Match(startRange, @"(?<col>[A-Z]+)(?<row>\d+)");
                     var colStr = match.Groups["col"].ToString();
                     var fromCol = colStr.Select((t, i) => (colStr[i] - 64) * Math.Pow(26, colStr.Length - i - 1)).Sum();
@@ -179,6 +182,148 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
             }
         }
 
+
+        /// <summary>
+        /// Read worksheet range as datatable.
+        /// </summary>
+        public static System.Data.DataTable ReadWorksheetRangeAsTable(Worksheet ws, string readingRange)
+        {
+            if (!IsValidExcelRangeAddress(readingRange))
+            {
+                //TODO error reading address from invalid range
+                return null;
+            }
+
+            System.Data.DataTable dt = new System.Data.DataTable();
+
+            Range sheetRange = ws.Range[readingRange];
+
+            object[,] data = sheetRange.Value2;
+
+            // Loading columns into datatable
+            for (int i = 1; i <= data.GetLength(1); i++)
+            {
+                var Column = new DataColumn();
+                Column.DataType = System.Type.GetType("System.Object");
+                if (data[1, i] == null || data[1, i] == DBNull.Value)
+                {
+                    Column.ColumnName = "Empty_Column" + i.ToString();
+                }
+                else
+                {
+                    Column.ColumnName = data[1, i].ToString();
+                }
+                dt.Columns.Add(Column);
+            }
+
+            // Filling in Data
+
+            for (int rCnt = 2; rCnt <= data.GetLength(0); rCnt++)
+            {
+                DataRow row = dt.NewRow();
+
+                for (int cCnt = 1; cCnt <= data.GetLength(1); cCnt++)
+                {
+                    row[cCnt - 1] = data[rCnt, cCnt];
+                }
+
+                dt.Rows.Add(row);
+            }
+
+            return dt;
+        }
+
+
+        /// <summary>
+        /// Complete column like address with top row and last row. There is optional start row
+        /// </summary>
+        public static string AutoCompleteExcelColumnRange(Worksheet ws, string excelAddress, int startRow = -1)
+        {
+            if (!IsValidExcelRangeAddress(excelAddress)) throw new ArgumentException(String.Format("{0} is not a valid excel range address", excelAddress));
+
+            string pattern = @"(\$?[A-Za-z]{1,3})\:(\$?[A-Za-z]{1,3})";
+
+            bool match = Regex.IsMatch(excelAddress, pattern);
+
+            if (match)
+            {
+                if (startRow == -1)
+                {
+                    startRow = ws.UsedRange.Cells[1, 1].Row;
+                }
+
+                string[] arr = excelAddress.Split(':');
+
+                int lastRow = ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row;
+
+                if (startRow < lastRow)
+                {
+                    excelAddress = arr[0] + startRow + ":" + arr[1] + lastRow;
+                }
+                else
+                {
+                    excelAddress = arr[0] + startRow + ":" + arr[1] + (++startRow);
+                }
+            }
+
+            return excelAddress;
+        }
+
+        /// <summary>
+        /// Expects excel range address in format like "AA1:BBB1000000", or "A:FD".
+        /// </summary>
+        public static bool IsValidExcelRangeAddress(string excelAddress)
+        {
+            string pattern = @"(\$?[A-Za-z]{1,3})(\$?[0-9]{1,7})\:(\$?[A-Za-z]{1,3})(\$?[0-9]{1,7})";
+            bool match = Regex.IsMatch(excelAddress, pattern);
+
+            //check for case where single cell address is written in range format, example: "E200:E200"
+            if (match)
+            {
+                string[] arr = excelAddress.Split(':');
+                if (string.Equals(arr[0], arr[1], comparisonType: StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                pattern = @"(\$?[A-Za-z]{1,3})\:(\$?[A-Za-z]{1,3})";
+
+                match = Regex.IsMatch(excelAddress, pattern);
+            }
+
+            return match;
+        }
+
+        /// <summary>
+        /// Expects single cell address in format like "AA150", or "A1:A1".
+        /// </summary>
+        public static bool IsValidExcelCellAddress(string excelAddress)
+        {
+            string pattern = @"(\$?[A-Za-z]{1,3})(\$?[0-9]{0,7})\:(\$?[A-Za-z]{1,3})(\$?[0-9]{0,7})";
+            bool match = Regex.IsMatch(excelAddress, pattern);
+
+            //check for case where single cell address is written in range format, example: "E200:E200"
+            if (match)
+            {
+                string[] arr = excelAddress.Split(':');
+                if (string.Equals(arr[0], arr[1], comparisonType: StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            pattern = @"(\$?[A-Za-z]{1,3})(\$?[0-9]{1,6})";
+            match = Regex.IsMatch(excelAddress, pattern);
+
+            return match;
+        }
+
         /// <summary>
         /// Test if an object is a value.
         /// </summary>
@@ -206,6 +351,5 @@ namespace LifeCycleDevEnvironmentConsole.Utilities
 
             return destName;
         }
-        
     }
 }

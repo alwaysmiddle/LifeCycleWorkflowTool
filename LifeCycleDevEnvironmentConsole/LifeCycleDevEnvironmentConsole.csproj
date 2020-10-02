@@ -78,8 +78,8 @@
     <Compile Include="Settings\OperationSettings\TheBayOperationSettings.cs" />
     <Compile Include="Settings\IO\SettingsIO.cs" />
     <Compile Include="Utilities\ExcelUtilities.cs" />
-    <Compile Include="ExtensionMethods\DatatableExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\WorksheetExtensionMethods.cs" />
+    <Compile Include="Utilities\ExtensionMethods\DatatableExtensionMethods.cs" />
+    <Compile Include="Utilities\ExtensionMethods\WorksheetExtensionMethods.cs" />
     <Compile Include="BannerOperations\BannerCommonComponents\FormulaRowHandler.cs" />
     <Compile Include="Settings\OperationSettings\OperationType\OperationTypeComponents\FinalSheetSettings.cs" />
     <Compile Include="Settings\OperationSettings\OperationType\OperationTypeComponents\WipSheetSettings.cs" />

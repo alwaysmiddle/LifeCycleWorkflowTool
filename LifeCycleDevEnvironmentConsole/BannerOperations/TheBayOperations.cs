@@ -1,5 +1,4 @@
-﻿using LifeCycleDevEnvironmentConsole.ExtensionMethods;
-using LifeCycleDevEnvironmentConsole.Settings;
+﻿using LifeCycleDevEnvironmentConsole.Settings;
 using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
 using LifeCycleDevEnvironmentConsole.Utilities;
 using Microsoft.Office.Interop.Excel;
@@ -214,7 +213,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
             System.Data.DataTable inputDataTable = new System.Data.DataTable();
 
             //Inactive UPC
-            inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameInactiveUpc, 1);
+            inputDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_theBaySettings.InputFilenameInactiveUpc, 1);
 
             inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
             inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);
@@ -234,7 +233,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
         {
             System.Data.DataTable inputDataTable = new System.Data.DataTable();
 
-            inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_theBaySettings.InputFilenameWorkflow, 1);
+            inputDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_theBaySettings.InputFilenameWorkflow, 1);
 
             inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleDivisionId, 27, 5);
             inputDataTable.UpdateValueOfTwoColumns<double>(specialRuleGroupId, specialRuleDivisionId, 28, 7, 28, 5);

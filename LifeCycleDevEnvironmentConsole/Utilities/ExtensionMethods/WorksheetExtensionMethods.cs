@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 
-namespace LifeCycleDevEnvironmentConsole.ExtensionMethods
+namespace LifeCycleDevEnvironmentConsole.Utilities
 {
     /// <summary>
     /// This is the extension class for various components needed for workflow project.

@@ -6,7 +6,6 @@ using System.IO;
 using Microsoft.Office.Interop.Excel;
 using System.Data;
 using ProcessManagement;
-using LifeCycleDevEnvironmentConsole.ExtensionMethods;
 using LifeCycleDevEnvironmentConsole.Utilities;
 using LifeCycleDevEnvironmentConsole.Settings;
 using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
@@ -60,7 +59,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 //Bit report
                 wipWb.Activate();
                 BitReportHandler bitReport = new BitReportHandler(_saksSettings.InputFilenameBitReport);
-                templateDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSettings.OutputFileFullnameWip, inventoryValueWs.Name);
+                templateDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_saksSettings.OutputFileFullnameWip, inventoryValueWs.Name);
                 inputDataTable = bitReport.JoinWithDataTable(templateDataTable);
                 
                 writingAddress = string.Format("A{0}", _saksWorksheetSettings.BitreportSettings.WipSettings.WritingRow);
@@ -71,7 +70,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 bitReport = null;
 
                 //Inactive UPC
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSettings.InputFilenameInactiveUpc, 1);
+                inputDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_saksSettings.InputFilenameInactiveUpc, 1);
                 SaksSpecialRule1(inputDataTable);
                 writingAddress = string.Format("A{0}", _saksWorksheetSettings.InactiveUpcSettings.WipSettings.WritingRow);
                 inputDataTable.WriteToExcelSheets(inactiveWs, writingAddress, false);
@@ -83,7 +82,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
                 inputDataTable = null;
                 
                 //Workflow DM
-                inputDataTable = ExcelUtilities.OledbExcelFileAsTable(_saksSettings.InputFilenameWorkflow, 1);
+                inputDataTable = ExcelUtilities.ReadExcelDataFileAsTable(_saksSettings.InputFilenameWorkflow, 1);
                 inputDataTable.SetValueInColumnBasedOnReferenceColumn<double>(specialRuleGroupId, specialRuleGroupId, 34, 33);
 
                 writingAddress = string.Format("A{0}", _saksWorksheetSettings.WorkflowSettings.DataSourceSettings.WritingRow);

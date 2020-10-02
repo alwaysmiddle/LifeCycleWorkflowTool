@@ -1,5 +1,4 @@
-﻿using LifeCycleDevEnvironmentConsole.ExtensionMethods;
-using LifeCycleDevEnvironmentConsole.Utilities;
+﻿using LifeCycleDevEnvironmentConsole.Utilities;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
