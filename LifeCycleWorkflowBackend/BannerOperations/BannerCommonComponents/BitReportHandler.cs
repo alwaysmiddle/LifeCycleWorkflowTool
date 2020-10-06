@@ -9,9 +9,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using ProcessManagement;
 using System.Diagnostics;
-using LifeCycleDevEnvironmentConsole.Utilities;
+using LifeCycleWorkflowBackend.Utilities;
 
-namespace LifeCycleDevEnvironmentConsole.BannerOperations
+namespace LifeCycleWorkflowBackend.BannerOperations
 {
     public class BitReportHandler
     {
@@ -90,7 +90,7 @@ namespace LifeCycleDevEnvironmentConsole.BannerOperations
 
             _dt = ExcelUtilities.ReadExcelDataFileAsTable(excelFileName, 1);
 
-            //Console.WriteLine(DumpDataTable(_dt));
+            Console.WriteLine(DumpDataTable(_dt));
         }
 
         /// <summary>

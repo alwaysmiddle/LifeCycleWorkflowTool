@@ -1,6 +1,6 @@
-﻿using LifeCycleDevEnvironmentConsole.Settings;
-using LifeCycleDevEnvironmentConsole.Settings.OperationSettings;
-using LifeCycleDevEnvironmentConsole.Utilities;
+﻿using LifeCycleWorkflowBackend.Settings;
+using LifeCycleWorkflowBackend.Settings.OperationSettings;
+using LifeCycleWorkflowBackend.Utilities;
 using Microsoft.Office.Interop.Excel;
 using ProcessManagement;
 using System;
@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LifeCycleDevEnvironmentConsole.BannerOperations
+namespace LifeCycleWorkflowBackend.BannerOperations
 {
     public sealed class TheBayOperations : BannerOperationBase
     {

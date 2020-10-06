@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7BB182DF-89EA-4DD7-8653-DDEB40F28E62}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>LifeCycleDevEnvironmentConsole</RootNamespace>
-    <AssemblyName>LifeCycleDevEnvironmentConsole</AssemblyName>
+    <ProjectGuid>{A25482B5-535E-4E19-928F-D72C953BE833}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LifeCycleWorkflowBackend</RootNamespace>
+    <AssemblyName>LifeCycleWorkflowBackend</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -56,38 +54,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeBackup.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="BannerOperations\BannerCommonComponents\BitReportHandler.cs" />
+    <Compile Include="BannerOperations\BannerCommonComponents\CommonOperations.cs" />
+    <Compile Include="BannerOperations\BannerCommonComponents\FormulaRowHandler.cs" />
+    <Compile Include="BannerOperations\BannerOperationBase.cs" />
+    <Compile Include="BannerOperations\O5Operations.cs" />
+    <Compile Include="BannerOperations\SaksOperations.cs" />
+    <Compile Include="BannerOperations\TheBayOperations.cs" />
+    <Compile Include="ProcessManagement\ExcelProcessControl.cs" />
+    <Compile Include="ProcessManagement\Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\BannerSettings.cs" />
+    <Compile Include="Settings\DefaultSettings\Builders\BasicOperationTypeBuilder.cs" />
+    <Compile Include="Settings\DefaultSettings\Builders\DataSourceOperationTypeBuilder.cs" />
+    <Compile Include="Settings\DefaultSettings\Builders\ReportOperationTypeBuilder.cs" />
+    <Compile Include="Settings\DefaultSettings\GenerateDefaultSettings.cs" />
+    <Compile Include="Settings\IO\IBaseOperationConverter.cs" />
+    <Compile Include="Settings\IO\SettingsIO.cs" />
+    <Compile Include="Settings\OperationSettings\IBaseOperationSettings.cs" />
+    <Compile Include="Settings\OperationSettings\OperationType\BasicTypeOperation.cs" />
+    <Compile Include="Settings\OperationSettings\OperationType\DataSourceTypeOperation.cs" />
+    <Compile Include="Settings\OperationSettings\OperationType\OperationTypeComponents\DataSourceSheetSettings.cs" />
+    <Compile Include="Settings\OperationSettings\OperationType\OperationTypeComponents\FinalSheetSettings.cs" />
+    <Compile Include="Settings\OperationSettings\OperationType\OperationTypeComponents\WipReportsSettings.cs" />
+    <Compile Include="Settings\OperationSettings\OperationType\OperationTypeComponents\WipSheetSettings.cs" />
+    <Compile Include="Settings\OperationSettings\OperationType\OperationTypeComponents\WipSheetWithDataSettings.cs" />
+    <Compile Include="Settings\OperationSettings\OperationType\ReportTypeOperation.cs" />
+    <Compile Include="Settings\OperationSettings\TheBayOperationSettings.cs" />
+    <Compile Include="Utilities\ExcelUtilities.cs" />
+    <Compile Include="Utilities\ExtensionMethods\DatatableExtensionMethods.cs" />
+    <Compile Include="Utilities\ExtensionMethods\WorksheetExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="WorkFlow Data\O5\O5 WORKFLOW REPORT TRAINING.docx" />
-    <None Include="WorkFlow Data\O5\Template\Daily Workflow_O5_Final_Template_2020.xlsx" />
-    <None Include="WorkFlow Data\O5\Template\Daily Workflow_O5_Wip_Template_2020.xlsm" />
-    <None Include="WorkFlow Data\O5\Test Data\DM_O5_OH_INACTV_UPC20200512.xlsx" />
-    <None Include="WorkFlow Data\O5\Test Data\MIS-IB004A_2 - SO5-Ecomm by Colour Count.xlsx" />
-    <None Include="WorkFlow Data\O5\Test Data\O5_DM_WORKFLOW_REPORT_O5.xlsx" />
-    <None Include="WorkFlow Data\Saks\Input Files\DM_SAKS_OH_INACTV_UPC20200616.xls" />
-    <None Include="WorkFlow Data\Saks\Input Files\DM_WORKFLOW_RPT20200616.xls" />
-    <None Include="WorkFlow Data\Saks\Input Files\MIS-IB004A_2 - Saks %2863%29.xlsx" />
-    <None Include="WorkFlow Data\Saks\SAKS WORKFLOW REPORT TRAINING.docx" />
-    <None Include="WorkFlow Data\Saks\Template\Daily Workflow_SAKS_Final_Template_2020.xlsx" />
-    <None Include="WorkFlow Data\Saks\Template\Daily Workflow_SAKS_Wip_Template_2020.xlsm" />
-    <None Include="WorkFlow Data\TheBay\Bay Workflow Training.docx" />
-    <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Final_Template_2020.xlsx" />
-    <None Include="WorkFlow Data\TheBay\Template\Daily Workflow_TheBay_Wip_Template_2020.xlsm" />
-    <None Include="WorkFlow Data\TheBay\Test Data\9.24 MIS-IB004A.2 - LT-Ecomm by Colour Count %286%29.xlsx" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Inactive UPC.V2 2020-09-24T0906.csv" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay NOS combined 2020-09-24T0906.csv" />
-    <None Include="WorkFlow Data\TheBay\Test Data\SFCC_Bay Workflow and Not On Site 2020-09-24T0905.csv" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LifeCycleWorkflowBackend\LifeCycleWorkflowBackend.csproj">
-      <Project>{A25482B5-535E-4E19-928F-D72C953BE833}</Project>
-      <Name>LifeCycleWorkflowBackend</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

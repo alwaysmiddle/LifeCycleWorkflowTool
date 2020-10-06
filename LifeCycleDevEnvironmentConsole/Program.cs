@@ -1,6 +1,6 @@
-﻿using LifeCycleDevEnvironmentConsole.BannerOperations;
-using LifeCycleDevEnvironmentConsole.Settings;
-using LifeCycleDevEnvironmentConsole.Settings.DefaultSettings;
+﻿using LifeCycleWorkflowBackend.BannerOperations;
+using LifeCycleWorkflowBackend.Settings;
+using LifeCycleWorkflowBackend.Settings.DefaultSettings;
 using System;
 using System.Collections.Generic;
 using System.Data;
