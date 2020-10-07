@@ -14,7 +14,7 @@ namespace LifeCycleWorkflowBackend.Settings
     {
         TheBay,
         Saks,
-        O5
+        O5,
     }
 
     public class BannerSettings
