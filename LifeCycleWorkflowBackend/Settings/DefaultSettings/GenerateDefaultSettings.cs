@@ -202,7 +202,7 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
             dataTypeBuilder = new DataSourceTypeOperationBuilder();
             DataSourceTypeOperation workflowDetailsSettings =
                 dataTypeBuilder.BuildWipSheetSetting(
-                    sheetName: "Details-Products",
+                    sheetName: "Details_Products",
                     headerRow: 7,
                     writingRow: 8,
                     formulaRow: 3,
