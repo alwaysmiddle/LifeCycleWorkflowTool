@@ -84,6 +84,7 @@
     <Compile Include="Utilities\ExcelUtilities.cs" />
     <Compile Include="Utilities\ExtensionMethods\DatatableExtensionMethods.cs" />
     <Compile Include="Utilities\ExtensionMethods\WorksheetExtensionMethods.cs" />
+    <Compile Include="ViewModels\InputFileLoaderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

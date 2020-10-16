@@ -1,0 +1,32 @@
+﻿<Window x:Class="LifeCycleWorkflowFrontEnd.FileLoaderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LifeCycleWorkflowFrontEnd"
+        mc:Ignorable="d"
+        Title="FileLoaderWindow" Height="500" Width="400">
+    <StackPanel Name="ImagePanel" AllowDrop="true">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" TextWrapping="Wrap">Picture mockup</TextBlock>
+            <ComboBox Grid.Column="1" MaxHeight="20">Inputfile Selection</ComboBox>
+            <TextBlock Grid.Column="2" TextWrapping="Wrap">Filename</TextBlock>
+
+        </Grid>
+
+            <ListView ItemsSource="{Binding itemList}" Margin="0,50,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Item Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Size" Width="80" DisplayMemberBinding="{Binding Size}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+</Window>
