@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="FileLoaderWindow" Height="500" Width="400">
     <StackPanel Name="ImagePanel" AllowDrop="true">
+        <Grid Margin="10 20 10 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Name="ButtonCloseFileLoader">Close</Button>
+        </Grid>
+        <!--The mock up section for file>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />
@@ -19,14 +29,45 @@
             <TextBlock Grid.Column="2" TextWrapping="Wrap">Filename</TextBlock>
 
         </Grid>
+        <-->
 
-            <ListView ItemsSource="{Binding itemList}" Margin="0,50,0,0">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Item Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Size" Width="80" DisplayMemberBinding="{Binding Size}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+
+        <Grid Margin="10 20 10 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <Button Name="ButtonBitReport" Margin="3" Height="50">
+                    Bit Report
+                </Button>
+                <Button Name="ButtonUpc" Margin="3" Height="50">
+                    Inactive UPC
+                </Button>
+                <Button Name="ButtonWorkflow" Margin="3" Height="50">
+                    Workflow
+                </Button>
+                <Button Name="ButtonNos" Margin="3" Height="50">
+                    Not On Site
+                </Button>
+            </StackPanel>
+
+            <StackPanel Margin="10 0 10 0" Grid.Column="1">
+                <TextBlock Name="TextBlockBitReport"  Margin="3" Height="50" TextWrapping="Wrap">
+                        Filename         
+                </TextBlock>
+                <TextBlock Name="TextBlockUpc" Margin="3" Height="50" TextWrapping="Wrap">
+                        Filename          
+                </TextBlock>
+                <TextBlock Name="TextBlockWorkflow" Margin="3" Height="50" TextWrapping="Wrap">
+                        Filename
+                </TextBlock>
+                <TextBlock Name="TextBlockNos"  Margin="3" Height="50" TextWrapping="Wrap">
+                        Filename
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
     </StackPanel>
 </Window>
