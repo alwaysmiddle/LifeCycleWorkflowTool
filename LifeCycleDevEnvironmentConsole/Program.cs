@@ -1,6 +1,7 @@
 ﻿using LifeCycleWorkflowBackend.BannerOperations;
 using LifeCycleWorkflowBackend.Settings;
 using LifeCycleWorkflowBackend.Settings.DefaultSettings;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -93,28 +94,35 @@ namespace LifeCycleDevEnvironmentConsole
             //Console.WriteLine("O5 Operation finished");
 
             //TheBay settings
-            BannerSettings theBaySettings = new BannerSettings(
-                banner: Banner.TheBay,
-                wipOutputDirectory: oDirectory,
-                finalOutputDirectory: oDirectory,
-                defaulOutputFilename: "TheBay_Daily_Workflow",
-                templateFullnameWip: templateTheBayWip,
-                templateFullnameFinal: templateTheBayFinal,
-                inputFilenameBitReport: theBayInput2,
-                inputFilenameWorkflow: theBayInput1,
-                inputFilenameInactiveUpc: theBayInput3,
-                inputFilenameNosCombined: theBayInput4,
-                worksheetSettings: GenerateDefaultSettings.GenerateTheBayDefault(),
-                outputDate: new DateTime(2020, 9, 24)
-                );
+            //BannerSettings theBaySettings = new BannerSettings(
+            //    banner: Banner.TheBay,
+            //    wipOutputDirectory: oDirectory,
+            //    finalOutputDirectory: oDirectory,
+            //    defaulOutputFilename: "TheBay_Daily_Workflow",
+            //    templateFullnameWip: templateTheBayWip,
+            //    templateFullnameFinal: templateTheBayFinal,
+            //    inputFilenameBitReport: theBayInput2,
+            //    inputFilenameWorkflow: theBayInput1,
+            //    inputFilenameInactiveUpc: theBayInput3,
+            //    inputFilenameNosCombined: theBayInput4,
+            //    worksheetSettings: GenerateDefaultWorkSheetSettings.TheBayDefault(),
+            //    outputDate: new DateTime(2020, 9, 24)
+            //    );
 
-            Console.WriteLine("Starting TheBay Operation");
-            TheBayOperations theBayOps = new TheBayOperations(theBaySettings);
-            theBayOps.RunOperation();
-            Console.WriteLine("TheBay Operation finished");
 
-            Console.WriteLine("Operation Successful");
-            Console.ReadKey();
+            // write JSON directly to a file
+            //using (StreamWriter file = File.CreateText(JsonFilename))
+            //{
+            //    JsonSerializer serializer = new JsonSerializer();
+            //    serializer.Serialize(file, theBaySettings);
+            //}
+            //Console.WriteLine("Starting TheBay Operation");
+            //TheBayOperations theBayOps = new TheBayOperations(theBaySettings);
+            //theBayOps.RunOperation();
+            //Console.WriteLine("TheBay Operation finished");
+
+            //Console.WriteLine("Operation Successful");
+            //Console.ReadKey();
         }
 
         public static string DumpDataTable(DataTable table)

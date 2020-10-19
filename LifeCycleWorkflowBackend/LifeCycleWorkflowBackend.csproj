@@ -59,6 +59,7 @@
     <Compile Include="BannerOperations\BannerCommonComponents\FormulaRowHandler.cs" />
     <Compile Include="BannerOperations\BannerOperationBase.cs" />
     <Compile Include="BannerOperations\O5Operations.cs" />
+    <Compile Include="OperationExecuter.cs" />
     <Compile Include="BannerOperations\SaksOperations.cs" />
     <Compile Include="BannerOperations\TheBayOperations.cs" />
     <Compile Include="ProcessManagement\ExcelProcessControl.cs" />
@@ -68,7 +69,8 @@
     <Compile Include="Settings\DefaultSettings\Builders\BasicOperationTypeBuilder.cs" />
     <Compile Include="Settings\DefaultSettings\Builders\DataSourceOperationTypeBuilder.cs" />
     <Compile Include="Settings\DefaultSettings\Builders\ReportOperationTypeBuilder.cs" />
-    <Compile Include="Settings\DefaultSettings\GenerateDefaultSettings.cs" />
+    <Compile Include="Settings\DefaultSettings\GenerateDefaultBannerSettings.cs" />
+    <Compile Include="Settings\DefaultSettings\GenerateDefaultWorkSheetSettings.cs" />
     <Compile Include="Settings\IO\IBaseOperationConverter.cs" />
     <Compile Include="Settings\IO\SettingsIO.cs" />
     <Compile Include="Settings\OperationSettings\IBaseOperationSettings.cs" />

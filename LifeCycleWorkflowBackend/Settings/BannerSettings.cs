@@ -39,14 +39,14 @@ namespace LifeCycleWorkflowBackend.Settings
 
 
         //Input related variables
-        public string InputFilenameWorkflow { get; private set; }
-        public string InputFilenameInactiveUpc { get; private set; }
-        public string InputFilenameBitReport { get; private set; }
-        public string InputFilenameNosCombined { get; private set; }
+        public string InputFilenameWorkflow { get; set; }
+        public string InputFilenameInactiveUpc { get; set; }
+        public string InputFilenameBitReport { get; set; }
+        public string InputFilenameNosCombined { get; set; }
 
         //Exposed Template Variables
-        public string TemplateFullnameWip { get; private set; }
-        public string TemplateFullnameFinal { get; private set; }
+        public string TemplateFullnameWip { get; set; }
+        public string TemplateFullnameFinal { get; set; }
 
         [JsonIgnore]
         public DateTime OutputDate => _outputDate;
@@ -54,7 +54,7 @@ namespace LifeCycleWorkflowBackend.Settings
         //Worksheet Settings
         [JsonProperty(PropertyName = "WorksheetSettings")]
         [JsonConverter(typeof(IBaseOperationConverter))]
-        public IBaseOperationSettings WorksheetSettings { get; private set; }
+        public IBaseOperationSettings WorksheetSettings { get; set; }
 
         [JsonIgnore]
         public string OutputFileFullnameWip => _outputFilenameWip;
@@ -87,10 +87,9 @@ namespace LifeCycleWorkflowBackend.Settings
             WorksheetSettings = worksheetSettings;
 
             ConstructOutputName();
-            Validate();
         }
 
-        private void Validate()
+        public void Validate()
         {
             if (!Directory.Exists(_wipOutputDirectory))
             {

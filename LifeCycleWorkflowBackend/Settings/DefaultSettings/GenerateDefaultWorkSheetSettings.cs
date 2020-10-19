@@ -1,16 +1,11 @@
 ﻿using LifeCycleWorkflowBackend.Settings.OperationSettings;
 using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
 {
-    public static class GenerateDefaultSettings
+    public static class GenerateDefaultWorkSheetSettings
     {
-        public static BaseOperationSettings GenerateSaksDefault()
+        public static BaseOperationSettings SaksDefault()
         {
             BaseOperationSettings saksSettings;
             BasicTypeOperationBuilder basicTypeBuilder;
@@ -82,7 +77,7 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
             return saksSettings;
         }
 
-        public static BaseOperationSettings GenerateO5Default()
+        public static BaseOperationSettings O5Default()
         {
             BaseOperationSettings o5Settings;
             BasicTypeOperationBuilder basicTypeBuilder;
@@ -154,7 +149,7 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
             return o5Settings;
         }
 
-        public static TheBayOperationSettings GenerateTheBayDefault()
+        public static TheBayOperationSettings TheBayDefault()
         {
             TheBayOperationSettings theBaySettings;
             BasicTypeOperationBuilder basicTypeBuilder;
