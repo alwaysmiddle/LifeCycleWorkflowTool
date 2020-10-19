@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:LifeCycleWorkflowFrontEnd"
         xmlns:backend="clr-namespace:LifeCycleWorkflowBackend.Settings;assembly=LifeCycleWorkflowBackend"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="500" Width="400">
     <Border Background="#eee" Padding="20">
         <StackPanel>
@@ -21,7 +22,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid>
-                    <Label Grid.Column="0">1.0</Label>
+                    <Label Grid.Column="0">2.0.1</Label>
                 </Grid>
             </Grid>
 
@@ -72,6 +73,7 @@
                     <Button Margin="2" FontSize="13">Force Update</Button>
                 </StackPanel>
             </Grid>
+
         </StackPanel>
     </Border>
 </Window>

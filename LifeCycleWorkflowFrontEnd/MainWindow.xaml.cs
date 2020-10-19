@@ -1,9 +1,11 @@
 ﻿using LifeCycleWorkflowBackend;
 using LifeCycleWorkflowBackend.Settings;
+using Squirrel;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -26,7 +28,9 @@ namespace LifeCycleWorkflowFrontEnd
             LoadFileButton.Click += LoadFileButton_Click;
             ButtonRun.Click += ButtonRun_Click;
             ButtonSettings.Click += ButtonSettings_Click;
+            this.Loaded += Window_Loaded;
         }
+
 
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)
         {
@@ -98,6 +102,55 @@ namespace LifeCycleWorkflowFrontEnd
             FileLoaderWindow fileLoaderWindow = new FileLoaderWindow();
             fileLoaderWindow.Show();
             fileLoaderWindow.Activate();
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await GetUpdate();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
+        }
+
+
+
+        private async Task GetUpdate(bool forceUpdate = false)
+        {
+            string releasePath = @"\\t49-vol4\ECommerce\Merch Ops\Site Operations & Improvements\Saks Direct Site Operations\Work Flow\Master Templates\Workflow Automated Tool\Releases 2.0";
+            using (var mgr = new UpdateManager(releasePath))
+            {
+                var updateInfo = await mgr.CheckForUpdate();
+
+                if (updateInfo.ReleasesToApply.Any())
+                {
+
+                    int versionCount = updateInfo.ReleasesToApply.Count;
+
+                    string versionWord = versionCount > 1 ? "versions" : "version";
+                    string message = new StringBuilder().AppendLine($"App is {versionCount} {versionWord} behind.").
+                                                      AppendLine("If you choose to update, changes wont take affect until App is restarted.").
+                                                      AppendLine("Would you like to download and install them?").
+                                                      ToString();
+
+                    MessageBoxResult result = MessageBox.Show(message, "App Update", MessageBoxButton.YesNo);
+                    if (result != MessageBoxResult.Yes)
+                    {
+                        return;
+                    }
+
+                    await mgr.UpdateApp();
+
+                    MessageBox.Show("Update Finished! Please restart your program for the lastest changes to take effect.");
+                }
+                else if (!updateInfo.ReleasesToApply.Any() && forceUpdate)
+                {
+                    MessageBox.Show("No new updates are found!");
+                }
+            }
         }
     }
 }
