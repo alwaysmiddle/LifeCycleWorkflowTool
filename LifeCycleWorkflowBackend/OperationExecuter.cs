@@ -8,28 +8,28 @@ namespace LifeCycleWorkflowBackend
 {
     public static class OperationExecuter
     {
-        public async static Task RunBannerOperation(Banner banner)
+        public static void RunBannerOperation(Banner banner, BannerSettings settingsLoaded)
         {
-            BannerSettings settingsLoaded = SettingsIO.LoadBannerSettingsFromFile(banner);
+            
             switch (banner)
             {
                 case Banner.TheBay:
                     {
                         TheBayOperations theBayWorkflow = new TheBayOperations(settingsLoaded);
-                        await Task.Run(() => theBayWorkflow.RunOperation());
+                        theBayWorkflow.RunOperation();
                         break;
                     }
 
                 case Banner.Saks:
                     {
                         SaksOperations saksWorkflow = new SaksOperations(settingsLoaded);
-                        await Task.Run(() => saksWorkflow.RunOperation());
+                        saksWorkflow.RunOperation();
                         break;
                     }
                 case Banner.O5:
                     {
                         O5Operations o5Workflow = new O5Operations(settingsLoaded);
-                        await Task.Run(() => o5Workflow.RunOperation());
+                        o5Workflow.RunOperation();
                         break;
                     }
                 default:
@@ -37,8 +37,6 @@ namespace LifeCycleWorkflowBackend
                         throw new Exception("The passed banner is not a valid banner.");
                     }
             }
-
-            return;
         }
     }
 }

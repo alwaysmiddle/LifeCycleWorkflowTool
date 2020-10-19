@@ -51,7 +51,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <Button Name="ButtonRun" Margin="2" Click="ButtonRun_Click_1">Run</Button>
+                    <Button Name="ButtonRun" Margin="2">Run</Button>
                 </StackPanel>
             </Grid>
 

@@ -65,7 +65,7 @@ namespace LifeCycleWorkflowFrontEnd
             }
         }
 
-        private async void ButtonRun_Click(object sender, RoutedEventArgs e)
+        private void ButtonRun_Click(object sender, RoutedEventArgs e)
         {
             if (ComboBoxBanners.SelectedItem == null)
             {
@@ -76,7 +76,19 @@ namespace LifeCycleWorkflowFrontEnd
             Banner banner = (Banner)ComboBoxBanners.SelectedItem;
             SettingsIO.CreateDefaultSettingsProfile(banner, false);
 
-            await OperationExecuter.RunBannerOperation(banner);
+            BannerSettings settingsLoaded = SettingsIO.LoadBannerSettingsFromFile(banner);
+
+            try
+            {
+                settingsLoaded.Validate();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return;
+            }
+
+            OperationExecuter.RunBannerOperation(banner, settingsLoaded);
 
             MessageBox.Show("Operation Completed!");
         }

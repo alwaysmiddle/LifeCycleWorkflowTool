@@ -98,6 +98,8 @@ namespace LifeCycleWorkflowBackend.BannerOperations
 
                 excelProcess.Dispose();
             }
+
+            return;
         }
 
         private void WipWbInitialization()
