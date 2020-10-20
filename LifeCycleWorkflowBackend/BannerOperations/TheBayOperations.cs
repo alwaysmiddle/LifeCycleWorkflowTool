@@ -4,12 +4,8 @@ using LifeCycleWorkflowBackend.Utilities;
 using Microsoft.Office.Interop.Excel;
 using ProcessManagement;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+
 namespace LifeCycleWorkflowBackend.BannerOperations
 {
     public sealed class TheBayOperations : BannerOperationBase
@@ -54,7 +50,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
             FinalWbInitialization();
 
             excelApp.Calculation = XlCalculation.xlCalculationManual;
-            excelApp.Visible = false;
+            excelApp.Visible = true;
 
             try
             {
@@ -294,10 +290,10 @@ namespace LifeCycleWorkflowBackend.BannerOperations
             readingAddress = nosCombineWsWip.ConvertColumnAddressToPreciseAddress(
                 _theBayWorksheetSettings.NosCombinedSettings.WipSettings.ReadingAddress,
                 _theBayWorksheetSettings.NosCombinedSettings.WipSettings.WritingRow);
-            writingAddress = _theBayWorksheetSettings.InactiveUpcSettings.FinalSettings.WritingAddress;
+            writingAddress = _theBayWorksheetSettings.NosCombinedSettings.FinalSettings.WritingAddress;
             rowCount = nosCombineWsWip.Range[readingAddress].Rows.Count;
             colCount = nosCombineWsWip.Range[readingAddress].Columns.Count;
-            inactiveWsFinal.Range[writingAddress].Resize[rowCount, colCount].Value = nosCombineWsWip.Range[readingAddress].Value;
+            nosCombinedFinal.Range[writingAddress].Resize[rowCount, colCount].Value = nosCombineWsWip.Range[readingAddress].Value;
         }
         #endregion
     }

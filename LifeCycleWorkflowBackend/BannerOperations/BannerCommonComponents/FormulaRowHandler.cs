@@ -22,126 +22,129 @@ namespace LifeCycleWorkflowBackend.BannerOperations
             foreach (Range formulaRowCell in formulaRowCells)
             {
                 Range headerRowCell = ws.Cells[headerRow, formulaRowCell.Column];
+
+                //Populate formula first if one exist.
+                if (formulaRowCell.HasFormula)
+                {
+                    //autofill destination range must include source range
+                    Range outputCell = ws.Cells[outputRow, formulaRowCell.Column];
+                    outputCell.FormulaR1C1 = formulaRowCell.FormulaR1C1;
+                    outputCell.AutoFill(ws.Range[ws.Cells[outputRow, formulaRowCell.Column], ws.Cells[outputRow + refTable.Rows.Count - 1, formulaRowCell.Column]]);
+                    continue;
+                }
+
                 //Data matching operation
                 if (!string.IsNullOrWhiteSpace(formulaRowCell.Text))
                 {
-                    if (formulaRowCell.HasFormula)
+                    //string check isnullorwhitespace would throw exception if value2 was used.
+                    if(headerRowCell.Value2 == null)
                     {
-                        //autofill destination range must include source range
-                        Range outputCell = ws.Cells[outputRow, formulaRowCell.Column];
-                        outputCell.FormulaR1C1 = formulaRowCell.FormulaR1C1;
-                        outputCell.AutoFill(ws.Range[ws.Cells[outputRow, formulaRowCell.Column], ws.Cells[outputRow + refTable.Rows.Count - 1, formulaRowCell.Column]]);
+                        continue;
                     }
-                    else
+
+                    #region Worksheet keywords operations: MatchHeader, ReplaceZero, ConvertBooleanToYesNo
+                    string formulaCellStr = formulaRowCell.Value2.ToString().Trim();
+                    string headerRowStr = headerRowCell.Value2.ToString().Trim();
+
+                    if (refTable.Columns.Contains(headerRowStr))
                     {
-                        if(headerRowCell.Value2 == null)
+                        if (formulaCellStr.Equals("MatchHeader", StringComparison.OrdinalIgnoreCase))
                         {
-                            continue;
-                        }
-
-                        #region Worksheet keywords operations: MatchHeader, ReplaceZero, ConvertBooleanToYesNo
-                        string formulaCellStr = formulaRowCell.Value2.ToString().Trim();
-                        string headerRowStr = headerRowCell.Value2.ToString().Trim();
-
-                        if (refTable.Columns.Contains(headerRowStr))
-                        {
-                            if (formulaCellStr.Equals("MatchHeader", StringComparison.OrdinalIgnoreCase))
+                            object[,] objArr = new object[refTable.Rows.Count, 1];
+                            for (int i = 0; i < refTable.Rows.Count; i++)
                             {
-                                object[,] objArr = new object[refTable.Rows.Count, 1];
-                                for (int i = 0; i < refTable.Rows.Count; i++)
+                                objArr[i, 0] = refTable.Rows[i][headerRowStr];
+                            }
+
+                            ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
+                        }
+                        else if (formulaCellStr.Equals("ReplaceZero", StringComparison.OrdinalIgnoreCase))
+                        {
+                            object[,] objArr = new object[refTable.Rows.Count, 1];
+                            for (int i = 0; i < refTable.Rows.Count; i++)
+                            {
+                                if (refTable.Rows[i][headerRowStr].ToString().Trim().Equals("0") || refTable.Rows[i][headerRowStr].ToString().Trim().Equals("") || refTable.Rows[i][headerRowStr] == DBNull.Value
+                                    || refTable.Rows[i][headerRowStr] == null || refTable.Rows[i][headerRowStr].ToString().Trim().Equals(DBNull.Value)) {
+                                    objArr[i, 0] = "-";
+                                }
+                                else
                                 {
                                     objArr[i, 0] = refTable.Rows[i][headerRowStr];
                                 }
-
-                                ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
                             }
-                            else if (formulaCellStr.Equals("ReplaceZero", StringComparison.OrdinalIgnoreCase))
-                            {
-                                object[,] objArr = new object[refTable.Rows.Count, 1];
-                                for (int i = 0; i < refTable.Rows.Count; i++)
-                                {
-                                    if (refTable.Rows[i][headerRowStr].ToString().Trim().Equals("0") || refTable.Rows[i][headerRowStr].ToString().Trim().Equals("") || refTable.Rows[i][headerRowStr] == DBNull.Value
-                                        || refTable.Rows[i][headerRowStr] == null || refTable.Rows[i][headerRowStr].ToString().Trim().Equals(DBNull.Value)) {
-                                        objArr[i, 0] = "-";
-                                    }
-                                    else
-                                    {
-                                        objArr[i, 0] = refTable.Rows[i][headerRowStr];
-                                    }
-                                }
 
-                                ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
-                            }
-                            else if (formulaCellStr.Equals("ConvertBooleanToYesNo", StringComparison.OrdinalIgnoreCase))
-                            {
-                                object[,] objArr = new object[refTable.Rows.Count, 1];
-                                for (int i = 0; i < refTable.Rows.Count; i++)
-                                {
-                                    if (refTable.Rows[i][headerRowStr].ToString().Trim().Equals("T"))
-                                    {
-                                        objArr[i, 0] = "Yes";
-                                    }
-                                    else
-                                    {
-                                        objArr[i, 0] = "No";
-                                    }
-                                }
-
-                                ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
-                            }else if (formulaCellStr.Equals("ReplaceZeroOrEmptyWithNoYes", StringComparison.OrdinalIgnoreCase))
-                            {
-                                object[,] objArr = new object[refTable.Rows.Count, 1];
-                                for (int i = 0; i < refTable.Rows.Count; i++)
-                                {
-                                    if (refTable.Rows[i][headerRowStr] == DBNull.Value
-                                        || refTable.Rows[i][headerRowStr] == null)
-                                    {
-                                        objArr[i, 0] = "No";
-                                    }
-                                    else if (refTable.Rows[i][headerRowStr].ToString().Trim().Equals("0"))
-                                    {
-                                        objArr[i, 0] = "No";
-                                    }
-                                    else
-                                    {
-                                        objArr[i, 0] = "Yes";
-                                    }
-                                }
-
-                                ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
-                            }
-                        }else if(formulaCellStr.Equals("GenerateRowReference", StringComparison.OrdinalIgnoreCase))
+                            ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
+                        }
+                        else if (formulaCellStr.Equals("ConvertBooleanToYesNo", StringComparison.OrdinalIgnoreCase))
                         {
-                            var x = formulaRowCell.Offset[1, 0].Value2;
-                            int num;
-
-                            if (!ExcelUtilities.IsNumber(x))
-                            {
-                                if (!int.TryParse(x, out num))
-                                {
-                                    num = 2;
-                                }
-                            }
-                            else
-                            {
-                                num = (int)x;
-                            }
-
-                            object[,] arr = new object[refTable.Rows.Count, 1];
+                            object[,] objArr = new object[refTable.Rows.Count, 1];
                             for (int i = 0; i < refTable.Rows.Count; i++)
                             {
-                                arr[i, 0] = (num + i);
+                                if (refTable.Rows[i][headerRowStr].ToString().Trim().Equals("T"))
+                                {
+                                    objArr[i, 0] = "Yes";
+                                }
+                                else
+                                {
+                                    objArr[i, 0] = "No";
+                                }
                             }
 
-                            ws.WriteArrayToCell<object>(arr, outputRow, formulaRowCell.Column);
+                            ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
+                        }else if (formulaCellStr.Equals("ReplaceZeroOrEmptyWithNoYes", StringComparison.OrdinalIgnoreCase))
+                        {
+                            object[,] objArr = new object[refTable.Rows.Count, 1];
+                            for (int i = 0; i < refTable.Rows.Count; i++)
+                            {
+                                if (refTable.Rows[i][headerRowStr] == DBNull.Value
+                                    || refTable.Rows[i][headerRowStr] == null)
+                                {
+                                    objArr[i, 0] = "No";
+                                }
+                                else if (refTable.Rows[i][headerRowStr].ToString().Trim().Equals("0"))
+                                {
+                                    objArr[i, 0] = "No";
+                                }
+                                else
+                                {
+                                    objArr[i, 0] = "Yes";
+                                }
+                            }
+
+                            ws.WriteArrayToCell<object>(objArr, outputRow, formulaRowCell.Column);
+                        }
+                    }else if(formulaCellStr.Equals("GenerateRowReference", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var x = formulaRowCell.Offset[1, 0].Value2;
+                        int num;
+
+                        if (!ExcelUtilities.IsNumber(x))
+                        {
+                            if (!int.TryParse(x, out num))
+                            {
+                                num = 2;
+                            }
                         }
                         else
                         {
-                            ws.Range[ws.Cells[outputRow, formulaRowCell.Column], ws.Cells[outputRow + refTable.Rows.Count - 1, formulaRowCell.Column]].Value2 = "Column Name Not Found";
+                            num = (int)x;
                         }
 
-                        #endregion
+                        object[,] arr = new object[refTable.Rows.Count, 1];
+                        for (int i = 0; i < refTable.Rows.Count; i++)
+                        {
+                            arr[i, 0] = (num + i);
+                        }
+
+                        ws.WriteArrayToCell<object>(arr, outputRow, formulaRowCell.Column);
                     }
+                    else
+                    {
+                        ws.Range[ws.Cells[outputRow, formulaRowCell.Column], ws.Cells[outputRow + refTable.Rows.Count - 1, formulaRowCell.Column]].Value2 = "Column Name Not Found";
+                    }
+
+                    #endregion
+                    
                 }
             }
 
