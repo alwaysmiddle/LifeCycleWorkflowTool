@@ -50,7 +50,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
             FinalWbInitialization();
 
             excelApp.Calculation = XlCalculation.xlCalculationManual;
-            excelApp.Visible = true;
+            excelApp.Visible = false;
 
             try
             {
@@ -65,7 +65,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
 
                 excelApp.Calculate();
 
-                WipWbFormatAsValuesOnly(false);
+                WipWbFormatAsValuesOnly(true);
 
                 wipWb.Save();
 
@@ -170,8 +170,8 @@ namespace LifeCycleWorkflowBackend.BannerOperations
         }
 
 
-        //===================================================WIP OPERATIONS======================================================
-        #region TheBayWip
+
+        #region TheBay Wip Operations
         private void WipBitReportOp()
         {
             System.Data.DataTable inputDataTable = new System.Data.DataTable();
@@ -249,8 +249,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
         }
         #endregion
 
-        //===================================================Final OPERATIONS====================================================
-        #region TheBayFinal
+        #region TheBay Final Operations
         private void CopyToFinalWb()
         {
             //Temp variables

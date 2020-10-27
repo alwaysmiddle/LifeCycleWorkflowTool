@@ -161,7 +161,7 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
                 reportTypeBuilder.BuildReportSheetSetting(
                     sheetName: "WF Summary Chart",
                     dateAddress: "N5",
-                    readingAddress: "E1:BO99")
+                    readingAddress: "E1:BO118")
                 .BuildFinalSheetSettings(
                     sheetName: "Summary Chart",
                     writingAddress: "E1")
@@ -187,7 +187,7 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
                     readingAddress: "A:AS")
                 .BuildFinalSheetSettings(
                     sheetName: "Additional Color Sizes Report",
-                    writingAddress: "A5")
+                    writingAddress: "A4")
                 .BuildDataSheetSetting(
                     sheetName: "UPC_Looker",
                     headerRow: 1,
