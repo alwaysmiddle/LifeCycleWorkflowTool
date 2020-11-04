@@ -66,6 +66,8 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
             outputDate: new DateTime(2020, 9, 24)
             );
 
+            theBaySettings.BannerPassword = "ecom678";
+
             return theBaySettings;
         }
     }

@@ -4,6 +4,7 @@ using LifeCycleWorkflowBackend.Utilities;
 using Microsoft.Office.Interop.Excel;
 using ProcessManagement;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace LifeCycleWorkflowBackend.BannerOperations
@@ -70,6 +71,8 @@ namespace LifeCycleWorkflowBackend.BannerOperations
                 wipWb.Save();
 
                 CopyToFinalWb();
+                ExportSummaryAsPDF();
+
             }
             catch (Exception ex)
             {
@@ -81,8 +84,8 @@ namespace LifeCycleWorkflowBackend.BannerOperations
                 excelApp.DisplayAlerts = false;
                 excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
 
-                wipWb.Save();
-                finalWb.Save();
+                wipWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameWip, WriteResPassword: _theBaySettings.BannerPassword);
+                finalWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameFinal, WriteResPassword: _theBaySettings.BannerPassword);
 
                 wipWb.Close();
                 finalWb.Close();
@@ -102,7 +105,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
         {
             try
             {
-                wipWb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullnameWip);
+                wipWb = excelApp.Workbooks.Open(_tempWipLocation);
             }
             catch (Exception ex)
             {
@@ -131,7 +134,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
         {
             try
             {
-                finalWb = excelApp.Workbooks.Open(_theBaySettings.OutputFileFullnameFinal);
+                finalWb = excelApp.Workbooks.Open(_tempFinalLocation);
             }
             catch (Exception ex)
             {
@@ -167,6 +170,17 @@ namespace LifeCycleWorkflowBackend.BannerOperations
                 string readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
                 summaryWsWip.Range[readingAddress].Value2 = summaryWsWip.Range[readingAddress].Value2;
             }
+        }
+
+        /// <summary>
+        /// The PDF saving was part of workflow and needed to export the WF page as PDF.
+        /// </summary>
+        private void ExportSummaryAsPDF()
+        {
+            string finalPdfFilename = Path.Combine(Path.GetDirectoryName(_theBaySettings.OutputFileFullnameFinal), Path.GetFileName(_theBaySettings.OutputFileFullnameFinal) + ".pdf");
+
+            summaryWsFinal.ExportAsFixedFormat(Type: XlFixedFormatType.xlTypePDF, Filename: finalPdfFilename,
+                    Quality: XlFixedFormatQuality.xlQualityStandard);
         }
 
 
@@ -295,5 +309,6 @@ namespace LifeCycleWorkflowBackend.BannerOperations
             nosCombinedFinal.Range[writingAddress].Resize[rowCount, colCount].Value = nosCombineWsWip.Range[readingAddress].Value;
         }
         #endregion
+
     }
 }

@@ -48,6 +48,9 @@ namespace LifeCycleWorkflowBackend.Settings
         public string TemplateFullnameWip { get; set; }
         public string TemplateFullnameFinal { get; set; }
 
+        //Password
+        public string BannerPassword { get; set; }
+
         [JsonIgnore]
         public DateTime OutputDate => _outputDate;
 
