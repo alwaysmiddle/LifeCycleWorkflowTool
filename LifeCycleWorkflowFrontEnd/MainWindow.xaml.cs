@@ -108,6 +108,7 @@ namespace LifeCycleWorkflowFrontEnd
         {
             try
             {
+                VersionLabel.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
                 await GetUpdate();
             }catch(Exception ex)
             {

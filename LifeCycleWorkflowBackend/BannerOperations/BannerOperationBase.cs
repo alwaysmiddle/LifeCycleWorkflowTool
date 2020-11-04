@@ -17,8 +17,15 @@ namespace LifeCycleWorkflowBackend.BannerOperations
         public BannerOperationBase(BannerSettings settings)
         {
             _settings = settings;
-            _tempWipLocation = Guid.NewGuid().ToString() + "." + new FileInfo(_settings.TemplateFullnameWip).Extension;
-            _tempFinalLocation = Guid.NewGuid().ToString() + "." + new FileInfo(_settings.TemplateFullnameFinal).Extension;
+            _tempWipLocation = Path.Combine(
+                Path.GetTempPath(), 
+                Guid.NewGuid().ToString() + "." + 
+                new FileInfo(_settings.TemplateFullnameWip).Extension);
+
+            _tempFinalLocation = Path.Combine(
+                Path.GetTempPath(),
+                Guid.NewGuid().ToString() + "." + 
+                new FileInfo(_settings.TemplateFullnameFinal).Extension);
 
             File.Copy(_settings.TemplateFullnameWip, _tempWipLocation, true);
             File.Copy(_settings.TemplateFullnameFinal, _tempFinalLocation, true);

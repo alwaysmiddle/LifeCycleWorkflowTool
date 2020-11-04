@@ -22,7 +22,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid>
-                    <Label Grid.Column="0">2.0.3</Label>
+                    <Label Name="VersionLabel" Grid.Column="0"></Label>
                 </Grid>
             </Grid>
 
