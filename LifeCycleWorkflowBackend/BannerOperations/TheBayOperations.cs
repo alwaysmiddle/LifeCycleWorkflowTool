@@ -84,7 +84,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
                 excelApp.DisplayAlerts = false;
                 excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
 
-                wipWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameWip, WriteResPassword: _theBaySettings.BannerPassword);
+                wipWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameWip);
                 finalWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameFinal, WriteResPassword: _theBaySettings.BannerPassword);
 
                 wipWb.Close();
