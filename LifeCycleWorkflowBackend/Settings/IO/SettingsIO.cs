@@ -129,11 +129,6 @@ namespace LifeCycleWorkflowBackend.Settings
 
         private static BannerSettings LoadSettingsFrom(string filepath)
         {
-            string text = File.ReadAllText(filepath);
-            text = text.Replace(@"\\", @"\");
-            text = text.Replace(@"\", @"\\");
-            File.WriteAllText(filepath, text);
-
             using (StreamReader file = File.OpenText(filepath))
             {
                 JsonSerializer serializer = new JsonSerializer();
