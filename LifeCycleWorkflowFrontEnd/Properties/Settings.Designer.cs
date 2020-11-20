@@ -26,72 +26,12 @@ namespace LifeCycleWorkflowFrontEnd.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string InputFileInventory {
-            get {
-                return ((string)(this["InputFileInventory"]));
-            }
-            set {
-                this["InputFileInventory"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string InputFileInactiveUPC {
-            get {
-                return ((string)(this["InputFileInactiveUPC"]));
-            }
-            set {
-                this["InputFileInactiveUPC"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string InputFileDetailsProduct {
             get {
                 return ((string)(this["InputFileDetailsProduct"]));
             }
             set {
                 this["InputFileDetailsProduct"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string InputFileNotOnSite {
-            get {
-                return ((string)(this["InputFileNotOnSite"]));
-            }
-            set {
-                this["InputFileNotOnSite"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string WipTemplate {
-            get {
-                return ((string)(this["WipTemplate"]));
-            }
-            set {
-                this["WipTemplate"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FinalTemplate {
-            get {
-                return ((string)(this["FinalTemplate"]));
-            }
-            set {
-                this["FinalTemplate"] = value;
             }
         }
     }

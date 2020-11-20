@@ -2,22 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LifeCycleWorkflowFrontEnd.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="InputFileInventory" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="InputFileInactiveUPC" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="InputFileDetailsProduct" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="InputFileNotOnSite" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="WipTemplate" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="FinalTemplate" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

@@ -2,11 +2,8 @@
 using LifeCycleWorkflowBackend.Settings.OperationSettings;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LifeCycleWorkflowBackend.Settings
 {
@@ -37,6 +34,19 @@ namespace LifeCycleWorkflowBackend.Settings
         private string _outputFilenameWip;
         private string _outputFilenameFinal;
 
+        //Output Folder Directories
+        [JsonIgnore]
+        public string OutputFolderWip
+        {
+            get { return _wipOutputDirectory; }
+            set { _wipOutputDirectory = value; }
+        }
+        [JsonIgnore]
+        public string OutputFolderFinal
+        {
+            get { return _finalOutputDirectory; }
+            set { _finalOutputDirectory = value; }
+        }
 
         //Input related variables
         public string InputFilenameWorkflow { get; set; }
@@ -52,7 +62,11 @@ namespace LifeCycleWorkflowBackend.Settings
         public string BannerPassword { get; set; }
 
         [JsonIgnore]
-        public DateTime OutputDate => _outputDate;
+        public DateTime OutputDate
+        {
+            get { return _outputDate; }
+            set { _outputDate = value; }
+        }
 
         //Worksheet Settings
         [JsonProperty(PropertyName = "WorksheetSettings")]

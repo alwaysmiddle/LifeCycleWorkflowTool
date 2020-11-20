@@ -28,9 +28,26 @@ namespace LifeCycleWorkflowFrontEnd
             LoadFileButton.Click += LoadFileButton_Click;
             ButtonRun.Click += ButtonRun_Click;
             ButtonSettings.Click += ButtonSettings_Click;
+            DatePickerUI.SelectedDateChanged += DatePickerUI_SelectedDateChanged;
             this.Loaded += Window_Loaded;
         }
 
+        private void DatePickerUI_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ComboBoxBanners.SelectedItem == null)
+            {
+                MessageBox.Show("Please Select a banner first.");
+                return;
+            }
+
+            Banner banner = (Banner)ComboBoxBanners.SelectedItem;
+            SettingsIO.CreateDefaultSettingsProfile(banner, false);
+
+            BannerSettings settingsLoaded = SettingsIO.LoadBannerSettingsFromFile(banner);
+            settingsLoaded.OutputDate = (DateTime) DatePickerUI.SelectedDate;
+
+            SettingsIO.SaveSettingsProfile(banner, settingsLoaded);
+        }
 
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)
         {

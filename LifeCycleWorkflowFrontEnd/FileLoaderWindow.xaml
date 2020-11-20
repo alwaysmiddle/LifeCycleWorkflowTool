@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LifeCycleWorkflowFrontEnd"
         mc:Ignorable="d"
-        Title="FileLoaderWindow" Height="500" Width="400">
+        Title="FileLoaderWindow" Height="700" Width="400">
     <StackPanel Name="ImagePanel" AllowDrop="true">
         <Grid Margin="10 20 10 0">
             <Grid.ColumnDefinitions>
@@ -51,6 +51,18 @@
                 <Button Name="ButtonNos" Margin="3" Height="50">
                     Not On Site
                 </Button>
+                <Button Name="ButtonTemplateWip" Margin="3" Height="50">
+                    Wip Template
+                </Button>
+                <Button Name="ButtonTemplateFinal" Margin="3" Height="50">
+                    Final Template
+                </Button>
+                <Button Name="ButtonOutputFolderWip" Margin="3" Height="50">
+                    Wip Output Folder
+                </Button>
+                <Button Name="ButtonOutputFolderFinal" Margin="3" Height="50">
+                    Final Output Folder
+                </Button>
             </StackPanel>
 
             <StackPanel Margin="10 0 10 0" Grid.Column="1">
@@ -64,6 +76,18 @@
                         Filename
                 </TextBlock>
                 <TextBlock Name="TextBlockNos"  Margin="3" Height="50" TextWrapping="Wrap">
+                        Filename
+                </TextBlock>
+                <TextBlock Name="TextBlockTemplateWip"  Margin="3" Height="50" TextWrapping="Wrap">
+                        Filename
+                </TextBlock>
+                <TextBlock Name="TextBlockTemplateFinal"  Margin="3" Height="50" TextWrapping="Wrap">
+                        Filename
+                </TextBlock>
+                <TextBlock Name="TextBlockOutputWip"  Margin="3" Height="50" TextWrapping="Wrap">
+                        Filename
+                </TextBlock>
+                <TextBlock Name="TextBlockOutputFinal"  Margin="3" Height="50" TextWrapping="Wrap">
                         Filename
                 </TextBlock>
             </StackPanel>

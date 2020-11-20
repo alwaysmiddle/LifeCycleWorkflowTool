@@ -57,6 +57,44 @@ namespace LifeCycleWorkflowBackend.Settings
             }
         }
 
+        /// <summary>
+        /// Overwrites the Settings Json file with Banner Setting object passed.
+        /// </summary>
+        public static void SaveSettingsProfile(Banner banner, BannerSettings settingsToSave)
+        {
+            if (!Directory.Exists(DefaultSettingsDirectory))
+            {
+                Directory.CreateDirectory(DefaultSettingsDirectory);
+            }
+
+            switch (banner)
+            {
+                case Banner.TheBay:
+                    {
+                        var theBayFilename = Path.Combine(DefaultSettingsDirectory, DEFAULT_THEBAY_BANNER_SETTING_NAME);
+                        CreateBannerDefaultSettingsFile(theBayFilename, settingsToSave, true);
+                        break;
+                    }
+
+                case Banner.Saks:
+                    {
+                        var saksFilename = Path.Combine(DefaultSettingsDirectory, DEFAULT_SAKS_BANNER_SETTING_NAME);
+                        CreateBannerDefaultSettingsFile(saksFilename, settingsToSave, true);
+                        break;
+                    }
+                case Banner.O5:
+                    {
+                        var O5Filename = Path.Combine(DefaultSettingsDirectory, DEFAULT_O5_BANNER_SETTING_NAME);
+                        CreateBannerDefaultSettingsFile(O5Filename,  settingsToSave, true);
+                        break;
+                    }
+                default:
+                    {
+                        throw new Exception("The passed banner is not a valid banner.");
+                    }
+            }
+        }
+
 
         /// <summary>
         /// Returns full filepath for banner settings file if it was created
