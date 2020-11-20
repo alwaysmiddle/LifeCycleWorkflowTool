@@ -58,7 +58,7 @@ namespace LifeCycleWorkflowFrontEnd
 
             if (!string.IsNullOrEmpty(filepath))
             {
-                _theBayBannerSettingsLoaded.OutputFolderFinal = filepath;
+                _theBayBannerSettingsLoaded.OutputFolderWip = filepath;
             }
             this.Activate();
         }
