@@ -149,7 +149,7 @@ namespace LifeCycleWorkflowFrontEnd
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Open Input Files";
 
-            openFileDialog.Filter = "Data Files (.csv, .xlsx)|*.csv;*.xlsx|All Files (.*)|*.*";
+            openFileDialog.Filter = "Data Files (.csv, .xlsx, .xlsm)|*.csv;*.xlsx;*xlsm|All Files (.*)|*.*";
 
             if ((bool)openFileDialog.ShowDialog())
             {
