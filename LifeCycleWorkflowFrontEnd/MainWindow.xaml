@@ -47,8 +47,12 @@
 
                 <StackPanel Grid.Column="0">
                     <Button Margin="2" FontSize="13" Name="LoadFileButton">Load Input Files</Button>
-                    <Button Margin="2" FontSize="13">Open Output Folder</Button>
-                    <Button Margin="2" FontSize="13">Open Template Folder</Button>
+                    <Button Margin="2" FontSize="13" Name="OpenOutputButton">
+                        Open Output Folder
+                    </Button>
+                    <Button Margin="2" FontSize="13" Name ="OpenTemplateFolderButton">
+                        Open Template Folder
+                    </Button>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">

@@ -29,8 +29,115 @@ namespace LifeCycleWorkflowFrontEnd
             ButtonRun.Click += ButtonRun_Click;
             ButtonSettings.Click += ButtonSettings_Click;
             DatePickerUI.SelectedDateChanged += DatePickerUI_SelectedDateChanged;
+            OpenOutputButton.Click += OpenOutputButton_Click;
+            OpenTemplateFolderButton.Click += OpenTemplateFolderButton_Click;
             this.Loaded += Window_Loaded;
         }
+
+        #region Folder Opener
+        private void OpenTemplateFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComboBoxBanners.SelectedItem == null)
+            {
+                MessageBox.Show("Please Select a banner first.");
+                return;
+            }
+
+            var optionWindow = new WorkflowTypeOptionWindow();
+            WorkflowType wType = WorkflowType.None;
+
+
+            if (optionWindow.ShowDialog() == false)
+            {
+                wType = optionWindow.Chosentype;
+                optionWindow.Show();
+                optionWindow.Close();
+            }
+
+            if (wType == WorkflowType.None)
+            {
+                return;
+            }
+
+            Banner banner = (Banner)ComboBoxBanners.SelectedItem;
+            SettingsIO.CreateDefaultSettingsProfile(banner, false);
+            BannerSettings settingsLoaded = SettingsIO.LoadBannerSettingsFromFile(banner);
+
+
+            if(wType == WorkflowType.Wip)
+            {
+                if (string.IsNullOrEmpty(settingsLoaded.TemplateFullnameWip))
+                {
+                    MessageBox.Show("Template Location is empty");
+                    return;
+                }
+                string fileLocation = Path.GetDirectoryName(settingsLoaded.TemplateFullnameWip);
+                Process.Start(fileLocation);
+            }
+            else if (wType ==WorkflowType.Final)
+            {
+                if (string.IsNullOrEmpty(settingsLoaded.TemplateFullnameFinal))
+                {
+                    MessageBox.Show("Template Location is empty");
+                    return;
+                }
+                string fileLocation = Path.GetDirectoryName(settingsLoaded.TemplateFullnameFinal);
+                Process.Start(fileLocation);
+            }
+            
+        }
+
+        private void OpenOutputButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComboBoxBanners.SelectedItem == null)
+            {
+                MessageBox.Show("Please Select a banner first.");
+                return;
+            }
+
+            var optionWindow = new WorkflowTypeOptionWindow();
+            WorkflowType wType = WorkflowType.None;
+
+
+            if (optionWindow.ShowDialog() == false)
+            {
+                wType = optionWindow.Chosentype;
+                optionWindow.Show();
+                optionWindow.Close();
+            }
+
+            if (wType == WorkflowType.None)
+            {
+                return;
+            }
+
+            Banner banner = (Banner)ComboBoxBanners.SelectedItem;
+            SettingsIO.CreateDefaultSettingsProfile(banner, false);
+            BannerSettings settingsLoaded = SettingsIO.LoadBannerSettingsFromFile(banner);
+
+            if (wType == WorkflowType.Wip)
+            {
+                if (string.IsNullOrEmpty(settingsLoaded.OutputFolderWip))
+                {
+                    MessageBox.Show("Output Location is empty");
+                    return;
+                }
+                string fileLocation = Path.GetDirectoryName(settingsLoaded.OutputFolderWip);
+                Process.Start(fileLocation);
+            }
+            else if (wType == WorkflowType.Final)
+            {
+                if (string.IsNullOrEmpty(settingsLoaded.OutputFolderFinal))
+                {
+                    MessageBox.Show("Template Location is empty");
+                    return;
+                }
+                string fileLocation = Path.GetDirectoryName(settingsLoaded.OutputFolderFinal);
+                Process.Start(fileLocation);
+            }
+        }
+
+        #endregion
 
         private void DatePickerUI_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
@@ -133,7 +240,6 @@ namespace LifeCycleWorkflowFrontEnd
             }
             
         }
-
 
 
         private async Task GetUpdate(bool forceUpdate = false)
