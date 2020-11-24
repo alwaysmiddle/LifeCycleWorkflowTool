@@ -179,6 +179,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
         {
             string finalPdfFilename = Path.Combine(Path.GetDirectoryName(_theBaySettings.OutputFileFullnameFinal), Path.GetFileName(_theBaySettings.OutputFileFullnameFinal) + ".pdf");
 
+            summaryWsFinal.PageSetup.PrintArea = summaryWsFinal.UsedRange.Address; //required otherwise excel infers the wrong range without bottom chart
             summaryWsFinal.ExportAsFixedFormat(Type: XlFixedFormatType.xlTypePDF, Filename: finalPdfFilename,
                     Quality: XlFixedFormatQuality.xlQualityStandard);
         }

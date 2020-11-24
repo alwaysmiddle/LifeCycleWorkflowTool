@@ -161,7 +161,7 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
                 reportTypeBuilder.BuildReportSheetSetting(
                     sheetName: "WF Summary Chart",
                     dateAddress: "N5",
-                    readingAddress: "E1:BO118")
+                    readingAddress: "E1:BO112")
                 .BuildFinalSheetSettings(
                     sheetName: "Summary Chart",
                     writingAddress: "E1")
