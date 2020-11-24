@@ -61,6 +61,10 @@ namespace LifeCycleWorkflowBackend.Settings
         //Password
         public string BannerPassword { get; set; }
 
+        //Options
+        //write values in wip workbook in values only, rather than formula used for testing purposes to keep formula in the outputs
+        public bool WipWbValuesOnly { get; set; }
+
         [JsonIgnore]
         public DateTime OutputDate
         {

@@ -66,13 +66,17 @@ namespace LifeCycleWorkflowBackend.BannerOperations
 
                 excelApp.Calculate();
 
-                WipWbFormatAsValuesOnly(true);
+                //This is for option to toggle formulas on WipWb to stay in WipWb for testing phase.
+                if (!_theBaySettings.WipWbValuesOnly)
+                {
+                    wipWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameWip);
+                }
 
+                WipWbFormatAsValuesOnly();
                 wipWb.Save();
 
                 CopyToFinalWb();
                 ExportSummaryAsPDF();
-
             }
             catch (Exception ex)
             {
@@ -84,7 +88,10 @@ namespace LifeCycleWorkflowBackend.BannerOperations
                 excelApp.DisplayAlerts = false;
                 excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
 
-                wipWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameWip);
+                if (_theBaySettings.WipWbValuesOnly)
+                {
+                    wipWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameWip);
+                }
                 finalWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameFinal, WriteResPassword: _theBaySettings.BannerPassword);
 
                 wipWb.Close();
@@ -159,17 +166,14 @@ namespace LifeCycleWorkflowBackend.BannerOperations
         /// <summary>
         /// Make the wip workbook values only at the end. If this is not turned on, final workbook will have external links to the wip workbook.
         /// </summary>
-        private void WipWbFormatAsValuesOnly(bool valuesOnlyOn)
+        private void WipWbFormatAsValuesOnly()
         {
-            if (valuesOnlyOn)
-            {
-                inactiveWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
-                detailsProductWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
-                nosCombineWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.NosCombinedSettings.WipSettings.HeaderRow);
+            inactiveWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.InactiveUpcSettings.WipSettings.HeaderRow);
+            detailsProductWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.WorkflowSettings.WipSettings.HeaderRow);
+            nosCombineWsWip.ConvertAllDataUnderRowToValues(_theBayWorksheetSettings.NosCombinedSettings.WipSettings.HeaderRow);
 
-                string readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
-                summaryWsWip.Range[readingAddress].Value2 = summaryWsWip.Range[readingAddress].Value2;
-            }
+            string readingAddress = _theBayWorksheetSettings.SummarySettings.ReportSettings.ReadingAddress;
+            summaryWsWip.Range[readingAddress].Value2 = summaryWsWip.Range[readingAddress].Value2;
         }
 
         /// <summary>

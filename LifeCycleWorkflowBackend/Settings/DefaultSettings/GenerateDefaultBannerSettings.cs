@@ -67,6 +67,7 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
             );
 
             theBaySettings.BannerPassword = "ecom678";
+            theBaySettings.WipWbValuesOnly = true;
 
             return theBaySettings;
         }
