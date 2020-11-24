@@ -92,9 +92,6 @@
     <Compile Include="ProcessManagement\Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\BannerSettings.cs" />
-    <Compile Include="Settings\DefaultSettings\Builders\BasicOperationTypeBuilder.cs" />
-    <Compile Include="Settings\DefaultSettings\Builders\DataSourceOperationTypeBuilder.cs" />
-    <Compile Include="Settings\DefaultSettings\Builders\ReportOperationTypeBuilder.cs" />
     <Compile Include="Settings\DefaultSettings\GenerateDefaultBannerSettings.cs" />
     <Compile Include="Settings\DefaultSettings\GenerateDefaultWorkSheetSettings.cs" />
     <Compile Include="Settings\IO\IBaseOperationConverter.cs" />
