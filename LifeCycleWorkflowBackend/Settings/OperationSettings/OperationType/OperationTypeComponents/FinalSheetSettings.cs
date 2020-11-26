@@ -1,9 +1,19 @@
-﻿
+﻿using Newtonsoft.Json;
+
 namespace LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType.OperationTypeComponents
 {
     public class FinalSheetSettings
     {
-        public string WorksheetName { get; set; }
-        public string WritingAddress { get; set; }
+        [JsonProperty]
+        public string WorksheetName { get; private set; }
+        [JsonProperty]
+        public string WritingAddress { get; private set; }
+
+        [JsonConstructor]
+        public FinalSheetSettings(string worksheetName, string writingAddress)
+        {
+            WorksheetName = worksheetName;
+            WritingAddress = writingAddress;
+        }
     }
 }
