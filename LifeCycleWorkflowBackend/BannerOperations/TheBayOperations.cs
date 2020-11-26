@@ -69,7 +69,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
                 //This is for option to toggle formulas on WipWb to stay in WipWb for testing phase.
                 if (!_theBaySettings.WipWbValuesOnly)
                 {
-                    wipWb.SaveCopyAs(Filename: _theBaySettings.OutputFileFullnameWip);
+                    wipWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameWip);
                 }
 
                 WipWbFormatAsValuesOnly();

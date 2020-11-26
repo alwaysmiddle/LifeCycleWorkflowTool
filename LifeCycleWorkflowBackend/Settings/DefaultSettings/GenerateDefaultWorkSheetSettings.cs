@@ -1,6 +1,5 @@
 ﻿using LifeCycleWorkflowBackend.Settings.OperationSettings;
 using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType;
-using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType.OperationTypeComponents;
 
 namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
 {
@@ -25,14 +24,9 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
                 .Build();
 
             basicTypeBuilder = new BasicTypeOperationBuilder();
-            BasicTypeOperation bitReportSettings = new BasicTypeOperation();
-            WipSheetSettings wipSheetSettings = new WipSheetSettings();
-
-            wipSheetSettings.WorksheetName = "Ttl_Inv";
-            wipSheetSettings.WritingRow = 1;
-            wipSheetSettings.ReadingAddress
-
-                    sheetName: ,
+            BasicTypeOperation bitReportSettings =
+                basicTypeBuilder.BuildWipSheetSetting(
+                    sheetName: "Ttl_Inv",
                     headerRow: 1,
                     writingRow: 1,
                     readingAddress: "A:E")
