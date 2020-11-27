@@ -99,6 +99,7 @@
     <Compile Include="Settings\DefaultSettings\GenerateDefaultWorkSheetSettings.cs" />
     <Compile Include="Settings\IO\IBaseOperationConverter.cs" />
     <Compile Include="Settings\IO\SettingsIO.cs" />
+    <Compile Include="Settings\OperationSettings\BaseOperationSettings.cs" />
     <Compile Include="Settings\OperationSettings\IBaseOperationSettings.cs" />
     <Compile Include="Settings\OperationSettings\OperationType\BasicTypeOperation.cs" />
     <Compile Include="Settings\OperationSettings\OperationType\DataSourceTypeOperation.cs" />
