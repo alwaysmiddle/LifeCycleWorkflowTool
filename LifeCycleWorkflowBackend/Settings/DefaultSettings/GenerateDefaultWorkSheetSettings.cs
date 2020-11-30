@@ -68,12 +68,12 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
                     writingRow: 1)
                 .Build();
 
-            saksSettings = new BaseOperationSettings(
-                summarySettings: summarySettings,
-                bitreportSettings: bitReportSettings,
-                inactiveUpcSettings: inactiveUpcSettings,
-                workflowSettings: workflowDetailsSettings);
-
+            saksSettings = new BaseOperationSettings();
+            saksSettings.SummarySettings = summarySettings;
+            saksSettings.BitreportSettings = bitReportSettings;
+            saksSettings.InactiveUpcSettings = inactiveUpcSettings;
+            saksSettings.WorkflowSettings = workflowDetailsSettings;
+        
             return saksSettings;
         }
 
@@ -140,11 +140,11 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
                     writingRow: 1)
                 .Build();
 
-            o5Settings = new BaseOperationSettings(
-                summarySettings: summarySettings,
-                bitreportSettings: bitReportSettings,
-                inactiveUpcSettings: inactiveUpcSettings,
-                workflowSettings: workflowDetailsSettings);
+            o5Settings = new BaseOperationSettings();
+            o5Settings.SummarySettings = summarySettings;
+            o5Settings.BitreportSettings = bitReportSettings;
+            o5Settings.InactiveUpcSettings = inactiveUpcSettings;
+            o5Settings.WorkflowSettings = workflowDetailsSettings;
 
             return o5Settings;
         }
@@ -230,12 +230,12 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
                     writingRow: 3)
                 .Build();
 
-            theBaySettings = new TheBayOperationSettings(
-                summarySettings: summarySettings,
-                bitreportSettings: bitReportSettings,
-                inactiveUpcSettings: inactiveUpcSettings,
-                workflowSettings: workflowDetailsSettings,
-                nosCombinedSettings: nosCombinedSettings);
+            theBaySettings = new TheBayOperationSettings();
+            theBaySettings.SummarySettings = summarySettings;
+            theBaySettings.BitreportSettings = bitReportSettings;
+            theBaySettings.InactiveUpcSettings = inactiveUpcSettings;
+            theBaySettings.WorkflowSettings = workflowDetailsSettings;
+            theBaySettings.NosCombinedSettings = nosCombinedSettings;
 
             return theBaySettings;
         }

@@ -11,19 +11,23 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
         static string _defaultOutputDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         public static BannerSettings SaksBannerDefault()
         {
-            BannerSettings saksSettings = new BannerSettings(
-                banner: Banner.Saks,
-                wipOutputDirectory: _defaultOutputDirectory,
-                finalOutputDirectory: _defaultOutputDirectory,
-                defaulOutputFilename: "Saks_Daily_Workflow",
-                templateFullnameWip: string.Empty,
-                templateFullnameFinal: string.Empty,
-                inputFilenameBitReport: string.Empty,
-                inputFilenameWorkflow: string.Empty,
-                inputFilenameInactiveUpc: string.Empty,
-                worksheetSettings: GenerateDefaultWorkSheetSettings.SaksDefault(),
-                outputDate: null
-                );
+            BannerSettings saksSettings = new BannerSettings();
+
+            saksSettings.TheBanner = Banner.Saks;
+            saksSettings.OutputFolderWip = _defaultOutputDirectory;
+            saksSettings.OutputFolderFinal = _defaultOutputDirectory;
+            saksSettings.DefaultOutputFilename = "Saks_Daily_Workflow";
+
+            saksSettings.TemplateFullnameWip = string.Empty;
+            saksSettings.TemplateFullnameFinal = string.Empty;
+            saksSettings.InputFilenameBitReport = string.Empty;
+            saksSettings.InputFilenameWorkflow = string.Empty;
+            saksSettings.InputFilenameInactiveUpc = string.Empty;
+
+            saksSettings.WorksheetSettings = GenerateDefaultWorkSheetSettings.SaksDefault();
+            saksSettings.OutputDate = DateTime.Now;
+            saksSettings.BannerPassword = "ecom678";
+            saksSettings.WipWbValuesOnly = true;
 
             return saksSettings;
         }
@@ -31,41 +35,46 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
 
         public static BannerSettings O5BannerDefault()
         {
-            BannerSettings o5Settings = new BannerSettings(
-                banner: Banner.O5,
-                wipOutputDirectory: _defaultOutputDirectory,
-                finalOutputDirectory: _defaultOutputDirectory,
-                defaulOutputFilename: "O5_Daily_Workflow",
-                templateFullnameWip: string.Empty,
-                templateFullnameFinal: string.Empty,
-                inputFilenameBitReport: string.Empty,
-                inputFilenameWorkflow: string.Empty,
-                inputFilenameInactiveUpc: string.Empty,
-                outputDate: null,
-                worksheetSettings: GenerateDefaultWorkSheetSettings.O5Default()
-                );
+            BannerSettings o5Settings = new BannerSettings();
+
+            o5Settings.TheBanner = Banner.O5;
+            o5Settings.OutputFolderWip = _defaultOutputDirectory;
+            o5Settings.OutputFolderFinal = _defaultOutputDirectory;
+            o5Settings.DefaultOutputFilename = "O5_Daily_Workflow";
+
+            o5Settings.TemplateFullnameWip = string.Empty;
+            o5Settings.TemplateFullnameFinal = string.Empty;
+            o5Settings.InputFilenameBitReport = string.Empty;
+            o5Settings.InputFilenameWorkflow = string.Empty;
+            o5Settings.InputFilenameInactiveUpc = string.Empty;
+
+            o5Settings.WorksheetSettings = GenerateDefaultWorkSheetSettings.O5Default();
+            o5Settings.OutputDate = DateTime.Now;
+            o5Settings.BannerPassword = "ecom678";
+            o5Settings.WipWbValuesOnly = true;
 
             return o5Settings;
         }
 
+        //TheBay settings
         public static BannerSettings TheBayBannerDefault()
         {
-            //TheBay settings
-            BannerSettings theBaySettings = new BannerSettings(
-            banner: Banner.TheBay,
-            wipOutputDirectory: _defaultOutputDirectory,
-            finalOutputDirectory: _defaultOutputDirectory,
-            defaulOutputFilename: "TheBay_Daily_Workflow",
-            templateFullnameWip: string.Empty,
-            templateFullnameFinal: string.Empty,
-            inputFilenameBitReport: string.Empty,
-            inputFilenameWorkflow: string.Empty,
-            inputFilenameInactiveUpc: string.Empty,
-            inputFilenameNosCombined: string.Empty,
-            worksheetSettings: GenerateDefaultWorkSheetSettings.TheBayDefault(),
-            outputDate: new DateTime(2020, 9, 24)
-            );
+            BannerSettings theBaySettings = new BannerSettings();
 
+            theBaySettings.TheBanner = Banner.TheBay;
+            theBaySettings.OutputFolderWip = _defaultOutputDirectory;
+            theBaySettings.OutputFolderFinal = _defaultOutputDirectory;
+            theBaySettings.DefaultOutputFilename = "TheBay_Daily_Workflow";
+
+            theBaySettings.TemplateFullnameWip = string.Empty;
+            theBaySettings.TemplateFullnameFinal = string.Empty;
+            theBaySettings.InputFilenameBitReport = string.Empty;
+            theBaySettings.InputFilenameWorkflow = string.Empty;
+            theBaySettings.InputFilenameInactiveUpc = string.Empty;
+            theBaySettings.InputFilenameNosCombined = string.Empty;
+
+            theBaySettings.WorksheetSettings = GenerateDefaultWorkSheetSettings.TheBayDefault();
+            theBaySettings.OutputDate = DateTime.Now;
             theBaySettings.BannerPassword = "ecom678";
             theBaySettings.WipWbValuesOnly = true;
 

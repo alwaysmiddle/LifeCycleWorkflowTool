@@ -80,6 +80,18 @@ namespace LifeCycleWorkflowBackend.Settings
         public string BannerPassword { get; set; }
         public DateTime OutputDate { get; set; } = DateTime.Now;
 
+        [JsonIgnore]
+        public string DefaultOutputFilename
+        {
+            get {
+                if(string.IsNullOrEmpty(_defaulOutputFilename.Trim())){
+                    return "Default_PlaceHolderName";
+                }
+                return _wipOutputDirectory; 
+            }
+            set { _defaulOutputFilename = value; }
+        }
+
         //Options
         //write values in wip workbook in values only, rather than formula used for testing purposes to keep formula in the outputs
         public bool WipWbValuesOnly { get; set; }
