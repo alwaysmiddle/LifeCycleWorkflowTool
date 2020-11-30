@@ -1,54 +1,49 @@
 ﻿using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType;
 using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType.OperationTypeComponents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
 {
     class ReportOperationTypeBuilder
     {
-        private ReportTypeOperation _typeOperation;
-        private WipReportsSettings _reportsheet;
-        private FinalSheetSettings _finalSheet;
+        private ReportTypeOperation _typeOperation = new ReportTypeOperation();
+        private WipReportsSettings _reportsheet = new WipReportsSettings();
+        private FinalSheetSettings _finalSheet = new FinalSheetSettings();
 
         public ReportOperationTypeBuilder BuildReportSheetSetting(string sheetName,
             string dateAddress, string readingAddress)
         {
-            _reportsheet = new WipReportsSettings(
-                worksheetName: sheetName,
-                dateAddress: dateAddress,
-                readingAddress: readingAddress
-                );
+            _reportsheet.WorksheetName = sheetName;
+            _reportsheet.DateAddress = dateAddress;
+            _reportsheet.ReadingAddress = readingAddress;
+            
             return this;
         }
 
         public ReportOperationTypeBuilder BuildFinalSheetSettings(string sheetName,
             string writingAddress)
         {
-            _finalSheet = new FinalSheetSettings(
-                worksheetName: sheetName,
-                writingAddress: writingAddress
-                );
+            _finalSheet.WorksheetName = sheetName;
+            _finalSheet.WritingAddress = writingAddress;
+            
             return this;
         }
 
         public ReportTypeOperation Build()
         {
-            if (_reportsheet != null &&
-                _finalSheet != null)
+            if (_reportsheet == null)
             {
-                _typeOperation = new ReportTypeOperation(
-                    reportSettings: _reportsheet,
-                    finalSettings: _finalSheet
-                    );
-                return _typeOperation;
+                throw new ArgumentException("Failed to build ReportSettings due to null value in DataSourceTypeBuilder");
+            }
+            if(_finalSheet != null)
+            {
+                throw new ArgumentException("Failed to build FinalSettings due to null value in DataSourceTypeBuilder");
             }
             else
             {
-                throw new ArgumentException("Failed to build default Settings with DataSourceTypeBuilder");
+                _typeOperation.ReportSettings = _reportsheet;
+                _typeOperation.FinalSettings = _finalSheet;
+                return _typeOperation;
             }
         }
     }

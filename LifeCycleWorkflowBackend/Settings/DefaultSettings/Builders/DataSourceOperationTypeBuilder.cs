@@ -1,89 +1,69 @@
 ﻿using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType;
 using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType.OperationTypeComponents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
 {
     public class DataSourceTypeOperationBuilder
     {
-        private DataSourceTypeOperation _typeOperation;
-        private WipSheetWithDataSettings _wipSheet;
-        private DataSourceSheetSettings _dataSource;
-        private FinalSheetSettings _finalSheet;
-
-        public DataSourceTypeOperationBuilder BuildReportSheetSetting(string sheetName,
-            int headerRow, int writingRow, int formulaRow, int referenceRow,
-            string readingAddress)
-        {
-            _wipSheet = new WipSheetWithDataSettings(
-                worksheetName: sheetName,
-                headerRow: headerRow,
-                formulaRow: formulaRow,
-                referenceRow: referenceRow,
-                writingRow: writingRow,
-                readingAddress: readingAddress
-                );
-            return this;
-        }
-
+        private DataSourceTypeOperation _typeOperation = new DataSourceTypeOperation();
+        private WipSheetWithDataSettings _wipSheet = new WipSheetWithDataSettings();
+        private DataSourceSheetSettings _dataSource = new DataSourceSheetSettings();
+        private FinalSheetSettings _finalSheet = new FinalSheetSettings();
 
         public DataSourceTypeOperationBuilder BuildWipSheetSetting(string sheetName,
             int headerRow, int writingRow, int formulaRow, int referenceRow, 
             string readingAddress)
         {
-            _wipSheet = new WipSheetWithDataSettings(
-                worksheetName: sheetName,
-                headerRow: headerRow,
-                formulaRow: formulaRow,
-                referenceRow: referenceRow,
-                writingRow: writingRow,
-                readingAddress: readingAddress
-                );
+            _wipSheet.WorksheetName = sheetName;
+            _wipSheet.HeaderRow = headerRow;
+            _wipSheet.FormulaRow = formulaRow;
+            _wipSheet.ReferenceRow = referenceRow;
+            _wipSheet.WritingRow = writingRow;
+            _wipSheet.ReadingAddress = readingAddress;
+
             return this;
         }
 
         public DataSourceTypeOperationBuilder BuildFinalSheetSettings(string sheetName,
             string writingAddress)
         {
-            _finalSheet = new FinalSheetSettings(
-                worksheetName: sheetName,
-                writingAddress: writingAddress
-                );
+            _finalSheet.WorksheetName = sheetName;
+            _finalSheet.WritingAddress = writingAddress;
+            
             return this;
         }
 
         public DataSourceTypeOperationBuilder BuildDataSheetSetting(string sheetName, 
             int headerRow, int writingRow)
         {
-            _dataSource = new DataSourceSheetSettings
-            (
-                writingRow: writingRow,
-                headerRow: headerRow,
-                sheetname: sheetName
-            );
+            _dataSource.WorksheetName = sheetName;
+            _dataSource.HeaderRow = headerRow;
+            _dataSource.WritingRow = writingRow;
+            
             return this;
         }
 
         public DataSourceTypeOperation Build()
         {
-            if (_wipSheet != null &&
-                _finalSheet != null &&
-                _dataSource != null)
+            if (_wipSheet == null)
             {
-                _typeOperation = new DataSourceTypeOperation(
-                    wipSettings: _wipSheet,
-                    finalSettings: _finalSheet,
-                    dataSourceSettings:  _dataSource
-                    );
-                return _typeOperation;
+                throw new ArgumentException("Failed to build WipSettings due to null value in DataSourceTypeBuilder");
             }
-            else
+            else if(_finalSheet == null)
             {
-                throw new ArgumentException("Failed to build default Settings with DataSourceTypeBuilder");
+                throw new ArgumentException("Failed to build FinalSettings due to null value in with DataSourceTypeBuilder");
+            }
+            else if(_dataSource == null)
+            {
+                throw new ArgumentException("Failed to DataSourceSettings due to null value in with DataSourceTypeBuilder");
+            }else
+            {
+                _typeOperation.WipSettings = _wipSheet;
+                _typeOperation.FinalSettings = _finalSheet;
+                _typeOperation.DataSourceSettings = _dataSource;
+
+                return _typeOperation;
             }
         }
     }

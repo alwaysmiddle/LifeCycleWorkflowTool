@@ -1,43 +1,40 @@
-﻿using LifeCycleWorkflowBackend.Settings.OperationSettings;
-using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType;
+﻿using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType;
 using LifeCycleWorkflowBackend.Settings.OperationSettings.OperationType.OperationTypeComponents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
 {
     public class BasicTypeOperationBuilder
     {
-        private BasicTypeOperation _typeOperation;
-        private WipSheetSettings _wipSheet;
+        private BasicTypeOperation _typeOperation = new BasicTypeOperation();
+        private WipSheetSettings _wipSheet = new WipSheetSettings();
 
         public BasicTypeOperationBuilder BuildWipSheetSetting(string sheetName,
             int headerRow, int writingRow, string readingAddress)
         {
-            _wipSheet = new WipSheetSettings(
-                worksheetName: sheetName,
-                headerRow: headerRow,
-                writingRow: writingRow,
-                readingAddress: readingAddress
-                );
+            _wipSheet.WorksheetName = sheetName;
+            _wipSheet.HeaderRow = headerRow;
+            _wipSheet.WritingRow = writingRow;
+            _wipSheet.ReadingAddress = readingAddress;
+                
             return this;
         }
 
         public BasicTypeOperation Build()
         {
-            if (_wipSheet != null)
+            if (string.IsNullOrEmpty(_wipSheet.WorksheetName) ||
+                string.IsNullOrEmpty(_wipSheet.ReadingAddress) ||
+                _wipSheet.HeaderRow < 1 ||
+                _wipSheet.WritingRow < 1
+                )
             {
-                _typeOperation = new BasicTypeOperation(
-                    (WipSheetSettings)_wipSheet
-                    );
-                return _typeOperation;
+                throw new ArgumentException("Invalid Settings Values with BasicTypeBuilder");
             }
             else
             {
-                throw new ArgumentException("Failed to build default Settings with BasicTypeBuilder");
+                _typeOperation.WipSettings = _wipSheet;
+                return _typeOperation;
             }
         }
     }
