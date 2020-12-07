@@ -53,7 +53,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](Https:\\)
+[![Product Name Screen Shot][product-screenshot]](https://www.google.ca/)
 
 Project started in late 2019, went through multiple versions initially designed for theBay banner only and expanded to other banners.
 
@@ -155,4 +155,4 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [issues-url]: https://github.com/github_username/repo/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/peter-yu-523a25173/
-[product-screenshot]: 
+[product-screenshot]: https://photos.google.com/u/1/photo/AF1QipNy5GgHZNbdgyegxrLGrV-pXEhiwfhv8TTmDX-t
