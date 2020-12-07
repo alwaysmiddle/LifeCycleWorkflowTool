@@ -143,7 +143,7 @@ Project Link: [https://github.com/alwaysmiddle/LifeCycleWorkflowTool](https://gi
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [issues-shield]: https://img.shields.io/github/issues/github_username/repo.svg?style=flat-square
-[issues-url]: https://github.com/github_username/repo/issues
+[issues-url]: https://github.com/alwaysmiddle/LifeCycleWorkflowTool/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/peter-yu-523a25173/
 [product-screenshot]: https://i.imgur.com/3RE9jTa.png
