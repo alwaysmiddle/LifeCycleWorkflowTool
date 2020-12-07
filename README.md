@@ -53,7 +53,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]
+[![Product Name Screen Shot][product-screenshot]][product-screenshot]
 
 Project started in late 2019, went through multiple versions initially designed for theBay banner only and expanded to other banners.
 
