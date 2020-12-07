@@ -59,10 +59,6 @@ Project started in late 2019, went through multiple versions initially designed 
 
 This tool is built in WPF, and intended to be used internally, distributed through secure VLAN of the company's network. The aim of this tool is reduce operations that cost manual time upwards of 40 minutes to just under 5 mins.
 
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`
-
-
 ### Built With
 
 * [C#](https://en.wikipedia.org/wiki/C_Sharp_(programming_language))
@@ -79,14 +75,13 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
-```
+* .Net Framework 4.5
+This should come installed with Windows 10, if this component is somehow missing. Please submit a ticket to IT department to get this installed.
+Or if you have administrative access, please go to https://www.microsoft.com/en-ca/download/details.aspx?id=30653 to install this.
 
 ### Installation
 
-1. Clone the repo
+1. Navigate to Following folder: 
 ```sh
 git clone https://github.com/github_username/repo_name.git
 ```
@@ -124,21 +119,17 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+Peter Yu - peter.yu@hbc.partners.ca , ysz10000@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/alwaysmiddle/LifeCycleWorkflowTool](https://github.com/alwaysmiddle/LifeCycleWorkflowTool)
 
 
 
