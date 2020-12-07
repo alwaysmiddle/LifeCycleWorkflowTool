@@ -19,10 +19,10 @@
   <h3 align="center">HBC eCommerce Digital Operations - Lifecycle Workflow Automation Tool</h3>
 
   <p align="center">
-     This tool was made to automated reporting for workflows under eCommerce department of HBC digital operations. This tool is built in WPF, and intended to be used internally, distributed through secure VLAN of the company's network. The aim of this tool is reduce operations that cost manual time upwards of 40 minutes to just under 5 mins.
+     This tool was made to automated reporting for workflows under eCommerce department of HBC digital operations.
     <br />
     <br />
-    <a href="https://github.com/alwaysmiddle/LifeCycleWorkflowTool"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/alwaysmiddle/LifeCycleWorkflowTool/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/alwaysmiddle/LifeCycleWorkflowTool/issues">Report Bug</a>
@@ -53,9 +53,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](Https:\\)
 
-Here's a blank template to get started:
+Project started in late 2019, went through multiple versions initially designed for theBay banner only and expanded to other banners.
+
+This tool is built in WPF, and intended to be used internally, distributed through secure VLAN of the company's network. The aim of this tool is reduce operations that cost manual time upwards of 40 minutes to just under 5 mins.
+
 **To avoid retyping too much info. Do a search and replace with your text editor for the following:**
 `github_username`, `repo_name`, `twitter_handle`, `email`
 
