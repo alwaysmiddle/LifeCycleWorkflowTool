@@ -9,19 +9,18 @@
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/alwaysmiddle/LifeCycleWorkflowTool">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Hudson%27s_Bay_Company_Official_Logo_2013.svg/320px-Hudson%27s_Bay_Company_Official_Logo_2013.svg.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">HBC eCommerce Digital Operations - Lifecycle Workflow Automation Tool</h3>
 
   <p align="center">
-    YOUR_SHORT_DESCRIPTION
+     This tool was made to automated reporting for workflows under eCommerce department of HBC digital operations. This tool is built in WPF, and intended to be used internally, distributed through secure VLAN of the company's network. The aim of this tool is reduce operations that cost manual time upwards of 40 minutes to just under 5 mins.
+    <br />
     <br />
     <a href="https://github.com/alwaysmiddle/LifeCycleWorkflowTool"><strong>Explore the docs »</strong></a>
     <br />
