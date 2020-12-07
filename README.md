@@ -146,7 +146,8 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 ## Acknowledgements
 
 * [Hilary March - Project Lead](https://www.linkedin.com/in/hilary-march-3089b463/)
-* [Sara Guananga](https://www.linkedin.com/in/saraeguananga/)
+* [Sara Guananga - QA Testing](https://www.linkedin.com/in/saraeguananga/)
+* [Shizhong Yu (Peter) - Developer](https://www.linkedin.com/in/peter-yu-523a25173/)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -155,4 +156,4 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [issues-url]: https://github.com/github_username/repo/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/peter-yu-523a25173/
-[product-screenshot]: https://photos.google.com/u/1/photo/AF1QipNy5GgHZNbdgyegxrLGrV-pXEhiwfhv8TTmDX-t
+[product-screenshot]: https://photos.app.goo.gl/cSz5RCgRXKeSc5aFA
