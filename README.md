@@ -156,4 +156,4 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [issues-url]: https://github.com/github_username/repo/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/peter-yu-523a25173/
-[product-screenshot]: https://imgur.com/3RE9jTa
+[product-screenshot]: https://i.imgur.com/3RE9jTa.png
