@@ -67,7 +67,7 @@ This tool is built in WPF, and intended to be used internally, distributed throu
 
 
 
-<!-- GETTING STARTED -->
+<!-- GETTING STARTED -- TODO>
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -106,6 +106,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
 
+-Pending features include: Async UI elements
+-Error Logging
+-Frontend view models.
 
 <!-- CONTRIBUTING -->
 ## Contributing
