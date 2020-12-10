@@ -98,7 +98,8 @@ npm install
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the internal training documents._
-_For more information, please refer to [Wiki](https://github.com/alwaysmiddle/LifeCycleWorkflowTool/wiki)_
+
+_For more information on program structure and workflow, please refer to the [Wiki](https://github.com/alwaysmiddle/LifeCycleWorkflowTool/wiki)_
 
 
 
