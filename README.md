@@ -81,16 +81,7 @@ Or if you have administrative access, please go to https://www.microsoft.com/en-
 
 ### Installation
 
-1. Navigate to Following folder: 
-```sh
-git clone https://github.com/github_username/repo_name.git
-```
-2. Install NPM packages
-```sh
-npm install
-```
-
-
+Please refer to the installation page [here](https://github.com/alwaysmiddle/LifeCycleWorkflowTool/wiki/Trouble-Shooting-%23Installation-Uninstallation).
 
 <!-- USAGE EXAMPLES -->
 ## Usage
