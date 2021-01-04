@@ -66,22 +66,19 @@ This tool is built in WPF, and intended to be used internally, distributed throu
 * [Office Interop](https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel?view=excel-pia)
 
 
-
-<!-- GETTING STARTED -- TODO>
+<!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
-
 ### Prerequisites
-
 This is an example of how to list things you need to use the software and how to install them.
 * .Net Framework 4.5
+
 This should come installed with Windows 10, if this component is somehow missing. Please submit a ticket to IT department to get this installed.
 Or if you have administrative access, please go to https://www.microsoft.com/en-ca/download/details.aspx?id=30653 to install this.
 
 ### Installation
 
-Please refer to the installation page [here](https://github.com/alwaysmiddle/LifeCycleWorkflowTool/wiki/Trouble-Shooting-%23Installation-Uninstallation).
+Find details of the installation and uninstallation [here](https://github.com/alwaysmiddle/LifeCycleWorkflowTool/wiki/Trouble-Shooting-%23Installation-Uninstallation).
 
 <!-- USAGE EXAMPLES -->
 ## Usage
