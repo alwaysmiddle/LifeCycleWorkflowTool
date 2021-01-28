@@ -94,7 +94,7 @@ _For more information on program structure and workflow, please refer to the [Wi
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/alwaysmiddle/LifeCycleWorkflowTool/issues) for a list of proposed features (and known issues).
 
 * Pending features include: Async UI elements
 * Error Logging
