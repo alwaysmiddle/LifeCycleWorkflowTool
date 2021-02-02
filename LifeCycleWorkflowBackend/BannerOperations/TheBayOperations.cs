@@ -51,7 +51,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
             FinalWbInitialization();
 
             excelApp.Calculation = XlCalculation.xlCalculationManual;
-            excelApp.Visible = false;
+            excelApp.Visible = true;
 
             try
             {
