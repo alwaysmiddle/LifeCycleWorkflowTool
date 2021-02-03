@@ -35,7 +35,7 @@ namespace LifeCycleWorkflowBackend.Settings.DefaultSettings
             {
                 throw new ArgumentException("Failed to build ReportSettings due to null value in DataSourceTypeBuilder");
             }
-            if(_finalSheet != null)
+            if(_finalSheet == null)
             {
                 throw new ArgumentException("Failed to build FinalSettings due to null value in DataSourceTypeBuilder");
             }
