@@ -51,7 +51,7 @@ namespace LifeCycleWorkflowBackend.BannerOperations
             FinalWbInitialization();
 
             excelApp.Calculation = XlCalculation.xlCalculationManual;
-            excelApp.Visible = true;
+            excelApp.Visible = _theBaySettings.ShowBackGroundCalculation;
 
             try
             {
@@ -85,14 +85,14 @@ namespace LifeCycleWorkflowBackend.BannerOperations
             }
             finally
             {
-                excelApp.DisplayAlerts = false;
-                excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
-
                 if (_theBaySettings.WipWbValuesOnly)
                 {
                     wipWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameWip);
                 }
                 finalWb.SaveAs(Filename: _theBaySettings.OutputFileFullnameFinal, WriteResPassword: _theBaySettings.BannerPassword);
+
+                excelApp.DisplayAlerts = false;
+                excelApp.Calculation = XlCalculation.xlCalculationAutomatic;
 
                 wipWb.Close();
                 finalWb.Close();

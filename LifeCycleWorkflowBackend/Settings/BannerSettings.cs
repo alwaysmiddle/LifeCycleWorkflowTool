@@ -64,6 +64,7 @@ namespace LifeCycleWorkflowBackend.Settings
         //Options
         //write values in wip workbook in values only, rather than formula used for testing purposes to keep formula in the outputs
         public bool WipWbValuesOnly { get; set; }
+        public bool ShowBackGroundCalculation { get; set; }
 
         [JsonIgnore]
         public DateTime OutputDate
